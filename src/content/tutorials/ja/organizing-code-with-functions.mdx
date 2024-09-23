@@ -1,10 +1,10 @@
 ---
-title: Organizing Code with Functions
-description: A tutorial on how to create and use functions to help you organize your code.
+title: 関数を使ってコードを整理する
+description: コードを整理するために関数を作成し使用する方法についてのチュートリアル。
 category: introduction
 categoryIndex: 4
 featuredImage: ../images/featured/FunctionsA.png
-featuredImageAlt: A canvas displaying a snapshot of the sunrise animation from the Conditionals and Interactivity tutorial. The snapshot includes a sun, and trees and mountains in the landscape.
+featuredImageAlt: 条件分岐とインタラクティビティのチュートリアルからの日の出アニメーションのスナップショットを表示するキャンバス。スナップショットには太陽、木々、山々の風景が含まれています。
 relatedContent:
   references:
     - en/p5/function
@@ -17,795 +17,778 @@ authors:
 
 import Callout from "../../../components/Callout/index.astro";
 
-In this tutorial you will build upon the [sunrise animation](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO) from the last tutorial – [Conditionals and Interactivity](/tutorials/conditionals-and-interactivity) – to create a version using custom functions to help organize your code. Here is an [example](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ) of the sketch you will create at the end of this tutorial.
+このチュートリアルでは、前回のチュートリアル [条件分岐とインタラクティビティ](/tutorials/conditionals-and-interactivity) の[日の出アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を基に、カスタム関数を使用してコードを整理したバージョンを作成します。このチュートリアルの最後に作成するスケッチの[例](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ)はこちらです。
 
-![A canvas displaying a snapshot of the sunrise animation from the Conditionals and Interactivity tutorial. The snapshot includes a sun, and trees and mountains in the landscape.](../images/introduction/mountain-trees.png)
+![条件分岐とインタラクティビティのチュートリアルからの日の出アニメーションのスナップショットを表示するキャンバス。スナップショットには太陽、木々、山々の風景が含まれています。](../images/introduction/mountain-trees.png)
 
-You will learn about functions and how to use them to organize and improve your code. You will learn about these basic programming concepts:
+関数について学び、それらを使ってコードを整理し改善する方法を学びます。以下の基本的なプログラミングの概念について学びます：
 
-- Functions built into the p5.js library
-- How to create custom functions and use them to easily organize and reuse code
-- Arguments, parameters, and return values 
+- p5.jsライブラリに組み込まれた関数
+- カスタム関数を作成し、それらを使ってコードを簡単に整理し再利用する方法
+- 引数、パラメータ、戻り値
 
+## 前提条件
 
-## Prerequisites
+- [環境のセットアップ方法](/tutorials/setting-up-your-environment)
+- [はじめよう チュートリアル](/tutorials/get-started)
+- [変数と変更 チュートリアル](/tutorials/variables-and-change)
+- [条件分岐とインタラクティビティ チュートリアル](/tutorials/conditionals-and-interactivity)
+- [デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)
 
-- [How-to: Setting Up Your Environment](/tutorials/setting-up-your-environment)
-- [Get Started tutorial](/tutorials/get-started)
-- [Variables and Change tutorial](/tutorials/variables-and-change)
-- [Conditionals and Interactivity tutorial](/tutorials/conditionals-and-interactivity)
-- [Field Guide to Debugging](/tutorials/field-guide-to-debugging)
+始める前に、以下のことができるようになっているはずです：
 
-Before you begin, you should be able to:
+- キャンバス上に図形やテキストを追加しカスタマイズする
+- `mouseX`、`mouseY`、`mouseIsPressed`を使用して簡単なインタラクティビティを追加する
+- カスタム変数を宣言、初期化、使用、更新する
+- p5.jsプロジェクトに線形およびランダムな動きを組み込む
+- 条件文を使用してプログラムの流れを制御する
+- コードにコメントを付け、エラーメッセージに対処する
 
-- Add and customize shapes and text on the canvas
-- Add simple interactivity using `mouseX`, `mouseY`, and `mouseIsPressed`
-- Declare, initialize, use, and update custom variables
-- Incorporate linear and random motion into a p5.js project
-- Use conditional statements to control program flow
-- Comment code and address error messages
+コードの整理は、より複雑で面白いプログラムを作成する上で重要なスキルです。他の人がコードを理解しやすくし、コラボレーションを容易にします。また、自分のコードを理解し、アイデアを拡張するのにも役立ち、デバッグにも役立ちます。関数は、コードをより整理され、再利用可能で、アクセスしやすくするための強力な方法です。
 
-Organizing code is a key skill in creating more complex and exciting programs. It can help to make your code readable to others, allowing them to understand your code and making collaboration easier. It also allows you to understand your own code and expand on ideas, and it even helps with debugging. Functions are a powerful way to make your code more organized, reusable, and accessible. 
+## 関数とは何か？
 
+*関数*は、特定の関数名に割り当てられた、定義されたタスクを完了するコードのブロックです。ほとんどのp5.jsスケッチには、すでに少なくとも2つの*関数宣言*、`setup()`と`draw()`が含まれています。*関数宣言*は、関数を使用する前に定義するために使用されます。以下はp5.jsでの関数宣言の構文です：
 
-## What is a function?
+![「function」という単語を指す「キーワード'function'」というラベルの矢印、「setup」という単語を指す「関数名」というラベルの矢印、そして「本体」というテキストが内部にある箱がある関数の構文。](../ja-images/introduction/function.png)
 
-A *function* is a block of code assigned to a specific function name that completes a defined task. Most p5.js sketches already contain at least two *function declarations*, `setup()` and `draw()`. *Function declarations* are used to define functions before we use them. Here is the syntax for a function declaration in p5.js:
-
-![The syntax for a function with an arrow labeled “keyword ‘function’” pointing to the word “function”, an arrow labeled “function name” pointing to the word “setup”, and a box with the text “body” inside of it.](../images/introduction/function.png)
-
-The keyword `function` lets p5.js know that a function is being declared. The name of the function defines how it will be called. In this example, the function’s name is `setup`. The name of the function is followed by a pair of parentheses `()`. The **body** of the function, which is a block of code in curly braces `{}`, runs when the function is called. In p5.js, `setup()` is a special built-in function that automatically runs when the play button is pressed. 
+キーワード`function`は、関数が宣言されていることをp5.jsに知らせます。関数の名前は、それがどのように呼び出されるかを定義します。この例では、関数の名前は`setup`です。関数の名前の後には括弧のペア`()`が続きます。関数の**本体**は、中括弧`{}`内のコードのブロックで、関数が呼び出されたときに実行されます。p5.jsでは、`setup()`は再生ボタンが押されたときに自動的に実行される特別な組み込み関数です。
 
 ```js
-// You define the setup() function at the beginning
-// of your sketch. It creates a canvas for you to draw on!
-
+// スケッチの最初にsetup()関数を定義します。
+// これは描画用のキャンバスを作成します！
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
 ```
 
-When a function is used, we say that the function is **called** in the program. The `setup()` function is *called* once when the sketch starts, which means the block of code in the body of `setup()` runs once at the beginning of the program. Similarly, `draw()` is another function built into the p5.js library that is declared in every sketch. When `draw()` is called, it runs the code block in its body repeatedly. It runs over and over again until your program stops.
+関数が使用されるとき、私たちはプログラム内で関数が**呼び出された**と言います。`setup()`関数は、スケッチが開始されたときに*呼び出され*ます。つまり、`setup()`の本体内のコードブロックがプログラムの開始時に一度実行されます。同様に、`draw()`はp5.jsライブラリに組み込まれた別の関数で、すべてのスケッチで宣言されます。`draw()`が呼び出されると、その本体内のコードブロックが繰り返し実行されます。プログラムが停止するまで何度も実行されます。
 
-Visit the p5.js reference pages for [`draw()`](/reference/p5/draw) and [`setup()`](/reference/p5/setup) to learn more.
+[`draw()`](/reference/p5/draw)と[`setup()`](/reference/p5/setup)のp5.jsリファレンスページを訪れて、詳細を学んでください。
+
+## カスタム関数の定義
+
+コードをグループ化する独自の関数を作成することもできます。前回のチュートリアル、[条件分岐とインタラクティビティ](/tutorials/conditionals-and-interactivity)では、[日没アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を作成しました。そこでは`draw()`内のコードに、空、太陽、山々のセクションがコメントで示されていました。関連するコードをグループ化し、特定の名前を付けたカスタム関数を宣言することができます。
 
 
-## Defining custom functions
+### ステップ1：コメントで関数を計画する
 
-We can also create our own functions that group code together. In the last tutorial, [Conditionals and Interactivity](/tutorials/conditionals-and-interactivity), you created a [sunset animation](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO) where the code in `draw()` contained sections marked by comments for the sky, the sun, and the mountains. You can declare custom functions that group related code together with a specific name. 
+- 日没アニメーションを複製するか、[この例](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を複製し、"Organized Sunset Animation"と名付けてください。
+- カスタム関数を定義する前に、[日没アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)のコードをどのように再編成するかの概要から始めましょう：
 
-
-### Step 1: Plan your functions with comments
-
-- Duplicate your sunset animation, or [this example](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO), and name it “Organized Sunset Animation”. 
-- Before defining custom functions, let’s start with an outline of how we might reorganize some of the code in the [sunset animation](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO):
-
-  ```js
+  `````js
   function setup() {
-    createCanvas(600, 400);
+    createCanvas(600, 400);
   }
   function draw() {
-    // a function for the sky;
-    // a function for the sun;
-    // a function for the mountains;
+    // 空のための関数;
+    // 太陽のための関数;
+    // 山々のための関数;
 
-    // a function to update the variables
+    // 変数を更新するための関数
   }
-  ```
+  `````
 
-We can see that there are 4 different groups of related code that we can turn into custom functions: code that draws the sky, draws the sun, draws the mountains, and updates the variables. 
+上記のコメントで説明されている4つの異なる関連コードのグループがあることがわかります：空を描くコード、太陽を描くコード、山々を描くコード、そして変数を更新するコードです。
 
-Now you can create 4 different custom functions for the sections of code described in the comments above containing the same code from the original sketch. Custom functions are defined outside of `setup()` and `draw()`, usually at the bottom of your code. 
+これで、元のスケッチと同じコードを含む、上記のコメントで説明された4つの異なるカスタム関数を作成できます。カスタム関数は通常、`setup()`と`draw()`の外部、コードの一番下で定義されます。
 
-Visit the p5.js reference page for [`function`](/reference/p5/function) to learn more.
+[`function`](/reference/p5/function)のp5.jsリファレンスページを訪れて、詳細を学んでください。
 
 
-### Step 2: Create and call a custom function for the sky
+### ステップ2：空のためのカスタム関数を作成し呼び出す
 
-- Define a function named `sky()`. This function will render the color of the sky in the sketch.
+- `sky()`という名前の関数を定義します。この関数はスケッチの空の色をレンダリングします。
 
-  ```js
-  // A function to draw the sky
+  `````js
+  // 空を描くための関数
   function sky() {
-    background(redVal, greenVal, 0);
+    background(redVal, greenVal, 0);
   }
-  ```
+  `````
 
-- Using `sky()` in the sketch, we can make a **function call** in `draw() `with the following syntax:
+- スケッチで`sky()`を使用するには、`draw()`内で以下の構文で**関数呼び出し**を行います：
 
-  ```js
+  `````js
   function draw() {
-    // call sky function
-    sky();
+    // sky関数を呼び出す
+    sky();
 
-    // a function for the sun;
-    // a function for the mountains;
+    // 太陽のための関数;
+    // 山々のための関数;
   
-    // a function to update the variables
+    // 変数を更新するための関数
   }
-  ```
+  `````
 
-Your code should look like this:
+あなたのコードは以下のようになるはずです：
 
 ```js
-//variables for color change
+//色の変更のための変数
 let redVal = 0;
 let greenVal = 0;
-//variable for sun position
-let sunHeight = 600; //point below horizon
+
+//太陽の位置のための変数
+let sunHeight = 600; //地平線より下の点
 
 function setup() {
-  createCanvas(600, 400);
-  noStroke(); //removes shape outlines
+  createCanvas(600, 400);
+  noStroke(); //図形の輪郭を削除
 }
 
 function draw() {
-  // call sky function
-  sky();
-
-  // a function for the sun;
-  // a function for the mountains;
-
-  // a function to update the variables
+  // sky関数を呼び出す
+  sky();
+  
+  // 太陽のための関数;
+  // 山々のための関数;
+  // 変数を更新するための関数
 }
 
-// A function to draw the sky
+// 空を描くための関数
 function sky() {
-  background(redVal, greenVal, 0);
+  background(redVal, greenVal, 0);
 }
 ```
 
-Calling `sky()` causes the code in the body of `sky()` to run when `draw()` runs, and the changing color of the sky is added to the canvas. A **function call** includes the function name followed by a pair of parentheses `()`.
+`sky()`を呼び出すと、`draw()`が実行されるたびに`sky()`の本体内のコードが実行され、変化する空の色がキャンバスに追加されます。**関数呼び出し**には、関数名の後に括弧`()`が続きます。
 
+### ステップ3：太陽のためのカスタム関数を作成し呼び出す
 
-### Step 3: Create and call a custom function for the sun
+太陽を描くコードを関数に移動し、drawで関数を呼び出します。
 
-Move the code for drawing the sun into a function and call the function in draw.
+- `sky()`関数を定義した後に、`sun()`という関数を宣言し、太陽を描くコードを中括弧内に含めます。
+  - `function sky()`の終わりの後に以下のコードを追加します：
 
-- Declare a function called `sun()` after the function you defined for `sky()`, and include the code that draws the sun in the curly braces.
-  - Add the following lines of code after the end of `function sky()`:
-
-    ```js
-    //a function to draw the sun
+    `````js
+    //太陽を描くための関数
     function sun() {
-      // Draw the sun.
-      fill(255, 135, 5, 60);
-      circle(300, sunHeight, 180);
-      fill(255, 100, 0, 100);
-      circle(300, sunHeight, 140);
-    }  
-    ```
+      // 太陽を描く。
+      fill(255, 135, 5, 60);
+      circle(300, sunHeight, 180);
+      fill(255, 100, 0, 100);
+      circle(300, sunHeight, 140);
+    }  
+    `````
 
-- Replace the lines of code that draw the sun with this *function call* in `draw()`:
+- `draw()`内の太陽を描くコードの行を、この*関数呼び出し*に置き換えます：
 
-  ```js
-  // call the sun function
+  `````js
+  // sun関数を呼び出す
   sun();
-  ```
+  `````
 
-Your code should look like this:
+あなたのコードは以下のようになるはずです：
 
 ```js
-//variables for color change
+//色の変更のための変数
 let redVal = 0;
 let greenVal = 0;
 
-//variable for sun position
-let sunHeight = 600; //point below horizon
+//太陽の位置のための変数
+let sunHeight = 600; //地平線より下の点
 
 function setup() {
-  createCanvas(600, 400);
-  noStroke(); //removes shape outlines
+  createCanvas(600, 400);
+  noStroke(); //図形の輪郭を削除
 }
 
 function draw() {
-  // call sky function
-  sky();
-
-  // call sun function
-  sun();
-
-  // a function for the mountains;
-
-  // a function to update the variables
+  // sky関数を呼び出す
+  sky();
+  
+  // sun関数を呼び出す
+  sun();
+  
+  // 山々のための関数;
+  // 変数を更新するための関数
 }
 
-// A function to draw the sky
+// 空を描くための関数
 function sky() {
-  background(redVal, greenVal, 0);
+  background(redVal, greenVal, 0);
 }
 
-// A function to draw the sun
+// 太陽を描くための関数
 function sun() {
-  fill(255, 135, 5, 60);
-  circle(300, sunHeight, 180);
-  fill(255, 100, 0, 100);
-  circle(300, sunHeight, 140);
+  fill(255, 135, 5, 60);
+  circle(300, sunHeight, 180);
+  fill(255, 100, 0, 100);
+  circle(300, sunHeight, 140);
 }
 ```
 
-In this step, you declare a new function named `sun()` that draws the sun using circles. The `draw()` function calls `sun()`, which calls `fill()` and `circle()`. `fill()` and `circle()` are also functions that are built into the p5.js library, and do not need to be declared by the programmer. 
+このステップでは、円を使って太陽を描く`sun()`という新しい関数を宣言しました。`draw()`関数は`sun()`を呼び出し、それが`fill()`と`circle()`を呼び出します。`fill()`と`circle()`もまた、p5.jsライブラリに組み込まれた関数であり、プログラマーが宣言する必要はありません。
 
-The custom functions you declare create shapes, color, and animations from simple building blocks. That is the power of computing: you build upon a simple foundation to create complex sketches. You have used many of the built-in functions in p5.js to make animations and interactive art. Now you have the ability to create your own functions and expand the power of the p5.js library. By defining your own functions, you can create so many things!
+あなたが宣言するカスタム関数は、シンプルな構成要素から形、色、アニメーションを作成します。これがコンピューティングの力です：シンプルな基礎の上に複雑なスケッチを構築します。p5.jsの多くの組み込み関数を使用してアニメーションやインタラクティブなアートを作成してきました。今や、独自の関数を作成し、p5.jsライブラリの力を拡張する能力があります。独自の関数を定義することで、多くのものを作成できます！
 
-You can learn more about all the built-in functions available by visiting the [reference page](https://p5js.org/reference/). All of the items followed by parentheses `()` are functions!
+利用可能なすべての組み込み関数について詳しく学ぶには、[リファレンスページ](https://p5js.org/reference/)を訪れてください。括弧`()`が続くすべての項目が関数です！
 
+### ステップ4：山々のためのカスタム関数を作成し呼び出す
 
-### Step 4: Create and call a custom function for the mountains
+山々を描くコードを関数に移動します：
 
-Move the code for drawing the mountains into a function:
+- `mountains()`という関数を宣言し、山々を描くコードを中括弧内に含めます。
+  - `function sun()`の後に以下の行をスケッチに追加します：
 
-- Declare a function called `mountains()` and include the code that draws the mountains in the curly braces.
-  - Add the following lines to your sketch after `function sun()`:
-
-    ```js
-    //A function to draw mountains
+    `````js
+    //山々を描くための関数
     function mountains() {
-      fill(110, 50, 18);
-      triangle(200,400,520,253,800,400);
-      fill(150, 75, 0);
-      triangle(-100, 400, 150, 200, 400, 400);
-      fill(150, 100, 0);
-      triangle(200, 400, 450, 250, 800, 400);
-      fill(100,50,12);
-      triangle(-100,400,150,200,0,400);
-      fill(120,80,50);
-      triangle(200,400,450,250,300,400);
+      fill(110, 50, 18);
+      triangle(200,400,520,253,800,400);
+      fill(150, 75, 0);
+      triangle(-100, 400, 150, 200, 400, 400);
+      fill(150, 100, 0);
+      triangle(200, 400, 450, 250, 800, 400);
+      fill(100,50,12);
+      triangle(-100,400,150,200,0,400);
+      fill(120,80,50);
+      triangle(200,400,450,250,300,400);
     }
-    ```
+    `````
 
-- Remove the lines of code that draw the mountains from `draw()` and replace them with the mountains() function call:
+- `draw()`から山々を描くコードの行を削除し、mountains()関数呼び出しに置き換えます：
 
-  ```js
-  // call the mountains function
+  `````js
+  // mountains関数を呼び出す
   mountains();
-  ```
+  `````
 
-Your code should look like this:
+あなたのコードは以下のようになるはずです：
 
 ```js
-//variables for color change
+//色の変更のための変数
 let redVal = 0;
 let greenVal = 0;
 
-//variable for sun position
-let sunHeight = 600; //point below horizon
+//太陽の位置のための変数
+let sunHeight = 600; //地平線より下の点
 
 function setup() {
-  createCanvas(600, 400);
-  noStroke(); //removes shape outlines
+  createCanvas(600, 400);
+  noStroke(); //図形の輪郭を削除
 }
 
 function draw() {
-  // call the sky function
-  sky();
-
-  // call the sun function
-  sun();
-
-  // call the mountains function
-  mountains();
+  // sky関数を呼び出す
+  sky();
+  
+  // sun関数を呼び出す
+  sun();
+  
+  // mountains関数を呼び出す
+  mountains();
 }
 
-// A function to draw the sky
+// 空を描くための関数
 function sky() {
-  background(redVal, greenVal, 0);
+  background(redVal, greenVal, 0);
 }
 
-// A function to draw the sun
+// 太陽を描くための関数
 function sun() {
-  fill(255, 135, 5, 60);
-  circle(300, sunHeight, 180);
-  fill(255, 100, 0, 100);
-  circle(300, sunHeight, 140);
+  fill(255, 135, 5, 60);
+  circle(300, sunHeight, 180);
+  fill(255, 100, 0, 100);
+  circle(300, sunHeight, 140);
 }
 
-// A function to draw mountains
+// 山々を描くための関数
 function mountains() {
-
-  fill(110, 50, 18);
-  triangle(200,400,520,253,800,400);
-  fill(150, 75, 0);
-  triangle(-100, 400, 150, 200, 400, 400);
-  fill(150, 100, 0);
-  triangle(200, 400, 450, 250, 800, 400);
-  fill(100,50,12);
-  triangle(-100,400,150,200,0,400);
-  fill(120,80,50);
-  triangle(200,400,450,250,300,400);
+  fill(110, 50, 18);
+  triangle(200,400,520,253,800,400);
+  fill(150, 75, 0);
+  triangle(-100, 400, 150, 200, 400, 400);
+  fill(150, 100, 0);
+  triangle(200, 400, 450, 250, 800, 400);
+  fill(100,50,12);
+  triangle(-100,400,150,200,0,400);
+  fill(120,80,50);
+  triangle(200,400,450,250,300,400);
 }
 ```
 
-The `mountains()` function calls the`  fill()  `and `triangle() `functions to create the mountains, and passes the arguments for `x, y` and `size` to customize them. Notice how the functions help organize the code and make it easy to read! 
+`mountains()`関数は`fill()`と`triangle()`関数を呼び出して山々を作成し、`x, y`と`size`の引数を渡してカスタマイズします。関数がコードを整理し、読みやすくするのに役立つことに注目してください！
 
 <Callout>
 
-- Define a new function to draw other objects in your landscape. 
-- Define a new function that updates your variables.
+- 風景に他のオブジェクトを描くための新しい関数を定義してください。
+- 変数を更新する新しい関数を定義してください。
 
-[Here is an example.](https://editor.p5js.org/Msqcoding/sketches/i2rLEvKct)
+[こちらが例です。](https://editor.p5js.org/Msqcoding/sketches/i2rLEvKct)
 
 </Callout>
 
+## パラメータを使って関数をカスタマイズする
 
-## Customizing Functions with Parameters
+あなたの`sky()`、`sun()`、`mountains()`関数は全て、関数宣言と関数呼び出しの際に空の括弧を持っています。`print()`や`circle()`のような他の関数は、呼び出す際に括弧の中に値を入れる必要があります。関数が**呼び出される**ときに括弧内に置かれる値は**引数**として知られています。**引数**は何らかの方法で関数をカスタマイズします。
 
-Your functions `sky()`, `sun()`, and `mountains()` all have empty parentheses in their function declaration, and in the function call. Other functions, like `print() `and` circle()`, require values placed inside of the parentheses when you call them. The values in the parentheses when a function is **called** are known as **arguments**. **Arguments** customize the function in some way. 
+![関数呼び出しprint('hello')の構文には、関数名"print"の後に関数引数'hello'を囲む括弧が続きます。](../ja-images/introduction/function-call.jpg)
 
-![The syntax for the function call print(‘hello’) includes the function name “print” followed by parentheses enclosing the function argument ‘hello’.](../images/introduction/function-call.jpg)
+上のコードスニペットでは、`print()`関数が呼び出されるときに引数が渡されています。引数は文字列`'hello'`です。`print()`関数は括弧内に置かれた値をコンソールに表示します。`print`の関数宣言は次のようなものだと想像できます：
 
-In the code snippet above, the `print()` function was passed an argument when it was called. The argument is the string `'hello'`. The `print()` function displays values placed in the parenthesis in the console. We could imagine that the function declaration for `print` looks something like this:
+![console.log()を中括弧内に持つprint()の関数宣言の構文。「キーワード"function"」、「関数名」、「パラメータ」とラベル付けされた矢印が構文の対応する部分を指しています。中括弧の間に「console.log(message);」というテキストが表示され、「中括弧内のコードブロック」とラベル付けされています。](../ja-images/introduction/function-declaration.jpg)
 
-![The syntax for the function declaration for print() with console.log() in curly braces. Arrows labeled keyword “function”, “function name”, and “parameter” point to the corresponding parts of the syntax. The text “console.log(message);” appears in between the curly braces and is labeled “block of code in curly braces.”](../images/introduction/function-declaration.jpg)
+**関数宣言**では、括弧内にリストされた変数を**パラメータ**と呼びます。パラメータは、関数呼び出しの引数の値によって置き換えられるプレースホルダーとして機能します。
 
-In a **function declaration**, the variables listed inside the parentheses are called **parameters**. Parameters act as placeholders that are replaced by the values for arguments in the function call. 
+上記の例では、`print('hello')`は関数呼び出しであり、その関数宣言の本体にあるコードを実行します。値`'hello'`は引数として関数呼び出しに渡されます。この引数は、関数宣言内の`message`パラメータを置き換えます。コードブロックが実行され、`message`のすべてのインスタンスが`'hello'`に置き換えられ、`'hello'`がコンソールに表示されます。
 
-In the examples above, `print('hello')` is a function call that runs the code in the body of its function declaration. The value `'hello'` is passed into the function call as an argument. The argument replaces the `message` parameter in the function declaration. The block of code runs, replacing every instance of `message` with `'hello'`, and `'hello'` is printed in the console.
+![x座標が30ピクセル、y座標がsunHeight、サイズが180ピクセルの円関数の関数呼び出しの構文。30、sunHeight、180の値を指す矢印に「引数」とラベルが付けられています。](../ja-images/introduction/function-call2.jpg)
 
-![The syntax for a function call for the circle function at an x-coordinate of 30 pixels, a y-coordinate of sunHeight, and a size of 180 pixels. Arrows pointing to the values for 30, sunHeight, and 180 are labeled “arguments.”](../images/introduction/function-call2.jpg)
+`circle()`の関数呼び出しには3つの引数が必要です - x座標用、y座標用、円の直径(`d`)用です。
 
-The function call for `circle()` requires 3 arguments – one for the x-coordinate, one for the y-coordinate, and one for the diameter (`d`) of the circle.
+p5.jsライブラリ内の関数宣言は、このようなものだと想像できます：
 
-We can imagine that the function declaration in the p5.js library looks something like this:
+![p5.jsライブラリのcircle関数の可能な関数宣言。「パラメータ」とラベル付けされた矢印が括弧内に表示される「x, y, d」を指しています。](../ja-images/introduction/multi-param.png)
 
-![A possible function declaration for the circle function from the p5.js library with an arrow labeled “parameters” pointing to “x, y, d”, which appears in parentheses.](../images/introduction/multi-param.png)
+`circle()`の関数宣言には、括弧内にコンマで区切られた3つのパラメータがあります：`x`、`y`、`d`です。引数は特定のパラメータに割り当てられます。この場合、`x`には300が、`y`には`sunHeight`の現在の値が、`d`には180が割り当てられます。関数の本体には、キャンバス上に円を作成するコードが含まれており、円の位置を決定するために`x`と`y`を、直径には`d`を使用します。
 
-The function declaration for `circle()` has 3 parameters in the parentheses separated by commas: `x`, `y`, and `d`. The arguments get assigned to their specific parameters. In this case, `x` is assigned 300, `y` is assigned the current value of `sunHeight`, and `d` is assigned 180. The body of the function contains the code to create the circle on the canvas which uses `x` and `y` to determine the circle’s location, and `d` for its diameter.
+独自の関数を定義する際、関数宣言の括弧内にパラメータを配置できます。これにより、関数呼び出し時に引数を使用してカスタマイズすることができます。関数呼び出しに渡す引数の数が、その宣言内のパラメータの数と一致することを確認してください！キャンバス上に`butterfly()`関数の複数回の呼び出しを使って描かれた[蝶の例](https://editor.p5js.org/Msqcoding/sketches/SgRfbWeWN)を探索してみてください。
 
-When you define your own function, you can place parameters in the parentheses of the function declaration. This way, you can use arguments to customize it in the function call. Make sure that the number of arguments you pass to the function call matches the number of parameters in its declaration! Explore this [example of butterflies](https://editor.p5js.org/Msqcoding/sketches/SgRfbWeWN) drawn on the canvas using multiple calls of the `butterfly()` function.
+1つ以上のパラメータを必要とする関数は、正常に実行するために宣言内のパラメータの数と一致する正しい数の引数が必要です。関数が十分な引数を受け取らない場合、不足している引数には`undefined`という値が割り当てられ、これがエラーを引き起こし、奇妙な結果を生み出す可能性があります。関数呼び出しで不正確な数の引数を使用した場合に受け取る可能性のあるエラーの例については、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)の例2と例7を参照してください。
 
-A function that requires one or more parameters requires the correct number of arguments to match the number of parameters in its declaration in order to run successfully. When a function does not receive enough arguments, the missing arguments are assigned a value of `undefined`, which can cause errors and produce strange results. See example 2 and example 7 in the [Field Guide to Debugging](/tutorials/field-guide-to-debugging) for examples of an error you may receive when using the incorrect number of arguments in a function call. 
-
-Let’s see how this works by adding a tree to our sunrise animation.
+日の出アニメーションに木を追加することで、これがどのように機能するかを見てみましょう。
 
 
-### Step 5: Add custom functions with parameters 
+### ステップ5：パラメータを持つカスタム関数を追加する
 
-First define a `tree()` function that has empty parentheses. You can draw a simple tree with a rectangle and triangle.
+まず、空の括弧を持つ`tree()`関数を定義します。長方形と三角形を使って簡単な木を描くことができます。
 
-- Add a `tree()` function declaration to your sketch outside of `draw()`: 
+- `draw()`の外側にスケッチに`tree()`関数宣言を追加します：
 
   ```js
-  //A function to draw trees
+  //木を描画する関数
   function tree() {
-    // Draw a tree.
-    fill(80,30,20);
-    rect(200,320,20,60);
-    fill(20,130,5);
-    triangle(180,320,210,240,240,320)
+    // 木を描画する。
+    fill(80,30,20);
+    rect(200,320,20,60);
+    fill(20,130,5);
+    triangle(180,320,210,240,240,320)
   }
   ```
 
-- Include a function call for `tree()` in `draw()` after the landscape or mountains:
+- 風景や山の後に`draw()`内に`tree()`の関数呼び出しを含めます：
 
   ```js
-  // call tree function
-  tree(); 
+  // tree関数を呼び出す
+  tree(); 
   ```
 
- 
+![日の出アニメーションの一部で、太陽、山々、そして木を表示しています。木は長方形の茶色の幹と三角形の緑の頂部を持っています。](../images/introduction/tree-on-mountain.png)
 
-![A portion of the sunrise animation showing the sun, mountains, and a tree. The tree has a rectangular brown base and a triangular green top.](../images/introduction/tree-on-mountain.png)
+関数を使って単一の木を描くことで、コードの構成が改善されます。この関数の真の力は、異なる位置とサイズで複数の木を簡単に描けるようにすることです。`tree()`関数宣言にパラメータを追加することで、それをカスタマイズし、異なる引数を使って複数回呼び出すことができます。
 
-Drawing a single tree with a function improves the organization of your code. The real power of this function comes from making it easy to draw multiple trees with different locations and sizes. We can add parameters to the `tree()` function declaration so that we can customize it and call it more than once using different arguments.
+この関数をクッキーの型抜きのように考えると役立ちます。例えば、上で作成したものと似ているが、関数を呼び出すたびに異なる位置とサイズを持つ新しい木を作ることができます。これを実現するには、各木をカスタマイズできるように関数宣言にパラメータを含める必要があります。
 
-It is helpful to think of this function like a cookie cutter. For example, you can make a new tree that is similar to the one you created above, but with a different location and size each time you call the function. To accomplish this, you need to include parameters in the function declaration so that each tree can be customized. 
-
-- Rewrite your function declaration for `tree() `to include 3 arguments: `x`, `y`, and `size`. These arguments are then used as placeholders in the `rect()` and `triangle()` functions. 
+- `tree()`の関数宣言を書き直して、3つの引数：`x`、`y`、`size`を含めます。これらの引数は、`rect()`と`triangle()`関数内でプレースホルダーとして使用されます。
 
   ```js
-  //A function to draw trees with different x and y and size
+  //異なるx、y、サイズで木を描画する関数
   function tree(x,y,size) {
-    // Draw a tree.
-    fill(80,30,20);
-    rect(x-size,y,size*2,size*6);
-    fill(20,130,5);
-    triangle(x-size*3,y,x,y-size*8,x+size*3,y)
+    // 木を描画する。
+    fill(80,30,20);
+    rect(x-size,y,size*2,size*6);
+    fill(20,130,5);
+    triangle(x-size*3,y,x,y-size*8,x+size*3,y)
   }
-```
+  ```
 
-- Draw two trees in your `draw()` function using arguments.
+- `draw()` 関数内で引数を使って2つの木を描画します。
 
   ```js
-  // draw two trees
+    // 2つの木を描画する
   tree(150, 320, 10)
   tree(210, 320, 10)
   ```
 
-Your code should look like this:
+あなたのコードは以下のようになるはずです：
 
 ```js
-//variables for color change
+//色変更のための変数
 let redVal = 0;
 let greenVal = 15;
 
-//variable for sun position
+//太陽の位置のための変数
 let sunHeight = 600;
 
 function setup() {
-  createCanvas(600, 400);
-  noStroke(); //removes shape outlines
+  createCanvas(600, 400);
+  noStroke(); //形状の輪郭を削除
 }
+
 function draw() {
-  // call the sky function
-  sky();
+  // sky関数を呼び出す
+  sky();
 
-  // call the sun function
-  sun();
+  // sun関数を呼び出す
+  sun();
 
-  // call the mountains function
-  mountains();
+  // mountains関数を呼び出す
+  mountains();
 
-  // draw two trees
-  tree(150, 320, 10)
-  tree(210, 320, 10)
+  // 2つの木を描画する
+  tree(150, 320, 10)
+  tree(210, 320, 10)
 }
 
-// A function to draw the sky
+// 空を描画する関数
 function sky() {
-  background(redVal, greenVal, 0);
+  background(redVal, greenVal, 0);
 }
 
-// A function to draw the sun
+// 太陽を描画する関数
 function sun() {
-  fill(255, 135, 5, 60);
-  circle(300, sunHeight, 180);
-  fill(255, 100, 0, 100);
-  circle(300, sunHeight, 140);
+  fill(255, 135, 5, 60);
+  circle(300, sunHeight, 180);
+  fill(255, 100, 0, 100);
+  circle(300, sunHeight, 140);
 }
 
-//A function to draw mountains
+//山を描画する関数
 function mountains() {
-  fill(110, 50, 18);
-  triangle(200,400,520,253,800,400);
-  fill(150, 75, 0);
-  triangle(-100, 400, 150, 200, 400, 400);
-  fill(150, 100, 0);
-  triangle(200, 400, 450, 250, 800, 400);
-  fill(100,50,12);
-  triangle(-100,400,150,200,0,400);
-  fill(120,80,50);
-  triangle(200,400,450,250,300,400);
+  fill(110, 50, 18);
+  triangle(200,400,520,253,800,400);
+  fill(150, 75, 0);
+  triangle(-100, 400, 150, 200, 400, 400);
+  fill(150, 100, 0);
+  triangle(200, 400, 450, 250, 800, 400);
+  fill(100,50,12);
+  triangle(-100,400,150,200,0,400);
+  fill(120,80,50);
+  triangle(200,400,450,250,300,400);
 }
 
-//A function to draw trees with different x and y and size
+//異なるx、y、サイズで木を描画する関数
 function tree(x,y,size) {
-  fill(80,30,20);
-  rect(x-size,y,size*2,size*6);
-  fill(20,130,5);
-  triangle(x-size*3,y,x,y-size*8,x+size*3,y)
+  fill(80,30,20);
+  rect(x-size,y,size*2,size*6);
+  fill(20,130,5);
+  triangle(x-size*3,y,x,y-size*8,x+size*3,y)
 }
 ```
 
-The parameters that customize each tree are `x`, `y`, and `size`. These parameters specify the x-coordinate, y-coordinate, and size of the tree, respectively. In order to maintain the same relative shape of a tree, the `rect()` and `triangle()` functions use **numerical expressions** with parameters and [arithmetic operators.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators) **Numerical expressions**, such as `x - size`, are mathematical calculations that result in a numerical value. When numbers and [arithmetic operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators) are used as arguments in function calls, they pass the result as an argument. 
+各木をカスタマイズするパラメータは `x`、`y`、および `size` です。これらのパラメータはそれぞれ木のx座標、y座標、サイズを指定します。木の相対的な形状を維持するために、`rect()` と `triangle()` 関数はパラメータと[算術演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators)を使用した**数値式**を使用します。`x - size` のような**数値式**は、数値結果をもたらす数学的計算です。関数呼び出しの引数として数字と[算術演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators)が使用される場合、その結果が引数として渡されます。
 
-For example, let’s follow, or *trace*, the function call `tree(210, 320, 10)` to see how the arguments find their way into the `rect()` function:
+例えば、`draw()` で呼び出される `tree(210, 320, 10)` の関数呼び出しを追跡、または*トレース*して、引数が `rect()` 関数にどのように渡されるかを見てみましょう：
 
-`tree(210, 320, 10)` is called in `draw()`, where `x = 210`, `y = 320`, and `size = 10`
+`tree(210, 320, 10)` が `draw()` で呼び出され、ここで `x = 210`、`y = 320`、`size = 10` となります
 
-- Here are the formulas used in the `rect()` function call: 
+- `rect()` 関数呼び出しで使用される数式は以下の通りです：
 
   ```js
-  rect(x-size,y,size*2,size*6); 
+  rect(x-size,y,size*2,size*6); 
   ```
 
-- When `x = 210`, `y = 320`, and `size = 10`, the following values are plugged in:
+- `x = 210`、`y = 320`、`size = 10` の場合、以下の値が代入されます：
 
   ```js
   rect(210-10,320,10*2,10*6);
   ```
 
-- The resulting arguments are used to draw the shape on the canvas:
+- 結果として得られる引数がキャンバス上に図形を描画するために使用されます：
 
   ```js
-  rect(200,320,20,60); 
+  rect(200,320,20,60); 
   ```
 
-Similarly:
+同様に：
 
-- Here are the formulas used in the `triangle()` function call:
+- `triangle()` 関数呼び出しで使用される数式は以下の通りです：
 
   ```js
-  triangle(x-size*3, y, x, y-size*8, x+size*3,y) 
+  triangle(x-size*3, y, x, y-size*8, x+size*3,y) 
   ```
 
-- When `x = 210`, `y = 320`, and `size = 10`, the following values are plugged in:
+- `x = 210`、`y = 320`、`size = 10` の場合、以下の値が代入されます：
 
   ```js
   triangle(210-10*3, 320, 210, 210 + 10*3, 320);
   ```
 
-- The resulting arguments are used to draw the shape on the canvas:
+- 結果として得られる引数がキャンバス上に図形を描画するために使用されます：
 
   ```js
-  triangle(180, 320, 240, 320); 
+  triangle(180, 320, 240, 320); 
   ```
 
-When the arguments change, the tree is modified and can be at different locations, and with a different size. 
+引数が変更されると、木は修正され、異なる位置や異なるサイズで描画されることがあります。
 
-- Explore [this example](https://editor.p5js.org/Msqcoding/sketches/u0VkgENt4) to see how changes in specific arguments customize the tree drawn on the canvas.
+- [この例](https://editor.p5js.org/Msqcoding/sketches/u0VkgENt4)を探索して、特定の引数の変更がキャンバス上に描画される木をどのようにカスタマイズするかを確認してください。
 
-You can figure out the exact formula for the `rect()` and `triangle()` functions through trial and error. Starting with a static tree and creating expressions for changes you want to make in the tree is a great place to start! You can even try to add parameters that changes the fill and stroke colors.
+`rect()` と `triangle()` 関数の正確な数式は、試行錯誤を通じて見つけることができます。静的な木から始めて、木に加えたい変更のための式を作成することは、素晴らしい出発点です！塗りつぶしや線の色を変更するパラメータを追加することさえ試すことができます。
 
-- Explore [this example](https://editor.p5js.org/Msqcoding/sketches/yqFWzi_5X) for step-by-step instructions on how to add x and y parameters using numerical expressions, and test your function using` mouseX` and `mouseY`.
+- [この例](https://editor.p5js.org/Msqcoding/sketches/yqFWzi_5X)を探索して、数値式を使用してxとyのパラメータを追加する方法のステップバイステップの指示を確認し、`mouseX` と `mouseY` を使用して関数をテストしてください。
 
-For more examples of custom functions that include parameters, visit the p5.js reference page for [`function`](/reference/p5/function).
+パラメータを含むカスタム関数のより多くの例については、[`function`](/reference/p5/function)のp5.jsリファレンスページをご覧ください。
 
-By creating two trees with the same `tree()` function, you reduce the amount of code in your sketch. This makes your code shorter so that it is easier to read. With less code, it is also easier to debug. 
+同じ `tree()` 関数を使用して2つの木を作成することで、スケッチ内のコードの量を減らすことができます。これにより、コードが短くなり、読みやすくなります。コードが少なくなると、デバッグも容易になります。
 
 <Callout>
 
-- Call `tree()` with the wrong number of arguments. What happens?
-- Modify one of your existing functions to use parameters.
-- Declare another function that uses parameters to draw distinct objects in your landscape – for example, `seagull(x, y, size)` or `cloud(x, y, size)`.
+- 間違った数の引数で `tree()` を呼び出してみてください。何が起こりますか？
+- 既存の関数の1つを修正して、パラメータを使用するようにしてください。
+- パラメータを使用して風景内の異なるオブジェクトを描画する別の関数を宣言してください - 例えば、`seagull(x, y, size)` や `cloud(x, y, size)` などです。
 
-Here is an [example](https://editor.p5js.org/Msqcoding/sketches/l4Mq4a4HG).
+こちらは[例](https://editor.p5js.org/Msqcoding/sketches/l4Mq4a4HG)です。
 
 </Callout>
 
+## 戻り値
 
-## Return Values
+`random()` のような関数は、コードの他の場所で使用できる値を生成、つまり**戻す**ことができます。以下は、パラメータに5を加えてその結果を返す関数の例です：
 
-Functions such as `random()` produce, or **return**, values that can be used elsewhere in your code. Here’s an example of a function that adds 5 to its parameter and returns the result:
+![値 "ans" を返す関数宣言の構文を、その様々な部分を指す矢印でラベル付けした図。"function" という単語を指す矢印に "キーワード 'function'" とラベル付け; "plus5" を指す矢印に "関数名" とラベル付け; 括弧内の文字 "n" を指す矢印に "パラメータ" とラベル付け; 関数の本体は "中括弧内のコードブロック" とラベル付けされ、"let ans = n + 5" と "return ans;" が別々の行に記載されています。](../ja-images/introduction/function-return.jpg)
 
-[The syntax for function declaration that returns the value “ans” with labeled arrows pointing to its various parts. An arrow labeled “keyword ‘function’” points to the word “function”;  an arrow labeled “function name” points to “plus5”; an arrow labeled “parameter” points to the letter “n” within parentheses; the body of the function is labeled “block of code in curly braces” with the code “let ans = n + 5” and “return ans;” on separate lines.](../images/introduction/function-return.jpg)
+他の関数宣言と同様に、キーワード `function` の後に関数名と括弧のペアが続きます。この関数には1つのパラメータ `n` が括弧内にあります。関数の本体には数値式と**return文**が含まれています。キーワード `return` は、関数にコードブロックの実行を終了し、結果を出力値として提供するよう指示します。
 
-Similar to other function declarations, the keyword `function` is followed by the function name and a pair of parentheses. This function has one parameter, `n` within the parenthesis. The body of the function includes a numerical expression and **return statement**. The keyword `return` tells functions to finish executing the code block and provide a result as an output value.
-
-Let’s try this out with a quick [example](https://editor.p5js.org/mcintyre/sketches/BvgR93OHj) that displays the value returned by `plus5()` as text. Open a new p5.js project and add the following code to the `script.js` file:
-
-```js
-function setup() {
-  createCanvas(400, 400);
-}
-
-function draw() {
-  background(220);
- 
-  // Make a calculation by calling plus5().
-  let number = plus5(10);
- 
-  // Style the text.
-  textAlign(CENTER);
-  textSize(30);
- 
-  // Display the text.
-  text(`10 + 5 = ${number}`, width / 2, height / 2);
-}
-
-function plus5(n) {
-  let ans = n + 5;
-  return ans;
-}
-```
-
-In this sketch, you defined a variable `number` and assigned it to the value returned by the `plus5(10)` function call. The argument 10 replaces the parameter `n` in the function declaration. In the first line of `plus5()`, the result of 10+5 or 15 is stored in the variable `ans`. The function then returns a value of 15. Finally, you displayed the answer by passing `number `to the `text()` function using [string interpolation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#string_interpolation).
-
-Here’s another [example](https://editor.p5js.org/mcintyre/sketches/sWNY9_UO_) that uses `plus5()` to draw the path of a shooting star:
+[例](https://editor.p5js.org/mcintyre/sketches/BvgR93OHj)を使って、`plus5()` が返す値をテキストとして表示してみましょう。新しいp5.jsプロジェクトを開き、以下のコードを `script.js` ファイルに追加してください：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
+
 function draw() {
-  // Draw the sky black with transparency.
-  background(0, 50);
- 
-  // Set the stroke.
-  stroke(255);
-  strokeWeight(5);
- 
-  // Increase the x-coordinate with each frame.
-  let x = frameCount;
- 
-  // Call plus5() to calculate the y-coordinate.
-  let y = plus5(x);
- 
-  // Draw the shooting star.
-  point(x, y);
+  background(220);
+  
+  // plus5()を呼び出して計算を行います。
+  let number = plus5(10);
+  
+  // テキストのスタイルを設定します。
+  textAlign(CENTER);
+  textSize(30);
+  
+  // テキストを表示します。
+  text(10 + 5 = ${number}, width / 2, height / 2);
 }
 
 function plus5(n) {
-  let ans = n + 5;
-  return ans;
+  let ans = n + 5;
+  return ans;
 }
 ```
 
-In `draw()`, you stored the value in `frameCount` in the variable `x`, then passed it to `plus5()`. You also stored the value returned by `plus5(x)` in the variable `y`. Finally, you used `x` and `y` as the arguments in the `point()` function call to display a shooting star as it moves from left to right. The values stored in both x and y (in the draw function) increase as the sketch runs. Notice that the shooting star follows a diagonal line. 
+このスケッチでは、変数 `number` を定義し、`plus5(10)` 関数呼び出しが返す値を割り当てました。引数10は関数宣言内のパラメータ `n` に置き換わります。`plus5()` の最初の行で、10+5 つまり15の結果が変数 `ans` に格納されます。その後、関数は15の値を返します。最後に、[文字列補間](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#string_interpolation)を使用して `number` を `text()` 関数に渡し、答えを表示しました。
 
-Visit the p5.js reference page for [return](/reference/p5/return) to learn more.
-
-
-### Step 6: Use custom functions inside other custom functions
-
-To practice this idea, let’s return to our sunrise animation sketch and define a function that’s very similar to `plus5()` called `treeLine()`. It does a bit more math using its parameter and returns the result:
+こちらは `plus5()` を使用して流れ星の軌跡を描く[別の例](https://editor.p5js.org/mcintyre/sketches/sWNY9_UO_)です：
 
 ```js
-// A function to calculate the y-coordinate of a tree along a straight line.
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  // 透明度を持つ黒い空を描画します。
+  background(0, 50);
+  
+  // ストロークを設定します。
+  stroke(255);
+  strokeWeight(5);
+  
+  // フレームごとにx座標を増加させます。
+  let x = frameCount;
+  
+  // plus5()を呼び出してy座標を計算します。
+  let y = plus5(x);
+  
+  // 流れ星を描画します。
+  point(x, y);
+}
+
+function plus5(n) {
+  let ans = n + 5;
+  return ans;
+}
+```
+
+`draw()` 内で、`frameCount` の値を変数 `x` に格納し、それを `plus5()` に渡しました。また、`plus5(x)` が返す値を変数 `y` に格納しました。最後に、`x` と `y` を `point()` 関数呼び出しの引数として使用し、左から右に移動する流れ星を表示しました。スケッチが実行されるにつれて、x と y（draw関数内）の両方に格納される値が増加します。流れ星が対角線に沿って移動することに注目してください。
+
+詳しくは、[return](/reference/p5/return)のp5.jsリファレンスページをご覧ください。
+
+### ステップ6: カスタム関数を他のカスタム関数内で使用する
+
+この考え方を練習するために、日の出アニメーションのスケッチに戻り、`plus5()`によく似た`treeLine()`という関数を定義しましょう。これはパラメータを使ってもう少し計算を行い、結果を返します：
+
+```js
+// 直線に沿った木のy座標を計算する関数。
 function treeLine(x) {
-  let y = -0.7 * x + 450;
-  return y;
+  let y = -0.7 x + 450;
+  return y;
 }
 ```
 
-The statement `let y = -0.7 * x + 450;` multiplies the parameter `x` by `-0.7`, then adds `450` to that value, stores the value in the variable `y`, and returns `y`.
+`let y = -0.7 * x + 450;`という文は、パラメータ`x`に`-0.7`を掛け、その値に`450`を加え、その値を変数`y`に格納し、`y`を返します。
 
-- Declare the `treeline()` function and a `trees()` function to draw a few trees. Add a `treeLine()` function declaration to your sketch:
-  - Add the following lines to your code below `draw()`:
+- `treeline()`関数と、いくつかの木を描く`trees()`関数を宣言します。スケッチに`treeLine()`関数の宣言を追加してください：
+  - `draw()`の下に以下の行を追加してください：
 
     ```js
     function treeLine(x) {
-      let y = -0.7 * x + 450;
-      return y;
+      let y = -0.7 * x + 450;
+      return y;
     }
     ```
 
-- Add a `trees()` function declaration to your sketch. 
-  - Add the following lines to your code below `draw()`:
+- スケッチに`trees()`関数の宣言を追加します。
+  - `draw()`の下に以下の行を追加してください：
 
     ```js
     function trees() {
-      // First tree
-      let x = 150;
-      let y = treeLine(x);
-      tree(x, y, 5);
-     
-      // Second tree
-      x = 180;
-      y = treeLine(x);
-      tree(x, y, 5);
-     
-      // Third tree
-      x = 210;
-      y = treeLine(x);
-      tree(x, y, 5);
+      // 1本目の木
+      let x = 150;
+      let y = treeLine(x);
+      tree(x, y, 5);
+     
+      // 2本目の木
+      x = 180;
+      y = treeLine(x);
+      tree(x, y, 5);
+     
+      // 3本目の木
+      x = 210;
+      y = treeLine(x);
+      tree(x, y, 5);
     }
     ```
 
-- Add a `trees()` function call to `draw()`.
-  - Add the following lines inside `draw()`:
+- `draw()`内に`trees()`関数の呼び出しを追加します。
+  - `draw()`内に以下の行を追加してください：
 
     ```js
-    // call trees() function
+    // trees()関数を呼び出す
     trees();
     ```
-
-Your code should look like this:
+あなたのコードは以下のようになるはずです：
 
 ```js
-//variables for color change
+//色の変更のための変数
 let redVal = 0;
 let greenVal = 15;
 
-//variable for sun position
+//太陽の位置のための変数
 let sunHeight = 600;
 
 function setup() {
-  createCanvas(600, 400);
-  noStroke(); //removes shape outlines
+  createCanvas(600, 400);
+  noStroke(); //図形の輪郭を削除
 }
 
 function draw() {
-  // call the sky function
-  sky();
-
-  // call the sun function
-  sun();
-
-
-  // call the mountains function
-  mountains();
-
-  // draw two trees
-  trees()
+  // sky関数を呼び出す
+  sky();
+  // sun関数を呼び出す
+  sun();
+  // mountains関数を呼び出す
+  mountains();
+  // 2本の木を描く
+  trees()
 }
 
-// A function to draw the sky
+// 空を描く関数
 function sky() {
-  background(redVal, greenVal, 0);
+  background(redVal, greenVal, 0);
 }
 
-// A function to draw the sun
+// 太陽を描く関数
 function sun() {
-  fill(255, 135, 5, 60);
-  circle(300, sunHeight, 180);
-  fill(255, 100, 0, 100);
-  circle(300, sunHeight, 140);
+  fill(255, 135, 5, 60);
+  circle(300, sunHeight, 180);
+  fill(255, 100, 0, 100);
+  circle(300, sunHeight, 140);
 }
 
-//A function to draw mountains
+//山を描く関数
 function mountains() {
-  fill(110, 50, 18);
-  triangle(200,400,520,253,800,400);
-  fill(150, 75, 0);
-  triangle(-100, 400, 150, 200, 400, 400);
-  fill(150, 100, 0);
-  triangle(200, 400, 450, 250, 800, 400);
-  fill(100,50,12);
-  triangle(-100,400,150,200,0,400);
-  fill(120,80,50);
-  triangle(200,400,450,250,300,400);
+  fill(110, 50, 18);
+  triangle(200,400,520,253,800,400);
+  fill(150, 75, 0);
+  triangle(-100, 400, 150, 200, 400, 400);
+  fill(150, 100, 0);
+  triangle(200, 400, 450, 250, 800, 400);
+  fill(100,50,12);
+  triangle(-100,400,150,200,0,400);
+  fill(120,80,50);
+  triangle(200,400,450,250,300,400);
 }
 
-//A function to draw trees with different x and y and size
+//異なるx、y、サイズで木を描く関数
 function tree(x,y,size) {
-  fill(80,30,20);
-  rect(x-size,y,size*2,size*6);
-  fill(20,130,5);
-  triangle(x-size*3,y,x,y-size*8,x+size*3,y)
+  fill(80,30,20);
+  rect(x-size,y,size2,size6);
+  fill(20,130,5);
+  triangle(x-size3,y,x,y-size8,x+size3,y)
 }
 
-//A function that creates a line for trees to be drawn
+//木を描くための線を作成する関数
 function treeLine(x) {
-  let y = -0.7 * x + 450;
-  return y;
+  let y = -0.7 x + 450;
+  return y;
 }
 
-//A function that draws many trees 
-//using treeLine() and tree() functions
+//treeLine()とtree()関数を使用して
+//多くの木を描く関数
 function trees() {
-  // First tree
-  let x = 150;
-  let y = treeLine(x);
-  tree(x, y, 5);
- 
-  // Second tree
-  x = 180;
-  y = treeLine(x);
-  tree(x, y, 5);
- 
-  // Third tree
-  x = 210;
-  y = treeLine(x);
-  tree(x, y, 5);
+  // 1本目の木
+  let x = 150;
+  let y = treeLine(x);
+  tree(x, y, 5);
+  
+  // 2本目の木
+  x = 180;
+  y = treeLine(x);
+  tree(x, y, 5);
+  
+  // 3本目の木
+  x = 210;
+  y = treeLine(x);
+  tree(x, y, 5);
 }
 ```
 
-In the step above, you defined a function called `treeLine()` that calculates a line along which multiple trees can be drawn. You also defined a function that uses the `tree()` function you created earlier and the `treeLine()` function to draw multiple trees along a line in your landscape. 
+上記のステップで、あなたは`treeLine()`という関数を定義しました。これは複数の木を描くことができる線を計算します。また、以前に作成した`tree()`関数と`treeLine()`関数を使用して、風景の中に複数の木を線に沿って描く関数も定義しました。
 
-[Here is an example of what your project could look like!](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ)
+[あなたのプロジェクトがどのように見えるかの例はこちらです！](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ)
 
 <Callout>
-- Modify the expression `let y = -0.7 * x + 450;` in the `treeLine()` to use values other than `-0.7` and `450`. 
-- Change one number at a time and observe the results.
+- `treeLine()`内の式`let y = -0.7 * x + 450;`を、`-0.7`と`450`以外の値を使用するように修正してください。
+- 一度に1つの数字を変更し、結果を観察してください。
 </Callout>
 
+## `keyPressed()` 関数
 
-## The `keyPressed()` function
-
-In addition to functions like `setup()` and `draw()`, you can use other built-in p5.js functions that add interactivity to your program. The function `keyPressed()` is a useful function to define in your program, as it gets triggered when the user presses a key. 
+`setup()`や`draw()`のような関数に加えて、プログラムにインタラクティビティを追加する他のp5.jsの組み込み関数を使用することができます。`keyPressed()`関数はプログラムで定義すると便利な関数で、ユーザーがキーを押したときにトリガーされます。
 
 
-### Step 7: Add interactivity to your animation
+### ステップ7: アニメーションにインタラクティビティを追加する
 
-Define the function `keyPressed()` at the bottom of your sketch.
+スケッチの一番下に`keyPressed()`関数を定義してください。
 
 ```js
 function keyPressed() {
-  redVal=0;
-  greenVal = 0;
-  sunHeight = 600;
+  redVal=0;
+  greenVal = 0;
+  sunHeight = 600;
 }
 ```
 
-`keyPressed()` runs one time when any key on the keyboard is pressed. Here, we use it to reset variables back to their initial position when a key is pressed, essentially starting the animation from the beginning. 
 
-[Link to example sketch](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ)
+`keyPressed()`は、キーボードの任意のキーが押されたときに1回実行されます。ここでは、キーが押されたときに変数を初期位置にリセットするために使用しています。これにより、基本的にアニメーションを最初から開始します。
 
-`keyPressed()` can also access the `key` variable that a user presses, allowing for more user interactivity. Similarly, you can define a function `mousePressed()` in your sketch that runs once every time the user clicks the mouse. 
+[サンプルスケッチへのリンク](https://editor.p5js.org/gbenedis@gmail.com/sketches/lamalgcPZ)
 
-Here are some examples you can explore:
+`keyPressed()`は、ユーザーが押した`key`変数にもアクセスでき、より多くのユーザーインタラクティビティを可能にします。同様に、スケッチ内に`mousePressed()`関数を定義することもでき、これはユーザーがマウスをクリックするたびに1回実行されます。
+
+以下は探索できるいくつかの例です：
 
 - [`keyPressed()`](https://editor.p5js.org/Msqcoding/sketches/QEqQlTWpU)
-- [`keyPressed()` and `key`](https://editor.p5js.org/Msqcoding/sketches/HkDcaRKk4)
+- [`keyPressed()` と `key`](https://editor.p5js.org/Msqcoding/sketches/HkDcaRKk4)
 - [`mousePressed()`](https://editor.p5js.org/Msqcoding/sketches/bz6vz74tJ)
 
-For more information on functions like [`keyPressed()`](/reference/p5/keyPressed) and [`mousePressed()`](/reference/p5/mousePressed), visit the [Events section of the p5.js reference](/reference#Events).
+[`keyPressed()`](/reference/p5/keyPressed)や[`mousePressed()`](/reference/p5/mousePressed)のような関数の詳細については、[p5.jsリファレンスのイベントセクション](/reference#Events)をご覧ください。
 
+## 結論
 
-## Conclusion
-
-Functions like `tree()` let you express a complex idea (drawing a tree) using a combination of simpler ideas (drawing [2D shapes](/reference#Shape)). The function `trees()` further expands this idea by creating a line of trees. Whether you’re sketching a landscape or designing an interactive light show, functions can help you construct complex ideas out of simpler ones. This is called **abstraction**. Abstraction allows you to focus at a higher level so that you are not distracted by all the details. Imagine what your code would look like if you animated a magic forest by calling `triangle()` and `rect()` hundreds of times. It would be hard to keep track of everything. Functions allow you to create abstractions that handle details such as the specific coordinates of the shapes in an elegant and organized way. As your sketches become more elaborate, you’ll find that creating the right abstractions makes it easier to focus on the big picture.
+`tree()`のような関数を使うと、複雑なアイデア（木を描く）をより単純なアイデア（[2D形状](/reference#Shape)を描く）の組み合わせで表現できます。`trees()`関数は、この考えをさらに発展させて木の列を作ります。風景をスケッチするにせよ、インタラクティブな光のショーをデザインするにせよ、関数は複雑なアイデアをより単純なものから構築するのに役立ちます。これを**抽象化**と呼びます。抽象化によって、細部に気を取られることなく、より高いレベルに集中できます。魔法の森をアニメーション化するために、`triangle()`と`rect()`を何百回も呼び出すコードを想像してみてください。すべてを把握するのは難しいでしょう。関数を使えば、形状の具体的な座標などの詳細を、エレガントで整理された方法で扱う抽象化を作成できます。スケッチがより複雑になるにつれて、適切な抽象化を作成することで、全体像に集中しやすくなることに気づくでしょう。
 
 <Callout>
 Declare a `butterfly()` function to display a butterfly `🦋`emoji that appears at random locations or flutters around. Call the `butterfly()` function in `draw()` to display.
