@@ -1,10 +1,10 @@
 ---
-title: "Field Guide to Debugging"
-description: Learn some healthy habits and best practices for  locating bugs in your program, and finding ways to overcome them.
+title: "デバッグのフィールドガイド"
+description: プログラムのバグを見つけ、それを克服する方法について、健全な習慣とベストプラクティスを学びます。
 category: advanced
 categoryIndex: 0
 featuredImage: ../images/featured/FieldGuide.png
-featuredImageAlt: "The title is “A Field Guide to Debugging!” and it features a black-and-white cartoon illustrations of insects, a mouse and a computer laptop in deep thought."
+featuredImageAlt: "タイトルは「デバッグのフィールドガイド！」で、昆虫、マウス、深く考えているノートパソコンの白黒漫画イラストが特徴です。"
 authors:
   - Nick McIntyre
   - Jason Alderman
@@ -13,431 +13,439 @@ authors:
   - Luisa Pereira
   - Layla Quiñones
   - Portia Morrell
-authorsNote: "The tutorial is updated based on a previous tutorial made by the Education Working Group, during the p5.js contributor conference at the Frank-Ratchye Studio for Creative Inquiry, Carnegie Mellon University in May 2015."
+authorsNote: "このチュートリアルは、2015年5月にカーネギーメロン大学のFrank-Ratchye Studio for Creative Inquiryで開催されたp5.js貢献者会議中に、教育ワーキンググループによって作成された以前のチュートリアルを基に更新されています。"
 ---
 
 import { Columns, Column } from "../../../components/Columns";
 
-## Debugging
+## デバッグ
 
-This is a field guide to debugging for everyone, whether you are beginning to code or have been coding for a long time. It breaks down the mysterious process of solving problems with your code.
+これは、コーディングを始めたばかりの人から長年コーディングを行っている人まで、すべての人のためのデバッグフィールドガイドです。コードの問題を解決する神秘的なプロセスを分解します。
 
+### 0. デバッグは創造的な行為です
 
-### 0. Debugging is a creative act
+あらゆるレベルのプログラマーがバグに遭遇し、多くの場合、実際のアプリケーションのプログラミングよりもデバッグに多くの時間を費やします。これに多くの時間を費やすことを予想しておくべきです。p5.jsでプログラミングを学ぶ際に、バグを特定し、それに取り組むための良い戦略を開発することが重要です。
 
-At all levels, programmers encounter bugs and often spend more time debugging than actually programming the application. You can expect to spend a lot of time doing this. It’s important to develop good strategies for identifying and working through bugs as you learn to program in p5.js.
+**バグ**とは、あなたのシステムが行っていると思っていることと、実際に行っていることとの間のギャップです。[Clay Shirkyは適切に説明しています](https://vimeo.com/channels/debugging)。バグとは、「コードに技術的な問題があると同時に、コードで何が起こっているかについてのあなたの心的イメージにも問題がある瞬間」です。
 
-A **bug** is a gap between what you *think* your system is doing and what it *actually* does. [Clay Shirky aptly describes](https://vimeo.com/channels/debugging) a bug as “the moment when there is both a technical problem with your code as well as a problem with your mental picture of what is happening in your code.”
+![2パネルの白黒漫画。最初のパネルには、円の中にいるマウスを指さす人物が描かれており、「マウスを円に移動したと思っている」というテキストが添えられています。2番目のパネルには、手がマウスを円から押し出しているコンピューターが描かれており、「しかし、コンピューターは実際にはマウスを円から離すよう指示している」というテキストが添えられています。](../images/advanced/mouse-to-circle.png)
 
-![A two-panel black-and-white comic. The first panel contains a person pointing at a mouse sitting in a circle with the text, 'You think you moved the mouse to the circle.' The second panel contains a computer with a hand pointing to a mouse pushing a circle with the text, 'But the computer is actually giving instructions to move the mouse away from the circle.'](../images/advanced/mouse-to-circle.png)
+あなたはコンピューターに一つのことを指示していると思っていますが、コンピューターは別のことを行っています。クラッシュしたりエラーを投げたりしているかもしれません。このギャップを埋めるために調査する必要があります。
 
-You think you are telling the computer one thing, but it’s doing something else. It may also be crashing or throwing errors. You must investigate to close the gap.
+プロジェクトに取り組む際、あなたは多くの異なる役割を果たすかもしれません。プログラムを設計し計画する際には*建築家*であり、それを開発する際には*エンジニア*です。そして、その問題やエラーを発見する*探検家*になります。あなたのコードが動作する必要があるすべての状況でテストし、どこで壊れる可能性があるかを見つけようとします。最後に、あなたは*探偵*でもあり、どのようにしてなぜ物事が失敗したかを突き止めようとします。
 
-When you work on a project, you may play many different roles. You are an *architect* when designing and planning your program, and an *engineer* when developing it. Then you will be an *explorer*, discovering its problems and errors. You will test your code in all situations it needs to run, trying to find out where it might break. Finally, you are also a *detective*, trying to figure out how and why things failed.
+![白黒漫画イラスト：青写真を持って空き地を見ている建築家、家の屋根を下ろしているエンジニア、家のドアが地面に落ちたのを見て驚いている人、そして虫眼鏡で家の壊れた部分を調べている探偵。](../images/advanced/blueprint.png)
 
-![Black-and-white cartoon illustrations of: an architect with a blueprint for a house looking at an open plot of land; an engineer lowering a roof onto a house; a person being surprised when the door to a house falls to the ground; and a detective with a magnifying glass examining the broken parts of the house.](../images/advanced/blueprint.png)
+では、どうすれば優れた探偵になり、プログラムをデバッグできるでしょうか？以下に、優れたコード探偵になるための10のステップを紹介します。
 
-So how can you become a good detective and debug your program? Here are ten steps that can help you become a good code sleuth.
 
+### 1. 視点を変える
 
-### 1. Change your perspective
+パニックにならないでください。
 
-Don’t panic.
+解決方法がわからないバグに遭遇したら、立ち止まり、一息つき、深呼吸をしてください。立ち上がって、ペットに挨拶したり、散歩に行ったり、夜遅い場合は少し休んだりしてください。フラストレーションがたまっていたり、疲れていたり、動揺していたりすると、学習や問題解決に適した心理状態ではありません。
 
-When you encounter a bug that you don’t know how to solve, stop, pause, and take a deep breath. Stand up, say hi to a pet, take a walk, or, if it’s late, get some rest. When you are frustrated, tired, or upset, you are not in a reasonable frame of mind to learn or solve a problem.
+エラーを見つけるためには、視点を変えて探偵になる必要があります。*目標は、プログラムがなぜ期待通りに動作しないかを知ることではなく、実際に何をしているかを知ることです。* コンピューターに何をしているかを示してもらう必要があります。
 
-To find the errors you will need to change your perspective and become a detective. *The goal is to find out what the program is doing rather than why it’s not doing what it’s supposed to.* We need to get the computer to show us what it’s doing.
+手がかりは、変数の値とプログラムの流れの中にあります。
 
-The clues are in the values of variables and the flow of the program.
+![双眼鏡を持っている人物の白黒漫画イラスト。頭上の吹き出しには変動する折れ線グラフが描かれています。](../images/advanced/landscape.png)
 
-![A black-and-white cartoon illustration of a person holding binoculars, with a speech bubble above their head containing a fluctuating line chart.](../images/advanced/landscape.png)
+### 2. 問題を観察する
 
+たとえその人自身がプログラミングを知らなくても、誰かに問題について説明してみてください。誰もいない場合は、信頼できる人にメールやダイレクトメッセージを下書きしてみてください。あなたが書いたコードを詳細に説明し、プログラムを実行したときに何が起こるかを説明し、遭遇した問題を分解してください。
 
-### 2. Observe the problem 
+![コンピューターで自分のプログラミングの問題についてメッセージを入力している人物の白黒漫画イラスト。メッセージは「親愛なるサム、私の関数は2回実行されるはずなのに、3回実行されています！iが0から2までループしているのですが...」で始まっています。](../images/advanced/dear-sam.png)
 
-Walk someone through the issue even if they themselves do not know how to program. If no one is around, draft an email or direct message to someone you trust. Explain the code you have written in detail, describe what happens when the program runs, and break down any problems you run into.
+このメールを実際に送る必要はないでしょう！多くの場合、書くという行為が次に何をすべきかを特定し、識別するのに役立ちます。プログラマーの中には、ゴム製のアヒルのような親しみやすい無生物に問題を説明することで知られている人もいます。
 
-![A black-and-white cartoon illustration of a person typing a message about their programming issue on a computer. The message begins with “Dear Sam, My function is supposed to run two times, but it’s running three times! It’s looping from i = 0 to 2…”](../images/advanced/dear-sam.png)
+![ゴム製のアヒルに自分のプログラミングの問題を口頭で説明している人物の白黒漫画イラスト。「ボタンをクリックしたときに実行される関数があるんだけど...」で始まっています。](../images/advanced/rubber-duck.png)
 
-You probably won’t need to actually send this email! Often the act of writing will help you to locate and identify what you need to do next. Some programmers have even been known to explain their problem to a friendly inanimate object like a rubber ducky.
+これは、コードに各行が何をするかを正確に説明するコメントを追加するのにも良い機会です。コーダーの中には、コード（またはその一部）を印刷し、1行ずつ変数の変化をたどりながらメモを取る人もいます。
 
-![A black-and-white cartoon illustration of a person verbalizing their programming issue to a rubber duck. They begin with “So, I have a function that is supposed to run when you click the button, but…”](../images/advanced/rubber-duck.png)
+![印刷された紙のコードを確認している人物の白黒漫画イラスト。](../images/advanced/printed-code.png)
 
-This is also a good time to add comments to your code that tell you exactly what each line does. Some coders also print out their code (or a section of it) and go through it line by line, tracing the changes to variables and making notes.
+### 3. 変更を加える前に…
 
-![A black-and-white cartoon illustration of a person reviewing code printed on sheets of paper.](../images/advanced/printed-code.png)
+コードに何かを行う前に、元に戻せるコピーを保存してください。デバッグ中に他の問題を引き起こしたり、物事を壊したり、良い作業を誤って削除したりする可能性があります。
 
+![金庫から保存ファイルを交換している人物の白黒漫画イラスト。頭上の吹き出しに内部の対話が表示されており、「うーん。あなたは壊れているかもしれないけど、もっと悪くしてしまう場合に備えてコピーを保存しておくよ…！」と言っています。](../images/advanced/save-copy.png)
 
-### 3. Before you start making changes…
+デバッグの過程でより大きなバグを作りたくはありません。
 
-Before doing anything to your code, save a copy that you can go back to. While debugging you are likely to introduce other problems, break things, or accidentally delete good work.
+![プレゼントの後ろに隠れながら「こんにちは！」と言っているバグの白黒漫画イラスト。](../images/advanced/bug-hello.png)
 
-![A black-and-white cartoon illustration of a person exchanging save files from a safe. Speech bubbles with their internal dialogue appear above them that say “Hrmm. You may be broken, but I’ll save a copy of you in case I make things worse…!”](../images/advanced/save-copy.png)
+間違いを犯したり問題が悪化したりした場合は、常に元に戻すか保存したファイルに戻ることができます。
 
-You don’t want to make bigger bugs in the process of debugging.
+![混乱した人物が家に帰ってきて、家があるはずの場所が空き地になっているのを見ている白黒漫画イラスト。](../images/advanced/missing-house.png)
 
-![A black-and-white cartoon illustration of a bug saying 'Hello!' as it hides behind a present wrapped with a bow.](../images/advanced/bug-hello.png)
+[GitHub](https://github.com)のようなバージョン管理を試すこともできます。
 
-If you make a mistake or your problem gets worse, you can always UNDO or revert to your saved file.
+![「魔法使いならgitバージョン管理を使えるよ！」というテキストの白黒漫画イラスト。](../images/advanced/git-wizard.png)
 
-![A black-and-white cartoon illustration of a confused person arriving home, and looking at an empty plot of land where their home should be.](../images/advanced/missing-house.png)
+試していることのリストを書いて、まだチェックする必要があるものを追跡できるようにしてください。体系的に行動することで、長期的には多くの時間を節約できます。
 
-You can try version control such as [GitHub](https://github.com).
+一度に1つのことだけを変更してください。
 
-![A black-and-white cartoon illustration of the text “You can use git version control if you are a wizard!”](../images/advanced/git-wizard.png)
+![2人の人物の白黒漫画イラスト：1人がスイッチを切り替え、もう1人がスイッチに接続された一連のライトを調べています。2つのライトが点灯し、1つが消えています。](../images/advanced/light-switches.png)
 
-Write a list of what you are trying so you can keep track of what still needs to be checked. Be methodical; it will save you a lot of time in the long run.
+デバッグ中は、コードの一部をオンオフにすることになります。変更するたびに、プログラムをテストしてください。テストする前に複数の変更を加えると、どの変更がどのような効果を持つかを判断するのが難しくなり、さらに物事を壊す可能性が高くなります。
 
-Change only one thing at a time.
+### 4. 基本をチェックする
 
-![A black-and-white cartoon illustration of two people: one toggling switches, and the other examining a series of lights connected to the switches. Two lights are on, and one is off.](../images/advanced/light-switches.png)
+多くのバグは、家電製品の電源コードを差し忘れるような非常に基本的なミスであることがよくあります！これらのミスはしばしば「見えない」もので、チェックする必要があります。以下のような単純なことをチェックしてください：
 
-As you debug, you will be turning parts of your code on and off. Every time you make a change, test your program. If you make multiple changes before testing, it could be hard to tell which change has what effect and is likely to break things further.
+- 正しいファイルを編集していますか？
 
+  基本的なスケッチでは、通常sketch.jsファイルにコードを書きます。他のプロジェクトでは、[他のファイルにもコードを書く](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files)かもしれないので、プロセスの様々な段階で正しいファイルを編集し保存していることを確認してください。
 
-### 4. Check the basics
+  ![2パネルの白黒漫画。最初のパネルには、リモコンを持った人物が「なぜロボットがレモネードを持ってこないんだ？」と言っています。2番目のパネルには、ロボット、「ありがとう！」と言ってレモネードを飲んでいる人物、そしてリモコンを持った人物が「あ、エリカのロボットにレモネードを届けるよう間違って指示していたからだ！」と言っています。漫画の下には「正しいファイルを編集/保存していますか？」というテキストがあります。](../images/advanced/correct-file.png)
 
-Many bugs end up being very basic mistakes, like forgetting to plug in the power cord for an appliance! These mistakes are often “invisible” and require you to check for them. Check the simple stuff, like:
+- ファイルの依存関係は正しいですか？
 
-- Are you editing the correct file?
+  基本的なスケッチは、コンピューターにインストールされているか、p5.jsプロジェクトのHTMLファイルにリンクされている[p5.jsのバージョン](https://p5js.org/download/)に依存しています。[他のライブラリを使用する](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management)場合は、それらがHTMLファイルにリンクされているか、コンピューターに適切に保存されていることを確認してください。
 
-  In a basic sketch, you typically write code in the sketch.js file. In other projects, you might be writing code in [other files as well](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files), so make sure you edit and save the correct files during various steps in the process.
+  ![2パネルの白黒漫画。最初のパネルには、「なぜロボットがレモネードを持ってこないんだ？」と言っている人物がいます。2番目のパネルには、人物とロボットがいて、人物が「あ、左腕を取り付け忘れていたからだ！」と言っています。漫画の下には「ファイルの依存関係をチェックしてください」というテキストがあります。](../images/advanced/file-deps.png)
 
-  ![A black-and-white two-panel comic strip. The first panel contains a person with a remote controller saying, “Why isn't my robot bringing me lemonade?” The second panel contains a robot, a person saying “Thank you!” and drinking lemonade, and a person with a remote controller saying, “Oh. It's because I was accidentally telling Erica's robot to deliver lemonade!” Text beneath the comic strip reads, “Are you editing/saving the correct file?”](../images/advanced/correct-file.png)
+- ファイルパスにタイプミスはありませんか？
 
-- Are your file dependencies correct?
+  ファイルの読み書きや[他のライブラリの含め方](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management)をチェックする際、[ファイルパス](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files#file_paths)やURLのスペルミスがないか確認してください。プロジェクトでファイルをアップロードして使用する際は、スペルミスの可能性を減らすために、シンプルなファイル名を使用してください。アップロードしているファイルの種類が、使用している関数と一致していることを再確認してください。
 
-  Basic sketches are dependent on the [version of p5.js](https://p5js.org/download/) you have installed on your computer or linked in the HTML file of a p5.js project. When [using other libraries](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management), make sure they are linked in the HTML file or properly saved on your computer.
+  ![2パネルの白黒漫画。最初のパネルには、電話で「なぜロボットがレモネードを持ってこないんだ？」と言っている人物がいます。2番目のパネルには、人物とロボットがいて、人物が「あ、オフィスの電話番号ではなく携帯電話番号に電話をかけていたからだ！」と言っています。漫画の下には「正しいファイルをテストしていますか？」というテキストがあります。](../images/advanced/testing-right-file.png)
 
-  ![A black-and-white two-panel comic strip. The first panel contains a person saying,”'Why isn't my robot bringing me lemonade?” The second panel contains a person and a robot; the person is saying, “Oh. It's because I forgot to attach the left arm!” The text beneath the comic strip reads “Check your file dependencies.”](../images/advanced/file-deps.png)
+- すべての外部ファイルとサービスにアクセスできますか？
 
-- Are there any typos in your file paths?
+  インターネット接続に影響を与えている可能性のあるネットワークの問題がないか確認してください。ローカルサーバーで作業している場合、プロジェクトで使用するための正しいファイルに、すべての外部ライブラリが正しくインストールされていることを確認してください。[APIエンドポイント](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction)、リンク、URL、ファイルパスがすべて正しいことを、基本的なプログラムでテストして確認してください。
 
-  When reading and writing files, or including [other libraries](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management),  check for spelling errors in the [file path](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files#file_paths) or URL. Stick with simple file names when uploading and using files in your projects to help decrease the chances of spelling errors. Double-check that the types of files you are uploading are consistent with the functions you are using.
+### 5. ブラックボックスをチェックする
 
-  ![A black-and-white two-panel comic strip. The first panel contains a person on the phone saying, “Why isn't my robot bringing me lemonade?” The second panel contains a person and a robot; the person is saying, “Oh. It's because I was calling its office phone and not its mobile number!” Text beneath the comic strip reads “Are you testing the right file?”](../images/advanced/testing-right-file.png)
+ブラックボックスとは、システムの中で内部の仕組みを理解していない部分のことを指します。例えば、あなたが書いておらず、1行ずつ説明できない関数は、ブラックボックスと見なすことができます。特定の入力が特定の出力を生成する理由がわからない場合、あなたは本当にそのコードを理解していないのです。これらをチェックするには、各ブラックボックスを1つずつ体系的に取り除いてプログラムを実行してください。
 
-- Are all external files and services accessible?
+![2パネルの白黒漫画。最初のパネルでは、2人の人物が2つの箱の内部を調べています。2番目のパネルでは、1人の人物が1つの箱と他の2つの箱をつなぐ紐を切っています。](../images/advanced/black-boxes.png)
 
-  Check for any network issues that may be affecting your internet connection. Ensure all external libraries are correctly installed in the correct files for us in your projects when working off a local server. Double check [API endpoints](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction), links, URLs and file paths are all correct by testing them in basic programs.
 
+### 6. エラー報告を追加する
 
-### 5. Check black boxes
+![多くの曲がりくねった道と出口がある道路に向かっている車の白黒イラスト。1人の人物が道路の出口の1つで手を振っています。](../images/advanced/forking-roads.png)
 
-A black box describes any part of your system whose inner workings you don’t understand. For example, a function that you did not write and cannot explain, line by line, can be considered a black box. When you don’t know why specific inputs generate specific outputs, you don’t really understand the code. To check these, systematically remove each black box one-by-one and run your program. 
+エラー報告は、プログラムがあなたに何をしているかを伝える方法です。p5.jsには、特定の構文エラーを犯した場合にそれを伝えるビルトインのエラー報告機能があります。このガイドの後半で[エラーメッセージ](#error-messages)についてさらに学ぶことができます。
 
-![A black-and-white two-panel comic strip. In the first panel, two people examine the inner workings of two boxes. In the second panel, one person snips the string connecting one box to two others.](../images/advanced/black-boxes.png)
+また、`console.log()`関数を使用してメッセージを出力する独自のエラー報告を追加することも有用です。
 
+![道路を進み、その出口の1つに到達する車の白黒イラスト。1人の人物が驚いて別の出口で手を振っています。](../images/advanced/path-through-roads.png)
 
-### 6. Add error reporting
+コンソールを見ると、物事が起こる順序と問題に遭遇する場所を確認できます。`console.log()`は、変数の値を出力してプログラムの異なる時点で何をしているかを確認するのにも役立ちます。
 
-![A black-and-white illustration of a car facing a road with many turns and exits. A person waves at one of the road's exits.](../images/advanced/forking-roads.png)
+![「準備完了！左折！右！右！左！」などの様々な文を含むコンソールログを調べている人物の白黒イラスト。各文に対応するコードファイルの行が横に印刷されています。](../images/advanced/console.png)
 
-Error reporting is how your program tells you what it is doing. p5.js comes with some built-in error reporting that will tell you if you have made specific syntax errors. You can learn more about [error messages](#error-messages) in the second half of this guide.
+### 7. さらなるヘルプを探す
 
-It’s also useful to add your own error reporting using the `console.log()` function to print messages.
+これらすべてが機能しない場合、オンラインで更なるヘルプを探すことができる場所がたくさんあります：
 
-![A black-and-white illustration of a car navigating a road and reaching one of its exits. A person is standing surprised and waves at another exit.](../images/advanced/path-through-roads.png)
+- インターネットで検索してください。あなたがこの問題を抱えているなら、他の多くの人々も同様の問題を抱えている可能性が高いです。
+- [Processing Discourse](https://discourse.processing.org/c/p5js)と[p5.js Discord](https://discord.gg/SHQ8dH25r9)を検索してください。
+- [Stack Overflow](http://stackoverflow.com/)のような開発者フォーラムを検索してください。
 
-When you look at your console, you can see the order in which things happen and where you encounter problems. `console.log()` is also useful to print out values of variables so that you can see what they are doing at different points in your program.
+より一般的なリソース：
 
-![A black-and-white illustration of a person examining a console log with various statements reading, “Ready! Turning left! Right! Right! Left!”. The lines in the code file that each statement corresponds to are printed alongside them.](../images/advanced/console.png)
+- Mozillaの[JavaScript ガイド](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)、[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)、および[JavaScript エラー](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)リファレンスは、文字列などのオブジェクトのすべての組み込みメソッドを見つけたり、JavaScriptのエラーメッセージについて学んだりするのに本当に役立ちます。
+- Mozillaの[HTMLのデバッグ](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Debugging_HTML)、[CSSのデバッグ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Debugging_CSS)、および[クロスブラウザテスト](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction)リファレンスは、HTMLとCSSファイルのバグを見つけるのに役立ちます。
+- Marjin Haverbekeのインタラクティブな教科書[*Eloquent JavaScript*](https://eloquentjavascript.net/)。
 
+![3人の人物とロボットが会話している白黒イラスト。](../images/advanced/talking.png)
 
-### 7. Search for more help
+### 8. 他の人に聞く
 
-So, none of this works? There are many places you can look online to get more help:
+まだうまくいかない場合は？
 
-- Search the internet. If you have had this problem, chances are many other people will have too.
-- Search the [Processing Discourse](https://discourse.processing.org/c/p5js) and [p5.js Discord](https://discord.gg/SHQ8dH25r9).
-- Search development forums such as [Stack Overflow](http://stackoverflow.com/).
+![2人の人物がコンピューターで作業しながら協力している白黒イラスト。](../images/advanced/collaboration.png)
 
-More general  resources:
+他の人に助けを求めることもできます！彼らはあなたを助け、デバッグ経験を共有することを喜んでくれるかもしれません。
 
-- Mozilla's [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide), [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference), and [JavaScript error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) references are really helpful for finding all of the built-in methods for objects such as strings, and learning about JavaScript error messages.
-- Mozilla's [Debugging HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Debugging_HTML), [Debugging CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Debugging_CSS), and [Cross-browser testing](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction) references are helpful for finding bugs in HTML and CSS files.
-- Marjin Haverbeke’s interactive textbook [*Eloquent JavaScript*](https://eloquentjavascript.net/).
+問題を説明し、知りたいことを書いたメールを送ってください。[Processing Discourse](https://discourse.processing.org/c/p5js)や[p5.js Discord](https://discord.gg/SHQ8dH25r9)、その他のコミュニティフォーラムに投稿してください。
 
-![A black-and-white illustration of three people and a robot conversing.](../images/advanced/talking.png)
+### 9. 良いコーディング習慣とバグの予防方法！
 
-### 8. Ask others
+一部のバグは、良いコーディング習慣で予防できます。以下はいくつかの例です：
 
-Still not working?
+- 疑似コードをコメントとして始め、その後各ステップの下にコードを追加します。
+- 小さな問題から解決し始めましょう！一度に1つのことを行います。1つのことをテストするために小さなスケッチを作成し、それらが機能することを確認してから、より大きなスケッチに組み合わせるのは問題ありません！例えば、雲を描いてから天気をチェックします！その後、雨が降りそうなときに暗くなる雲を描きます！
+- 開発中にコードに`console.log()`を入れます。
+- 頻繁にテストして、何かが変わった場合、最後にテストしてから何をしたかがわかるようにします。
+- コードの異なるバージョンをテストしながら保存し、後で何かが壊れた場合に元に戻せるようにします。
+- 早期に最適化しないでください。最適化されたコードは往々にして読みにくくなります。プログラムを構築する際は、高性能なコードよりも明確なコードの方が重要です。すべてが期待通りに動作することを確認してから、パフォーマンスのために最適化することができます！
+- 早期に抽象化しないでください。複数回使用すると思われるものに対して関数やオブジェクトを作成する必要はありません。実際に複数回使用する必要が出てくるまで待ちましょう。
 
-![A black and white illustration of two people collaborating while working on computers.](../images/advanced/collaboration.png)
+![腕、手、顔を持つ人間のようなコンピューターと気軽に会話をしている人物の白黒イラスト。](../images/advanced/talking-to-computer.png)
 
-You can also ask people for help! They might be delighted to help and share their debugging experiences with you.
 
-Send that email you wrote describing your problem and what you want to know. Post it to the [Processing Discourse](https://discourse.processing.org/c/p5js) and [p5.js Discord](https://discord.gg/SHQ8dH25r9) or other community forums. 
+### 10. さらなるリソース
 
+このガイドは、コーディング時のデバッグに関する他のいくつかの素晴らしいリソースに触発されています。そのいくつかをここに紹介します：
 
-### 9. Good coding practices and how to prevent bugs!
+- Clay Shirky, [デバッグの簡単な紹介](https://vimeo.com/channels/debugging)
+- Eric Steven Raymond, [賢明な質問の仕方](http://www.catb.org/esr/faqs/smart-questions.html)
 
-Some bugs can be prevented with good coding practices. Some include:
 
-- Start with pseudocode as comments, then add code underneath each step.
-- Begin solving small problems! Do one thing at a time. It's okay to make smaller sketches to test one thing, then Voltron them together into a bigger sketch when you know they work! For example, draw a cloud then check the weather! Then draw a cloud that turns dark when it’s about to rain!
-- Put `console.log()`s in your code as you develop.
-- Test frequently so that if something changes, you know what you did since the last time you tested.
-- Save different versions of your code as you test so that you can revert back to it later if something breaks.
-- Do not optimize prematurely. Optimized code can often be harder to read. Clear code is more important than high-performing code when building your program. When you are sure everything works as expected, then you can optimize for performance!
-- Do not abstract prematurely. You don't need to make functions or objects for things you think you'll use multiple times until you actually have to use them more than once.
+## エラーメッセージ<a id="error-messages"></a>
 
-![A black-and-white illustration of a person having a casual conversation with a human-like computer with arms, hands and a face.](../images/advanced/talking-to-computer.png)
+Webブラウザには、テキストを使用してプログラマーと通信するコンソール領域があります。それは、p5.jsが理解できないコード行を説明する有用な**エラーメッセージ**を表示します。コードのバグを見つけるために、様々な[JavaScriptエラーメッセージ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)を使用することができます。以下の例は、[p5.js Web Editor](https://editor.p5js.org)でこれがどのように機能するかを示しています。
 
+**注意:** p5.js Web Editorの[フレンドリーエラーシステム（FES）](https://medium.com/processing-foundation/2017-marks-the-processing-foundations-sixth-year-participating-in-google-summer-of-code-d365f62fc463)も、デバッグを支援するためにコンソールにメッセージを送信します！
 
-### 10. More resources
-
-This guide has been inspired by several other fantastic resources on debugging when coding. Some of these are here:
-
-- Clay Shirky, [A brief introduction to debugging](https://vimeo.com/channels/debugging)
-- Eric Steven Raymond, [How to ask questions the smart way](http://www.catb.org/esr/faqs/smart-questions.html)
-
-
-## Error Messages<a id="error-messages"></a>
-
-Your web browser has a console area that communicates with programmers using text. It displays helpful **error messages** that describe lines of code that p5.js doesn’t understand. You can use various [JavaScript error messages](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) to locate bugs in your code. The examples below show how this works in the [p5.js Web Editor](https://editor.p5js.org).
-
-**Note:** The p5.js Web Editor’s [friendly error systems (FES)](https://medium.com/processing-foundation/2017-marks-the-processing-foundations-sixth-year-participating-in-google-summer-of-code-d365f62fc463) also sends messages in the console to help you debug!
-
-
-### Example 1: `SyntaxError` (missing parentheses)
+### 例1: `SyntaxError` (括弧の欠落)
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a rectangle to appear on the canvas; instead, the [p5.js Web Editor](https://editor.p5js.org/) displayed an error message in the console, and nothing appeared (not even a blank canvas).
+このコードでは、プログラマーはキャンバスに長方形が表示されることを期待していましたが、代わりに[p5.js Web Editor](https://editor.p5js.org/)がコンソールにエラーメッセージを表示し、何も表示されませんでした（空白のキャンバスさえも表示されません）。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 SyntaxError: missing ) after argument list
 ```
 
-#### Bug:
 
-According to the message in the console, the programmer has made a `SyntaxError`, which means a character is misplaced or missing somewhere in the code.
+#### バグ：
 
-The [p5.js Web Editor](https://editor.p5js.org/) highlighted line 9 in red, indicating where you can find the error. The message in the console also specifies that the error is on line 9 of the `sketch.js` file (click the arrow next to `SyntaxError`).
+コンソールのメッセージによると、プログラマーは`SyntaxError`を犯しています。これは、コードのどこかに文字が誤って配置されているか、欠落していることを意味します。
 
-[Link to sample project](https://editor.p5js.org/Msqcoding/sketches/BMIIMpyKs)
+[p5.js Web Editor](https://editor.p5js.org/)は9行目を赤で強調表示し、エラーの場所を示しています。コンソールのメッセージも、エラーが`sketch.js`ファイルの9行目にあることを指定しています（`SyntaxError`の横の矢印をクリックしてください）。
+
+[サンプルプロジェクトへのリンク](https://editor.p5js.org/Msqcoding/sketches/BMIIMpyKs)
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // rectangle
-  rect(200,200,200,100;
+function draw() {
+  background(220);
+  
+  // rectangle
+  rect(200,200,200,100;
 }
 ```
+
 </Column>
 </Columns>
 
 <Columns>
 <Column>
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by adding a parenthesis between the last argument and a semicolon. They discovered this by visiting the p5.js reference page for [`rect()`](https://p5js.org/reference/#/p5/rect) and comparing code.
+プログラマーは、最後の引数と セミコロンの間に括弧を追加することで問題を解決しました。彼らは[`rect()`](https://p5js.org/reference/#/p5/rect)のp5.jsリファレンスページを訪れ、コードを比較することでこれを発見しました。
 
-#### Pro Tips:
+#### プロのヒント：
 
-1. Always refer to the [p5.js reference](https://p5js.org/reference/) to check that your code is written with the correct syntax.
-2. If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out!
+1. 常に[p5.jsリファレンス](https://p5js.org/reference/)を参照して、コードが正しい構文で書かれていることを確認してください。
+2. エラーメッセージが表示され、その意味がわからない場合は、Googleにコピー＆ペーストして、理解しようとしてみてください！
 </Column>
 <Column>
-#### Code:
+#### コード：
+
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // rectangle
-  rect(200,200,200,100);
+function draw() {
+  background(220);
+  
+  // rectangle
+  rect(200,200,200,100);
 }
 ```
+
 </Column>
 </Columns>
 
 
-### Example 2: Missing Arguments
+### 例2: 引数の欠落
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a circle to appear on the canvas; instead, the error below appeared in the console, and nothing appeared on the canvas.
+このコードでは、プログラマーはキャンバスに円が表示されることを期待していましたが、代わりに以下のエラーがコンソールに表示され、キャンバスには何も表示されませんでした。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 p5.js says: [sketch.js, line 9] circle() was expecting at least 3 arguments but received only 2.canvas.
 ```
 
-#### Bug:
 
-According to the message in the console, [`circle()`](https://p5js.org/reference/#/p5/circle) only received 2 inputs when it expected 3. The message also specifies that the error is on line 9 of the sketch. 
+#### バグ：
+
+コンソールのメッセージによると、[`circle()`](https://p5js.org/reference/#/p5/circle)は3つの入力を期待していたのに対し、2つしか受け取りませんでした。メッセージはまた、エラーがスケッチの9行目にあることを指定しています。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
+
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // circle
-  circle(200,200);
+function draw() {
+  background(220);
+  
+  // circle
+  circle(200,200);
 }
 ```
+
 </Column>
 </Columns>
 
 <Columns>
 <Column>
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by adding a third argument in [`circle()`](https://p5js.org/reference/#/p5/circle).
+プログラマーは、[`circle()`](https://p5js.org/reference/#/p5/circle)に3つ目の引数を追加することで問題を解決しました。
 
-They discovered this by visiting the p5.js reference page for [`circle()`](https://p5js.org/reference/#/p5/circle) and comparing code.
+彼らは[`circle()`](https://p5js.org/reference/#/p5/circle)のp5.jsリファレンスページを訪れ、コードを比較することでこれを発見しました。
 
-#### Pro Tips:
+#### プロのヒント：
 
-1. Always refer to the [p5.js reference](https://p5js.org/reference/) to check that your code is written with the correct syntax.
-2. If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out!
+1. 常に[p5.jsリファレンス](https://p5js.org/reference/)を参照して、コードが正しい構文で書かれていることを確認してください。
+2. エラーメッセージが表示され、その意味がわからない場合は、Googleにコピー＆ペーストして、理解しようとしてみてください！
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // circle
-  circle(200,200,200);
+function draw() {
+  background(220);
+  
+  // circle
+  circle(200,200,200);
 }
 ```
+
 </Column>
 </Columns>
 
-
-### Example 3: `SyntaxError` (missing curly bracket example)
+### 例3: `SyntaxError` (中括弧の欠落の例)
 
 <Columns>
 <Column>
 
-In this code, the programmer expected an emoji to appear on the canvas.
+このコードでは、プログラマーは絵文字がキャンバスに表示されることを期待していました。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 SyntaxError: Unexpected end of input
 ```
 
-#### Bug:
+#### バグ：
 
-According to the message in the console, p5.js is flagging a `SyntaxError`, which means a character is misplaced or missing somewhere in the code. The message also specifies that the error is on line 11 of the sketch. 
+コンソールのメッセージによると、p5.jsは`SyntaxError`を指摘しています。これは、コードのどこかに文字が誤って配置されているか、欠落していることを意味します。メッセージはまた、エラーがスケッチの11行目にあることを指定しています。
 
-The [p5.js Web Editor](https://editor.p5js.org/) highlighted line 11 in red, indicating where you can find the error. The message in the console also specifies that the error is on line 11 of the sketch.js file (click the arrow next to `SyntaxError`).
+[p5.js Web Editor](https://editor.p5js.org/)は11行目を赤で強調表示し、エラーの場所を示しています。コンソールのメッセージも、エラーが`sketch.js`ファイルの11行目にあることを指定しています（`SyntaxError`の横の矢印をクリックしてください）。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // happy emoji
-  text("😎", 180, 200);
+function draw() {
+  background(220);
+  
+  // happy emoji
+  text("😎", 180, 200);
 }
 ```
+
 
 </Column>
 </Columns>
 
 <Columns>
 <Column>
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by adding a *closing curly bracket* (`}`) on line 11 to close the [`draw()`](https://p5js.org/reference/#/p5/draw) function.
+プログラマーは、11行目に*閉じ中括弧*（`}`）を追加して[`draw()`](https://p5js.org/reference/#/p5/draw)関数を閉じることで問題を解決しました。
 
-They discovered this by visiting the p5.js reference page for [`draw()`](https://p5js.org/reference/#/p5/draw) and comparing code.
+彼らは[`draw()`](https://p5js.org/reference/#/p5/draw)のp5.jsリファレンスページを訪れ、コードを比較することでこれを発見しました。
 
-#### Pro Tips:
+#### プロのヒント：
 
-1. Always refer to the [p5.js reference](https://p5js.org/reference/) to check that your code is written with the correct syntax.
-2. If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out!
+1. 常に[p5.jsリファレンス](https://p5js.org/reference/)を参照して、コードが正しい構文で書かれていることを確認してください。
+2. エラーメッセージが表示され、その意味がわからない場合は、Googleにコピー＆ペーストして、理解しようとしてみてください！
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  // happy emoji
-  text("😎", 180, 200);
+function draw() {
+  background(220);
+  
+  // happy emoji
+  text("😎", 180, 200);
 }
 ```
 
 </Column>
 </Columns>
 
-### Example 4. `ReferenceError`
+### 例4. `ReferenceError`
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a circle to appear on the canvas; instead, the error below appeared in the console.
+このコードでは、プログラマーはキャンバスに円が表示されることを期待していましたが、代わりに以下のエラーがコンソールに表示されました。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 ReferenceError: myX is not defined
 ```
 
-#### Bug:
+#### バグ：
 
-According to the message in the console, the programmer has made a `ReferenceError`, which means they tried to use a variable that doesn’t exist (or hasn’t yet been initialized) in the current scope.
+コンソールのメッセージによると、プログラマーは`ReferenceError`を犯しています。これは、現在のスコープに存在しない（またはまだ初期化されていない）変数を使用しようとしたことを意味します。
 
-The p5.js Web Editor highlighted line 8 in red, indicating it as the source of the error. 
+p5.js Web Editorは8行目を赤で強調表示し、エラーの原因としてそこを示しています。
 
 </Column>
 
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  circle(myX, 200, 200);
+function draw() {
+  background(220);
+  circle(myX, 200, 200);
 }
 ```
+
+
 
 </Column>
 </Columns>
@@ -445,68 +453,70 @@ function draw() {
 <Columns>
 <Column>
 
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by noticing that the variable `myX,` which appears on line 8, was not declared or initialized in the sketch. They declared and initialized `myX` before `setup()` to fix the bug. 
+プログラマーは、8行目に表示される変数`myX`がスケッチ内で宣言または初期化されていないことに気づきました。バグを修正するために、`setup()`の前に`myX`を宣言し初期化しました。
 
-#### Pro Tip:
+#### プロのヒント：
 
-If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out BEFORE calling on a teacher or a friend.
+エラーメッセージが表示され、その意味がわからない場合は、先生や友人に聞く前にGoogleにコピー＆ペーストして、理解しようとしてみてください。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 let myX = 200;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  circle(myX, 200, 200);
+function draw() {
+  background(220);
+  circle(myX, 200, 200);
 }
 ```
 
 </Column>
 </Columns>
 
-
-### Example 5. `TypeError`
+### 例5. `TypeError`
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a circle to appear on the canvas; instead, the error below appeared in the console.
+このコードでは、プログラマーはキャンバスに円が表示されることを期待していましたが、代わりに以下のエラーがコンソールに表示されました。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 p5.js says: [sketch.js, line 10] circle() was expecting Number for the first parameter, received string instead.
 ```
 
-#### Bug:
+#### バグ：
 
-According to the message in the console, the programmer made an error on line 10 - the [circle()](https://p5js.org/reference/#/p5/circle) function needs a [number](https://p5js.org/reference/#/p5/number) as the first parameter, but it was given a [string](https://p5js.org/reference/#/p5/string).
+コンソールのメッセージによると、プログラマーは10行目でエラーを犯しています - [circle()](https://p5js.org/reference/#/p5/circle)関数は最初のパラメータとして[数値](https://p5js.org/reference/#/p5/number)を必要としていますが、代わりに[文字列](https://p5js.org/reference/#/p5/string)が与えられました。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 let myX = "forty-five";
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  circle(myX, 200, 200);
+function draw() {
+  background(220);
+  circle(myX, 200, 200);
 }
 ```
+
+
+
 
 </Column>
 </Columns>
@@ -514,72 +524,76 @@ function draw() {
 <Columns>
 <Column>
 
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by noticing that the variable `myX` was initialized with `"forty-five"`, which cannot be recognized as a [number](https://p5js.org/reference/#/p5/number). p5.js thinks it’s just a word with a [string](https://p5js.org/reference/#/p5/string) data type.
+プログラマーは、変数`myX`が`"forty-five"`で初期化されていることに気づきました。これは[数値](https://p5js.org/reference/#/p5/number)として認識されません。p5.jsはこれを[文字列](https://p5js.org/reference/#/p5/string)データ型の単なる単語だと考えています。
 
-#### Pro Tip:
+#### プロのヒント：
 
-If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out BEFORE calling on a teacher or a friend.
+エラーメッセージが表示され、その意味がわからない場合は、先生や友人に聞く前にGoogleにコピー＆ペーストして、理解しようとしてみてください。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 let myX = 200;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
-function draw() {
-  background(220);
 
-  circle(myX, 200, 200);
+function draw() {
+  background(220);
+  circle(myX, 200, 200);
 }
 ```
-
 </Column>
 </Columns>
 
-
-### Example 6. `ReferenceError`
+### 例6. `ReferenceError`
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a circle to appear on the canvas; instead, the error below appeared in the console.
+このコードでは、プログラマーはキャンバスに円が表示されることを期待していましたが、代わりに以下のエラーがコンソールに表示されました。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 ReferenceError: localVariable is not defined.
 p5.js says: [sketch.js, line 10] "localVariable" is not defined in the current scope. If you have defined it in your code, you should check its scope, spelling, and letter-casing (JavaScript is case-sensitive).
 ```
 
-#### Bug:
 
-According to the message in the console, the programmer has made a `ReferenceError: localVariable` is not defined.
+#### バグ：
 
-It also says that on line 10, `localVariable` is not defined in the current scope.
+コンソールのメッセージによると、プログラマーは`ReferenceError: localVariable`が定義されていないというエラーを犯しています。
 
-This means that `localVariable` used in `draw()` is not defined to `draw()` - it can’t recognize it! It has local scope and is only recognizable within `setup()`, where it was declared.
+また、10行目で`localVariable`が現在のスコープで定義されていないとも述べています。
+
+これは、`draw()`で使用されている`localVariable`が`draw()`に対して定義されていない - 認識できない！ということを意味します。これはローカルスコープを持ち、定義された`setup()`内でのみ認識可能です。
 
 </Column>
 <Column>
-#### Code:
+
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
-  let localVariable = 200;
+  createCanvas(400, 400);
+  let localVariable = 200;
 }
-function draw() {
-  background(220);
 
-  circle(localVariable, 200, 200);
+function draw() {
+  background(220);
+  circle(localVariable, 200, 200);
 }
 ```
+
+
+
+
 
 </Column>
 </Columns>
@@ -587,76 +601,76 @@ function draw() {
 <Columns>
 <Column>
 
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by declaring `localVariable` outside of [`setup()`](https://p5js.org/reference/#/p5/setup) and [`draw()`](https://p5js.org/reference/#/p5/draw) and initializing it in [`setup()`](https://p5js.org/reference/#/p5/setup).
+プログラマーは、[`setup()`](https://p5js.org/reference/#/p5/setup)と[`draw()`](https://p5js.org/reference/#/p5/draw)の外部で`localVariable`を宣言し、[`setup()`](https://p5js.org/reference/#/p5/setup)内で初期化することで問題を解決しました。
 
-#### Pro Tip:
+#### プロのヒント：
 
-If an error message appears and you don’t understand what it means, copy and paste it into Google and see if you can figure it out BEFORE calling on a teacher or a friend.
+エラーメッセージが表示され、その意味がわからない場合は、先生や友人に聞く前にGoogleにコピー＆ペーストして、理解しようとしてみてください。
 
 </Column>
 
 <Column>
-#### Code:
+#### コード：
 
 ```js
-// declare variable globally
+// グローバルに変数を宣言
 let localVariable;
 
 function setup() {
-  createCanvas(400, 400);
-  localVariable = 200;
+  createCanvas(400, 400);
+  localVariable = 200;
 }
-function draw() {
-  background(220);
 
-  circle(localVariable, 200, 200);
+function draw() {
+  background(220);
+  circle(localVariable, 200, 200);
 }
 ```
+
 </Column>
 </Columns>
 
-
-### Example 7: `SyntaxError` (missing argument in a function call)
+### 例7: `SyntaxError` (関数呼び出しの引数の欠落)
 
 <Columns>
 <Column>
 
-In this code, the programmer expected a butterfly to appear on the canvas; instead, the error below appeared in the console.
+このコードでは、プログラマーはキャンバスに蝶が表示されることを期待していましたが、代わりに以下のエラーがコンソールに表示されました。
 
-#### Error Message:
+#### エラーメッセージ：
 
 ```
 🌸 p5.js says: [sketch.js, line 14] textSize() was expecting Number for the first parameter but received an empty variable instead. If not intentional, this is often a problem with scope.
 ```
 
-#### Bug:
+#### バグ：
 
-According to the message in the console, the `textSize()` is missing an argument from the function declaration for `butterfly()`. The error is indicated on line 14, where the `butterfly()` function is called. 
+コンソールのメッセージによると、`textSize()`に`butterfly()`関数宣言からの引数が欠落しています。エラーは`butterfly()`関数が呼び出される14行目で示されています。
 
-This means that there is a missing argument in the function call that is supposed to be passed to `textSize()` from the function declaration. 
+これは、関数呼び出しに、関数宣言から`textSize()`に渡されるべき引数が欠落していることを意味します。
 
 </Column>
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
 
 function draw() {
-  background(220);
-  
-  //butterfly on the left
-  butterfly(50,50);
+  background(220);
+
+  //左側の蝶
+  butterfly(50,50);
 }
 
-/* function for a butterfly that lets you customize x, y and size */
+/* x、y、サイズをカスタマイズできる蝶の関数 */
 function butterfly(x, y, size){
-  textSize(size);
-  text(`🦋`, x, y);
+  textSize(size);
+  text(`🦋`, x, y);
 }
 ```
 
@@ -665,64 +679,64 @@ function butterfly(x, y, size){
 
 <Columns>
 <Column>
-#### Solution:
+#### 解決策：
 
-The programmer solved the problem by declaring including 3 arguments in the function call for `butterfly(50, 50, 50);`
+プログラマーは、`butterfly(50, 50, 50);`の関数呼び出しに3つの引数を含めることで問題を解決しました。
 
-#### Pro Tip:
+#### プロのヒント：
 
-The number of arguments in the function call must match the parameters in its declaration. 
+関数呼び出しの引数の数は、その宣言のパラメータの数と一致する必要があります。
 
 </Column>
 
 <Column>
-#### Code:
+#### コード：
 
 ```js
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
 
 function draw() {
-  background(220);
-  
-  //butterfly on the left
-  butterfly(50,50, 50);
+  background(220);
+  
+  //左側の蝶
+  butterfly(50,50, 50);
 }
 
-/* function for a butterfly that lets you customize x, y and size */
+/* x、y、サイズをカスタマイズできる蝶の関数 */
 function butterfly(x, y, size){
-  textSize(size);
-  text(`🦋`, x, y);
+  textSize(size);
+  text(`🦋`, x, y);
 }
 ```
 
 </Column>
 </Columns>
 
+## 次のステップ：
 
-## Next Steps:
-
-- [Watch the Coding Train video about errors!](https://www.youtube.com/watch?v=LuGsp5KeJMM)
+- [エラーについてのCoding Trainのビデオを見る！](https://www.youtube.com/watch?v=LuGsp5KeJMM)
 
 
-## Resources
+## リソース
 
-- [Dealing with files](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files)
-- [Download p5.js](https://p5js.org/download/)
-- [Package management](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management)
-- [Introduction to Web APIs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction)
+- [ファイルの扱い方](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files)
+- [p5.jsのダウンロード](https://p5js.org/download/)
+- [パッケージ管理](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Package_management)
+- [Web APIの紹介](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction)
 - [Processing Discourse](https://discourse.processing.org/c/p5js)
 - [p5.js Discord](https://discord.gg/SHQ8dH25r9)
 - [Stack Overflow](http://stackoverflow.com/)
-- [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
-- [JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-- [JavaScript error reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)
-- [Debugging HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Debugging_HTML)
-- [Debugging CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Debugging_CSS)
-- [Cross-browser testing](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction) 
+- [JavaScript ガイド](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+- [JavaScript リファレンス](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
+- [JavaScript エラーリファレンス](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)
+- [HTMLのデバッグ](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Debugging_HTML)
+- [CSSのデバッグ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Debugging_CSS)
+- [クロスブラウザテスト](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction) 
 - [Eloquent JavaScript](https://eloquentjavascript.net/)
-- [A brief introduction to debugging](https://vimeo.com/channels/debugging)
-- [How to ask questions the smart way](http://www.catb.org/esr/faqs/smart-questions.html)
-- [Friendly Error System for p5.js](https://medium.com/processing-foundation/2017-marks-the-processing-foundations-sixth-year-participating-in-google-summer-of-code-d365f62fc463)
-- [p5.js reference](/reference/)
+- [デバッグの簡単な紹介](https://vimeo.com/channels/debugging)
+- [賢明な質問の仕方](http://www.catb.org/esr/faqs/smart-questions.html)
+- [p5.jsのフレンドリーエラーシステム](https://medium.com/processing-foundation/2017-marks-the-processing-foundations-sixth-year-participating-in-google-summer-of-code-d365f62fc463)
+- [p5.jsリファレンス](/reference/)
+
