@@ -264,7 +264,7 @@ function draw() {
 [`fill()`](/reference/p5/fill)関数はキャンバス上のあらゆる図形の色を設定し、[`stroke()`](/reference/p5/stroke)関数は線と輪郭の色を設定します。両方とも[`background()`](/reference/p5/background)が使用するのと同じ引数を使用します。上記のコードでは、[`fill()`](/reference/p5/fill)と[`stroke()`](/reference/p5/stroke)の*引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を使用しています。[RGBとHEXカラーコード](https://htmlcolorcodes.com/)も使用できます。[`strokeWeight()`](/reference/p5/strokeWeight)関数は、その下にある線、輪郭、点の太さを設定するために数字を使用します。デフォルトの[`strokeWeight()`](/reference/p5/strokeWeight)は1ピクセルです。上記のコードでは、[`strokeWeight(20)`](/reference/p5/strokeWeight)が円の輪郭を20ピクセルに設定しています。
 
 <Callout title="ヒント">
-[p5.js Web Editor](https://editor.p5js.org/)では、色の名前の横にある小さな色付きボックスをクリックすることで、[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)で使用する異なる色を検索できます！*引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を入力すると、ボックスが表示されます。色名は[文字列](/reference/p5/string)データ型であるため、引用符（`""`）で囲まれています。
+[p5.js Web Editor](https://editor.p5js.org/)では、色の名前の横にある小さな色付きボックスをクリックすることで、[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)で使用する異なる色を検索できます！*引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を入力すると、ボックスが表示されます。色名は[文字列](/reference/p5/String)データ型であるため、引用符（`""`）で囲まれています。
 
 ![fill("yellow")を使用して円を黄色に塗った後、p5.js Web Editorでコーディングしているユーザーが、HTML色"yellow"の横に表示される黄色の四角をクリックします。これによりカラーツールが表示され、赤色が選択されます。ユーザーがコードエディタをクリックすると、円の色が黄色から赤に変わります。](../images/introduction/editor-color-picker.gif)
 </Callout>
@@ -408,17 +408,17 @@ function draw() {
 
 p5.jsの一部の関数は*文字列*データ型の*引数*を必要とし、他の関数は*数値*データ型の引数を必要とします。
 
-- [文字列](/reference/p5/string)：テキストで表され、常に引用符（`""`）で囲まれています
+- [文字列](/reference/p5/String)：テキストで表され、常に引用符（`""`）で囲まれています
 - [数値](/reference/p5/number)：数字で表されます
 
 例えば：
 
 - [`circle()`](/reference/p5/circle)は3つの[数値](/reference/p5/number)を使用します：x座標を表す数値、y座標を表す数値、ピクセル単位のサイズを表す数値。
-- [`text()`](/reference/p5/text)は表示するテキストを表す[文字列](/reference/p5/string)と、2つの[数値](/reference/p5/number)を使用します：x座標を表す数値とy座標を表す数値。
-- [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)は[数値](/reference/p5/number)と[文字列](/reference/p5/string)の両方を使用します：
+- [`text()`](/reference/p5/text)は表示するテキストを表す[文字列](/reference/p5/String)と、2つの[数値](/reference/p5/number)を使用します：x座標を表す数値とy座標を表す数値。
+- [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)は[数値](/reference/p5/number)と[文字列](/reference/p5/String)の両方を使用します：
   - グレースケールの色には1つの数値
   - [RGB色](https://www.w3schools.com/html/html_colors_rgb.asp)にはコンマで区切られた3つの数値
-  - [HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)または[HEX色値](https://www.w3schools.com/html/html_colors_hex.asp)を含む[文字列](/reference/p5/string)
+  - [HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)または[HEX色値](https://www.w3schools.com/html/html_colors_hex.asp)を含む[文字列](/reference/p5/String)
 
 
 ## ステップ9：インタラクティブにする！

@@ -737,13 +737,13 @@ function draw() {
 - 長方形（木の幹）と三角形（葉）で構成される木を追加しました；
 - 三角形の頂点のy座標（`y2`）の値を`frameCount % 290`を引くように修正しました（`y2`の位置を思い出すには[triangle()](/reference/p5/triangle)の図を参照してください）：
   - 木の葉を成長させたいので、三角形の頂点は[`draw()`](/reference/p5/draw)が実行されるたびにキャンバス上で上に移動する必要があります。[この例](https://editor.p5js.org/p5Master718/sketches/605MEWNxh)で見られるように、キャンバス上で上に移動する点のy座標（`y2`）は減少します。
-  - この動きを実現するために、`y2`の値を`240 - frameCount % 290`を引くように修正しました。これにより、[`frameCount`](/reference/p5/framecount)を290で割った余りだけ`y2`が減少します。
+  - この動きを実現するために、`y2`の値を`240 - frameCount % 290`を引くように修正しました。これにより、[`frameCount`](/reference/p5/frameCount)を290で割った余りだけ`y2`が減少します。
   - [ステップ5](#step-5)で見たように、[`draw()`](/reference/p5/draw)関数が実行されるたびに、`frameCount % 290`が返す値は`1`ずつ増加するので、`y2`も変化します。
     - [`draw()`](/reference/p5/draw)が実行される前、`y2`は`240`です。
     - [`draw()`](/reference/p5/draw)が最初に実行されるとき、`frameCount % 290`からの値は`1`で、`y2`は`239`になります。
     - [`draw()`](/reference/p5/draw)が2回目に実行されるとき、`frameCount % 290`からの値は`2`で、`y2`は`238`になります。
     - [`draw()`](/reference/p5/draw)が3回目に実行されるとき、`frameCount % 290`の値は`3`で、`y2`は`237`になります。
-    - [`frameCount`](/reference/p5/framecount)が290の倍数になると、`frameCount % 290`の値は`0`になり、`y2`は元の値`240`に戻ります。
+    - [`frameCount`](/reference/p5/frameCount)が290の倍数になると、`frameCount % 290`の値は`0`になり、`y2`は元の値`240`に戻ります。
     - このパターンは[`draw()`](/reference/p5/draw)が停止するまで続きます。
 
 詳細については、以下のp5.jsリファレンスページをご覧ください：[`frameRate()`](/reference/p5/frameRate) | [`frameCount`](/reference/p5/frameCount) | [`triangle()`](/reference/p5/triangle)
