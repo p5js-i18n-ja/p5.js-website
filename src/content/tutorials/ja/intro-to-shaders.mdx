@@ -95,7 +95,7 @@ A shader program consists of two parts, a **vertex shader** and a **fragment sha
 
 </table>
 
-{ /* Note for contributors: Images/gifs generated from https://editor.p5js.org/davepagurek/sketches/gs-DbLzqV */}
+{/* Note for contributors: Images/gifs generated from https://editor.p5js.org/davepagurek/sketches/gs-DbLzqV */}
 
 Each of these live in separate files and are loaded into p5.js using the `loadShader()` function. Once a shader is loaded, it can be used within `setup()` or `draw()`. The following example will show how to set up a basic shader within p5.js:
 
@@ -105,10 +105,12 @@ function preload() {
   // load each shader file (don't worry, we will come back to these!)
   myShader = loadShader('shader.vert', 'shader.frag');
 }
+
 function setup() {
   // the canvas has to be created with WEBGL mode
   createCanvas(windowWidth, windowHeight, WEBGL);
 }
+
 function draw() {
   // shader() sets the active shader, which will be applied to what is drawn next
   shader(myShader);

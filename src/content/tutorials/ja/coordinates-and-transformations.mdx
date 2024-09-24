@@ -36,6 +36,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   describe('A red box on a white background.');
 }
+
 function draw() {
   background(255);
   fill(255, 0, 0);
@@ -176,6 +177,7 @@ The `push()` function saves the current transformations and style settings. Then
 function setup() {
   createCanvas(200, 200, WEBGL);
 }
+
 function draw() {
   background(220);
   noStroke();
@@ -245,6 +247,7 @@ function setup() {
     scales.push(random(0.5, 2));
   }
 }
+
 function draw() {
   background(255);
   orbitControl();

@@ -106,6 +106,7 @@ function setup() {
   // Print object in console.
   console.log(flower);
 }
+
 function draw() {
   background("lightblue");
 }
@@ -286,6 +287,7 @@ function setup() {
   createCanvas(400, 400);
   frameRate(1);
 }
+
 function draw() {
   background("lightblue");
 
@@ -296,6 +298,7 @@ function draw() {
   fill(myFlower.color);
   ellipse(myFlower.x, myFlower.y, myFlower.size);
 }
+
 function createFlower() {
   // Define flower object.
   let flower = {
@@ -659,6 +662,7 @@ function setup() {
   // Generate 20 flowers.
   flowerPower();
 }
+
 function draw() {
   background("lightblue");
 
@@ -690,6 +694,7 @@ function createFlower() {
   };
   return flower;
 }
+
 function drawFlower(flower) { 
   noStroke();
   fill(flower.color);

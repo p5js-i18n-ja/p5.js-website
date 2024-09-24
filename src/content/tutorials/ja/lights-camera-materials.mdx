@@ -80,6 +80,7 @@ function setup() {
   debugMode();
   describe('A cube you can look around by clicking and dragging');
 }
+
 function draw() {
   background(220);
  
@@ -121,6 +122,7 @@ function setup() {
   camera(0,-80, 800);
   describe('a box geometry with a number of lights affecting its appearance');
 }
+
 function draw() {
   background(220);
   orbitControl()
@@ -189,6 +191,7 @@ function setup() {
   createCanvas(200, 200, WEBGL);
   describe('a sphere geometry with multiple materials applied to it');
 }
+
 function draw() {
   background(220);
   camera(200, -200, 600);
@@ -230,6 +233,7 @@ function setup() {
 
   describe('a gradient from teal to white to orange');
 }
+
 function draw() {
   background(0);
  
@@ -261,10 +265,12 @@ let myTexture;
 function preload() {
   myTexture = loadImage('simpleTexture.png');
 }
+
 function setup() {
   createCanvas(200, 200, WEBGL);
   describe('a rotating box with a texture of a pink scribble mapped onto it');
 }
+
 function draw() {
   background(220);
  
@@ -288,10 +294,12 @@ let img;
 function preload() {
   img = loadImage('wiggly-guy.png');
 }
+
 function setup() {
   createCanvas(200, 200, WEBGL);
   describe('A cartoon drawing of a person wiggling');
 }
+
 function draw() {
   background(255);
   translate(-width/2, -height/2);

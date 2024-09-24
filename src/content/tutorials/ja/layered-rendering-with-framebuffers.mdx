@@ -73,7 +73,7 @@ Final image with focal blur using color + depth
 
 </table>
 
-{ /*Note for contributors: Image generated from https://editor.p5js.org/davepagurek/sketches/OUBu-yXuk*/}
+{/*Note for contributors: Image generated from https://editor.p5js.org/davepagurek/sketches/OUBu-yXuk*/}
 
 ## Using a `p5.Framebuffer`
 
@@ -94,6 +94,7 @@ function setup() {
   layer = createGraphics(200, 200);
   describe('a rotating red cube with yellow dots on each face');
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.background('red');
@@ -127,6 +128,7 @@ function setup() {
   layer = createFramebuffer();
   describe('a rotating red cube with yellow dots on each face');
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.begin();
@@ -162,6 +164,7 @@ function setup() {
   layer = createFramebuffer();
   describe('a rotating red cube with yellow dots on each face');
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.begin();
@@ -201,6 +204,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   layer = createFramebuffer();
 }
+
 function draw() {
 ${end('setup')}
 ${begin('begin')}
@@ -342,6 +346,7 @@ function setup() {
 
   describe('a rotating, multicolored circle drawing a drail fading away behind it');
 }
+
 function draw() {
   // Swap prev and next
   [prev, next] = [next, prev];
@@ -419,6 +424,7 @@ function setup() {
 
   describe('a line of spheres going off into the distance');
 }
+
 function draw() {
   noStroke();
  
@@ -516,6 +522,7 @@ function setup() {
 
   describe('red spheres circling through fog');
 }
+
 function draw() {
   // Draw a scene to a framebuffer
   layer.begin();

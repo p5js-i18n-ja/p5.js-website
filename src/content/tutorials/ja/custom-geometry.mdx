@@ -34,10 +34,12 @@ let teapotModel;
 function preload() {
   teapotModel = loadModel('/models/teapot.obj', true);
 }
+
 function setup() {
   createCanvas(200, 200, WEBGL);
   describe('A model of a teapot');
 }
+
 function draw(){
   background(255);
  
@@ -316,6 +318,7 @@ function setup() {
   tetrahedron.faces.push([0, 2, 3]);
   tetrahedron.faces.push([1, 2, 3]);
 }
+
 function draw() {
   background(200);
   strokeWeight(2);

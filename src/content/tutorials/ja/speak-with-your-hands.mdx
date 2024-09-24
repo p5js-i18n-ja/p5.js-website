@@ -66,6 +66,7 @@ let img;
 function preload(){
   img = loadImage("data/hand.jpg");
 }
+
 function setup() {
   // Create a canvas that's at least the size of the image.
   createCanvas(400, 350);
@@ -142,6 +143,7 @@ let img;
 function preload(){
   img = loadImage("data/hand.jpg");
 }
+
 function setup() {
   // Create a canvas that's at least the size of the image.
   createCanvas(400, 350);
@@ -373,6 +375,7 @@ function preload() {
   // load the picture of the hat
   hatImage = loadImage(""data/hat.png");
 }
+
 function setup() {
   // Create a canvas that's at least the size of the image.
   createCanvas(400, 350);
@@ -482,9 +485,11 @@ function setup() {
   // Hide the video element, and just show the canvas
   video.hide();
 }
+
 function modelReady() {
   console.log("Model ready!");
 }
+
 function draw() {
   image(video, 0, 0, width, height);
   // We can call both functions to draw all keypoints and the skeletons
@@ -544,6 +549,7 @@ let hatImage;
 function preload() {
   hatImage = loadImage("data/hat.png");
 }
+
 function setup() {
   // create the canvas
  createCanvas(640, 480);
@@ -578,6 +584,7 @@ function createFinger(name, points, color) {
     color: color
   };
 }
+
 function draw() {
   // render the video feed
   image(video, 0, 0, width, height);
@@ -684,6 +691,7 @@ function modelReady() {
   //calls the handpose.predict method on img to predict landmarks and fingers
   handpose.predict(video);
 }
+
 function draw() {
   // render the video feed
   image(video, 0, 0, width, height);
@@ -986,6 +994,7 @@ function modelReady() {
   // call modelReady() when it is loaded
   handpose = ml5.handpose(video, modelReady);
 }
+
 function draw() {
   background(255);
   drawObject();

@@ -44,6 +44,7 @@ function setup() {
   createCanvas(200, 200, WEBGL);
   frameRateP = createP();
 }
+
 function draw() {
   frameRateP.html(round(frameRate()));
   // Put the rest of your sketch here
@@ -64,6 +65,7 @@ function setup() {
   createCanvas(200, 200, WEBGL);
   frameRateP = createP();
 }
+
 function draw() {
   let newSample = frameRate();
   frameRateSamples.push(newSample);
@@ -106,6 +108,7 @@ function setup() {
     'dots on each face'
   );
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.background('red');
@@ -142,6 +145,7 @@ function setup() {
     'dots on each face'
   );
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.begin();
@@ -175,6 +179,7 @@ function setup() {
   layer = createFramebuffer();
   describe('a rotating red cube with yellow dots on each face');
 }
+
 function draw() {
   let t = millis() * 0.001;
   layer.begin();
@@ -234,6 +239,7 @@ function setup() {
     '"Hello!" in yellow on each face'
   );
 }
+
 function draw() {
   let t = millis() * 0.001;
  
@@ -273,6 +279,7 @@ function setup() {
     '"Hello!" in yellow on each face'
   );
 }
+
 function draw() {
   let t = millis() * 0.001;
  
@@ -310,6 +317,7 @@ function setup() {
     '"Hello!" in yellow on each face'
   );
 }
+
 function draw() {
   let t = millis() * 0.001;
  
@@ -344,6 +352,7 @@ function setup() {
   createCanvas(200, 200, WEBGL);
   describe('a rotating corkscrew');
 }
+
 function draw() {
   background(255);
   noStroke();
@@ -382,6 +391,7 @@ function setup() {
   });
   describe('a rotating corkscrew');
 }
+
 function draw() {
   background(255);
   noStroke();
@@ -410,6 +420,7 @@ function setup() {
   });
   describe('a rotating corkscrew');
 }
+
 function draw() {
   background(255);
   noStroke();
@@ -443,6 +454,7 @@ function setup() {
   pixelDensity(1);
   describe('a rotating cube with stippled shading');
 }
+
 function draw() {
   background(255);
   const t = millis() * 0.001;
@@ -500,6 +512,7 @@ void main() {
 `);
   describe('a rotating cube with stippled shading');
 }
+
 function draw() {
   background(255);
   let t = millis() * 0.001;
@@ -540,6 +553,7 @@ void main() {
 \`);
   describe('a rotating cube with stippled shading');
 }
+
 function draw() {
   background(255);
   let t = millis() * 0.001;
@@ -610,6 +624,7 @@ function setup() {
 
   describe('an arch made of line segments')
 }
+
 function draw() {
   background(200);
   strokeWeight(3);
