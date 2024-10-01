@@ -4,61 +4,18 @@ module: 3D
 submodule: Material
 file: src/webgl/p5.Shader.js
 description: >
-  <p>Returns a new shader, based on the original, but with custom snippets
+  <p>元のシェーダーに基づいて、デフォルトの動作を置き換えるカスタムシェーダーコードのスニペットを含む新しいシェーダーを返します。</p>
 
-  of shader code replacing default behaviour.</p>
+  <p>各シェーダーでは、その動作の一部を上書きすることができます。各部分は<em>フック</em>と呼ばれます。フックは、頂点の位置に影響を与える場合は<em>頂点</em>シェーダー用、ピクセルの色に影響を与える場合は<em>フラグメント</em>シェーダー用です。利用可能な異なるフックを確認するには、<a href="/reference/p5.Shader/inspectHooks/"><code>yourShader.inspectHooks()</code></a>を呼び出します。また、デフォルトのマテリアル、ノーマルマテリアル、カラー、ライン、ポイントシェーダーのリファレンスを読んで、利用可能なフックを確認することもできます。</p>
 
-  <p>Each shader may let you override bits of its behavior. Each bit is called
+  <p><code>modify()</code>は1つのパラメータ<code>hooks</code>を取ります。これは上書きしたいフックを含むオブジェクトです。<code>hooks</code>オブジェクトの各キーはフックの名前で、値はそのフックのGLSLコードを含む文字列です。</p>
 
-  a <em>hook.</em> A hook is either for the <em>vertex</em> shader, if it
-  affects the
+  <p>既存のフックではない関数を提供した場合、それらはシェーダーの先頭にヘルパー関数として追加され、フック内で使用できるようになります。</p>
 
-  position of vertices, or in the <em>fragment</em> shader, if it affects the
-  pixel
+  <p>シェーダーに新しい<a href="/reference/p5.Shader/setUniform/">ユニフォーム</a>を追加するには、ユニフォームの型と名前をキーとし、デフォルト値または関数を返すデフォルト値を値とする<code>uniforms</code>オブジェクトを渡すことができます。これらは<code>shader(yourShader)</code>でシェーダーが設定されると自動的に設定されます。</p>
 
-  color. You can inspect the different hooks available by calling
+  <p><code>declarations</code>キーを追加することもできます。その値はGLSL文字列で、カスタムユニフォーム変数、グローバル変数、フック間で共有される関数を宣言します。頂点シェーダーまたはフラグメントシェーダーにのみ宣言を追加するには、<code>vertexDeclarations</code>および<code>fragmentDeclarations</code>キーを追加します。</p>
 
-  <a
-  href="/reference/p5.Shader/inspectHooks/"><code>yourShader.inspectHooks()</code></a>.
-  You can
-
-  also read the reference for the default material, normal material, color,
-  line, and point shaders to
-
-  see what hooks they have available.</p>
-
-  <p><code>modify()</code> takes one parameter, <code>hooks</code>, an object
-  with the hooks you want
-
-  to override. Each key of the <code>hooks</code> object is the name
-
-  of a hook, and the value is a string with the GLSL code for your hook.</p>
-
-  <p>If you supply functions that aren't existing hooks, they will get added at
-  the start of
-
-  the shader as helper functions so that you can use them in your hooks.</p>
-
-  <p>To add new <a href="/reference/p5.Shader/setUniform/">uniforms</a> to your
-  shader, you can pass in a <code>uniforms</code> object containing
-
-  the type and name of the uniform as the key, and a default value or function
-  returning
-
-  a default value as its value. These will be automatically set when the shader
-  is set
-
-  with <code>shader(yourShader)</code>.</p>
-
-  <p>You can also add a <code>declarations</code> key, where the value is a GLSL
-  string declaring
-
-  custom uniform variables, globals, and functions shared
-
-  between hooks. To add declarations just in a vertex or fragment shader, add
-
-  <code>vertexDeclarations</code> and <code>fragmentDeclarations</code>
-  keys.</p>
 line: 343
 isConstructor: false
 itemtype: method
@@ -101,7 +58,7 @@ example:
     function setup() {
       createCanvas(200, 200, WEBGL);
       myShader = baseMaterialShader().modify({
-        // Manually specifying a uniform
+        // ユニフォームを手動で指定
         declarations: 'uniform float time;',
         'vec3 getWorldPosition': `(vec3 pos) {
           pos.y += 20. * sin(time * 0.001 + pos.x * 0.05);
@@ -125,7 +82,7 @@ class: p5.Shader
 params:
   - name: hooks
     description: |
-      <p>The hooks in the shader to replace.</p>
+      <p>シェーダー内で置き換えるフック。</p>
     type: Object
     optional: true
 return:

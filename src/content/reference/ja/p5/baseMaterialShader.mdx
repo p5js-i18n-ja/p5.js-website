@@ -4,18 +4,15 @@ module: 3D
 submodule: Material
 file: src/webgl/material.js
 description: >
-  <p>Get the default shader used with lights, materials,
+  <p>ライト、マテリアル、テクスチャで使用されるデフォルトのシェーダーを取得します。</p>
 
-  and textures.</p>
-
-  <p>You can call <a
+  <p><a
   href="/reference/p5.Shader/modify/"><code>baseMaterialShader().modify()</code></a>
-
-  and change any of the following hooks:</p>
+  を呼び出して、以下のフックのいずれかを変更できます：</p>
 
   <table>
 
-  <tr><th>Hook</th><th>Description</th></tr>
+  <tr><th>フック</th><th>説明</th></tr>
 
   <tr><td>
 
@@ -25,7 +22,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the start of the vertex shader.</p>
+  <p>頂点シェーダーの開始時に呼び出されます。</p>
 
   </td></tr>
 
@@ -37,8 +34,8 @@ description: >
   </td><td>
 
 
-  <p>Update the position of vertices before transforms are applied. It takes in
-  <code>vec3 position</code> and must return a modified version.</p>
+  <p>変換が適用される前に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -50,8 +47,8 @@ description: >
   </td><td>
 
 
-  <p>Update the position of vertices after transforms are applied. It takes in
-  <code>vec3 position</code> and pust return a modified version.</p>
+  <p>変換が適用された後に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -63,8 +60,8 @@ description: >
   </td><td>
 
 
-  <p>Update the normal before transforms are applied. It takes in <code>vec3
-  normal</code> and must return a modified version.</p>
+  <p>変換が適用される前に法線を更新します。<code>vec3 normal</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -76,8 +73,8 @@ description: >
   </td><td>
 
 
-  <p>Update the normal after transforms are applied. It takes in <code>vec3
-  normal</code> and must return a modified version.</p>
+  <p>変換が適用された後に法線を更新します。<code>vec3 normal</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -89,8 +86,8 @@ description: >
   </td><td>
 
 
-  <p>Update the texture coordinates. It takes in <code>vec2 uv</code> and must
-  return a modified version.</p>
+  <p>テクスチャ座標を更新します。<code>vec2 uv</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -102,8 +99,8 @@ description: >
   </td><td>
 
 
-  <p>Update the color of each vertex. It takes in a <code>vec4 color</code> and
-  must return a modified version.</p>
+  <p>各頂点の色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -115,7 +112,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the end of the vertex shader.</p>
+  <p>頂点シェーダーの終了時に呼び出されます。</p>
 
   </td></tr>
 
@@ -127,7 +124,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the start of the fragment shader.</p>
+  <p>フラグメントシェーダーの開始時に呼び出されます。</p>
 
   </td></tr>
 
@@ -139,37 +136,31 @@ description: >
   </td><td>
 
 
-  <p>Update the per-pixel inputs of the material. It takes in an
-  <code>Inputs</code> struct, which includes:</p>
+  <p>マテリアルのピクセルごとの入力を更新します。<code>Inputs</code>構造体を受け取ります。
+  これには以下が含まれます：</p>
 
   <ul>
 
-  <li><code>vec3 normal</code>, the direction pointing out of the surface</li>
+  <li><code>vec3 normal</code>、表面から外向きに指す方向</li>
 
-  <li><code>vec2 texCoord</code>, a vector where <code>x</code> and
-  <code>y</code> are between 0 and 1 describing the spot on a texture the pixel
-  is mapped to, as a fraction of the texture size</li>
+  <li><code>vec2 texCoord</code>、<code>x</code>と<code>y</code>が0から1の間の値で、
+  ピクセルがマッピングされるテクスチャ上の位置をテクスチャサイズの割合として表すベクトル</li>
 
-  <li><code>vec3 ambientLight</code>, the ambient light color on the vertex</li>
+  <li><code>vec3 ambientLight</code>、頂点の環境光の色</li>
 
-  <li><code>vec4 color</code>, the base material color of the pixel</li>
+  <li><code>vec4 color</code>、ピクセルの基本マテリアル色</li>
 
-  <li><code>vec3 ambientMaterial</code>, the color of the pixel when affected by
-  ambient light</li>
+  <li><code>vec3 ambientMaterial</code>、環境光の影響を受けた時のピクセルの色</li>
 
-  <li><code>vec3 specularMaterial</code>, the color of the pixel when reflecting
-  specular highlights</li>
+  <li><code>vec3 specularMaterial</code>、鏡面ハイライトを反射する時のピクセルの色</li>
 
-  <li><code>vec3 emissiveMaterial</code>, the light color emitted by the
-  pixel</li>
+  <li><code>vec3 emissiveMaterial</code>、ピクセルが発する光の色</li>
 
-  <li><code>float shininess</code>, a number representing how sharp specular
-  reflections should be, from 1 to infinity</li>
+  <li><code>float shininess</code>、鏡面反射がどれだけ鋭くなるべきかを表す1から無限大までの数値</li>
 
-  <li><code>float metalness</code>, a number representing how mirrorlike the
-  material should be, between 0 and 1
+  <li><code>float metalness</code>、マテリアルがどれだけ鏡のようであるべきかを表す0から1までの数値
 
-  The struct can be modified and returned.</li></ul></td></tr>
+  構造体は修正して返すことができます。</li></ul></td></tr>
 
   <tr><td>
 
@@ -179,34 +170,26 @@ description: >
   </td><td>
 
 
-  <p>Take in a <code>ColorComponents</code> struct containing all the different
-  components of light, and combining them into
-
-  a single final color. The struct contains:</p>
+  <p>光の異なる成分をすべて含む<code>ColorComponents</code>構造体を受け取り、
+  それらを1つの最終的な色に結合します。構造体には以下が含まれます：</p>
 
   <ul>
 
-  <li><code>vec3 baseColor</code>, the base color of the pixel</li>
+  <li><code>vec3 baseColor</code>、ピクセルの基本色</li>
 
-  <li><code>float opacity</code>, the opacity between 0 and 1 that it should be
-  drawn at</li>
+  <li><code>float opacity</code>、描画される不透明度（0から1の間）</li>
 
-  <li><code>vec3 ambientColor</code>, the color of the pixel when affected by
-  ambient light</li>
+  <li><code>vec3 ambientColor</code>、環境光の影響を受けた時のピクセルの色</li>
 
-  <li><code>vec3 specularColor</code>, the color of the pixel when affected by
-  specular reflections</li>
+  <li><code>vec3 specularColor</code>、鏡面反射の影響を受けた時のピクセルの色</li>
 
-  <li><code>vec3 diffuse</code>, the amount of diffused light hitting the
-  pixel</li>
+  <li><code>vec3 diffuse</code>、ピクセルに当たる拡散光の量</li>
 
-  <li><code>vec3 ambient</code>, the amount of ambient light hitting the
-  pixel</li>
+  <li><code>vec3 ambient</code>、ピクセルに当たる環境光の量</li>
 
-  <li><code>vec3 specular</code>, the amount of specular reflection hitting the
-  pixel</li>
+  <li><code>vec3 specular</code>、ピクセルに当たる鏡面反射の量</li>
 
-  <li><code>vec3 emissive</code>, the amount of light emitted by the pixel</li>
+  <li><code>vec3 emissive</code>、ピクセルが発する光の量</li>
 
   </ul>
 
@@ -220,8 +203,8 @@ description: >
   </td><td>
 
 
-  <p>Update the final color after mixing. It takes in a <code>vec4 color</code>
-  and must return a modified version.</p>
+  <p>混合後の最終的な色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -233,22 +216,19 @@ description: >
   </td><td>
 
 
-  <p>Called at the end of the fragment shader.</p>
+  <p>フラグメントシェーダーの終了時に呼び出されます。</p>
 
   </td></tr>
 
   </table>
 
 
-  <p>Most of the time, you will need to write your hooks in GLSL ES version 300.
-  If you
+  <p>ほとんどの場合、フックはGLSL ESバージョン300で記述する必要があります。
+  WebGL 2の代わりにWebGL 1を使用している場合は、代わりにGLSL ES 100でフックを記述してください。</p>
 
-  are using WebGL 1 instead of 2, write your hooks in GLSL ES 100 instead.</p>
+  <p><code>baseMaterialShader().inspectHooks()</code>を呼び出すと、
+  可能なすべてのフックとそのデフォルトの実装を確認できます。</p>
 
-  <p>Call <code>baseMaterialShader().inspectHooks()</code> to see all the
-  possible hooks and
-
-  their default implementations.</p>
 line: 886
 isConstructor: false
 itemtype: method
@@ -368,7 +348,7 @@ example:
       myShader = baseMaterialShader().modify({
         'Inputs getPixelInputs': `(Inputs inputs) {
           vec3 newNormal = inputs.normal;
-          // Simple bump mapping: adjust the normal based on position
+          // シンプルなバンプマッピング：位置に基づいて法線を調整
           newNormal.x += 0.2 * sin(
               sin(
                 inputs.texCoord.y * ${TWO_PI} * 10.0 +
@@ -405,7 +385,7 @@ example:
     </div>
 class: p5
 return:
-  description: The material shader
+  description: マテリアルシェーダー
   type: p5.Shader
 chainable: false
 beta: true

@@ -4,12 +4,11 @@ module: 3D
 submodule: Material
 file: src/webgl/material.js
 description: >
-  <p>Get the shader used when no lights or materials are applied.</p>
+  <p>ライトやマテリアルが適用されていない場合に使用されるシェーダーを取得します。</p>
 
-  <p>You can call <a
-  href="/reference/p5.Shader/modify/"><code>baseColorShader().modify()</code></a>
-
-  and change any of the following hooks:</p>
+  <p><a
+  href="/reference/p5.Shader/modify/"><code>baseColorShader().modify()</code></a>を呼び出して、
+  以下のフックのいずれかを変更することができます：</p>
 
   <table>
 
@@ -17,9 +16,9 @@ description: >
 
   <tr>
 
-  <th>Hook</th>
+  <th>フック</th>
 
-  <th>Description</th>
+  <th>説明</th>
 
   </tr>
 
@@ -29,7 +28,7 @@ description: >
 
   <td><code>void beforeVertex</code></td>
 
-  <td>Called at the start of the vertex shader.</td>
+  <td>頂点シェーダーの開始時に呼び出されます。</td>
 
   </tr>
 
@@ -37,8 +36,8 @@ description: >
 
   <td><code>vec3 getLocalPosition</code></td>
 
-  <td>Update the position of vertices before transforms are applied. It takes in
-  <code>vec3 position</code> and must return a modified version.</td>
+  <td>変換が適用される前に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -46,8 +45,8 @@ description: >
 
   <td><code>vec3 getWorldPosition</code></td>
 
-  <td>Update the position of vertices after transforms are applied. It takes in
-  <code>vec3 position</code> and pust return a modified version.</td>
+  <td>変換が適用された後に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -55,8 +54,8 @@ description: >
 
   <td><code>vec3 getLocalNormal</code></td>
 
-  <td>Update the normal before transforms are applied. It takes in <code>vec3
-  normal</code> and must return a modified version.</td>
+  <td>変換が適用される前に法線を更新します。<code>vec3 normal</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -64,8 +63,8 @@ description: >
 
   <td><code>vec3 getWorldNormal</code></td>
 
-  <td>Update the normal after transforms are applied. It takes in <code>vec3
-  normal</code> and must return a modified version.</td>
+  <td>変換が適用された後に法線を更新します。<code>vec3 normal</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -73,8 +72,8 @@ description: >
 
   <td><code>vec2 getUV</code></td>
 
-  <td>Update the texture coordinates. It takes in <code>vec2 uv</code> and must
-  return a modified version.</td>
+  <td>テクスチャ座標を更新します。<code>vec2 uv</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -82,8 +81,8 @@ description: >
 
   <td><code>vec4 getVertexColor</code></td>
 
-  <td>Update the color of each vertex. It takes in a <code>vec4 color</code> and
-  must return a modified version.</td>
+  <td>各頂点の色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -91,7 +90,7 @@ description: >
 
   <td><code>void afterVertex</code></td>
 
-  <td>Called at the end of the vertex shader.</td>
+  <td>頂点シェーダーの終了時に呼び出されます。</td>
 
   </tr>
 
@@ -99,7 +98,7 @@ description: >
 
   <td><code>void beforeFragment</code></td>
 
-  <td>Called at the start of the fragment shader.</td>
+  <td>フラグメントシェーダーの開始時に呼び出されます。</td>
 
   </tr>
 
@@ -107,8 +106,8 @@ description: >
 
   <td><code>vec4 getFinalColor</code></td>
 
-  <td>Update the final color after mixing. It takes in a <code>vec4 color</code>
-  and must return a modified version.</td>
+  <td>ミキシング後の最終的な色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</td>
 
   </tr>
 
@@ -116,21 +115,16 @@ description: >
 
   <td><code>void afterFragment</code></td>
 
-  <td>Called at the end of the fragment shader.</td>
+  <td>フラグメントシェーダーの終了時に呼び出されます。</td>
 
   </tr>
 
   </tbody></table>
 
-  <p>Most of the time, you will need to write your hooks in GLSL ES version 300.
-  If you
-
-  are using WebGL 1 instead of 2, write your hooks in GLSL ES 100 instead.</p>
-
-  <p>Call <code>baseColorShader().inspectHooks()</code> to see all the possible
-  hooks and
-
-  their default implementations.</p>
+  <p>ほとんどの場合、フックはGLSL ESバージョン300で記述する必要があります。
+  WebGL 2の代わりにWebGL 1を使用している場合は、代わりにGLSL ES 100でフックを記述してください。</p>
+  <p><code>baseColorShader().inspectHooks()</code>を呼び出すと、可能なすべてのフックと
+  それらのデフォルトの実装を確認できます。</p>
 line: 1292
 isConstructor: false
 itemtype: method
@@ -165,7 +159,7 @@ example:
     </div>
 class: p5
 return:
-  description: The color shader
+  description: カラーシェーダー
   type: p5.Shader
 chainable: false
 beta: true

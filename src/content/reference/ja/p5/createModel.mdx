@@ -4,47 +4,40 @@ module: Shape
 submodule: 3D Models
 file: src/webgl/loading.js
 description: >
-  <p>Load a 3d model from an OBJ or STL string.</p>
+  <p>OBJまたはSTL文字列から3Dモデルを読み込みます。</p>
 
-  <p>OBJ and STL files lack a built-in sense of scale, causing models exported
-  from different programs to vary in size.
+  <p>OBJとSTLファイルには組み込みのスケール感がないため、異なるプログラムからエクスポートされたモデルのサイズが異なる場合があります。
 
-  If your model doesn't display correctly, consider using
-  <code>loadModel()</code> with <code>normalize</code> set to <code>true</code>
-  to standardize its size.
+  モデルが正しく表示されない場合は、<code>loadModel()</code>を<code>normalize</code>を<code>true</code>に設定して使用し、
+  サイズを標準化することを検討してください。
 
-  Further adjustments can be made using the <code>scale()</code> function.</p>
+  さらなる調整は<code>scale()</code>関数を使用して行うことができます。</p>
 
-  <p>Also, the support for colored STL files is not present. STL files with
-  color will be
+  <p>また、カラーSTLファイルのサポートは存在しません。色付きのSTLファイルは
 
-  rendered without color properties.</p>
+  色のプロパティなしでレンダリングされます。</p>
 
   <ul>
 
-  <li>Options can include:</li>
+  <li>オプションには以下が含まれます：</li>
 
   </ul>
 
   <ul>
 
-  <li><code>modelString</code>: Specifies the plain text string of either an stl
-  or obj file to be loaded.</li>
+  <li><code>modelString</code>：読み込むSTLまたはOBJファイルのプレーンテキスト文字列を指定します。</li>
 
-  <li><code>fileType</code>: Defines the file extension of the model.</li>
+  <li><code>fileType</code>：モデルのファイル拡張子を定義します。</li>
 
-  <li><code>normalize</code>: Enables standardized size scaling during loading
-  if set to true.</li>
+  <li><code>normalize</code>：trueに設定すると、読み込み中に標準化されたサイズスケーリングを有効にします。</li>
 
-  <li><code>successCallback</code>: Callback for post-loading actions with the
-  3D model object.</li>
+  <li><code>successCallback</code>：3Dモデルオブジェクトを使用して読み込み後のアクションを行うコールバック。</li>
 
-  <li><code>failureCallback</code>: Handles errors if model loading fails,
-  receiving an event error.</li>
+  <li><code>failureCallback</code>：モデルの読み込みに失敗した場合のエラーを処理し、イベントエラーを受け取ります。</li>
 
-  <li><code>flipU</code>: Flips the U texture coordinates of the model.</li>
+  <li><code>flipU</code>：モデルのUテクスチャ座標を反転します。</li>
 
-  <li><code>flipV</code>: Flips the V texture coordinates of the model.</li>
+  <li><code>flipV</code>：モデルのVテクスチャ座標を反転します。</li>
 
   </ul>
 line: 1129
@@ -72,13 +65,13 @@ example:
     f     6 2 1
     f     6 1 5
     `;
-    //draw a spinning octahedron
+    //回転する八面体を描画
     let octahedron;
 
     function setup() {
       createCanvas(100, 100, WEBGL);
       octahedron = createModel(octahedron_model);
-      describe('Vertically rotating 3D octahedron.');
+      describe('垂直に回転する3D八面体。');
     }
 
     function draw() {
@@ -91,41 +84,41 @@ example:
     </div>
 class: p5
 return:
-  description: the <a href="#/p5.Geometry">p5.Geometry</a> object
+  description: <a href="#/p5.Geometry">p5.Geometry</a>オブジェクト
   type: p5.Geometry
 overloads:
   - line: 1129
     params:
       - name: modelString
         description: |
-          <p>String of the object to be loaded</p>
+          <p>読み込むオブジェクトの文字列</p>
         type: String
       - name: fileType
         description: |
-          <p>The file extension of the model
-                                               (<code>.stl</code>, <code>.obj</code>).</p>
+          <p>モデルのファイル拡張子
+                                               (<code>.stl</code>, <code>.obj</code>)。</p>
         type: String
         optional: true
       - name: normalize
         description: |
-          <p>If true, scale the model to a
-                                               standardized size when loading</p>
+          <p>trueの場合、読み込み時にモデルを
+                                               標準化されたサイズにスケーリングします</p>
         type: Boolean
       - name: successCallback
         description: |
-          <p>Function to be called
-                                              once the model is loaded. Will be passed
-                                              the 3D model object.</p>
+          <p>モデルが読み込まれた後に呼び出される
+                                              関数。3Dモデルオブジェクトが
+                                              渡されます。</p>
         type: function(p5.Geometry)
         optional: true
       - name: failureCallback
         description: |
-          <p>called with event error if
-                                                  the model fails to load.</p>
+          <p>モデルの読み込みに失敗した場合に
+                                                  イベントエラーとともに呼び出されます。</p>
         type: Function(Event)
         optional: true
     return:
-      description: the <a href="#/p5.Geometry">p5.Geometry</a> object
+      description: <a href="#/p5.Geometry">p5.Geometry</a>オブジェクト
       type: p5.Geometry
   - line: 1200
     params:
@@ -145,7 +138,7 @@ overloads:
         type: Function(Event)
         optional: true
     return:
-      description: the <a href="#/p5.Geometry">p5.Geometry</a> object
+      description: <a href="#/p5.Geometry">p5.Geometry</a>オブジェクト
       type: p5.Geometry
   - line: 1208
     params:
@@ -182,7 +175,7 @@ overloads:
             type: Boolean
             optional: true
     return:
-      description: the <a href="#/p5.Geometry">p5.Geometry</a> object
+      description: <a href="#/p5.Geometry">p5.Geometry</a>オブジェクト
       type: p5.Geometry
 chainable: false
 ---

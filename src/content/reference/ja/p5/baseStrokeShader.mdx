@@ -4,16 +4,15 @@ module: 3D
 submodule: Material
 file: src/webgl/material.js
 description: >
-  <p>Get the shader used when drawing the strokes of shapes.</p>
+  <p>図形のストロークを描画する際に使用されるシェーダーを取得します。</p>
 
-  <p>You can call <a
+  <p><a
   href="/reference/p5.Shader/modify/"><code>baseStrokeShader().modify()</code></a>
-
-  and change any of the following hooks:</p>
+  を呼び出して、以下のフックのいずれかを変更できます：</p>
 
   <table>
 
-  <tr><th>Hook</th><th>Description</th></tr>
+  <tr><th>フック</th><th>説明</th></tr>
 
   <tr><td>
 
@@ -23,7 +22,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the start of the vertex shader.</p>
+  <p>頂点シェーダーの開始時に呼び出されます。</p>
 
   </td></tr>
 
@@ -35,8 +34,8 @@ description: >
   </td><td>
 
 
-  <p>Update the position of vertices before transforms are applied. It takes in
-  <code>vec3 position</code> and must return a modified version.</p>
+  <p>変換が適用される前に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -48,8 +47,8 @@ description: >
   </td><td>
 
 
-  <p>Update the position of vertices after transforms are applied. It takes in
-  <code>vec3 position</code> and pust return a modified version.</p>
+  <p>変換が適用された後に頂点の位置を更新します。<code>vec3 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -61,8 +60,8 @@ description: >
   </td><td>
 
 
-  <p>Update the stroke weight. It takes in <code>float weight</code> and pust
-  return a modified version.</p>
+  <p>ストロークの太さを更新します。<code>float weight</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -74,8 +73,8 @@ description: >
   </td><td>
 
 
-  <p>Update the center of the line. It takes in <code>vec2 center</code> and
-  must return a modified version.</p>
+  <p>線の中心を更新します。<code>vec2 center</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -87,8 +86,8 @@ description: >
   </td><td>
 
 
-  <p>Update the position of each vertex on the edge of the line. It takes in
-  <code>vec2 position</code> and must return a modified version.</p>
+  <p>線の端にある各頂点の位置を更新します。<code>vec2 position</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -100,8 +99,8 @@ description: >
   </td><td>
 
 
-  <p>Update the color of each vertex. It takes in a <code>vec4 color</code> and
-  must return a modified version.</p>
+  <p>各頂点の色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -113,7 +112,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the end of the vertex shader.</p>
+  <p>頂点シェーダーの終了時に呼び出されます。</p>
 
   </td></tr>
 
@@ -125,7 +124,7 @@ description: >
   </td><td>
 
 
-  <p>Called at the start of the fragment shader.</p>
+  <p>フラグメントシェーダーの開始時に呼び出されます。</p>
 
   </td></tr>
 
@@ -137,24 +136,20 @@ description: >
   </td><td>
 
 
-  <p>Update the inputs to the shader. It takes in a struct <code>Inputs
-  inputs</code>, which includes:</p>
+  <p>シェーダーへの入力を更新します。構造体<code>Inputs inputs</code>を受け取ります。
+  これには以下が含まれます：</p>
 
   <ul>
 
-  <li><code>vec4 color</code>, the color of the stroke</li>
+  <li><code>vec4 color</code>、ストロークの色</li>
 
-  <li><code>vec2 tangent</code>, the direction of the stroke in screen
-  space</li>
+  <li><code>vec2 tangent</code>、スクリーン空間でのストロークの方向</li>
 
-  <li><code>vec2 center</code>, the coordinate of the center of the stroke in
-  screen space p5.js pixels</li>
+  <li><code>vec2 center</code>、スクリーン空間のp5.jsピクセルでのストロークの中心座標</li>
 
-  <li><code>vec2 position</code>, the coordinate of the current pixel in screen
-  space p5.js pixels</li>
+  <li><code>vec2 position</code>、スクリーン空間のp5.jsピクセルでの現在のピクセルの座標</li>
 
-  <li><code>float strokeWeight</code>, the thickness of the stroke in p5.js
-  pixels</li>
+  <li><code>float strokeWeight</code>、p5.jsピクセルでのストロークの太さ</li>
 
   </ul>
 
@@ -168,9 +163,9 @@ description: >
   </td><td>
 
 
-  <p>Caps and joins are made by discarded pixels in the fragment shader to carve
-  away unwanted areas. Use this to change this logic. It takes in a <code>bool
-  willDiscard</code> and must return a modified version.</p>
+  <p>キャップとジョインは、フラグメントシェーダーで不要な領域を削除するために破棄されたピクセルによって作成されます。
+  この論理を変更するには、これを使用します。<code>bool willDiscard</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -182,8 +177,8 @@ description: >
   </td><td>
 
 
-  <p>Update the final color after mixing. It takes in a <code>vec4 color</code>
-  and must return a modified version.</p>
+  <p>ミキシング後の最終的な色を更新します。<code>vec4 color</code>を受け取り、
+  修正されたバージョンを返す必要があります。</p>
 
   </td></tr>
 
@@ -195,22 +190,19 @@ description: >
   </td><td>
 
 
-  <p>Called at the end of the fragment shader.</p>
+  <p>フラグメントシェーダーの終了時に呼び出されます。</p>
 
   </td></tr>
 
   </table>
 
 
-  <p>Most of the time, you will need to write your hooks in GLSL ES version 300.
-  If you
+  <p>ほとんどの場合、フックはGLSL ESバージョン300で記述する必要があります。
+  WebGL 2の代わりにWebGL 1を使用している場合は、代わりにGLSL ES 100でフックを記述してください。</p>
 
-  are using WebGL 1 instead of 2, write your hooks in GLSL ES 100 instead.</p>
+  <p><code>baseStrokeShader().inspectHooks()</code>を呼び出すと、可能なすべてのフックと
+  それらのデフォルト実装を確認できます。</p>
 
-  <p>Call <code>baseStrokeShader().inspectHooks()</code> to see all the possible
-  hooks and
-
-  their default implementations.</p>
 line: 1355
 isConstructor: false
 itemtype: method
@@ -267,8 +259,7 @@ example:
           return pos;
         }`,
         'float getStrokeWeight': `(float w) {
-          // Add a somewhat random offset to the weight
-          // that varies based on position and time
+          // 位置と時間に基づいてやや不規則なオフセットを重みに追加
           float scale = 0.8 + 0.2*sin(10.0 * sin(
             floor(time/250.) +
             myPosition.x*0.01 +
@@ -310,8 +301,8 @@ example:
           return fract((p3.x + p3.y) * p3.z);
         }`,
         'Inputs getPixelInputs': `(Inputs inputs) {
-          // Replace alpha in the color with dithering by
-          // randomly setting pixel colors to 0 based on opacity
+          // 不透明度に基づいてランダムにピクセルの色を0に設定することで、
+          // 色のアルファをディザリングに置き換える
           float a = inputs.color.a;
           inputs.color.a = 1.0;
           inputs.color *= random(inputs.position.xy) > a ? 0.0 : 1.0;
@@ -343,7 +334,7 @@ example:
     </div>
 class: p5
 return:
-  description: The stroke shader
+  description: ストロークシェーダー
   type: p5.Shader
 chainable: false
 beta: true

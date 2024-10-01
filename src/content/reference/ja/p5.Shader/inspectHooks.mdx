@@ -4,24 +4,21 @@ module: 3D
 submodule: Material
 file: src/webgl/p5.Shader.js
 description: >
-  <p>Logs the hooks available in this shader, and their current
-  implementation.</p>
+  <p>このシェーダーで利用可能なフックとその現在の実装をログに記録します。</p>
 
-  <p>Each shader may let you override bits of its behavior. Each bit is called
+  <p>各シェーダーでは、その動作の一部を上書きすることができます。各部分は
 
-  a <em>hook.</em> A hook is either for the <em>vertex</em> shader, if it
-  affects the
+  <em>フック</em>と呼ばれます。フックは、頂点の位置に影響を与える場合は<em>頂点</em>シェーダー用、
 
-  position of vertices, or in the <em>fragment</em> shader, if it affects the
-  pixel
+  ピクセルの色に影響を与える場合は<em>フラグメント</em>シェーダー用です。
 
-  color. This method logs those values to the console, letting you know what
+  このメソッドはそれらの値をコンソールに記録し、
 
-  you are able to use in a call to
+  <a href="/reference/p5.Shader/modify/"><code>modify()</code></a>の呼び出しで
 
-  <a href="/reference/p5.Shader/modify/"><code>modify()</code></a>.</p>
+  使用できるものを知ることができます。</p>
 
-  <p>For example, this shader will produce the following output:</p>
+  <p>例えば、このシェーダーは以下の出力を生成します：</p>
 
   <pre><code class="language-js">myShader = baseMaterialShader().modify({
     declarations: 'uniform float time;',
@@ -35,7 +32,7 @@ description: >
 
   </code></pre>
 
-  <pre><code>==== Vertex shader hooks: ====
+  <pre><code>==== 頂点シェーダーフック: ====
 
   void beforeVertex() {}
 
@@ -56,7 +53,7 @@ description: >
   void afterVertex() {}
 
 
-  ==== Fragment shader hooks: ====
+  ==== フラグメントシェーダーフック: ====
 
   void beforeFragment() {}
 

@@ -4,22 +4,15 @@ module: Color
 submodule: Creating & Reading
 file: src/color/creating_reading.js
 description: >
-  <p>Blends multiple colors to find a color between them.</p>
+  <p>複数の色を混ぜ合わせて、その間の色を見つけます。</p>
 
-  <p>The <code>amt</code> parameter specifies the amount to interpolate between
-  the color
+  <p><code>amt</code>パラメータは、色の停止点間で補間する量を指定します。
+  色の停止点は、各<code>amt</code>値の「位置」にある色で、
+  2つの色の停止点の間にある<code>amt</code>値は、
+  両方からの相対的な距離に基づいてそれらの間を補間します。</p>
 
-  stops which are colors at each <code>amt</code> value "location" with
-  <code>amt</code> values
-
-  that are between 2 color stops interpolating between them based on its
-  relative
-
-  distance to both.</p>
-
-  <p>The way that colors are interpolated depends on the current
-
-  <a href="/reference/colorMode/">colorMode()</a>.</p>
+  <p>色の補間方法は、現在の
+  <a href="/reference/colorMode/">colorMode()</a>に依存します。</p>
 line: 1079
 isConstructor: false
 itemtype: method
@@ -33,7 +26,7 @@ example:
     }
 
     function draw() {
-      // The background goes from white to red to green to blue fill
+      // 背景は白から赤、緑、青へと変化します
       background(paletteLerp([
         ['white', 0],
         ['red', 0.05],
@@ -47,14 +40,14 @@ class: p5
 params:
   - name: colors_stops
     description: |
-      <p>color stops to interpolate from</p>
+      <p>補間元となる色の停止点</p>
     type: '[p5.Color, Number][]'
   - name: amt
     description: |
-      <p>number to use to interpolate relative to color stops</p>
+      <p>色の停止点に対して相対的に補間するために使用する数値</p>
     type: Number
 return:
-  description: interpolated color.
+  description: 補間された色。
   type: p5.Color
 chainable: false
 ---
