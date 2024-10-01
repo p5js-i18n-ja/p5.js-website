@@ -20,7 +20,7 @@ description: >
 
   <a href="/reference/p5/shader/">shader()</a>関数で使用できます。例えば、
 
-  <code>shader(myShader)</code>のようにします。シェーダープログラムは2つの部分、頂点
+  <code>shader(myShader)</code>のようにです。シェーダープログラムは2つの部分、頂点
 
   シェーダーとフラグメントシェーダーで構成されます。頂点シェーダーは3Dジオメトリが
 
@@ -34,9 +34,60 @@ description: >
 
   GLSLで書かれたフラグメントシェーダープログラムを含む文字列です。</p>
 
+  <p>シェーダーはオプションで<em>フック</em>を記述できます。これはGLSLの関数で、
+
+  ユーザーが<code>p5.Shader</code>の<a href="/reference/p5.Shader/modify/"><code>modify()</code></a>メソッドを使用して
+
+  シェーダーの動作をカスタマイズするために提供することを選択できます。これらは
+
+  3番目のパラメータ<code>options</code>でフックを記述し、<code>vertSrc</code>または<code>fragSrc</code>で
+
+  フックを参照することで追加されます。頂点またはフラグメントシェーダーのフックは
+
+  <code>options</code>の<code>vertex</code>および<code>fragment</code>キーの下で記述されます。それぞれがオブジェクトで、
+
+  各キーはフック関数の型と名前であり、各値はフックのパラメータリストと
+
+  デフォルトの実装を含む文字列です。例えば、ユーザーが頂点シェーダーの開始時に
+
+  オプションでコードを実行できるようにするには、optionsオブジェクトに
+
+  以下を含めることができます：</p>
+
+  <pre><code class="language-js">{
+    vertex: {
+      'void beforeVertex': '() {}'
+    }
+  }
+
+  </code></pre>
+
+  <p>そして、頂点シェーダーソースで、同じ名前に<code>HOOK_</code>というプレフィックスを付けた
+
+  関数を呼び出すことでフックを実行できます。デフォルトのフックが置き換えられたかどうかを
+
+  チェックしたい場合、おそらく余分なオーバーヘッドを避けるために、同じ名前に
+
+  <code>AUGMENTED_HOOK_</code>というプレフィックスが定義されているかどうかをチェックできます：</p>
+
+  <pre><code class="language-glsl">void main() {
+    // ほとんどの場合、単にフックを呼び出すだけで十分です：
+    HOOK_beforeVertex();
+
+    // あるいは、より効率的に：
+    #ifdef AUGMENTED_HOOK_beforeVertex
+    HOOK_beforeVertex();
+    #endif
+
+    // ここに残りのシェーダーコードを追加してください！
+  }
+
+  </code></pre>
+
   <p>注意：2Dモードではフィルターシェーダーのみが使用できます。WebGLモードでは
 
-  すべてのシェーダーが使用できます。</p>
+  すべてのシェーダーを使用できます。</p>
+
 line: 173
 isConstructor: false
 itemtype: method
@@ -157,7 +208,7 @@ example:
       shader(mandelbrot);
 
       // シェーダーのuniform pを配列に設定します。
-      // pはマンデルブロ集合画像の中心点です。
+      // pはマンデルブロ画像の中心点です。
       mandelbrot.setUniform('p', [-0.74364388703, 0.13182590421]);
 
       // シェーダーのuniform rを0.005に設定します。
@@ -170,7 +221,7 @@ example:
       // 描画面としてプレーンを追加します。
       plane(100, 100);
 
-      describe('マゼンタ背景に黒のフラクタル画像。');
+      describe('マゼンタの背景に黒のフラクタル画像。');
     }
     </code>
     </div>
@@ -241,10 +292,10 @@ example:
       shader(mandelbrot);
 
       // シェーダーのuniform pを配列に設定します。
-      // pはマンデルブロ集合画像の中心点です。
+      // pはマンデルブロ画像の中心点です。
       mandelbrot.setUniform('p', [-0.74364388703, 0.13182590421]);
 
-      describe('フラクタル画像がフォーカスイン・アウトします。');
+      describe('フラクタル画像がフォーカスの内外にズームします。');
     }
 
     function draw() {
@@ -262,6 +313,75 @@ example:
     }
     </code>
     </div>
+
+    <div>
+    <code>
+    // フック付きのシェーダー。
+    let myShader;
+
+    // 修正されたフック付きのシェーダー。
+    let modifiedShader;
+
+    // 頂点シェーダープログラムを含む文字列を作成します。
+    // 頂点シェーダーは各頂点に対して呼び出されます。
+    let vertSrc = `
+    precision highp float;
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    attribute vec3 aPosition;
+    attribute vec2 aTexCoord;
+
+    void main() {
+      vec4 positionVec4 = vec4(aPosition, 1.0);
+      gl_Position = uProjectionMatrix * uModelViewMatrix * positionVec4;
+    }
+    `;
+
+    // フックを使用するフラグメントシェーダーを作成します。
+    let fragSrc = `
+    precision highp float;
+    void main() {
+      // ユーザーが色をオーバーライドできるようにします
+      gl_FragColor = HOOK_getColor(vec4(1., 0., 0., 1.));
+    }
+    `;
+
+    function setup() {
+      createCanvas(50, 50, WEBGL);
+
+      // フック付きのシェーダーを作成します
+      myShader = createShader(vertSrc, fragSrc, {
+        fragment: {
+          'vec4 getColor': '(vec4 color) { return color; }'
+        }
+      });
+
+      // フックをオーバーライドしたシェーダーのバージョンを作成します
+      modifiedShader = myShader.modify({
+        'vec4 getColor': `(vec4 color) {
+          return vec4(0., 0., 1., 1.);
+        }`
+      });
+    }
+
+    function draw() {
+      noStroke();
+
+      push();
+      shader(myShader);
+      translate(-width/3, 0);
+      sphere(10);
+      pop();
+
+      push();
+      shader(modifiedShader);
+      translate(width/3, 0);
+      sphere(10);
+      pop();
+    }
+    </code>
+    </div>
 class: p5
 params:
   - name: vertSrc
@@ -272,6 +392,21 @@ params:
     description: |
       <p>フラグメントシェーダーのソースコード。</p>
     type: String
+  - name: options
+    description: >
+      <p>このシェーダーがフックで拡張される方法を記述するオプションのオブジェクト。
+
+      以下を含むことができます：</p>
+
+      <ul>
+
+      <li><code>vertex</code>: 利用可能な頂点シェーダーフックを記述するオブジェクト。</li>
+
+      <li><code>fragment</code>: 利用可能なフラグメントシェーダーフックを記述するオブジェクト。</li>
+
+      </ul>
+    type: Object
+    optional: true
 return:
   description: |-
     頂点シェーダーとフラグメントシェーダーから
@@ -282,4 +417,3 @@ chainable: false
 
 
 # createShader
-

@@ -7,46 +7,69 @@ description: >
   <p>カスタム3D形状の頂点の法線ベクトルを設定します。</p>
 
   <p><a href="/reference/p5/beginShape/">beginShape()</a>と
-
   <a href="/reference/p5/endShape/">endShape()</a>で作成される3D形状は、
-
-  頂点と呼ばれる一連の点を接続して作られます。
-
+  頂点と呼ばれる点の集合を接続して作られます。
   <a href="/reference/p5/vertex/">vertex()</a>で追加される各頂点には、
+  その頂点から外向きに向かう法線ベクトルがあります。
+  法線ベクトルは、形状に対する光の反射の仕方を制御します。</p>
 
-  その頂点から離れる方向を指す法線ベクトルがあります。法線ベクトルは、
-
-  形状に光がどのように反射するかを制御します。</p>
-
-  <p><code>normal()</code>は、法線ベクトルのコンポーネントを定義するために
-
+  <p><code>normal()</code>は、法線ベクトルのコンポーネントを定義するために、
   異なるパラメータを持つ2つの方法で呼び出すことができます。</p>
 
-  <p><code>normal()</code>を呼び出す最初の方法は、3つのパラメータ<code>x</code>、<code>y</code>、<code>z</code>を持ちます。
+  <p><code>normal()</code>を呼び出す最初の方法は、<code>x</code>、<code>y</code>、<code>z</code>の
+  3つのパラメータを持ちます。<code>normal(1, 2, 3)</code>のように数値が渡された場合、
+  それらは法線ベクトルのx、y、z成分を設定します。</p>
 
-  <code>normal(1, 2, 3)</code>のように数値が渡された場合、それらは法線ベクトルの
-
-  x、y、z成分を設定します。</p>
-
-  <p><code>normal()</code>を呼び出す2番目の方法は、1つのパラメータ<code>vector</code>を持ちます。
-
-  <code>normal(myVector)</code>のように<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトが
-
-  渡された場合、そのコンポーネントが法線ベクトルの設定に使用されます。</p>
+  <p><code>normal()</code>を呼び出す2つ目の方法は、<code>vector</code>という1つのパラメータを
+  持ちます。<code>normal(myVector)</code>のように<a href="/reference/p5/p5.Vector">p5.Vector</a>
+  オブジェクトが渡された場合、そのコンポーネントが法線ベクトルの設定に使用されます。</p>
 
   <p><code>normal()</code>は、<a href="/reference/p5/vertex/">vertex()</a>でカスタム形状に
-
-  追加される頂点の法線ベクトルを変更します。<code>normal()</code>は
-
+  追加される頂点の法線ベクトルを変更します。<code>normal()</code>は、
+  <a href="/reference/p5/vertex/">vertex()</a>と同様に、
   <a href="/reference/p5/beginShape/">beginShape()</a>と
+  <a href="/reference/p5/endShape/">endShape()</a>の間で呼び出す必要があります。
+  <code>normal()</code>を呼び出すことで設定された法線ベクトルは、
+  再び<code>normal()</code>が呼び出されるまで、以降のすべての頂点に影響します：</p>
 
-  <a href="/reference/p5/endShape/">endShape()</a>の間で、
+  <pre><code class="language-js">beginShape();
 
-  <a href="/reference/p5/vertex/">vertex()</a>と同様に呼び出す必要があります。
 
-  <code>normal()</code>を呼び出すことで設定される法線ベクトルは、
+  // 頂点の法線を設定します。
 
-  <code>normal()</code>が再び呼び出されるまで、それ以降のすべての頂点に影響します。</p>
+  normal(-0.4, -0.4, 0.8);
+
+
+  // 頂点を追加します。
+
+  vertex(-30, -30, 0);
+
+
+  // 頂点の法線を設定します。
+
+  normal(0, 0, 1);
+
+
+  // 頂点を追加します。
+
+  vertex(30, -30, 0);
+
+  vertex(30, 30, 0);
+
+
+  // 頂点の法線を設定します。
+
+  normal(0.4, -0.4, 0.8);
+
+
+  // 頂点を追加します。
+
+  vertex(-30, 30, 0);
+
+
+  endShape();
+
+  </code></pre>
 line: 2066
 isConstructor: false
 itemtype: method
@@ -55,14 +78,90 @@ example:
 
     <div>
     <code>
+    // クリックしてマウスをドラッグすると、異なる角度からシーンを見ることができます。
+
     function setup() {
       createCanvas(100, 100, WEBGL);
 
-      describe('灰色の背景に白い三角形が描かれています。三角形の各頂点の法線は異なる方向を向いています。');
+      describe(
+        '黒い背景に色とりどりの正方形。ユーザーがマウスをドラッグすると、正方形の色が変わり回転します。その表面の一部は異なる方向に光を反射します。'
+      );
     }
 
     function draw() {
-      background(200);
+      background(0);
+
+      // マウスでの軌道制御を有効にします。
+      orbitControl();
+
+      // 形状のスタイルを設定します。
+      normalMaterial();
+      noStroke();
+
+      // 形状を描画します。
+      beginShape();
+      vertex(-30, -30, 0);
+      vertex(30, -30, 0);
+      vertex(30, 30, 0);
+      vertex(-30, 30, 0);
+      endShape();
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    // クリックしてマウスをドラッグすると、異なる角度からシーンを見ることができます。
+
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      describe(
+        '黒い背景に色とりどりの正方形。ユーザーがマウスをドラッグすると、正方形の色が変わり回転します。その表面の一部は異なる方向に光を反射します。'
+      );
+    }
+
+    function draw() {
+      background(0);
+
+      // マウスでの軌道制御を有効にします。
+      orbitControl();
+
+      // 形状のスタイルを設定します。
+      normalMaterial();
+      noStroke();
+
+      // 形状を描画します。
+      // normal()を使用して頂点の法線を設定します。
+      beginShape();
+      normal(-0.4, -0.4, 0.8);
+      vertex(-30, -30, 0);
+
+      normal(0, 0, 1);
+      vertex(30, -30, 0);
+      vertex(30, 30, 0);
+
+      normal(0.4, -0.4, 0.8);
+      vertex(-30, 30, 0);
+      endShape();
+    }
+    </code>
+    </div>
+
+    <div class='notest'>
+    <code>
+    // クリックしてマウスをドラッグすると、異なる角度からシーンを見ることができます。
+
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      describe(
+        '黒い背景に色とりどりの正方形。ユーザーがマウスをドラッグすると、正方形の色が変わり回転します。その表面の一部は異なる方向に光を反射します。'
+      );
+    }
+
+    function draw() {
+      background(0);
 
       // マウスでの軌道制御を有効にします。
       orbitControl();
@@ -98,7 +197,7 @@ overloads:
     params:
       - name: vector
         description: |
-          <p>頂点の法線を<a href="#/p5.Vector">p5.Vector</a>オブジェクトとして指定します。</p>
+          <p><a href="#/p5.Vector">p5.Vector</a>オブジェクトとしての頂点の法線。</p>
         type: p5.Vector
     chainable: 1
   - line: 2241

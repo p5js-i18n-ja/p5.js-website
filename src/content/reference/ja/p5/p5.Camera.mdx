@@ -13,8 +13,8 @@ description: >
   <a href="/reference/p5/camera/">camera()</a>、
   <a href="/reference/p5/perspective/">perspective()</a>、
   <a href="/reference/p5/ortho/">ortho()</a>、
-  <a href="/reference/p5/frustum/">frustum()</a>関数で制御できます。追加のカメラは
-  <a href="/reference/p5/createCamera/">createCamera()</a>で作成し、
+  <a href="/reference/p5/frustum/">frustum()</a>関数で制御できます。
+  追加のカメラは<a href="/reference/p5/createCamera/">createCamera()</a>で作成し、
   <a href="/reference/p5/setCamera/">setCamera()</a>で有効化できます。</p>
 
   <p>注意：<code>p5.Camera</code>のメソッドは2つの座標系で動作します：</p>
@@ -22,17 +22,416 @@ description: >
   <ul>
 
   <li>「ワールド」座標系は、x軸、y軸、z軸に沿った原点との関係で位置を記述します。
-  例えば、<code>myCamera.setPosition()</code>を呼び出すと、「ワールド」座標を
-  使用して3D空間にカメラを配置します。</li>
+  例えば、<code>myCamera.setPosition()</code>を呼び出すと、「ワールド」座標を使用して
+  3D空間にカメラを配置します。</li>
 
-  <li>「ローカル」座標系は、カメラの視点から位置を記述します：左右、上下、前後。
-  例えば、<code>myCamera.move()</code>を呼び出すと、カメラを自身の軸に沿って
-  移動させます。</li>
+  <li>「ローカル」座標系は、カメラの視点から位置を記述します：
+  左右、上下、前後。例えば、<code>myCamera.move()</code>を呼び出すと、
+  カメラを自身の軸に沿って移動させます。</li>
 
   </ul>
 line: 723
+isConstructor: true
+params:
+  - name: rendererGL
+    description: |
+      <p>WebGLレンダラーのインスタンス</p>
+    type: RendererGL
+example:
+  - |-
+
+    <div>
+    <code>
+    let cam;
+    let delta = 0.001;
+
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      // p5.Cameraオブジェクトを作成します。
+      cam = createCamera();
+
+      // カメラを上部中央に配置します。
+      cam.setPosition(0, -400, 800);
+
+      // カメラを原点に向けます。
+      cam.lookAt(0, 0, 0);
+
+      describe(
+        'グレーの背景に白い立方体。カメラが左右にパンするにつれて、立方体が視界に入ったり出たりします。'
+      );
+    }
+
+    function draw() {
+      background(200);
+
+      // カメラを左右に回転させます。これを「パン」と呼びます。
+      cam.pan(delta);
+
+      // 120フレームごとに方向を切り替えます。
+      if (frameCount % 120 === 0) {
+        delta *= -1;
+      }
+
+      // 箱を描画します。
+      box();
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    // ダブルクリックでカメラを切り替えます。
+
+    let cam1;
+    let cam2;
+    let isDefaultCamera = true;
+
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      // 最初のカメラを作成します。
+      // デフォルト設定のままにします。
+      cam1 = createCamera();
+
+      // 2番目のカメラを作成します。
+      // 左上に配置します。
+      // 原点を向くようにします。
+      cam2 = createCamera();
+      cam2.setPosition(400, -400, 800);
+      cam2.lookAt(0, 0, 0);
+
+      // 現在のカメラをcam1に設定します。
+      setCamera(cam1);
+
+      describe(
+        'グレーの背景に白い立方体。ユーザーがダブルクリックすると、カメラが正面図と空中からの眺めを切り替えます。'
+      );
+    }
+
+    function draw() {
+      background(200);
+
+      // 箱を描画します。
+      box();
+    }
+
+    // ユーザーがダブルクリックしたときに現在のカメラを切り替えます。
+    function doubleClicked() {
+      if (isDefaultCamera === true) {
+        setCamera(cam2);
+        isDefaultCamera = false;
+      } else {
+        setCamera(cam1);
+        isDefaultCamera = true;
+      }
+    }
+    </code>
+    </div>
+methods:
+  perspective:
+    description: >
+      <p>カメラに透視投影を設定します。</p>
+
+      <p>透視投影では、カメラから遠い形状は近い形状よりも小さく見えます。
+      この技術は遠近法と呼ばれ、リアルな3Dシーンを作成します。
+      新しい<code>p5.Camera</code>オブジェクトではデフォルトで適用されます。</p>
+
+      <p><code>myCamera.perspective()</code>は、カメラの視錐台を変更することで
+      カメラの透視を変更します。視錐台はカメラから見える空間の体積です。
+      視錐台の形状は、上部が切り取られたピラミッドです。カメラはピラミッドの
+      上部があるべき場所に配置され、底面の方向を向いています。
+      視錐台内のすべてを見ることができます。</p>
+
+      <p>最初のパラメータ<code>fovy</code>は、カメラの垂直視野角です。
+      カメラの視野の高さや狭さを表す角度です。例えば、
+      <code>myCamera.perspective(0.5)</code>を呼び出すと、カメラの垂直視野角を
+      0.5ラジアンに設定します。デフォルトでは、<code>fovy</code>はスケッチの高さと
+      カメラのデフォルトのz座標（800）に基づいて計算されます。
+      デフォルトの<code>fovy</code>の計算式は<code>2 * atan(height / 2 / 800)</code>です。</p>
+
+      <p>2番目のパラメータ<code>aspect</code>は、カメラのアスペクト比です。
+      上面の幅と高さの比率を表す数値です。例えば、
+      <code>myCamera.perspective(0.5, 1.5)</code>を呼び出すと、カメラの視野角を
+      0.5ラジアンに、アスペクト比を1.5に設定し、正方形のキャンバスで
+      形状がより細く見えるようになります。デフォルトでは、<code>aspect</code>は
+      <code>width / height</code>に設定されます。</p>
+
+      <p>3番目のパラメータ<code>near</code>は、カメラから近平面までの距離です。
+      例えば、<code>myCamera.perspective(0.5, 1.5, 100)</code>を呼び出すと、
+      カメラの視野角を0.5ラジアン、アスペクト比を1.5に設定し、近平面を
+      カメラから100ピクセルの位置に配置します。カメラから100ピクセル未満の
+      距離に描画された形状は表示されません。デフォルトでは、<code>near</code>は
+      <code>0.1 * 800</code>に設定されており、これはカメラと原点の
+      デフォルト距離の1/10です。</p>
+
+      <p>4番目のパラメータ<code>far</code>は、カメラから遠平面までの距離です。
+      例えば、<code>myCamera.perspective(0.5, 1.5, 100, 10000)</code>を
+      呼び出すと、カメラの視野角を0.5ラジアン、アスペクト比を1.5に設定し、
+      近平面をカメラから100ピクセルの位置に、遠平面をカメラから10,000ピクセルの
+      位置に配置します。カメラから10,000ピクセル以上離れた位置に描画された
+      形状は表示されません。デフォルトでは、<code>far</code>は<code>10 * 800</code>に
+      設定されており、これはカメラと原点のデフォルト距離の10倍です。</p>
+    path: p5.Camera/perspective
+  ortho:
+    description: >
+      <p>カメラに正投影を設定します。</p>
+
+      <p>正投影では、同じサイズの形状は、カメラからの距離に関係なく
+      常に同じサイズに見えます。</p>
+
+      <p><code>myCamera.ortho()</code>は、カメラの視錐台を切頂ピラミッドから
+      直方体に変更することで、カメラの透視を変更します。視錐台は
+      カメラから見える空間の体積です。カメラは視錐台の前に配置され、
+      視錐台内のすべてを見ることができます。<code>myCamera.ortho()</code>には
+      視錐台を定義するための6つのオプションパラメータがあります。</p>
+
+      <p>最初の4つのパラメータ<code>left</code>、<code>right</code>、<code>bottom</code>、<code>top</code>は、
+      視錐台の側面、底面、上面の座標を設定します。例えば、
+      <code>myCamera.ortho(-100, 100, 200, -200)</code>を呼び出すと、
+      幅200ピクセル、高さ400ピクセルの視錐台が作成されます。デフォルトでは、
+      これらの寸法はスケッチの幅と高さに基づいて設定されます。
+      <code>myCamera.ortho(-width / 2, width / 2, -height / 2, height / 2)</code>のようになります。</p>
+
+      <p>最後の2つのパラメータ<code>near</code>と<code>far</code>は、カメラからの
+      視錐台の近平面と遠平面の距離を設定します。例えば、
+      <code>myCamera.ortho(-100, 100, 200, -200, 50, 1000)</code>を呼び出すと、
+      幅200ピクセル、高さ400ピクセル、カメラから50ピクセルの位置から始まり、
+      カメラから1,000ピクセルの位置で終わる視錐台が作成されます。
+      デフォルトでは、<code>near</code>と<code>far</code>はそれぞれ0と
+      <code>max(width, height) + 800</code>に設定されています。</p>
+    path: p5.Camera/ortho
+  frustum:
+    description: >
+      <p>カメラの視錐台を設定します。</p>
+
+      <p>視錐台投影では、カメラから遠い形状は近い形状よりも小さく見えます。
+      この技術は遠近法と呼ばれ、リアルな3Dシーンを作成します。</p>
+
+      <p><code>myCamera.frustum()</code>は、カメラの視錐台を変更することで
+      カメラの透視を変更します。視錐台はカメラから見える空間の体積です。
+      視錐台の形状は、上部が切り取られたピラミッドです。カメラは
+      ピラミッドの上部があるべき場所に配置され、底面の方向を向いています。
+      視錐台内のすべてを見ることができます。</p>
+
+      <p>最初の4つのパラメータ<code>left</code>、<code>right</code>、<code>bottom</code>、<code>top</code>は、
+      視錐台の側面、底面、上面の座標を設定します。例えば、
+      <code>myCamera.frustum(-100, 100, 200, -200)</code>を呼び出すと、
+      幅200ピクセル、高さ400ピクセルの視錐台が作成されます。デフォルトでは、
+      これらの座標はスケッチの幅と高さに基づいて設定されます。
+      <code>myCamera.frustum(-width / 20, width / 20, height / 20, -height / 20)</code>のようになります。</p>
+
+      <p>最後の2つのパラメータ<code>near</code>と<code>far</code>は、カメラからの
+      視錐台の近平面と遠平面の距離を設定します。例えば、
+      <code>myCamera.frustum(-100, 100, 200, -200, 50, 1000)</code>を呼び出すと、
+      幅200ピクセル、高さ400ピクセル、カメラから50ピクセルの位置から始まり、
+      カメラから1,000ピクセルの位置で終わる視錐台が作成されます。
+      デフォルトでは、nearは<code>0.1 * 800</code>に設定されており、
+      これはカメラと原点のデフォルト距離の1/10です。<code>far</code>は
+      <code>10 * 800</code>に設定されており、これはカメラと原点の
+      デフォルト距離の10倍です。</p>
+    path: p5.Camera/frustum
+  roll:
+    description: >
+      <p>カメラを時計回り/反時計回りに回転させます。</p>
+
+      <p>ロールはカメラの向きを変えずに回転させます。回転は
+      カメラの「ローカル」空間で行われます。</p>
+
+      <p>パラメータ<code>angle</code>は、カメラが回転すべき角度です。
+      正の角度を渡すと、例えば<code>myCamera.roll(0.001)</code>のように、
+      カメラは反時計回りに回転します。
+      負の角度を渡すと、例えば<code>myCamera.roll(-0.001)</code>のように、
+      カメラは時計回りに回転します。</p>
+
+      <p>注意：角度は現在の
+      <a href="/reference/p5/angleMode/">angleMode()</a>に基づいて解釈されます。</p>
+    path: p5.Camera/roll
+  pan:
+    description: >
+      <p>カメラを左右に回転させます。</p>
+
+      <p>パンはカメラの位置を変えずに回転させます。回転は
+      カメラの「ローカル」空間で行われます。</p>
+
+      <p>パラメータ<code>angle</code>は、カメラが回転すべき角度です。
+      正の角度を渡すと、例えば<code>myCamera.pan(0.001)</code>のように、
+      カメラは右に回転します。
+      負の角度を渡すと、例えば<code>myCamera.pan(-0.001)</code>のように、
+      カメラは左に回転します。</p>
+
+      <p>注意：角度は現在の
+      <a href="/reference/p5/angleMode/">angleMode()</a>に基づいて解釈されます。</p>
+    path: p5.Camera/pan
+  tilt:
+    description: >
+      <p>カメラを上下に回転させます。</p>
+
+      <p>チルトはカメラの位置を変えずに回転させます。回転は
+      カメラの「ローカル」空間で行われます。</p>
+
+      <p>パラメータ<code>angle</code>は、カメラが回転すべき角度です。
+      正の角度を渡すと、例えば<code>myCamera.tilt(0.001)</code>のように、
+      カメラは下に回転します。
+      負の角度を渡すと、例えば<code>myCamera.tilt(-0.001)</code>のように、
+      カメラは上に回転します。</p>
+
+      <p>注意：角度は現在の
+      <a href="/reference/p5/angleMode/">angleMode()</a>に基づいて解釈されます。</p>
+    path: p5.Camera/tilt
+  lookAt:
+    description: >
+      <p>カメラを特定の位置に向けます。</p>
+
+      <p><code>myCamera.lookAt()</code>は、カメラの位置を変えずに
+      その向きを変更します。</p>
+
+      <p>パラメータ<code>x</code>、<code>y</code>、<code>z</code>は、カメラが向けるべき
+      「ワールド」空間の座標です。例えば、
+      <code>myCamera.lookAt(10, 20, 30)</code>を呼び出すと、
+      カメラは座標<code>(10, 20, 30)</code>に向けられます。</p>
+    path: p5.Camera/lookAt
+  camera:
+    description: >
+      <p>カメラの位置と向きを設定します。</p>
+
+      <p><code>myCamera.camera()</code>を使用すると、オブジェクトを異なる角度から
+      見ることができます。9つのパラメータがあり、すべてオプションです。</p>
+
+      <p>最初の3つのパラメータ<code>x</code>、<code>y</code>、<code>z</code>は、「ワールド」空間における
+      カメラの位置の座標です。例えば、<code>myCamera.camera(0, 0, 0)</code>を
+      呼び出すと、カメラは原点<code>(0, 0, 0)</code>に配置されます。
+      デフォルトでは、カメラは<code>(0, 0, 800)</code>に配置されています。</p>
+
+      <p>次の3つのパラメータ<code>centerX</code>、<code>centerY</code>、<code>centerZ</code>は、
+      「ワールド」空間でカメラが向いている点の座標です。
+      例えば、<code>myCamera.camera(0, 0, 0, 10, 20, 30)</code>を呼び出すと、
+      カメラは原点<code>(0, 0, 0)</code>に配置され、<code>(10, 20, 30)</code>を向きます。
+      デフォルトでは、カメラは原点<code>(0, 0, 0)</code>を向いています。</p>
+
+      <p>最後の3つのパラメータ<code>upX</code>、<code>upY</code>、<code>upZ</code>は、
+      「ローカル」空間におけるカメラの「上」ベクトルの成分です。
+      「上」ベクトルはカメラのy軸の向きを決定します。例えば、
+      <code>myCamera.camera(0, 0, 0, 10, 20, 30, 0, -1, 0)</code>を呼び出すと、
+      カメラは原点<code>(0, 0, 0)</code>に配置され、<code>(10, 20, 30)</code>を向き、
+      「上」ベクトルを<code>(0, -1, 0)</code>に設定します。これは上下逆さまに
+      持っているようなものです。デフォルトでは、「上」ベクトルは
+      <code>(0, 1, 0)</code>です。</p>
+    path: p5.Camera/camera
+  move:
+    description: >
+      <p>カメラの向きを変えずに、その「ローカル」軸に沿って移動させます。</p>
+
+      <p>パラメータ<code>x</code>、<code>y</code>、<code>z</code>は、カメラが移動すべき
+      距離です。例えば、<code>myCamera.move(10, 20, 30)</code>を呼び出すと、
+      カメラは「ローカル」空間で右に10ピクセル、下に20ピクセル、
+      後ろに30ピクセル移動します。</p>
+    path: p5.Camera/move
+  setPosition:
+    description: >
+      <p>カメラの向きを変えずに、「ワールド」空間でのカメラの位置を
+      設定します。</p>
+
+      <p>パラメータ<code>x</code>、<code>y</code>、<code>z</code>は、カメラを配置すべき
+      座標です。例えば、<code>myCamera.setPosition(10, 20, 30)</code>を
+      呼び出すと、カメラは「ワールド」空間の座標<code>(10, 20, 30)</code>に
+      配置されます。</p>
+    path: p5.Camera/setPosition
+  set:
+    description: >
+      <p>別のカメラをコピーして、カメラの位置、向き、投影を設定します。</p>
+
+      <p>パラメータ<code>cam</code>は、コピーする<code>p5.Camera</code>オブジェクトです。
+      例えば、<code>cam2.set(cam1)</code>を呼び出すと、<code>cam1</code>の
+      設定を使用して<code>cam2</code>が設定されます。</p>
+    path: p5.Camera/set
+  slerp:
+    description: >
+      <p>2つの他のカメラの中間の値にカメラの位置と向きを設定します。</p>
+
+      <p><code>myCamera.slerp()</code>は、球面線形補間を使用して、2つの他のカメラの
+      中間の位置と向きを計算します。これは、2つの視点間をスムーズに
+      遷移させるのに役立ちます。</p>
+
+      <p>最初の2つのパラメータ<code>cam0</code>と<code>cam1</code>は、現在のカメラの
+      設定に使用される<code>p5.Camera</code>オブジェクトです。</p>
+
+      <p>3番目のパラメータ<code>amt</code>は、<code>cam0</code>と<code>cam1</code>の間で
+      補間する量です。0.0はカメラの位置と向きを<code>cam0</code>と等しく保ち、
+      0.5は<code>cam0</code>と<code>cam1</code>の中間に設定し、1.0は位置と向きを
+      <code>cam1</code>と等しくします。</p>
+
+      <p>例えば、<code>myCamera.slerp(cam0, cam1, 0.1)</code>を呼び出すと、
+      カメラの位置と向きを<code>cam0</code>に非常に近く設定します。
+      <code>myCamera.slerp(cam0, cam1, 0.9)</code>を呼び出すと、カメラの
+      位置と向きを<code>cam1</code>に非常に近く設定します。</p>
+
+      <p>注意：すべてのカメラは同じ投影を使用する必要があります。</p>
+    path: p5.Camera/slerp
+properties:
+  eyeX:
+    description: |
+      <p>カメラのx座標。</p>
+      <p>デフォルトでは、カメラのx座標は「ワールド」空間で0に設定されています。</p>
+    path: p5.Camera/eyeX
+  eyeY:
+    description: |
+      <p>カメラのy座標。</p>
+      <p>デフォルトでは、カメラのy座標は「ワールド」空間で0に設定されています。</p>
+    path: p5.Camera/eyeY
+  eyeZ:
+    description: >
+      <p>カメラのz座標。</p>
+
+      <p>デフォルトでは、カメラのz座標は「ワールド」空間で800に設定されています。</p>
+    path: p5.Camera/eyeZ
+  centerX:
+    description: >
+      <p>カメラが向いている場所のx座標。</p>
+
+      <p>デフォルトでは、カメラは「ワールド」空間の原点<code>(0, 0, 0)</code>を向いているため、
+      <code>myCamera.centerX</code>は0です。</p>
+    path: p5.Camera/centerX
+  centerY:
+    description: >
+      <p>カメラが向いている場所のy座標。</p>
+
+      <p>デフォルトでは、カメラは「ワールド」空間の原点<code>(0, 0, 0)</code>を向いているため、
+      <code>myCamera.centerY</code>は0です。</p>
+    path: p5.Camera/centerY
+  centerZ:
+    description: >
+      <p>カメラが向いている場所のz座標。</p>
+
+      <p>デフォルトでは、カメラは「ワールド」空間の原点<code>(0, 0, 0)</code>を向いているため、
+      <code>myCamera.centerZ</code>は0です。</p>
+    path: p5.Camera/centerZ
+  upX:
+    description: >
+      <p>カメラの「上」ベクトルのx成分。</p>
+
+      <p>カメラの「上」ベクトルはそのy軸の向きを決定します。デフォルトでは、
+      「上」ベクトルは<code>(0, 1, 0)</code>なので、「ローカル」空間での
+      x成分は0です。</p>
+    path: p5.Camera/upX
+  upY:
+    description: >
+      <p>カメラの「上」ベクトルのy成分。</p>
+
+      <p>カメラの「上」ベクトルはそのy軸の向きを決定します。デフォルトでは、
+      「上」ベクトルは<code>(0, 1, 0)</code>なので、「ローカル」空間での
+      y成分は1です。</p>
+    path: p5.Camera/upY
+  upZ:
+    description: >
+      <p>カメラの「上」ベクトルのz成分。</p>
+
+      <p>カメラの「上」ベクトルはそのy軸の向きを決定します。デフォルトでは、
+      「上」ベクトルは<code>(0, 1, 0)</code>なので、「ローカル」空間での
+      z成分は0です。</p>
+    path: p5.Camera/upZ
+chainable: false
 ---
 
 
 # p5.Camera
-

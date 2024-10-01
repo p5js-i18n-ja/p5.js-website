@@ -4,7 +4,7 @@ module: 3D
 submodule: Material
 file: src/webgl/p5.Shader.js
 description: >
-  <p>シェーダープログラムを記述するクラスです。</p>
+  <p>シェーダープログラムを記述するためのクラスです。</p>
 
   <p>各<code>p5.Shader</code>オブジェクトには、グラフィックス処理ユニット（GPU）上で
   実行されるシェーダープログラムが含まれています。シェーダーは多くのピクセルや頂点を
@@ -20,10 +20,35 @@ description: >
   作成されると、<a href="/reference/p5/shader/">shader()</a>関数で使用できます。
   例えば、<code>shader(myShader)</code>のように使います。</p>
 
+  <p>シェーダーはオプションで<em>フック</em>を記述することができます。フックはGLSLの
+  関数で、ユーザーがシェーダーの動作をカスタマイズするために提供することを選択できます。
+  頂点シェーダーまたはフラグメントシェーダーに対して、ユーザーはオブジェクトを渡すことが
+  できます。各キーはフック関数の型と名前で、各値はパラメータリストとフックのデフォルト
+  実装を含む文字列です。例えば、ユーザーが頂点シェーダーの開始時にオプションでコードを
+  実行できるようにするには、オプションオブジェクトに以下を含めることができます：</p>
+
+  <pre><code class="language-js">{
+    vertex: {
+      'void beforeVertex': '() {}'
+    }
+  }
+
+  </code></pre>
+
+  <p>そして、頂点シェーダーのソースで、<code>HOOK_</code>を前に付けた同じ名前の
+  関数を呼び出すことでフックを実行できます：</p>
+
+  <pre><code class="language-glsl">void main() {
+    HOOK_beforeVertex();
+    // ここに残りのシェーダーコードを追加します！
+  }
+
+  </code></pre>
+
   <p>注意：<a href="/reference/p5/createShader/">createShader()</a>、
   <a href="/reference/p5/createFilterShader/">createFilterShader()</a>、
-  <a href="/reference/p5/loadShader/">loadShader()</a>が、このクラスの
-  インスタンスを作成する推奨される方法です。</p>
+  <a href="/reference/p5/loadShader/">loadShader()</a>が、
+  このクラスのインスタンスを作成する推奨される方法です。</p>
 line: 11
 isConstructor: true
 params:
@@ -39,6 +64,20 @@ params:
     description: |
       <p>フラグメントシェーダープログラムのソースコード。</p>
     type: String
+  - name: options
+    description: >
+      <p>このシェーダーがフックで拡張される方法を記述するオプションのオブジェクト。
+      以下を含むことができます：</p>
+
+      <ul>
+
+      <li><code>vertex</code>：利用可能な頂点シェーダーフックを記述するオブジェクト。</li>
+
+      <li><code>fragment</code>：利用可能なフラグメントシェーダーフックを記述するオブジェクト。</li>
+
+      </ul>
+    type: Object
+    optional: true
 example:
   - |-
 
@@ -87,7 +126,7 @@ example:
       // 描画面のスタイルを設定します。
       noStroke();
 
-      // 描画面としてplaneを追加します。
+      // 描画面として平面を追加します。
       plane(100, 100);
 
       describe('黄色の正方形。');
@@ -112,40 +151,140 @@ example:
       // p5.Shaderオブジェクトを使用します。
       shader(mandelbrot);
 
-      // シェーダーのuniform変数pを配列に設定します。
+      // シェーダーのuniform pを配列に設定します。
       mandelbrot.setUniform('p', [-0.74364388703, 0.13182590421]);
 
-      describe('フラクタル画像がズームインとズームアウトを繰り返します。');
+      describe('フラクタル画像がフォーカスの内外にズームします。');
     }
 
     function draw() {
-      // シェーダーのuniform変数rを0から2の間で振動する値に設定します。
+      // シェーダーのuniform rを0から2の間で振動する値に設定します。
       mandelbrot.setUniform('r', sin(frameCount * 0.01) + 1);
 
-      // シェーダーの表示面としてquadを追加します。
+      // シェーダーの表示面として四角形を追加します。
       quad(-1, -1, 1, -1, 1, 1, -1, 1);
     }
     </code>
     </div>
 methods:
+  inspectHooks:
+    description: >
+      <p>このシェーダーで利用可能なフックとその現在の実装をログに記録します。</p>
+
+      <p>各シェーダーは、その動作の一部をオーバーライドすることができます。各部分は
+      <em>フック</em>と呼ばれます。フックは、頂点の位置に影響する場合は<em>頂点</em>
+      シェーダー用、ピクセルの色に影響する場合は<em>フラグメント</em>シェーダー用です。
+      このメソッドはそれらの値をコンソールに記録し、
+      <a href="/reference/p5.Shader/modify/"><code>modify()</code></a>の呼び出しで
+      使用できるものを知ることができます。</p>
+
+      <p>例えば、このシェーダーは以下の出力を生成します：</p>
+
+      <pre><code class="language-js">myShader = baseMaterialShader().modify({
+        declarations: 'uniform float time;',
+        'vec3 getWorldPosition': `(vec3 pos) {
+          pos.y += 20. * sin(time * 0.001 + pos.x * 0.05);
+          return pos;
+        }`
+      });
+
+      myShader.inspectHooks();
+
+      </code></pre>
+
+      <pre><code>==== 頂点シェーダーフック: ====
+
+      void beforeVertex() {}
+
+      vec3 getLocalPosition(vec3 position) { return position; }
+
+      [MODIFIED] vec3 getWorldPosition(vec3 pos) {
+            pos.y += 20. * sin(time * 0.001 + pos.x * 0.05);
+            return pos;
+          }
+      vec3 getLocalNormal(vec3 normal) { return normal; }
+
+      vec3 getWorldNormal(vec3 normal) { return normal; }
+
+      vec2 getUV(vec2 uv) { return uv; }
+
+      vec4 getVertexColor(vec4 color) { return color; }
+
+      void afterVertex() {}
+
+
+      ==== フラグメントシェーダーフック: ====
+
+      void beforeFragment() {}
+
+      Inputs getPixelInputs(Inputs inputs) { return inputs; }
+
+      vec4 combineColors(ColorComponents components) {
+                      vec4 color = vec4(0.);
+                      color.rgb += components.diffuse * components.baseColor;
+                      color.rgb += components.ambient * components.ambientColor;
+                      color.rgb += components.specular * components.specularColor;
+                      color.rgb += components.emissive;
+                      color.a = components.opacity;
+                      return color;
+                    }
+      vec4 getFinalColor(vec4 color) { return color; }
+
+      void afterFragment() {}
+
+      </code></pre>
+    path: p5.Shader/inspectHooks
+  modify:
+    description: >
+      <p>オリジナルのシェーダーに基づいて、カスタムのシェーダーコードスニペットで
+      デフォルトの動作を置き換えた新しいシェーダーを返します。</p>
+
+      <p>各シェーダーは、その動作の一部をオーバーライドすることができます。各部分は
+      <em>フック</em>と呼ばれます。フックは、頂点の位置に影響する場合は<em>頂点</em>
+      シェーダー用、ピクセルの色に影響する場合は<em>フラグメント</em>シェーダー用です。
+      利用可能な異なるフックを
+      <a
+      href="/reference/p5.Shader/inspectHooks/"><code>yourShader.inspectHooks()</code></a>
+      を呼び出すことで確認できます。また、デフォルトのマテリアル、ノーマルマテリアル、
+      カラー、ライン、ポイントシェーダーのリファレンスを読んで、それらが利用可能な
+      フックを確認することもできます。</p>
+
+      <p><code>modify()</code>は1つのパラメータ<code>hooks</code>を取ります。これは
+      オーバーライドしたいフックを含むオブジェクトです。<code>hooks</code>オブジェクトの
+      各キーはフックの名前で、値はそのフックのGLSLコードを含む文字列です。</p>
+
+      <p>既存のフックではない関数を提供した場合、それらはヘルパー関数としてシェーダーの
+      先頭に追加されるので、フック内で使用することができます。</p>
+
+      <p>シェーダーに新しい<a href="/reference/p5.Shader/setUniform/">uniform</a>を
+      追加するには、uniformの型と名前をキーとし、デフォルト値またはデフォルト値を返す
+      関数を値とする<code>uniforms</code>オブジェクトを渡すことができます。これらは
+      <code>shader(yourShader)</code>でシェーダーが設定されるときに自動的に設定されます。</p>
+
+      <p>また、<code>declarations</code>キーを追加することもできます。その値は、
+      フック間で共有されるカスタムuniform変数、グローバル変数、関数を宣言するGLSL文字列
+      です。頂点シェーダーまたはフラグメントシェーダーにのみ宣言を追加するには、
+      <code>vertexDeclarations</code>および<code>fragmentDeclarations</code>キーを
+      追加します。</p>
+    path: p5.Shader/modify
   copyToContext:
     description: >
-      <p>シェーダーを一つの描画コンテキストから別のコンテキストにコピーします。</p>
+      <p>シェーダーをある描画コンテキストから別のコンテキストにコピーします。</p>
 
       <p>各<code>p5.Shader</code>オブジェクトは、実行前に
       <a href="/reference/p5/shader/">shader()</a>を呼び出してコンパイルする必要が
-      あります。コンパイルは通常、メインキャンバスまたは
-      <a href="/reference/p5/p5.Graphics">p5.Graphics</a>のインスタンスである
-      描画コンテキストで行われます。シェーダーはコンパイルされたコンテキストでのみ
-      使用できます。<code>copyToContext()</code>メソッドはシェーダーを再度コンパイルし、
-      再利用可能な別の描画コンテキストにコピーします。</p>
+      あります。コンパイルは通常メインキャンバスか
+      <a href="/reference/p5/p5.Graphics">p5.Graphics</a>のインスタンスである描画
+      コンテキストで行われます。シェーダーはコンパイルされたコンテキストでのみ使用
+      できます。<code>copyToContext()</code>メソッドはシェーダーを再度コンパイルし、
+      再利用できる別の描画コンテキストにコピーします。</p>
 
       <p>パラメータ<code>context</code>は、シェーダーが使用される描画コンテキストです。
       シェーダーは<a href="/reference/p5/p5.Graphics">p5.Graphics</a>のインスタンスに
-      コピーできます。例えば、<code>myShader.copyToContext(pg)</code>のようにします。
-      また、シェーダーを<a href="/reference/p5/p5.Graphics">p5.Graphics</a>オブジェクトから
-      メインキャンバスにコピーする場合は、<code>window</code>変数を使用します。
-      例えば、<code>myShader.copyToContext(window)</code>のようにします。</p>
+      コピーできます。例えば<code>myShader.copyToContext(pg)</code>のようにします。
+      シェーダーは<a href="/reference/p5/p5.Graphics">p5.Graphics</a>オブジェクトから
+      メインキャンバスにも<code>window</code>変数を使ってコピーできます。例えば
+      <code>myShader.copyToContext(window)</code>のようにします。</p>
 
       <p>注意：<a href="/reference/p5/createShader/">createShader()</a>、
       <a href="/reference/p5/createFilterShader/">createFilterShader()</a>、または
@@ -160,18 +299,18 @@ methods:
       <p>シェーダーのuniform（グローバル）変数を設定します。</p>
 
       <p>シェーダープログラムはコンピューターのグラフィックス処理ユニット（GPU）上で
-      実行されます。シェーダーはスケッチを実行するメモリとは完全に分離された
-      コンピューターのメモリ部分に存在します。uniformはシェーダープログラム内の
-      グローバル変数です。uniformは、CPU上で実行されているスケッチからGPU上で
-      実行されているシェーダープログラムに値を渡す方法を提供します。</p>
+      実行されます。シェーダーはコンピューターのメモリの、それを実行するスケッチとは
+      完全に分離された部分に存在します。uniformはシェーダープログラム内のグローバル
+      変数です。uniformはCPU上で実行されるスケッチからGPU上で実行されるシェーダー
+      プログラムに値を渡す方法を提供します。</p>
 
       <p>最初のパラメータ<code>uniformName</code>は、uniformの名前を含む文字列です。
       上記のシェーダーの場合、<code>uniformName</code>は<code>'r'</code>となります。</p>
 
       <p>2番目のパラメータ<code>data</code>は、uniformを設定するために使用される値です。
       例えば、<code>myShader.setUniform('r', 0.5)</code>を呼び出すと、上記のシェーダーの
-      <code>r</code> uniformが<code>0.5</code>に設定されます。dataはuniformの型と
-      一致する必要があります。数値、文字列、ブール値、配列、および多くの種類の画像を
+      <code>r</code> uniformが<code>0.5</code>に設定されます。dataはuniformの型に
+      一致する必要があります。数値、文字列、ブール値、配列、多くの種類の画像は全て
       <code>setUniform()</code>を使用してシェーダーに渡すことができます。</p>
     path: p5.Shader/setUniform
 chainable: false
@@ -179,4 +318,3 @@ chainable: false
 
 
 # p5.Shader
-

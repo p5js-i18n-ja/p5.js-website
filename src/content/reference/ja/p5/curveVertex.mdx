@@ -4,105 +4,91 @@ module: Shape
 submodule: Vertex
 file: src/core/shape/vertex.js
 description: >
-  <p>カスタム形状にスプライン曲線セグメントを追加します。</p>
+  <p>カスタムシェイプにスプライン曲線セグメントを追加します。</p>
 
-  <p><code>curveVertex()</code>はカスタム形状に曲線セグメントを追加します。作成される
-
-  スプライン曲線は、<a href="/reference/p5/curve/">curve()</a>関数で作成される
-
-  ものと同様に定義されます。<code>curveVertex()</code>は
-
+  <p><code>curveVertex()</code>はカスタムシェイプに曲線セグメントを追加します。
+  作成される曲線は<a href="/reference/p5/curve/">curve()</a>関数で作成されるものと
+  同様に定義されます。<code>curveVertex()</code>は
   <a href="/reference/p5/beginShape/">beginShape()</a>と
+  <a href="/reference/p5/endShape/">endShape()</a>関数の間で
+  呼び出す必要があります。</p>
 
-  <a href="/reference/p5/endShape/">endShape()</a>関数の間で呼び出す必要があります。</p>
-
-  <p>スプライン曲線は、緩やかに傾斜する形状や曲線を形成することができます。それらは
-
+  <p>スプライン曲線は、緩やかに傾斜する形状や曲線を形成できます。これらは
   一連の点に取り付けられたケーブルのようなものです。スプラインは2つの
-
-  アンカーポイントと2つの制御点によって定義されます。曲線を描画するためには、
-
+  アンカーポイントと2つの制御点によって定義されます。曲線を描くためには、
   <code>curveVertex()</code>を<a href="/reference/p5/beginShape/">beginShape()</a>と
+  <a href="/reference/p5/endShape/">endShape()</a>の間で少なくとも4回
+  呼び出す必要があります：</p>
 
-  <a href="/reference/p5/endShape/">endShape()</a>の間で少なくとも4回呼び出す必要があります：</p>
-
-  <code>
-
-  beginShape();
+  <pre><code class="language-js">beginShape();
 
 
-  <p>// 最初の制御点を追加します。
-
-  curveVertex(84, 91);</p>
-
-  <p>// 描画するアンカーポイントを追加します。
-
-  curveVertex(68, 19);
-
-  curveVertex(21, 17);</p>
-
-  <p>// 2番目の制御点を追加します。
-
-  curveVertex(32, 91);</p>
-
-  <p>endShape();
-
-  </p></code>
-
-  <p>上記のコードスニペットは、<a href="/reference/p5/curve/">curve()</a>関数と
-
-  同様に、アンカーポイント間の曲線のみを描画します。制御点と
-
-  アンカーポイント間のセグメントを描画するには、制御点の座標で
-
-  <code>curveVertex()</code>を呼び出すことができます：</p>
-
-  <code>
-
-  beginShape();
-
-
-  <p>// 最初の制御点を追加し、そこまでのセグメントを描画します。
+  // 最初の制御点を追加
 
   curveVertex(84, 91);
 
-  curveVertex(84, 91);</p>
 
-  <p>// 描画するアンカーポイントを追加します。
+  // 描画するアンカーポイントを追加
 
   curveVertex(68, 19);
 
-  curveVertex(21, 17);</p>
+  curveVertex(21, 17);
 
-  <p>// 2番目の制御点を追加します。
 
-  curveVertex(32, 91);</p>
+  // 2番目の制御点を追加
 
-  <p>// 2番目の制御点までのセグメントを描画するには、次の行のコメントを解除します。
+  curveVertex(32, 91);
 
-  // curveVertex(32, 91);</p>
+  endShape();
 
-  <p>endShape();
+  </code></pre>
 
-  </p></code>
+  <p>上記のコードスニペットは、<a href="/reference/p5/curve/">curve()</a>関数と
+  同様に、アンカーポイント間の曲線のみを描画します。制御点とアンカーポイント間の
+  セグメントは、制御点の座標で<code>curveVertex()</code>を呼び出すことで
+  描画できます：</p>
+
+  <pre><code class="language-js">beginShape();
+
+
+  // 最初の制御点を追加し、そこまでのセグメントを描画
+
+  curveVertex(84, 91);
+
+  curveVertex(84, 91);
+
+
+  // 描画するアンカーポイントを追加
+
+  curveVertex(68, 19);
+
+  curveVertex(21, 17);
+
+
+  // 2番目の制御点を追加
+
+  curveVertex(32, 91);
+
+
+  // 2番目の制御点までのセグメントを描画するには、次の行のコメントを解除してください
+
+  // curveVertex(32, 91);
+
+
+  endShape();
+
+  </code></pre>
 
   <p>最初の2つのパラメータ、<code>x</code>と<code>y</code>は、頂点の位置を設定します。
-
-  例えば、<code>curveVertex(10, 10)</code>を呼び出すと、
-
-  <code>(10, 10)</code>に点が曲線に追加されます。</p>
+  例えば、<code>curveVertex(10, 10)</code>を呼び出すと、<code>(10, 10)</code>の
+  位置に点が曲線に追加されます。</p>
 
   <p>スプライン曲線はWebGLモードを使用して3Dでも描画できます。3Dバージョンの
+  <code>curveVertex()</code>は、各点がx、y、z座標を持つため、3つの引数を
+  持ちます。デフォルトでは、頂点のz座標は0に設定されます。</p>
 
-  <code>curveVertex()</code>は3つの引数を持ちます。各点がx、y、z座標を
-
-  持つためです。デフォルトでは、頂点のz座標は0に設定されます。</p>
-
-  <p>注意：<code>curveVertex()</code>は
-
-  <a href="/reference/p5/beginShape/">beginShape()</a>に引数が渡された場合は
-
-  機能しません。</p>
+  <p>注意：<code>curveVertex()</code>は<a href="/reference/p5/beginShape/">beginShape()</a>に
+  引数が渡された場合は機能しません。</p>
 line: 832
 isConstructor: false
 itemtype: method
@@ -116,39 +102,42 @@ example:
 
       background(200);
 
-      // 形状のスタイルを設定します。
+      // シェイプのスタイルを設定
       noFill();
       strokeWeight(1);
 
-      // 形状の描画を開始します。
+      // シェイプの描画を開始
       beginShape();
 
-      // 最初の制御点を追加します。
+      // 最初の制御点を追加
       curveVertex(32, 91);
 
-      // アンカーポイントを追加します。
+      // アンカーポイントを追加
       curveVertex(21, 17);
       curveVertex(68, 19);
 
-      // 2番目の制御点を追加します。
+      // 2番目の制御点を追加
       curveVertex(84, 91);
 
-      // 形状の描画を停止します。
-      endShape();
+      // シェイプの描画を終了
+            endShape();
 
-      // アンカーポイントと制御点のスタイルを設定します。
+      // アンカーポイントと制御点のスタイルを設定
       strokeWeight(5);
 
-      // アンカーポイントを黒で描画します。
+      // アンカーポイントを黒で描画
       stroke(0);
       point(21, 17);
       point(68, 19);
-      // 制御点を赤で描画します。
+
+      // 制御点を赤で描画
       stroke(255, 0, 0);
       point(32, 91);
       point(84, 91);
 
-      describe('灰色の背景に黒い曲線。曲線の端点は黒い点で、制御点は赤い点でマークされています。');
+      describe(
+        '灰色の背景に描かれた黒い曲線。曲線の端には黒い点がある。キャンバスの下部に2つの赤い点が表示されている。'
+      );
     }
     </code>
     </div>
@@ -160,113 +149,166 @@ example:
 
       background(200);
 
-      // 形状のスタイルを設定します。
+      // シェイプのスタイルを設定
       noFill();
       strokeWeight(1);
 
-      // 形状の描画を開始します。
+      // シェイプの描画を開始
       beginShape();
 
-      // 最初の制御点を追加し、そこまでのセグメントを描画します。
+      // 最初の制御点を追加し、そこまでのセグメントを描画
       curveVertex(32, 91);
       curveVertex(32, 91);
 
-      // アンカーポイントを追加します。
+      // アンカーポイントを追加
       curveVertex(21, 17);
       curveVertex(68, 19);
 
-      // 2番目の制御点を追加し、そこまでのセグメントを描画します。
-      curveVertex(84, 91);
+      // 2番目の制御点を追加
       curveVertex(84, 91);
 
-      // 形状の描画を停止します。
+      // シェイプの描画を終了
       endShape();
 
-      // アンカーポイントと制御点のスタイルを設定します。
+      // アンカーポイントと制御点のスタイルを設定
       strokeWeight(5);
 
-      // アンカーポイントを黒で描画します。
+      // アンカーポイントを黒で描画
       stroke(0);
       point(21, 17);
       point(68, 19);
 
-      // 制御点を赤で描画します。
+      // 制御点を赤で描画
       stroke(255, 0, 0);
       point(32, 91);
       point(84, 91);
 
-      describe('灰色の背景に黒い幽霊のような形。形の端点は黒い点で、制御点は赤い点でマークされています。');
+      describe(
+        '灰色の背景に描かれた黒い曲線。曲線は1つの赤い点と2つの黒い点を通過する。キャンバスの下部に別の赤い点が表示されている。'
+      );
     }
     </code>
     </div>
 
     <div>
     <code>
-    // 右上隅の赤い点の近くでマウスをクリックし、
-    // ドラッグして曲線の形を変更します。
+    function setup() {
+      createCanvas(100, 100);
 
-    let x1 = 84;
+      background(200);
+
+      // シェイプのスタイルを設定
+      noFill();
+      strokeWeight(1);
+
+      // シェイプの描画を開始
+      beginShape();
+
+      // 最初の制御点を追加し、そこまでのセグメントを描画
+      curveVertex(32, 91);
+      curveVertex(32, 91);
+
+      // アンカーポイントを追加
+      curveVertex(21, 17);
+      curveVertex(68, 19);
+
+      // 2番目の制御点を追加し、そこまでのセグメントを描画
+      curveVertex(84, 91);
+      curveVertex(84, 91);
+
+      // シェイプの描画を終了
+      endShape();
+
+      // アンカーポイントと制御点のスタイルを設定
+      strokeWeight(5);
+
+      // アンカーポイントを黒で描画
+      stroke(0);
+      point(21, 17);
+      point(68, 19);
+
+      // 制御点を赤で描画
+      stroke(255, 0, 0);
+      point(32, 91);
+      point(84, 91);
+
+      describe(
+        '灰色の背景に上下逆さまに描かれた黒いU字型の曲線。曲線は1つの赤い点から始まり、2つの黒い点を通過し、別の赤い点で終わる。'
+      );
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    // 左下隅の赤い点の近くでマウスをクリックし、
+    // ドラッグして曲線の形状を変更します。
+
+    let x1 = 32;
     let y1 = 91;
     let isChanging = false;
 
     function setup() {
       createCanvas(100, 100);
 
-      describe('灰色の背景に黒い幽霊のような形。ユーザーがマウスをドラッグすると、形が変化します。');
+      describe(
+        '灰色の背景に上下逆さまに描かれた黒いU字型の曲線。曲線は1つの赤い点から始まり、2つの黒い点を通過し、別の赤い点で終わる。'
+      );
     }
 
     function draw() {
       background(200);
 
-      // 形状のスタイルを設定します。
+      // シェイプのスタイルを設定
       noFill();
+      stroke(0);
       strokeWeight(1);
 
-      // 形状の描画を開始します。
+      // シェイプの描画を開始
       beginShape();
 
-      // 最初の制御点を追加し、そこまでのセグメントを描画します。
-      curveVertex(32, 91);
-      curveVertex(32, 91);
+      // 最初の制御点を追加し、そこまでのセグメントを描画
+      curveVertex(x1, y1);
+      curveVertex(x1, y1);
 
-      // アンカーポイントを追加します。
+      // アンカーポイントを追加
       curveVertex(21, 17);
       curveVertex(68, 19);
 
-      // 2番目の制御点を追加し、そこまでのセグメントを描画します。
-      curveVertex(x1, y1);
-      curveVertex(x1, y1);
+      // 2番目の制御点を追加し、そこまでのセグメントを描画
+      curveVertex(84, 91);
+      curveVertex(84, 91);
 
-      // 形状の描画を停止します。
+      // シェイプの描画を終了
       endShape();
 
-      // アンカーポイントと制御点のスタイルを設定します。
+      // アンカーポイントと制御点のスタイルを設定
       strokeWeight(5);
 
-      // アンカーポイントを黒で描画します。
+      // アンカーポイントを黒で描画
       stroke(0);
       point(21, 17);
       point(68, 19);
 
-      // 制御点を赤で描画します。
+      // 制御点を赤で描画
       stroke(255, 0, 0);
-      point(32, 91);
       point(x1, y1);
+      point(84, 91);
     }
 
-    // ユーザーが制御点の近くでクリックした場合、変更を開始します。
+    // ユーザーが最初の制御点の近くでクリックした場合、変更を開始
     function mousePressed() {
       if (dist(mouseX, mouseY, x1, y1) < 20) {
         isChanging = true;
       }
     }
 
-    // ユーザーがマウスを離したときに変更を停止します。
+    // ユーザーがマウスを離したとき、変更を停止
     function mouseReleased() {
       isChanging = false;
     }
 
-    // ユーザーがマウスをドラッグしている間、最初の制御点を更新します。
+    // ユーザーがマウスをドラッグしている間、最初の制御点を更新
     function mouseDragged() {
       if (isChanging === true) {
         x1 = mouseX;
@@ -283,28 +325,25 @@ example:
 
       background(200);
 
-      // 形状のスタイルを設定します。
-      noFill();
-
-      // 形状の描画を開始します。
+      // シェイプの描画を開始
       beginShape();
 
-      // 最初の制御点を追加し、そこまでのセグメントを描画します。
+      // 最初の制御点を追加し、そこまでのセグメントを描画
       curveVertex(32, 91);
       curveVertex(32, 91);
 
-      // アンカーポイントを追加します。
+      // アンカーポイントを追加
       curveVertex(21, 17);
       curveVertex(68, 19);
 
-      // 2番目の制御点を追加し、そこまでのセグメントを描画します。
+      // 2番目の制御点を追加
       curveVertex(84, 91);
       curveVertex(84, 91);
 
-      // 形状の描画を停止します。
+      // シェイプの描画を終了
       endShape();
 
-      describe('灰色の背景に白で描かれた幽霊のような形。');
+      describe('灰色の背景に白で描かれたゴースト形状。');
     }
     </code>
     </div>
@@ -331,7 +370,7 @@ overloads:
         type: Number
       - name: z
         description: |
-          <p>頂点のz座標。</p>
+          <p>頂点のz座標</p>
         type: Number
         optional: true
     chainable: 1

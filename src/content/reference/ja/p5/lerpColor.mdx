@@ -6,19 +6,15 @@ file: src/color/creating_reading.js
 description: >
   <p>2つの色を混ぜ合わせて、その間の第3の色を見つけます。</p>
 
-  <p><code>amt</code>パラメータは、2つの値の間を補間する量を指定します。
+  <p><code>amt</code>パラメータは、2つの値の間で補間する量を指定します。
+  0は最初の色と等しく、0.1は最初の色に非常に近く、
+  0.5は2つの色の中間、というように続きます。負の数は0に設定されます。
+  1より大きい数は1に設定されます。これは
+  <a href="/reference/p5/lerp/">lerp</a>の動作とは異なります。これは、
+  区間[0, 1]外の数値が奇妙で予期しない色を生成するため必要です。</p>
 
-  0は最初の色に等しく、0.1は最初の色に非常に近く、
-
-  0.5は2つの色の中間点であり、以下同様です。負の数は0に設定されます。
-
-  1より大きい数は1に設定されます。これは<a href="/reference/lerp/">lerp</a>の
-
-  動作とは異なります。[0, 1]の区間外の数値は奇妙で予期しない色を
-
-  生成するため、これは必要です。</p>
-
-  <p>色の補間方法は、現在の<a href="/reference/colorMode/">colorMode()</a>に依存します。</p>
+  <p>色の補間方法は、現在の
+  <a href="/reference/p5/colorMode/">colorMode()</a>に依存します。</p>
 line: 949
 isConstructor: false
 itemtype: method
@@ -32,7 +28,7 @@ example:
 
       background(200);
 
-      // 補間する2つのp5.Colorオブジェクトを作成します。
+      // 補間する p5.Color オブジェクトを作成します。
       let from = color(218, 165, 32);
       let to = color(72, 61, 139);
 
@@ -58,7 +54,7 @@ example:
       rect(70, 20, 20, 60);
 
       describe(
-        '4つの長方形。左から右へ、長方形はタン、茶色、茶紫色、紫色です。'
+        '4つの長方形。左から右へ、長方形は茶色がかった黄色、茶色、茶色がかった紫、紫色です。'
       );
     }
     </code>
@@ -66,12 +62,12 @@ example:
 class: p5
 params:
   - name: c1
-    description: |
-      <p>この色から補間します。</p>
+    description: >
+      <p>この色から補間します（color()関数で作成された任意の値）。</p>
     type: p5.Color
   - name: c2
-    description: |
-      <p>この色へ補間します。</p>
+    description: >
+      <p>この色へ補間します（color()関数で作成された任意の値）。</p>
     type: p5.Color
   - name: amt
     description: |

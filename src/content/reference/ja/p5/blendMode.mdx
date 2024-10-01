@@ -20,7 +20,9 @@ description: >
 
   比較され、加算、減算、乗算、除算されて異なる効果を
 
-  生み出します。赤は赤と、緑は緑と、青は青と比較されます。</p>
+  生み出します。赤の値と赤の値、緑と緑、青と青が
+
+  それぞれ処理されます。</p>
 
   <p>パラメータ<code>mode</code>はブレンドモードを設定します。例えば、
 
@@ -59,7 +61,7 @@ description: >
 
   <li><code>HARD_LIGHT</code>: <code>MULTIPLY</code>と<code>SCREEN</code>を組み合わせます。ソースの暗い値はより暗くなり、明るい値はより明るくなります。</li>
 
-  <li><code>SOFT_LIGHT</code>: <code>HARD_LIGHT</code>のソフトバージョンです。</li>
+  <li><code>SOFT_LIGHT</code>: <code>HARD_LIGHT</code>のよりソフトなバージョンです。</li>
 
   <li><code>DODGE</code>: 明るい色調を明るくし、コントラストを増加させます。キャンバスの色値をソースの反転した色値で除算します。</li>
 
@@ -127,7 +129,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なっている部分は薄いマゼンタ色になっています。');
+      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
     }
     </code>
     </div>
@@ -153,7 +155,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に青い線と赤い線がXを形成しています。重なっている部分は黒くなっています。');
+      describe('灰色の背景に青い線と赤い線がXを形成しています。重なる部分は黒くなっています。');
     }
     </code>
     </div>
@@ -179,7 +181,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なっている部分は薄いマゼンタ色になっています。');
+      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
     }
     </code>
     </div>
@@ -205,7 +207,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なっている部分は緑色になっています。');
+      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
     }
     </code>
     </div>
@@ -231,7 +233,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に青い線と赤い線がXを形成しています。重なっている部分は黒くなっています。');
+      describe('灰色の背景に青い線と赤い線がXを形成しています。重なる部分は黒くなっています。');
     }
     </code>
     </div>
@@ -257,7 +259,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なっている部分は薄いマゼンタ色になっています。');
+      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
     }
     </code>
     </div>
@@ -335,7 +337,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なっている部分は緑色になっています。');
+      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
     }
     </code>
     </div>
@@ -361,7 +363,7 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なっている部分は明るいマゼンタ色になっています。');
+      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は明るいマゼンタ色になっています。');
     }
     </code>
     </div>
@@ -413,7 +415,98 @@ example:
       stroke('red');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なっている部分は紫色になっています。');
+      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は紫色になっています。');
     }
     </code>
-    
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // ブレンドモードを設定します。
+      blendMode(DODGE);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 青い線を描画します。
+      stroke('blue');
+      line(25, 25, 75, 75);
+
+      // 赤い線を描画します。
+      stroke('red');
+      line(75, 25, 25, 75);
+
+      describe('灰色の背景に明るい青い線と明るい赤い線がXを形成しています。重なる部分は白くなっています。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // ブレンドモードを設定します。
+      blendMode(BURN);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 青い線を描画します。
+      stroke('blue');
+      line(25, 25, 75, 75);
+
+      // 赤い線を描画します。
+      stroke('red');
+      line(75, 25, 25, 75);
+
+      describe('灰色の背景に暗い青い線と暗い赤い線がXを形成しています。重なる部分は黒くなっています。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      background(200);
+
+      // ブレンドモードを設定します。
+      blendMode(SUBTRACT);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 青い線を描画します。
+      stroke('blue');
+      line(-50, -50, 50, 50);
+
+      // 赤い線を描画します。
+      stroke('red');
+      line(50, -50, -50, 50);
+
+      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
+    }
+    </code>
+    </div>
+class: p5
+params:
+  - name: mode
+    description: |
+      <p>設定するブレンドモード。
+                     BLEND, DARKEST, LIGHTEST, DIFFERENCE, MULTIPLY,
+                     EXCLUSION, SCREEN, REPLACE, OVERLAY, HARD_LIGHT,
+                     SOFT_LIGHT, DODGE, BURN, ADD, REMOVE, SUBTRACT のいずれか</p>
+    type: Constant
+chainable: false
+---
+
+# blendMode
