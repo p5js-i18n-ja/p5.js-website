@@ -93,7 +93,7 @@ libraryCategories:
   export: "Export"
   utils: "Utilities"
 tutorialCategories:
-  introduction: "Introduction to p5.js"
+  introduction: "p5.js 入門"
   drawing: "Drawing"
   "web-design": "Web Design"
   accessibility: "Accessibility"
