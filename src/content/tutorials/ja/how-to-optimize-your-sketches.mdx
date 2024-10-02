@@ -1,10 +1,10 @@
 ---
-title: How to Optimize Your Sketches
-description: An advanced tutorial on how to optimize code in your sketches to run more efficiently.
+title: スケッチを最適化する方法
+description: スケッチのコードをより効率的に実行するように最適化する方法に関する上級チュートリアル。
 category: advanced
 categoryIndex: 1
 featuredImage: ../images/featured/OptimizeA.png
-featuredImageAlt: The bouncing particles animation used in this tutorial displays orange circles bouncing around a dark canvas.
+featuredImageAlt: このチュートリアルで使用されるバウンシングパーティクルのアニメーションは、暗いキャンバス上でオレンジ色の円が跳ね回る様子を表示しています。
 relatedContent:
   references:
     - en/p5/framerate
@@ -21,226 +21,223 @@ import Video from "../../../components/Video/index.astro"
 import { Columns, Column } from "../../../components/Columns";
 import Callout from "../../../components/Callout/index.astro";
 
-As you advance in your programming abilities, you will create more complex p5.js sketches. Sometimes these sketches may run too slowly, changing the effect you were hoping to achieve. This is usually because the computer processor is not able to accomplish all the steps of your program within the default frame rate. In other words, the computer is struggling to finish the instructions at a visually pleasing speed. This guide will present a framework for code improvements that include the following steps:
+プログラミング能力が向上するにつれて、より複雑なp5.jsスケッチを作成するようになります。時にはこれらのスケッチが遅すぎて実行され、期待していた効果が得られないことがあります。これは通常、コンピュータのプロセッサがデフォルトのフレームレート内でプログラムのすべてのステップを実行できないためです。言い換えれば、コンピュータが視覚的に満足のいくスピードで指示を完了するのに苦労しているのです。このガイドでは、以下のステップを含むコード改善のフレームワークを紹介します：
 
-1. Define the Problem
-2. Understand and Organize Your Code
-3. Form a Hypothesis
-4. Test Your Hypothesis
-5. Reflect on Your Project Goals
-6. Iterate
+1. 問題を定義する
+2. コードを理解し整理する
+3. 仮説を立てる
+4. 仮説をテストする
+5. プロジェクトの目標を振り返る
+6. 繰り返す
 
-This framework is useful for all code improvement and is a standard approach in computer programming. Specific emphasis will be given to code performance in the examples presented, using an example from the blog [Computing Stories: Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4) to illustrate the framework. At the end of this article, additional strategies will be provided to help you improve the performance of your code.
-
-
-## Prerequisites
-
-- This guide assumes you’re comfortable programming with loops, objects, and arrays. Check out the [Introduction to p5.js tutorials to brush up on these topics.](/tutorials)
+このフレームワークはすべてのコード改善に役立ち、コンピュータプログラミングの標準的なアプローチです。具体例では、ブログ[Computing Stories: Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4)からの例を使用して、コードのパフォーマンスに特に焦点を当てて説明します。この記事の最後には、コードのパフォーマンスを向上させるための追加の戦略も提供されます。
 
 
-## Step 1 – Define the problem
+## 前提条件
 
-For a blog post I was writing, I wanted to create a simulation of 1,000 particles bouncing around the canvas. I went to the trouble of programming accurate laws of physics that determine the motion of each particle. As I ran the sketch with an increasing number of particles, the particles moved frustratingly slowly.
-
-<Video src="/videos/tutorials/slow-no-fr.mp4" alt="A 2D animation of particles bouncing on the canvas." />
-
-The problem is that the animation runs too slowly. I wanted to speed up the simulation to improve the visual experience for the viewer. This guide is designed to help you address any situation where you want your code to run more quickly. We will use my example to illustrate the steps involved. If you like, you can view the final blog post: [Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4).
+- このガイドは、ループ、オブジェクト、配列を使ったプログラミングに慣れていることを前提としています。これらのトピックについて復習するには、[p5.jsの入門チュートリアル](/tutorials)をチェックしてください。
 
 
-## Step 2 – Understand and organize your code
+## ステップ1 – 問題を定義する
 
-After you have defined the problem, take a step back and reflect on your program. 
+私が書いていたブログ投稿のために、1,000個の粒子がキャンバス上で跳ね回るシミュレーションを作成したいと思いました。各粒子の動きを決定する正確な物理法則をプログラミングするのに苦労しました。粒子の数を増やしてスケッチを実行すると、粒子の動きがイライラするほど遅くなりました。
 
-- As a first step, you will need to understand what each part of your code does. I often reorganize my code as I go through this process. Improving your code in this way is called [*refactoring*](https://www.geeksforgeeks.org/refactoring-introduction-and-its-techniques/).
-- Adding [comments](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript#comments) is also a great idea, as they can help remind you of your thinking. Comments can be short for small clarifications or long for explaining bigger ideas.
-- In this step, I moved the `Particle` class definition into a separate file named `particle.js`. Here is an overview of the class methods that I developed.
+<Video src="/videos/tutorials/slow-no-fr.mp4" alt="キャンバス上で粒子が跳ね回る2Dアニメーション。" />
+
+問題は、アニメーションの実行が遅すぎることです。視聴者の視覚体験を向上させるために、シミュレーションのスピードを上げたいと思いました。このガイドは、コードをより速く実行したい場合に対処するのに役立つように設計されています。私の例を使用して、関連するステップを説明します。よければ、最終的なブログ投稿を見ることができます：[Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4)。
+
+
+## ステップ2 – コードを理解し整理する
+
+問題を定義した後、一歩下がってプログラムを振り返ってみましょう。
+
+- 最初のステップとして、コードの各部分が何をしているのかを理解する必要があります。私はこのプロセスを進める中で、しばしばコードを再編成します。このようにコードを改善することを[*リファクタリング*](https://www.geeksforgeeks.org/refactoring-introduction-and-its-techniques/)と呼びます。
+- [コメント](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript#comments)を追加するのも良いアイデアです。コメントは自分の考えを思い出すのに役立ちます。コメントは、小さな説明には短く、大きなアイデアの説明には長くすることができます。
+- このステップで、私は`Particle`クラスの定義を`particle.js`という別のファイルに移動しました。以下は、私が開発したクラスメソッドの概要です。
 
 ```js
 class Particle {
-  constructor(pos, v, r, h, s) {
-    // Code that creates and initializes object.
-  }
+  constructor(pos, v, r, h, s) {
+    // オブジェクトを作成し初期化するコード。
+  }
 
-  collide(p) {
-    // Code that handles a single collision with another
-    // particle p using a collision algorithm based on
-    // Newtonian Mechanics.
-  }
+  collide(p) {
+    // ニュートン力学に基づく衝突アルゴリズムを使用して、
+    // 別の粒子pとの単一の衝突を処理するコード。
+  }
 
-  bounce() {
-    // Code that handles reflection off walls.
-  }
+  bounce() {
+    // 壁での反射を処理するコード。
+  }
 
-  update() {
-    // Code that uses velocity and gravity to update position.
-  }
+  update() {
+    // 速度と重力を使用して位置を更新するコード。
+  }
 
-  show() {
-    // Code that renders Particle object on the canvas.
-  }
+  show() {
+    // Particleオブジェクトをキャンバス上にレンダリングするコード。
+  }
 }
 ```
 
-It is important to deeply understand the specific problem that occurred. In this case, we know that the animation is running slowly because the frame rate is lower than expected. The frame rate is the number of frames the animation gets displayed every second. Each frame is one iteration of your `draw()` function.
+発生した具体的な問題を深く理解することが重要です。この場合、アニメーションが遅く実行されているのは、フレームレートが予想よりも低いためだとわかっています。フレームレートとは、アニメーションが1秒間に表示されるフレーム数のことです。各フレームは`draw()`関数の1回の反復に相当します。
 
-If you don’t specify the frame rate in p5.js, by default, it attempts to reach a frame rate of 60 frames per second. This creates a smooth animation based on how quickly your brain can process information through your eyes. Movement at a rate of 30 frames per second or higher will appear continuous. As the amount of time it takes `draw()` to run increases, if there is no longer enough time for it to run the desired number of times per second, you will see the frame rate lower. This is what made my animation look so different from what I wanted. To better understand what is going on, you may want to refer to the [`frameRate()`](/reference/p5/frameRate) documentation.
+p5.jsでフレームレートを指定しない場合、デフォルトでは1秒間に60フレームのフレームレートに到達しようとします。これにより、脳が目を通じて情報を処理できる速度に基づいてスムーズなアニメーションが作成されます。1秒間に30フレーム以上の速度で動くものは、連続的に見えます。`draw()`の実行にかかる時間が増加し、1秒間に希望する回数実行するのに十分な時間がなくなると、フレームレートが低下するのが見えるでしょう。これが、私のアニメーションが望んでいたものと大きく異なって見えた理由です。何が起こっているのかをよりよく理解するために、[`frameRate()`](/reference/p5/frameRate)のドキュメントを参照するとよいでしょう。
 
-Below, I show the animation with the frame rate displayed. Displaying it will make it easier to see the impact of changes we make.
+以下に、フレームレートを表示したアニメーションを示します。表示することで、変更の影響を見やすくなります。
 
-<Video src="/videos/tutorials/slow-w-fr.mp4" alt="Bouncing particles with the frame rate displayed on the canvas that reads at or close to “20”" />
+<Video src="/videos/tutorials/slow-w-fr.mp4" alt="キャンバス上に「20」前後と表示されているフレームレートとともにバウンシングパーティクルが表示されています" />
 
-In this case, I am trying to improve the performance of my code. The same type of process would apply to improving other aspects of your code’s functionality. 
+この場合、私はコードのパフォーマンスを向上させようとしています。同じようなプロセスが、コードの機能性の他の側面を改善する場合にも適用されます。
 
 
-## Step 3 – Form a hypothesis
+## ステップ3 – 仮説を立てる
 
-After spending some time reviewing my code, I developed a hunch that the problem was in the collision detection algorithm. To detect collisions, I had to compare every pair of particles to determine how close they were to each other. The first particle would be compared with the other 999 particles. Then the second particle would be compared with the other 998 particles, and so on. With 1,000 particles, there are about 1,000 x 1,000 = 1,000<sup>2</sup> = 1,000,000 comparisons.
+コードを見直す時間を過ごした後、問題が衝突検出アルゴリズムにあるのではないかという直感を得ました。衝突を検出するために、すべての粒子のペアを比較して、それらがどれだけ近いかを判断する必要がありました。最初の粒子は他の999個の粒子と比較されます。次に2番目の粒子が他の998個の粒子と比較され、以下同様に続きます。1,000個の粒子がある場合、約1,000 x 1,000 = 1,000<sup>2</sup> = 1,000,000回の比較があります。
 
-Estimating how many times a loop runs is a good way to determine how long it will take for your code to run. Sometimes programmers use [big O notation](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/), which describes the complexity of an algorithm. You could say that my collision algorithm has a time complexity of O(*n*<sup>2</sup>)<sup> </sup>because the number of comparisons required is the square of the number of particles *n*. With 1,000, there are about 1,000<sup>2 </sup>comparisons. Here is my `collisions()` function that did all this work:
+ループが何回実行されるかを見積もることは、コードの実行にかかる時間を判断する良い方法です。プログラマーは時々、アルゴリズムの複雑さを記述する[ビッグOの表記法](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/)を使用します。私の衝突アルゴリズムの時間複雑度はO(*n*<sup>2</sup>)と言えます。なぜなら、必要な比較の数は粒子の数*n*の2乗だからです。1,000個の場合、約1,000<sup>2</sup>回の比較があります。以下が、この作業をすべて行う`collisions()`関数です：
 
 ```js
 function collisions() {
-  // For each pair of particles, determine if they have collided.
-  for (let i = 0; i < particles.length - 1; i += 1) {
-    for (let j = i + 1; j < particles.length; j += 1) {
-      // declares local variables b1 and b2 to stored compared particles     
-      // in order to simplify expressions below.
-      let b1 = particles[i];
-      let b2 = particles[j];
-
-      // Copy the current position and velocity
-      // vectors of each particle.
-      let pos1 = b1.pos.copy();
-      let pos2 = b2.pos.copy();
-      let vel1 = b1.vel.copy();
-      let vel2 = b2.vel.copy();
-
-      // Calculate the next position using Euler’s method.
-      pos1.add(vel1.mult(dt));
-      pos2.add(vel2.mult(dt));
-     
-      // Check for a collision.
-      if (pos1.dist(pos2) < b1.r + b2.r) {
-        b1.collide(b2);
-      }
-    }
-  }
+  // 各粒子のペアについて、衝突したかどうかを判断します。
+  for (let i = 0; i < particles.length - 1; i += 1) {
+    for (let j = i + 1; j < particles.length; j += 1) {
+      // 以下の式を簡略化するために、比較する粒子を格納するためのローカル変数b1とb2を宣言します。
+      let b1 = particles[i];
+      let b2 = particles[j];
+      
+      // 各粒子の現在の位置と速度ベクトルをコピーします。
+      let pos1 = b1.pos.copy();
+      let pos2 = b2.pos.copy();
+      let vel1 = b1.vel.copy();
+      let vel2 = b2.vel.copy();
+      
+      // オイラー法を使用して次の位置を計算します。
+      pos1.add(vel1.mult(dt));
+      pos2.add(vel2.mult(dt));
+      
+      // 衝突をチェックします。
+      if (pos1.dist(pos2) < b1.r + b2.r) {
+        b1.collide(b2);
+      }
+    }
+  }
 }
 ```
 
-Usually, the operation that runs the most times is the culprit for slowing down the program. It is also possible that another part of the code is contributing to the slowdown as well. Updating the position of 1,000 particles and rendering them takes time. It also might be problematic that I am using the [`p5.Vector.copy()`](/reference/p5.Vector/copy) method when calculating new particle positions. There may be some calls to `p5.Vector.copy()` in the `Particle.collide()` method as well. Making copies of objects requires allocating new memory for vectors each time the loop runs; this takes time. It might be possible to save time by modifying existing vectors instead of making brand new copies.
+通常、最も多く実行される操作がプログラムを遅くする原因です。また、コードの他の部分も遅延に寄与している可能性があります。1,000個の粒子の位置を更新してレンダリングするのにも時間がかかります。新しい粒子位置を計算する際に[`p5.Vector.copy()`](/reference/p5.Vector/copy)メソッドを使用していることも問題かもしれません。`Particle.collide()`メソッドにも`p5.Vector.copy()`の呼び出しがあるかもしれません。オブジェクトのコピーを作成すると、ループが実行されるたびにベクトル用の新しいメモリを割り当てる必要があり、これには時間がかかります。既存のベクトルを修正することで、新しいコピーを作成する代わりに時間を節約できる可能性があります。
 
-It’s important to understand as much as you can about what your code is doing, step by step, and then develop an idea for how to address it. If you are not sure what is happening in a piece of code, a great strategy is to include a [`console.log()`](/reference/console/log) or `print()` to print out the value of a variable to the console.
+コードが一歩一歩何をしているのかをできるだけ理解し、それに対処するためのアイデアを練ることが重要です。コードの一部で何が起こっているのかわからない場合、[`console.log()`](/reference/console/log)や`print()`を使用して変数の値をコンソールに出力するのは素晴らしい戦略です。
 
 
-## Step 4 – Test your hypothesis
+## ステップ4 – 仮説をテストする
 
-The simplest way to test your ideas is to make changes and then see what happens. It is usually best to make one change at a time and test between each change. Be careful and deliberate in your testing. Use the process to better understand your code. 
+アイデアをテストする最も簡単な方法は、変更を加えて何が起こるかを確認することです。通常、一度に1つの変更を加えて、各変更の間にテストするのが最善です。テストの際は注意深く、慎重に行ってください。このプロセスを利用して、コードをより深く理解しましょう。
 
-While testing my code, I thought to myself, “Do I need to have 1,000 particles?” I tried the sketch with 500 particles instead.
+コードをテストしている間、「1,000個の粒子が本当に必要なのか？」と考えました。代わりに500個の粒子でスケッチを試してみました。
 
 ```js
 let numParticles = 500;
-// Rest of sketch.
+// スケッチの残りの部分。
 ```
 
-Look at the difference it makes! I included the frame rate in the visualization using the `frameRate()` function. I display it on the canvas, but an alternative is to simply print it out to the console using `console.log(frameRate())`.
+どれほどの違いがあるか見てください！`frameRate()`関数を使用して、ビジュアライゼーションにフレームレートを含めました。キャンバス上に表示していますが、代替案として`console.log(frameRate())`を使用してコンソールに出力することもできます。
 
 <Columns>
 <Column>
-#### Before
+#### 変更前
 
-<Video src="/videos/tutorials/slow-w-fr.mp4" alt="Bouncing particles with the frame rate displayed on the canvas that reads at or close to “20”" />
+<Video src="/videos/tutorials/slow-w-fr.mp4" alt="キャンバス上に「20」前後と表示されているフレームレートとともにバウンシングパーティクルが表示されています" />
 </Column>
 <Column>
-#### After
+#### 変更後
 
-<Video src="/videos/tutorials/fast-w-fr.mp4" alt="Bouncing particles with the frame rate displayed on the canvas that reads at or close to “60”" />
+<Video src="/videos/tutorials/fast-w-fr.mp4" alt="キャンバス上に「60」前後と表示されているフレームレートとともにバウンシングパーティクルが表示されています" />
 </Column>
 </Columns>
 
-The sketch runs smoothly with fewer particles, so that change seems to solve the problem. It is probably the easiest solution available.
+スケッチは粒子が少ないとスムーズに実行されるので、その変更が問題を解決しているようです。おそらく、これが利用可能な最も簡単な解決策でしょう。
 
-Similarly, I wondered if I needed to simulate the actual laws of physics. In this case, that was important to the project, but for a game, a simplified version of the physics could still work well and greatly improve performance.
+同様に、実際の物理法則をシミュレートする必要があるのかどうか疑問に思いました。この場合、それはプロジェクトにとって重要でしたが、ゲームの場合、物理の簡略版でも十分機能し、パフォーマンスを大幅に向上させる可能性があります。
 
-I could also try to use memory more effectively by modifying the original [`p5.Vector`](/reference/p5/p5.Vector) objects and avoiding calls to `p5.Vector.copy()`. This kind of change requires care. When you update an object that is used elsewhere in your code, you might cause an inadvertent bug.
+また、元の[`p5.Vector`](/reference/p5/p5.Vector)オブジェクトを修正し、`p5.Vector.copy()`の呼び出しを避けることで、メモリをより効果的に使用することもできます。このような変更には注意が必要です。コードの他の場所で使用されているオブジェクトを更新すると、意図しないバグを引き起こす可能性があります。
 
-A great strategy is to make a change and see how it improves performance using `frameRate()` as a benchmarking tool. If the frame rate drops, you know you have a problem. This also allows you to ensure you have not inadvertently introduced a new bug into the code.
+優れた戦略は、変更を加えて`frameRate()`をベンチマーキングツールとして使用し、パフォーマンスがどのように向上したかを確認することです。フレームレートが低下した場合、問題があることがわかります。これにより、新しいバグを誤って導入していないことも確認できます。
 
-As you become more sophisticated in your testing, you may want other ways to evaluate what is happening quantitatively. With Chrome, you can open up the developer tools and turn on the “[Show FPS meter](https://developer.chrome.com/docs/devtools/performance#analyze_frames_per_second)” option to get a graph of FPS (frames per second, the unit `frameRate()` measures). 
+テストがより洗練されてくると、定量的に何が起こっているかを評価する他の方法が必要になるかもしれません。Chromeでは、開発者ツールを開いて「[FPSメーターを表示](https://developer.chrome.com/docs/devtools/performance#analyze_frames_per_second)」オプションをオンにすると、FPS（1秒あたりのフレーム数、`frameRate()`が測定する単位）のグラフを取得できます。
 
-You might also want to check how much time a function or subroutine takes to run. A quick way to do this is called *manual profiling*. Using the [`millis()`](/reference/p5/millis) function, you can check the time before and after a block of code. For example:
+関数やサブルーチンの実行にかかる時間を確認したい場合もあるでしょう。これを行う簡単な方法は*手動プロファイリング*と呼ばれます。[`millis()`](/reference/p5/millis)関数を使用して、コードブロックの前後の時間をチェックできます。例えば：
 
 ```js
-let start = millis(); // store the time before the code block.
-// Do the stuff that you want to time
+let start = millis(); // コードブロックの前の時間を保存します。
+// 時間を測定したい処理を行います
 random(0, 100);
 
-// store the time after the code block
+// コードブロックの後の時間を保存します
 let end = millis();
 let elapsed = end - start;
-console.log(`This took: ${elapsed} ms.`) // print the difference or time elapsed.
+console.log(`This took: ${elapsed} ms.`) // 差分、つまり経過時間を出力します。
 ```
 
-It is best to run the code you are trying to profile multiple times and then compute the average.
+プロファイリングしようとしているコードを複数回実行し、平均を計算するのが最善です。
 
-<Callout title="Note">
-`console.log()` and `print()` will slow down your code, so be sure to remove them from the final version of your project!
+<Callout title="注意">
+`console.log()`と`print()`はコードを遅くするので、プロジェクトの最終版からは必ず削除してください！
 </Callout>
 
-If you are feeling confident with these steps, you might want to try *automated profiling.* The developer tools in Chrome have a [performance evaluation feature](https://developer.chrome.com/docs/devtools/performance/reference) so you can automatically get a snapshot of performance in your code. 
+これらのステップに自信がついたら、*自動プロファイリング*を試してみるとよいでしょう。Chromeの開発者ツールには[パフォーマンス評価機能](https://developer.chrome.com/docs/devtools/performance/reference)があり、コードのパフォーマンスのスナップショットを自動的に取得できます。
 
-Begin by opening Chrome DevTools and navigating to the “Performance” tab. Initiate recording by clicking the circular button or using the shortcut (Ctrl+E/Cmd+E), and then perform interactions on your web page to simulate user actions. Click the Stop button in the profiler after it has collected a few seconds of data.
+Chrome DevToolsを開き、「Performance」タブに移動します。円形のボタンをクリックするかショートカット（Ctrl+E/Cmd+E）を使用して記録を開始し、ウェブページ上でユーザーのアクションをシミュレートするインタラクションを行います。データを数秒間収集した後、プロファイラーの停止ボタンをクリックします。
 
-![A screenshot of the profiler in the Chrome developer tools before recording. It says, "Click the record button or hit Cmd+E to start a new recording. Click the reload button or hit Cmd+Shift+E to record the page load. After recording, select an area of interest in the overview by dragging. Then, zoom and pan the timeline with the mousewheel or WASD keys."](../images/advanced/chrome-record.png)
+![記録前のChrome開発者ツールのプロファイラーのスクリーンショット。「新しい記録を開始するには記録ボタンをクリックするかCmd+Eを押してください。ページの読み込みを記録するには再読み込みボタンをクリックするかCmd+Shift+Eを押してください。記録後、ドラッグして概要の関心領域を選択してください。その後、マウスホイールまたはWASDキーでタイムラインをズームおよびパンできます。」と表示されています。](../images/advanced/chrome-record.png)
 
-In my case, I just let the animation run after I clicked record. The profiler captures a detailed timeline of events, including CPU and memory usage. These usage figures can give you more insight into why your algorithm may be running slowly. You can view performance using the [Flame chart](https://developer.chrome.com/docs/devtools/performance#find_the_bottleneck), which visually represents the call stack and highlights functions contributing significantly to execution time. I clicked on the Bottom-Up tab to determine which functions took the most time.
+私の場合、記録をクリックした後、アニメーションを実行させただけです。プロファイラーは、CPUとメモリの使用状況を含む詳細なイベントのタイムラインをキャプチャします。これらの使用状況の数値は、アルゴリズムが遅く実行されている理由についてより深い洞察を与えてくれます。[フレームチャート](https://developer.chrome.com/docs/devtools/performance#find_the_bottleneck)を使用してパフォーマンスを表示できます。これは呼び出しスタックを視覚的に表現し、実行時間に大きく寄与している関数を強調表示します。Bottom-Upタブをクリックして、最も時間がかかっている関数を特定しました。
 
-![A screenshot of the Bottom-Up tab of the Chrome profiler after having recorded data, displayed in a table. The Self Time, Total Time, and Activity columns are visible, sorted by Self Time descending. The top item is the copy method, accounting for 48.3% of the time.](../images/advanced/chrome-profiler-bottom-up.png)
+![データを記録した後のChromeプロファイラーのBottom-Upタブのスクリーンショット。テーブル形式で表示されており、Self Time、Total Time、Activityの列が見えます。Self Timeの降順でソートされています。トップ項目はcopyメソッドで、時間の48.3%を占めています。](../images/advanced/chrome-profiler-bottom-up.png)
 
-It looks like I was right about the `collisions()` function, which takes 93.4% of the time. It seems like most of that is taken up by using [`p5.Vector`](/reference/p5/p5.Vector) and its `.copy()` method in that loop. Of course, you will need to have nicely named functions for this tool to be helpful. See the [performance features reference](https://developer.chrome.com/docs/devtools/performance/reference/#:~:text=%23%20The%20Bottom%2DUp%20tab,learn%20how%20to%20select%20portions.) page for complete documentation.
+`collisions()`関数について正しかったようです。この関数が93.4%の時間を占めています。その大部分は、そのループ内で[`p5.Vector`](/reference/p5/p5.Vector)とその`.copy()`メソッドを使用することに費やされているようです。もちろん、このツールが役立つためには、関数に適切な名前が付けられている必要があります。完全なドキュメントについては、[パフォーマンス機能リファレンス](https://developer.chrome.com/docs/devtools/performance/reference/#:~:text=%23%20The%20Bottom%2DUp%20tab,learn%20how%20to%20select%20portions.)ページを参照してください。
 
-Once you are satisfied with your level of knowledge of the different choices available to you, it is time to decide how to improve your code.
-
-
-## Step 5 – Reflect on your goals and decide
-
-Optimizing your code is an ongoing process that involves trade-offs. Consider carefully what you are trying to accomplish and remember that developing code is a creative process. You can try out different ideas by making copies of your sketch and then seeing which solution best meets your needs. For my project, the best solution might be to reduce the number of particles in the simulation. 
-
-Scientists and game developers who study [physics simulations](https://natureofcode.com/physics-libraries/), like the one we’ve been looking at, have developed an alternative strategy of dividing the canvas into smaller regions so that you only have to detect collisions between particles in the same region. That is a clever solution that would require considerable refactoring of my code and might be the subject of a future tutorial. Look up [“spatial partitioning” in games](https://gameprogrammingpatterns.com/spatial-partition.html) to find more information online.
-
-Make the decision that best meets the goals of your project and take advantage of learning more about coding in the process.
+利用可能な異なる選択肢について十分な知識を得たら、コードをどのように改善するかを決定する時です。
 
 
-## Step 6 – Iterate
+## ステップ5 – 目標を振り返り、決定する
 
-Programming is an iterative process. Keep going through these steps to develop and expand your sketches. When I was working on my blog post, I went through the steps multiple times until I created an animation that performed well. By iterating, I could focus on one issue at a time, improving my sketch step by step. For example, I reduced the number of particles so that the animation ran smoothly and at an appropriate speed.
+コードの最適化は、トレードオフを伴う継続的なプロセスです。何を達成しようとしているのかを慎重に考え、コードの開発は創造的なプロセスであることを忘れないでください。スケッチのコピーを作成して異なるアイデアを試し、どの解決策が最もニーズに合っているかを確認することができます。私のプロジェクトの場合、最良の解決策はシミュレーション内の粒子の数を減らすことかもしれません。
 
+私たちが見てきたような[物理シミュレーション](https://natureofcode.com/physics-libraries/)を研究している科学者やゲーム開発者は、キャンバスをより小さな領域に分割し、同じ領域内の粒子間の衝突のみを検出するという代替戦略を開発しました。これは賢明な解決策ですが、私のコードの大幅なリファクタリングが必要になり、将来のチュートリアルの主題になるかもしれません。ゲームにおける「[空間分割](https://gameprogrammingpatterns.com/spatial-partition.html)」についてオンラインで詳細情報を探してみてください。
 
-## Additional performance improvement strategies
-
-There are many ways to improve your sketch’s performance. Here are some helpful tips and techniques that you can try in different scenarios.
-
-
-### Frontload time-consuming processes
-
-If you can, it’s best to frontload processes that take up a lot of time, such as image processing, so that they run once, rather than every frame in `draw()`. Do as much as you can during `setup()` so that `draw()` can be as fast as possible. Add a `preload()` function to ensure files are loaded into your projects before other functions begin.
+プロジェクトの目標に最も適した決定を下し、そのプロセスでコーディングについてより多くを学ぶ機会を活用してください。
 
 
-### Disable the [Friendly Error System](https://github.com/processing/p5.js/blob/main/contributor_docs/friendly_error_system.md) (FES)
+## ステップ6 – 繰り返す
 
-When you use the non-minified `p5.js` file, as opposed to `p5.min.js`, there is a Friendly Error System (FES) that provides warnings about issues such as unexpected arguments passed to a function. The FES can significantly slow down your code, up to \~10x in some cases! You can [disable the FES](https://github.com/processing/p5.js/wiki/Optimizing-p5.js-Code-for-Performance#disable-the-friendly-error-system-fes) with one line of code at the top of your sketch:
+プログラミングは反復的なプロセスです。これらのステップを繰り返し行って、スケッチを開発し拡張し続けてください。ブログ投稿に取り組んでいた時、うまく機能するアニメーションを作成するまで、これらのステップを何度も繰り返しました。繰り返すことで、一度に1つの問題に焦点を当て、スケッチを段階的に改善することができました。例えば、アニメーションがスムーズに、適切な速度で実行されるように粒子の数を減らしました。
+
+
+## 追加のパフォーマンス改善戦略
+
+スケッチのパフォーマンスを向上させる方法は多数あります。以下は、さまざまなシナリオで試すことができる役立つヒントとテクニックです。
+
+
+### 時間のかかるプロセスを前もって処理する
+
+可能であれば、画像処理などの時間のかかるプロセスを前もって処理し、`draw()`内で毎フレーム実行するのではなく、一度だけ実行するのが最善です。`draw()`をできるだけ高速にするために、`setup()`中にできるだけ多くの処理を行ってください。`preload()`関数を追加して、他の関数が開始する前にファイルがプロジェクトに読み込まれるようにしてください。
+
+
+### [フレンドリーエラーシステム](https://github.com/processing/p5.js/blob/main/contributor_docs/friendly_error_system.md)（FES）を無効にする
+
+`p5.min.js`ではなく非圧縮の`p5.js`ファイルを使用する場合、関数に予期しない引数が渡されたなどの問題に関する警告を提供するフレンドリーエラーシステム（FES）があります。FESはコードを大幅に遅くする可能性があり、場合によっては最大約10倍も遅くなることがあります！スケッチの先頭に1行のコードを追加することで[FESを無効にする](https://github.com/processing/p5.js/wiki/Optimizing-p5.js-Code-for-Performance#disable-the-friendly-error-system-fes)ことができます：
 
 ```js
-p5.disableFriendlyErrors = true; // disables FES
+p5.disableFriendlyErrors = true; // FESを無効にします
 ```
 
 
-### Use native JavaScript
+### ネイティブJavaScriptを使用する
 
-You can speed up your code by using [native JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) methods over p5.js methods. For example, you can call `Math.min(5, 4, 3)` using the [`Math` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math), instead of `min(5, 4, 3)` from the [p5.js library](/reference/p5/min).
+p5.jsメソッドの代わりに[ネイティブJavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)メソッドを使用することで、コードを高速化できます。例えば、[p5.jsライブラリ](/reference/p5/min)の`min(5, 4, 3)`の代わりに、[`Math`オブジェクト](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)を使用して`Math.min(5, 4, 3)`を呼び出すことができます。
 
-Here are some examples, recorded in Chrome, running each method 10,000,000 times:
+以下は、Chromeで各メソッドを10,000,000回実行した例です：
 
 <table>
 
@@ -252,13 +249,13 @@ Here are some examples, recorded in Chrome, running each method 10,000,000 times
 
 <th>
 
-Method
+メソッド
 
 </th>
 
 <th>
 
-Time (ms)
+時間 (ms)
 
 </th>
 
@@ -268,7 +265,7 @@ Time (ms)
 
 <th rowspan="2">
 
-Random
+ランダム
 
 </th>
 
@@ -290,7 +287,7 @@ p5.js `random()`
 
 <td>
 
-Native `Math.random()`
+ネイティブ `Math.random()`
 
 </td>
 
@@ -306,7 +303,7 @@ Native `Math.random()`
 
 <th rowspan="2">
 
-Minimum
+最小値
 
 </th>
 
@@ -328,7 +325,7 @@ p5.js `min()`
 
 <td>
 
-Native `Math.min()`
+ネイティブ `Math.min()`
 
 </td>
 
@@ -343,37 +340,37 @@ Native `Math.min()`
 </table>
 
 
-### Image processing
+### 画像処理
 
-When looping through the pixels in an image, you can get an easy performance boost by simply reducing the size of your image or by sampling it. If you are working with a 1,000 x 1,000 image, you are iterating through 1,000,000 pixels. If you chop that image in half to 500 x 500 (250,000 pixels), you now only need to do 1/4 of the iterations you were doing previously. 
+画像内のピクセルをループ処理する際、単に画像のサイズを縮小するか、サンプリングすることで簡単にパフォーマンスを向上させることができます。1,000 x 1,000の画像で作業している場合、1,000,000ピクセルを反復処理しています。その画像を半分の500 x 500（250,000ピクセル）に縮小すると、以前の反復の1/4だけで済むようになります。
 
-You have several options when it comes to resizing and sampling:
+画像のリサイズとサンプリングについては、いくつかのオプションがあります：
 
-- Resize the image before importing by using an app such as Photoshop or [GIMP](https://www.gimp.org/tutorials/GIMP_Quickies/#changing-the-size-dimensions-of-an-image-scale). This will likely result in the best quality image because you can control the resizing algorithm and apply filters to sharpen the image.
-- Resize the image using [`p5.Image`](/reference/p5/p5.Image)’s [`resize()`](/reference/p5.Image/resize) method. Here, you are mostly at the whim of the browser for how it handles resizing. Check out MDN for more info on [image rendering](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering).
-- Sample the image by only drawing every 2nd (or 3rd or 4th, etc.) pixel from the original image. Dead simple and effective, but you can potentially lose thin details in the image if you skip a lot of pixels.
-- Practically speaking, these appear to have roughly the same performance. Resizing the image beforehand gives you the most control over the final visuals. If you can’t resize, sampling or resizing in the sketch may serve you well.
-- One last note! If you are doing drastic resizing of an image or you have an image with important fine details, sampling or resizing can give pretty poor results.
-
-
-# Next Steps
-
-- [Refactoring Code](https://www.geeksforgeeks.org/refactoring-introduction-and-its-techniques/)
-- [What is Big O Notation?](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/)
-- [Analyze Runtime Performance - Chrome](https://developer.chrome.com/docs/devtools/performance)
-- [Performance features reference - Chrome](https://developer.chrome.com/docs/devtools/performance/reference/#:~:text=%23%20The%20Bottom%2DUp%20tab,learn%20how%20to%20select%20portions.)
-- [Physics Libraries](https://natureofcode.com/physics-libraries/)
-- [Spatial Partition](https://gameprogrammingpatterns.com/spatial-partition.html)
-- [Optimizing p5.js WebGL Sketches](/tutorials/optimizing-webgl-sketches)
+- PhotoshopやGIMPなどのアプリを使用して、インポート前に画像をリサイズします。これにより、リサイズアルゴリズムを制御し、画像をシャープにするフィルターを適用できるため、おそらく最高品質の画像が得られます。
+- [`p5.Image`](/reference/p5/p5.Image)の[`resize()`](/reference/p5.Image/resize)メソッドを使用して画像をリサイズします。ここでは、リサイズの処理方法についてほとんどブラウザに依存しています。詳細については、MDNの[画像レンダリング](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering)に関する情報をチェックしてください。
+- 元の画像から2番目（または3番目、4番目など）のピクセルだけを描画することで画像をサンプリングします。非常にシンプルで効果的ですが、多くのピクセルをスキップすると、画像の細かい詳細が失われる可能性があります。
+- 実際には、これらはほぼ同じパフォーマンスを持っているようです。画像を事前にリサイズすることで、最終的な視覚効果を最も制御できます。リサイズできない場合は、スケッチ内でのサンプリングやリサイズが役立つかもしれません。
+- 最後に注意！画像を大幅にリサイズする場合や、重要な細かい詳細がある画像の場合、サンプリングやリサイズは非常に悪い結果をもたらす可能性があります。
 
 
-# References
+# 次のステップ
 
-- [Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4) - inspiration blog post
-- [Javascript Comments](https://www.w3schools.com/js/js_comments.asp)
-- [Javascript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-- [Image-rendering](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering)
-- [Math functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)
-- [p5.js Friendly Error System](https://github.com/processing/p5.js/blob/main/contributor_docs/friendly_error_system.md)
-- [p5.js reference](https://p5js.org/reference/)
+- [コードのリファクタリング](https://www.geeksforgeeks.org/refactoring-introduction-and-its-techniques/)
+- [ビッグOの表記法とは？](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/)
+- [ランタイムパフォーマンスの分析 - Chrome](https://developer.chrome.com/docs/devtools/performance)
+- [パフォーマンス機能リファレンス - Chrome](https://developer.chrome.com/docs/devtools/performance/reference/#:~:text=%23%20The%20Bottom%2DUp%20tab,learn%20how%20to%20select%20portions.)
+- [物理ライブラリ](https://natureofcode.com/physics-libraries/)
+- [空間分割](https://gameprogrammingpatterns.com/spatial-partition.html)
+- [p5.js WebGLスケッチの最適化](/tutorials/optimizing-webgl-sketches)
+
+
+# 参考文献
+
+- [Scintillating Simulations](https://gbenedis.medium.com/computing-stories-scintillating-simulations-4dad3c480cd4) - インスピレーションとなったブログ投稿
+- [Javascriptコメント](https://www.w3schools.com/js/js_comments.asp)
+- [Javascriptリファレンス](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
+- [画像レンダリング](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering)
+- [Math関数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)
+- [p5.jsフレンドリーエラーシステム](https://github.com/processing/p5.js/blob/main/contributor_docs/friendly_error_system.md)
+- [p5.jsリファレンス](https://p5js.org/reference/)
 
