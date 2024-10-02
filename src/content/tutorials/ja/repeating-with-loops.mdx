@@ -1,10 +1,10 @@
 ---
-title: "Repeating with Loops"
-description: "Create a crawling caterpillar race using loops and arrays!"
+title: "ループで繰り返す"
+description: "ループと配列を使ってクロールするイモムシのレースを作ろう！"
 category: introduction
 categoryIndex: 5
 featuredImage: ../images/featured/loops.png
-featuredImageAlt: Three pink caterpillars with googly eyes on the starting line wait for the race with the text “Click to start”.
+featuredImageAlt: 3匹のピンクのイモムシが目玉をぎょろぎょろさせながらスタートラインで待機し、「クリックでスタート」というテキストが表示されている。
 relatedContent:
   references:
     - en/p5/for
@@ -20,199 +20,197 @@ import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
 
-## Introduction
+## はじめに
 
-Ever want to take your projects to the next level by drawing many shapes with only a few lines of code? Imagine drawing a row of trees, a stack of books, the arches of a rainbow, or the inside of a honeycomb. To create visuals that are made with versions of the same shape, we go beyond coding individual shapes, and venture into the wonderful world of loops and arrays. Let’s learn how to create repeating patterns with only a few lines of code!
+わずか数行のコードで多くの図形を描くことで、プロジェクトを次のレベルに引き上げたいと思ったことはありませんか？木の列、本の山、虹のアーチ、ハチの巣の内部を描くことを想像してみてください。同じ形の変形で作られたビジュアルを作成するには、個々の形を超えてコーディングし、ループと配列の素晴らしい世界に踏み込む必要があります。わずか数行のコードで繰り返しパターンを作成する方法を学びましょう！
 
-![An arch and hexagon shape are vertically aligned with the label that reads “single object.” Arrows point from these shapes to corresponding patterns that are vertically aligned under a label that reads “multiplied objects.”  The single arch points to five vertically stacked arches creating a rainbow shape. The hexagon points to many hexagon arranged in a honeycomb tessellation.](../images/introduction/loops-intro.png)
+![アーチと六角形の形が「単一オブジェクト」というラベルの付いた垂直に並んでいます。これらの形から対応するパターンへ矢印が指しており、それらは「複数オブジェクト」というラベルの下に垂直に並んでいます。単一のアーチは5つの垂直に積み重なったアーチを指し、虹の形を作っています。六角形は多くの六角形がハチの巣のテッセレーションに配置されているのを指しています。](../images/introduction/loops-intro.png)
 
-Drawing each shape with a new line of code would be a tedious process. Instead, we can use *loops,* which allow us to execute and repeat blocks of code as many times as we want. In this tutorial, we use loops and arrays to create [a racing caterpillar sketch](https://editor.p5js.org/gbenedis@gmail.com/sketches/BrmtZ36ET).
+新しい行のコードで各図形を描くのは面倒なプロセスになるでしょう。代わりに、*ループ*を使用することができます。ループを使えば、コードのブロックを好きな回数だけ実行して繰り返すことができます。このチュートリアルでは、ループと配列を使用して[レースをするイモムシのスケッチ](https://editor.p5js.org/gbenedis@gmail.com/sketches/BrmtZ36ET)を作成します。
 
-![Three pink caterpillars crawling to reach a green finish line at the right of the canvas.](../images/introduction/caterpillar-race-end.gif)
+![3匹のピンクのイモムシがキャンバスの右側にある緑のゴールラインに向かってクロールしています。](../images/introduction/caterpillar-race-end.gif)
 
-A group of caterpillars will begin at the starting line of the race, and the first caterpillar to pass the finish line wins. The winning caterpillar will vary each time we run the sketch!
+イモムシのグループがレースのスタートラインから始まり、最初にゴールラインを通過したイモムシが勝者となります。スケッチを実行するたびに勝つイモムシは変わります！
 
-In this tutorial, you will:
+このチュートリアルでは、以下のことを学びます：
 
-- Draw and update repetitive tasks and shapes using *for loops*
-- Use custom functions to update variables and program states and make changes in the program as the sketch runs.
-- Use [conditional statements](/reference/p5/if-else) and `random()` to generate different outcomes
-- Run and stop your sketch using mouse triggers and [Boolean variables](/reference/p5/boolean)
-- Store the positions of the caterpillars in an array
+- *forループ*を使用して反復的なタスクと図形を描画し、更新する
+- カスタム関数を使用して変数とプログラムの状態を更新し、スケッチの実行中にプログラムに変更を加える
+- [条件文](/reference/p5/if-else)と`random()`を使用して異なる結果を生成する
+- マウストリガーと[ブール変数](/reference/p5/boolean)を使用してスケッチを実行および停止する
+- イモムシの位置を配列に格納する
 
-### What you’ll need
+### 必要なもの
 
-- The [p5.js Web Editor](https://editor.p5js.org/)
-- An understanding of p5.js drawing basic shapes and text using  x- and y-coordinates
-  - You can refer to our previous tutorial, [Get Started](/tutorials/get-started)
-- An understanding of variables and conditionals
-  - You can refer to our previous tutorials, [Variables and Change](/tutorials/variables-and-change/) and [Conditionals and Interactivity](/tutorials/conditionals-and-interactivity)
-- An understanding of custom functions and parameters
-  - You can refer to our previous tutorial, [Organizing Code with Functions](/tutorials/organizing-code-with-functions)
+- [p5.js Web Editor](https://editor.p5js.org/)
+- p5.jsで基本的な図形とテキストをx座標とy座標を使って描画する理解
+  - 前回のチュートリアル[はじめよう](/tutorials/get-started)を参照できます
+- 変数と条件文の理解
+  - 前回のチュートリアル[変数と変化](/tutorials/variables-and-change/)と[条件分岐とインタラクティビティ](/tutorials/conditionals-and-interactivity)を参照できます
+- カスタム関数とパラメータの理解
+  - 前回のチュートリアル[関数でコードを整理する](/tutorials/organizing-code-with-functions)を参照できます
 
+## ステップ1 – レーストラックを描く
 
-## Step 1 – Draw the racetrack
+- [p5.js Web Editor](https://editor.p5js.org/)で新しいプロジェクトを開き、「Caterpillar Race」のような名前を付けて保存します。
+- `setup()`内で、500x500ピクセルのキャンバスを作成します。
+- スタートラインとゴールラインのx座標をそれぞれ定義するために、`setup()`の上に2つの新しいグローバル変数を宣言します。2つの変数をstartLineとfinishLineと名付けます。
+  - スタートラインとゴールラインを配置したい場所に応じて、x軸上の値を割り当てます。この例では、startLineを30に、finishLineを360に設定します。
+- `draw()`関数内で：
+  - 背景色を設定します。例えば、`background(121, 96, 76);`で茶色に設定します。
+  - 長方形を描き、そのx座標を`startLine`に設定します。高さを`height`に設定して、キャンバスを垂直に横切るようにします。
+  - `finishLine`に別の長方形を描き、同じステップを繰り返します。
+  - 2つの長方形を異なる色で塗りつぶします。
+- スケッチに名前を付けて保存することを忘れないでください。
 
-- Open a new project in the [p5.js Web Editor](https://editor.p5js.org/), give it a name like “Caterpillar Race”, and save it.
-- In `setup(),` create a 500x500 pixel canvas.
-- Declare two new global variables above `setup()` to define the x-coordinates of your start line and finish line respectively. We will name the two variables startLine and finishLine.
-  - Assign them values on the x-axis, depending on where you’d like to place your start and finish lines. In this example, we’ll set the startLine to 30, and finishLine to 360.
-- In the `draw()` function:
-  - Set a background color. For example, we’ll set it to brown with `background(121, 96, 76)`;
-  - Draw a rectangle and set its x-coordinate as `startLine`. Set its height to `height` so that it stretches vertically across the canvas.
-  - Draw another rectangle at `finishLine` and repeat the same step.
-  - Fill the two rectangles with different colors.
-- Don’t forget to name and save your sketch.
-
-Your code could look like this:
+コードは以下のようになるでしょう：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 function setup() {
-  // 500x500 canvas
-  createCanvas(500, 500); 
+  // 500x500のキャンバス
+  createCanvas(500, 500); 
 }
 
 function draw() {
-  //set background color
-  background(121, 96, 76);
+  //背景色を設定します
+  background(121, 96, 76);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 }
 `} />
 
-## Step 2 – Draw one caterpillar segment and make it move.
+## ステップ2 – イモムシの1セグメントを描いて動かす
 
-Next, we will draw one segment of a caterpillar on the canvas and make it travel from the start line to the finish line. It will stop at the end of the race.
+次に、キャンバス上にイモムシの1セグメントを描き、スタートラインからゴールラインまで移動させます。レースの終わりで停止します。
 
-- Declare a new global variable named `circX` and assign it the value of `startLine`. 
-  - This will be the x-coordinate of the caterpillar's segment.
-- Declare a new global variable named `circY` and assign it the value of 250 (or half of the height). 
-  - This will be the y-coordinate of the caterpillar's segment.
-- In `draw()`:
-  - Draw the caterpillar segment using the `circle()` function. Include `circX`, `circY`, and 50 as arguments to specify the x coordinate, y coordinate, and diameter: `circle(circX, circY, 50);`
-  - We will also give the circle a white fill color and a thin black stroke.
-  - Under the circle command, increment `circX` by 20 using `circX += 20;`
-    - This means that every time the `draw()` function runs, the variable `circX` will increase by 20 pixels. The sketch will draw a new circle at an x-coordinate 20 pixels to the right of the previous circle creating the shape of a caterpillar..
-- Add the following conditional statement at the end of `draw()`:
+- `circX`という新しいグローバル変数を宣言し、`startLine`の値を割り当てます。
+  - これがイモムシのセグメントのx座標になります。
+- `circY`という新しいグローバル変数を宣言し、250（または高さの半分）の値を割り当てます。
+  - これがイモムシのセグメントのy座標になります。
+- `draw()`内で：
+  - `circle()`関数を使用してイモムシのセグメントを描きます。x座標、y座標、直径を指定するために`circX`、`circY`、50を引数として含めます：`circle(circX, circY, 50);`
+  - 円に白の塗りつぶし色と薄い黒の輪郭線も与えます。
+  - 円のコマンドの下で、`circX += 20;`を使用して`circX`を20ずつ増加させます。
+    - これは、`draw()`関数が実行されるたびに、`circX`変数が20ピクセルずつ増加することを意味します。スケッチは前の円のx座標から20ピクセル右に新しい円を描き、イモムシの形を作ります。
+- `draw()`の最後に次の条件文を追加します：
 
   ```js
   if (circX > finishLine) {
-    noLoop();
+    noLoop();
   }
   ```
 
-The `noLoop()` function stops the `draw()` function from running again. The `if` statement stops `draw()` using `noLoop()` when the x-coordinate of the circle passes the value of finishLine. Visit the p5.js reference for more information about [`noLoop()`](/reference/p5/noLoop).
+`noLoop()`関数は`draw()`関数が再び実行されるのを停止します。この`if`文は、円のx座標がfinishLineの値を超えたときに`noLoop()`を使用して`draw()`を停止します。[`noLoop()`](/reference/p5/noLoop)についての詳細はp5.jsリファレンスをご覧ください。
 
-In `setup()`, add: `frameRate(3);`
+`setup()`に以下を追加します：`frameRate(3);`
 
-- A [frame rate](/reference/p5/frameRate) is the number of times `draw() `runs in one second. Setting it to a low number will make the movements more noticeable and dramatic for this animation.
+- [フレームレート](/reference/p5/frameRate)は`draw()`が1秒間に実行される回数です。低い数値に設定すると、このアニメーションの動きがより顕著で劇的になります。
 
-Your code should look like this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables to draw circles starting point.
+// 円の開始点を描くための変数を設定します。
 let circX = startLine;
 
 let circY = 250;
 
 function setup() {
-  createCanvas(500, 500); 
+  createCanvas(500, 500); 
 
-  // Set a slow frame rate.
-  frameRate(3);
+  // 遅いフレームレートを設定します。
+  frameRate(3);
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
+  // 背景を描きます。
+  background(121, 96, 76);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // Draw a circle.
-  fill(255);
-  stroke(0);
-  circle(circX, circY, 50);
+  // 円を描きます。
+  fill(255);
+  stroke(0);
+  circle(circX, circY, 50);
 
-  // Move the x-coordinate
-  // to the right.
-  circX += 20;
+  // x座標を右に
+  // 移動させます。
+  circX += 20;
 
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 `} />
 
-### [If-statements](/reference/p5/if-else)
+### [If文](/reference/p5/if-else)
 
-If-statements, like the one applied above, refer to blocks of code that are executed only when a given condition is true. It is normally written:
+上記で適用されたif文のような条件文は、特定の条件が真の場合にのみ実行されるコードのブロックを指します。通常、次のように書かれます：
 
 ```js
-if (<condition>) {
-  <code>
+if (<条件>) {
+  <コード>
 }
 ```
 
-The condition is specified inside the parentheses of the if-statement. The curly brackets `{ }` mark the start and end of the block of code. In Step 2, the condition `circX > finishLine` stops `draw()` from running again when the x-coordinate of the circle is greater than the value of `finishLine` by calling `noLoop()`.
+条件はif文の括弧内で指定されます。中括弧`{ }`はコードブロックの開始と終了を示します。ステップ2では、条件`circX > finishLine`は、円のx座標が`finishLine`の値より大きくなったときに`noLoop()`を呼び出すことで`draw()`の再実行を停止します。
 
-Visit the p5.js reference for [if](/reference/p5/if-else) to learn more.
+[if](/reference/p5/if-else)についての詳細はp5.jsリファレンスをご覧ください。
 
+## ステップ3 – 1匹のイモムシを描く
 
-## Step 3 – Draw one caterpillar
-
-We will repeat the caterpillar segment from Step 2 to make a row of circles that make up the caterpillar’s body. We will use a *for loop*, to draw multiple circles in a row.
-
-
-### 3.1 – Declare the properties of the caterpillar’s body
-
-Above `setup()`:
-
-- Declare a new variable named `segments` and assign it a value of 6.
-  - This variable defines how many circles that makeup the caterpillar’s body.
-- Declare a new variable named `spacing` and assign it a value of 20.
-  - This variable defines the pixel spacing between the caterpillars body segments.
-- Declare a new variable named `segmentSize` and assign it a value of 50.
-  - This variable defines the diameter of the circle body segments. 
+ステップ2のイモムシのセグメントを繰り返して、イモムシの体を構成する円の列を作ります。*forループ*を使用して、複数の円を一列に描きます。
 
 
-### 3.2 – Construct the caterpillar’s body with a *for loop*
+### 3.1 – イモムシの体の特性を宣言する
 
-In `draw()`:
+`setup()`の上で：
 
-- After the code that draws the finish line, declare a new local variable `x` to position all the body segments: `let x = circX;`
-- Add a *for loop* using: `for (let i = 0; i < length; i += 1) { }`
-  - A *for loop* will repeat the code we write inside the curly brackets multiple times. 
-  - Move the lines of code that draw the `circle()` into the curly brackets of the *for loop*.
-- After the for loop, add: `circX += spacing` 
-  - This moves the caterpillar body to the right each time `draw()` runs.
+- `segments`という新しい変数を宣言し、6という値を割り当てます。
+  - この変数は、イモムシの体を構成する円の数を定義します。
+- `spacing`という新しい変数を宣言し、20という値を割り当てます。
+  - この変数は、イモムシの体のセグメント間のピクセル間隔を定義します。
+- `segmentSize`という新しい変数を宣言し、50という値を割り当てます。
+  - この変数は、体のセグメントの円の直径を定義します。
 
-Your code should look like this:
+
+### 3.2 – *forループ*でイモムシの体を構築する
+
+`draw()`内で：
+
+- ゴールラインを描くコードの後に、すべての体のセグメントを配置するための新しいローカル変数`x`を宣言します：`let x = circX;`
+- *forループ*を追加します：`for (let i = 0; i < length; i += 1) { }`
+  - *forループ*は、中括弧内に書いたコードを複数回繰り返します。
+- `circle()`を描く行をforループの中括弧内に移動します。
+- forループの後に、`circX += spacing`を追加します。
+  - これにより、`draw()`が実行されるたびにイモムシの体が右に移動します。
+
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let circX = startLine;
 let circY = 250;
 let spacing = 20;
@@ -220,136 +218,134 @@ let segments = 6;
 let segmentSize = 50;
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(500, 500);
 
-  // Set a slow frame rate.
-  frameRate(3);
+  // 遅いフレームレートを設定します。
+  frameRate(3);
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
+  // 背景を描きます。
+  background(121, 96, 76);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // a local variable to position the body segments
-  let x = circX;
+  // 体のセグメントを配置するためのローカル変数
+  let x = circX;
 
-  // draw multiple circles (caterpillar body)
-  for (let i = 0; i < segments; i += 1) {
-    // Draw a circle.
+  // 複数の円を描きます（イモムシの体）
+  for (let i = 0; i < segments; i += 1) {
+    // 円を描きます。
 
-    fill(255);
-    stroke(0);
-    circle(x, circY, segmentSize);
-    x += spacing;
-  }
+    fill(255);
+    stroke(0);
+    circle(x, circY, segmentSize);
+    x += spacing;
+  }
 
-  // Move the caterpillar  to the right.
-  circX += spacing;
-  // stop the animation  when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  // イモムシを右に移動させます。
+  circX += spacing;
+  // xがゴールラインに
+  // 到達したらアニメーションを停止します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 `} />
 
+### [Forループ](/reference/p5/for)
 
-### [For loops](/reference/p5/for)
-
-A for loop can execute a section (or block) of code multiple times. For loops can be written like this:
+forループはコードのセクション（またはブロック）を複数回実行することができます。forループは以下のように書くことができます：
 
 ```js
-for (let i = 0; i < number; i += 1) { 
-  // code that you want to execute number times
+for (let i = 0; i < number; i += 1) { 
+  // number回実行したいコード
 }
 ```
 
-Inside the curly brackets `{}` of a for loop, we write the code that we want to execute repeatedly. We can specify the number of times we want the code to repeat by setting the loop’s condition.
+forループの中括弧`{}`の中に、繰り返し実行したいコードを書きます。ループの条件を設定することで、コードを繰り返したい回数を指定できます。
 
-A for loop is defined by three statements inside its parentheses, each separated by semicolons. They are:
+forループは、括弧内にセミコロンで区切られた3つの文で定義されます。それらは：
 
 <AnnotatedLine code={({ bottom }) => `for (${bottom('init', ' let i = 0; ')} ${bottom('cond', 'i < number;')} ${bottom('instr', '  i += 1  ')}) { }`}>
-  <Fragment slot="init">Initialization</Fragment>
-  <Fragment slot="cond">Condition</Fragment>
-  <Fragment slot="instr">Instruction</Fragment>
+  <Fragment slot="init">初期化</Fragment>
+  <Fragment slot="cond">条件</Fragment>
+  <Fragment slot="instr">命令</Fragment>
 </AnnotatedLine>
 
-- **Initialization**: initialize the iteration variable `i` with a number to start counting with. 
+- **初期化**：反復変数`i`を数値で初期化し、カウントを開始します。
 
   ```js
   let i = 0;
   ```
 
-- **Condition:** the condition that keeps the loop running. As long as this condition is true, the for loop will continue to run. When this condition is `false`, the for loop will stop.
+- **条件**：ループを継続させる条件です。この条件が真である限り、forループは実行を続けます。この条件が`false`になると、forループは停止します。
 
   ```js
   i < number;
   ```
 
-- **Instruction:** this tells the program how to change the counting number each time the loop runs. 
+- **命令**：ループが実行されるたびにカウント数をどのように変更するかをプログラムに指示します。
 
   ```js
   i += 1;
   ```
 
-The first expression, `let i = 0`, initializes or starts the for loop. 
+最初の式`let i = 0`は、forループを初期化または開始します。
 
-- i is a variable that defines the initial state of the for loop. It’s also known as the *index* variable. Commonly, the index starts at a value of 0, and increases each loop. The name of this variable can be anything you like. Generally, single-letter variables such as `i`, `j` and `k` are used, but feel free to use something more descriptive.
+- iはforループの初期状態を定義する変数です。これは*インデックス*変数としても知られています。通常、インデックスは0の値から始まり、ループごとに増加します。この変数の名前は好きなものを使用できます。一般的に`i`、`j`、`k`などの単一文字の変数が使用されますが、より説明的な名前を自由に使用してください。
 
-The second expression, `i < number`, is the condition for the loop to keep running. It is known as a Boolean expression, as this expression can return `true` or `false`. As long as this expression is `true`, the for loop will continue to run, and in this case the index variable (`i`) will continue to increase.
+2番目の式`i < number`は、ループを継続させる条件です。これはブール式として知られており、この式は`true`または`false`を返すことができます。この式が`true`である限り、forループは実行を続け、この場合はインデックス変数（`i`）が増加し続けます。
 
-- `number` can be any numerical value or variable that stores a numerical value. For counting, integers are often used.  
-  - Example: `i < 5;` or `i < segments;`
-- In this case, `number` determines the number of times the for loop will run because the initial value `i` begins at 0. 
-- In the caterpillar example above, we set this value to the `segments` variable, which specifies the number of circles that make up the caterpillar's body. As long as the index has not reached the number stored in `segments`, the loop will continue to draw circles.
-  - Once the number of circles drawn is no longer less than segments, the program exits the for loop, and continues to the next line of code.
+- `number`は任意の数値または数値を格納する変数です。カウントには整数がよく使用されます。
+  - 例：`i < 5;`または`i < segments;`
+- この場合、`number`はforループが実行される回数を決定します。これは初期値`i`が0から始まるためです。
+- イモムシの例では、この値を`segments`変数に設定しています。これはイモムシの体を構成する円の数を指定します。描かれた円の数が`segments`に格納された数より少ない限り、ループは円を描き続けます。
+  - 描かれた円の数が`segments`より少なくなくなると、プログラムはforループを抜け、次のコード行に進みます。
 
-The third expression, `i += 1`, is how the index will change at the end of each loop iteration.
+3番目の式`i += 1`は、各ループ反復の終わりにインデックスがどのように変化するかを示します。
 
-- A [**loop iteration**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration) refers to a single time a loop runs. For example, if a for loop runs 3 times, it has 3 iterations.
-- In this example, the `i` variable will increase by 1 each time the for loop runs. That means the first time this for loop runs, `i` is 0. The second time the loop runs, `i` is 1. The third time it runs, `i` is 2, and so forth (until it reaches the value `number`). This expression `i += 1` can also be written `i++`.
+- **ループ反復**とは、ループが1回実行されることを指します。例えば、forループが3回実行される場合、それは3回の反復を持ちます。
+- この例では、forループが実行されるたびに`i`変数が1ずつ増加します。つまり、このforループが最初に実行されるとき、`i`は0です。2回目に実行されるとき、`i`は1です。3回目に実行されるとき、`i`は2です。そして以降も同様です（`number`の値に達するまで）。この式`i += 1`は`i++`とも書くことができます。
 
-In summary: 
+要約すると：
 
-1. When a program executes a for loop, it first declares the loop’s index variable in the first expression. 
-2. It checks the second expression, which is a Boolean expression. If it is `true,` it runs the code written inside the curly brackets.
-3. At the end of a loop, the value of the iteration variable, `i`, changes as defined by the third expression. 
-4. The loop repeats this process until the condition in the second expression is `false`. When the condition is `false`, the program exits the for loop and continues to the next lines of code in the sketch.
+1. プログラムがforループを実行するとき、まず最初の式でループのインデックス変数を宣言します。
+2. 2番目の式（ブール式）をチェックします。それが`true`であれば、中括弧内に書かれたコードを実行します。
+3. ループの終わりに、反復変数`i`の値が3番目の式で定義されたように変更されます。
+4. 2番目の式の条件が`false`になるまで、このプロセスを繰り返します。条件が`false`になると、プログラムはforループを抜け、スケッチの次のコード行に進みます。
 
-Visit the [for loops reference](/reference/p5/for) to learn more.
+詳細については[forループのリファレンス](/reference/p5/for)をご覧ください。
 
+### 3.3 – イモムシにさらに詳細を追加する
 
-### 3.3 – Add more details to the caterpillar 
+- イモムシの体の`fill()`色を必要に応じて調整します。この例では、ピンク色を与えます：`fill(255, 0, 200);`
+- イモムシの目を描きます。目の位置は、体のために描かれた最後の円のx座標とy座標と同じです。これは、forループがすべての円を描いた後になるので、forループの後、但し`noLoop()`の前に目を追加します。これにより、目がイモムシの体の最後の円の上に描かれることが保証されます。
+  - `setup()`の上に新しいグローバル変数`eyeSize`を宣言し、15の値を割り当てます。
+  - 2つの円を描きます。
+    - 黒の塗りつぶしと太い白の輪郭線を与えます。
+  - 最初の目を追加し、その座標とサイズを設定します：`circle(x, circY-eyeSize, eyeSize);`
+    - これにより、目が最後に描かれた円の上部に配置されます。
+  - 2つ目の目を追加し、その座標とサイズを設定します：`circle(x - eyeSize, circY-eyeSize, eyeSize);`
+    - 2つ目の目のx座標を`eyeSize`分減算することで、両目が重ならずに並んで配置されます。
+- イモムシが完成したら、コードを`drawCaterpillar()`という名前のカスタム関数に整理します。好みに応じてイモムシを修正してください！
+  - `draw()`の外側で`drawCaterpillar()`関数を定義します。
+  - この関数には、イモムシの体のための円のforループと、イモムシの目のための2つの円を含める必要があります。
+  - `draw()`関数内で呼び出すことを忘れないでください！ループを終了するif文の前に`draw()`内で`drawCaterpillar();`と入力します。
 
-- Adjust the `fill()` color for your caterpillar’s body if you wish to. In this example, we’ll give it a pink color: `fill(255, 0, 200);`
-- Draw the caterpillar’s eyes. The position of the eyes is the same as the x- and y-coordinates of the last circle that is drawn for the body.  This means that it comes AFTER the for loop has already drawn all circles, so we will add the eyes after the for loop, but before `noLoop()`. This ensures the eyes are drawn on top of the last circle in the caterpillars body.
-  - Declare `eyeSize` as a new global variable above `setup(),` and assign it the value of 15.
-  - Draw two circles.
-    - Give them a black fill and a thick white stroke.
-  - Add the first eye and set its coordinates and size: `circle(x, circY-eyeSize, eyeSize);`
-    - This places the eye at the top of the last drawn circle.
-  - Add the second eye and set its coordinates and size: `circle(x - eyeSize, circY-eyeSize, eyeSize);`
-    - We subtract the second eye’s x-coordinate by `eyeSize` so both eyes are side by side with no overlap.
-- When your caterpillar is complete, organize your code into a custom function named `drawCaterpillar()`. Feel free to modify the caterpillar as you like!
-  - Define the `drawCaterpillar()` function outside of `draw()`.
-  - The function should include your for loop of circles for the caterpillar’s body and the two circles for the caterpillar’s eyes.
-  - Remember to call it in the `draw()` function! Type `drawCaterpillar();` in `draw()` before the if-statement that ends the loop.
-
-Here is how your sketch could look to far:
+ここまでのスケッチは以下のようになるはずです：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let circX = startLine;
 let circY = 250;
 let spacing = 20;
@@ -358,183 +354,182 @@ let segmentSize = 50;
 let eyeSize = 15;
 
 function setup() {
-  createCanvas(500, 500);
-  frameRate(3);
+  createCanvas(500, 500);
+  frameRate(3);
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
+  // 背景を描きます。
+  background(121, 96, 76);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
-  drawCaterpillar();
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
+  drawCaterpillar();
 
-  circX += spacing;
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  circX += spacing;
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 
 function drawCaterpillar() {
-  // Create a loop of circles
-  // to form the body.
-  let x = circX;
+  // 体を形成するために
+  // 円のループを作成します。
+  let x = circX;
 
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, circY, segmentSize);
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, circY, segmentSize);
 
-    x+=spacing;
-  }
- 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, circY - eyeSize, eyeSize);
-  circle(x - eyeSize, circY - eyeSize, eyeSize);
+    x+=spacing;
+  }
+ 
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, circY - eyeSize, eyeSize);
+  circle(x - eyeSize, circY - eyeSize, eyeSize);
 }
 `} />
 
 <Callout>
-Play around with different sizes for the caterpillar’s body and eyes by adjusting the `bodySize` and `eyeSize` variables.
+`bodySize`と`eyeSize`変数を調整して、イモムシの体と目のサイズを変えてみてください。
 </Callout>
 
+## ステップ4 – `drawCaterpillar()`関数を一般化する
 
-## Step 4 – Generalize the `drawCaterpillar()` function
+スケッチが最初に実行されるとき、各イモムシがスタートラインにいるようにしたいです。これは、イモムシがどこに描かれるかを指定できるように、関数にパラメータを追加する必要があることを意味します。
 
-When the sketch first runs, we want each caterpillar to be at the starting line. This means we’ll need to add parameters to our function so that we can modify them to specify where the caterpillars are drawn.
+- `drawCaterpillar()`関数に移動します。
+  - 関数の括弧内に`x`をパラメータとして追加します：`function drawCaterpillar(x) { ...}`
+    - `drawCaterpillar()`関数内で`x`をローカル変数として既に宣言していたことに注意してください。その宣言を削除し、代わりに`x`パラメータを使用できます。
+  - 関数の括弧内に`y`を2番目のパラメータとして追加します `function drawCaterpillar(x,y) { ... }`
+    - 関数本体内の`circY`を`y`に置き換えます。
 
-- Go to the `drawCaterpillar()` function.
-  - Add `x` as a parameter in the parentheses of the function: `function drawCaterpillar(x) { ...}`
-    - Note that we had already declared `x` as a local variable in the `drawCaterpillar()` function. We can remove that declaration and use the `x` parameter instead.
-  - Add `y` as the second parameter in the parentheses of the function `function drawCaterpillar(x,y) { ... }`
-    - Substitute `y` for `circY` in the function body.
+カスタム関数、引数、パラメータについての詳細は、前回のチュートリアル[関数でコードを整理する](/tutorials/organizing-code-with-functions)と、p5.jsの[関数](/reference/p5/function)のリファレンスで学ぶことができます。
 
-You can learn more about custom functions, arguments, and parameters in our previous tutorial, [Organizing Code with Functions](/tutorials/organizing-code-with-functions), and the p5.js reference for [functions](/reference/p5/function).
-
-Your custom functions should now look similar to this:
+カスタム関数は以下のようになるはずです：
 
 ```js
 function drawCaterpillar(x,y) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
+  // 体を形成するために
+  // 円のループを作成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, 50);
 
-    x += spacing;
-  }
- 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+    x += spacing;
+  }
+ 
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
 ```
 
-- In `draw()`, call `drawCaterpillar()` three times to get three caterpillars
+- `draw()`内で、`drawCaterpillar()`を3回呼び出して3匹のイモムシを得ます
 
-Your draw function should look like this:
+draw関数は以下のようになるはずです：
 
 ```js
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // Draw 3 caterpillars.
-  drawCaterpillar(circX,circY-150);
-  drawCaterpillar(circX,circY);
-  drawCaterpillar(circX,circY+150);
+  // 3匹のイモムシを描きます。
+  drawCaterpillar(circX,circY-150);
+  drawCaterpillar(circX,circY);
+  drawCaterpillar(circX,circY+150);
 
-  circX += spacing;
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  circX += spacing;
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 ```
 
+## ステップ5 – `drawCaterpillars()`関数を作成する
 
-## Step 5 – Create a `drawCaterpillars()` function
+これで、3匹のイモムシが同時に画面を横切って移動しています。`drawCaterpillar()`への3つの個別の関数呼び出しの代わりに、ループを使用して3匹のイモムシを描くことができます。
 
-Now we have 3 caterpillars traveling across the screen at the same time. We can use a loop to draw the three caterpillars instead of three individual function calls to `drawCaterpillar()`.
+- スケッチの`setup()`の上に、レースに参加させたいイモムシの数のための新しいグローバル変数を宣言します：`let numCaterpillars = 3;`
+- `draw()`の外側に新しいカスタム関数を作成し、`drawCaterpillars()`と名付けます
+  - `drawCaterpillars()`関数内に新しいforループを作成します。
+    - ループの最初の式でループの変数を0で初期化して開始します。
+    - ループの2番目の式で条件を`i < numCaterpillars`に設定します。
+    - 3番目の式でループの変数をインクリメントします。
+  - forループの中括弧内で`drawCaterpillar(circX, circY);`を呼び出します。
+- `draw()`内で、`drawCaterpillars();`を呼び出します。
 
-- Declare a new global variable above `setup()` in your sketch for the number of caterpillars you want in the race: `let numCaterpillars = 3;`
-- Create a new custom function outside of `draw()` and name it `drawCaterpillars()`
-  - Make a new for loop inside the `drawCaterpillars()` function.
-    - Initialize and start the loop’s variable at 0 in the loop’s first expression.
-    - Set the condition to `i < numCaterpillars` in the loop’s second expression.
-    - Increment the loop’s variable in the third expression.
-  - Call `drawCaterpillar(circX, circY);` inside the curly brackets of the for loop.
-- In `draw()`, call `drawCaterpillars();`
-
-Your `draw()` and `drawCaterpillars()` functions should look like this:
+`draw()`と`drawCaterpillars()`関数は以下のようになるはずです：
 
 ```js
 let numCaterpillars = 3;
 
-// ...variable declarations and setup
+// ...変数宣言とsetup
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
   circX += spacing;
 
-  // Draw the caterpillars on the canvas
-  drawCaterpillars();
+  // キャンバス上にイモムシを描きます
+  drawCaterpillars();
 
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    drawCaterpillar(circX,circY);
-  }
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    drawCaterpillar(circX,circY);
+  }
 }
-```
+````
 
-The sketch should run but you will only see one caterpillar this time. This is because the three caterpillars are all drawn on top of each other. To fix this in the next step we will adjust the y coordinate of each caterpillar:
+
+スケッチは実行されるはずですが、今回は1匹のイモムシしか見えないでしょう。これは、3匹のイモムシがすべて重なって描かれているためです。次のステップでは、各イモムシのy座標を調整してこれを修正します：
 
 <EditableSketch code={`
 let numCaterpillars = 3;
 
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let circX = startLine;
 let circY = 250;
 let spacing = 20;
@@ -543,111 +538,110 @@ let segmentSize = 50;
 let eyeSize = 15;
 
 function setup() {
-  createCanvas(500, 500);
-  frameRate(3);
+  createCanvas(500, 500);
+  frameRate(3);
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
   circX += spacing;
 
-  // Draw the caterpillars on the canvas
-  drawCaterpillars();
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  // キャンバス上にイモムシを描きます
+  drawCaterpillars();
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    drawCaterpillar(circX,circY);
-  }
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    drawCaterpillar(circX,circY);
+  }
 }
 
 function drawCaterpillar(x,y) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
+  // 体を形成するために
+  // 円のループを作成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, 50);
 
-    x += spacing;
-  }
- 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+    x += spacing;
+  }
+ 
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
 `} />
 
+## ステップ6 – レースのためにイモムシを配置する
 
-## Step 6 – Position the caterpillars for the race
+**復習！** ステップ3と4から、スケッチに2つのカスタム関数があります。
 
-**Recap!** From Steps 3 and 4, we have two custom functions in our sketch.
+- `drawCaterpillar(x,y)`は、xとyのパラメータを使用して1匹のイモムシを描きます。
+- `drawCaterpillars()`は`drawCaterpillar()`関数を呼び出し、それをforループ内に配置して複数のイモムシを描くことができるようにします。
 
-- `drawCaterpillar(x,y)` draws one caterpillar using the parameters x and y.
-- `drawCaterpillars()` calls the `drawCaterpillar()` function and places it inside a for loop so that we can draw multiple caterpillars.
+現在、各イモムシは同じx座標とy座標にあります。forループ内のコードを調整して、y座標でイモムシを間隔を空けて配置します。
 
-Now, each caterpillar is at the same x- and y-coordinates. We will adjust the code in the for loop to space the caterpillars apart with the y-coordinate.
+- `drawCaterpillars()`関数の宣言に移動します。
+  - *forループ*内に、新しいコード行を追加します：`let padding = height / numCaterpillars;`
+    - これは`padding`という新しい変数を宣言し、各イモムシ間の垂直方向の間隔を決定します。
+    - キャンバスの`height`をスケッチ内のイモムシの数で割った値を割り当てます。これにより、キャンバスが垂直方向に行（各イモムシに1つずつ）に分割されます。各行の高さが`padding`の値になります。
+  - `y`変数を初期化し、この値を割り当てます：`let y = (i + 0.5) * padding`、ここで`y`は各イモムシのy座標を決定します。
+    - `i`変数を使用することで、forループの各反復で1匹のイモムシを自身の行に配置します。
+    - `i`に0.5を加えることで、イモムシをその行の中央に配置します。
+- ステップ5と同様に、`drawCaterpillar()`関数呼び出しの括弧内に`y`を引数として追加します。
+  - コード行は次のようになるはずです：`drawCaterpillar(circX, y);`
 
-- Go to the `drawCaterpillars()` function declaration. 
-  - Inside the *for loop*, add a new line of code: `let padding = height / numCaterpillars;`
-    - This declares a new variable called `padding` which determines the vertical space between each caterpillar.
-    - We assign it the value of the canvas’s `height`, divided by the number of caterpillars there are in the sketch. This divides the canvas vertically into rows (one for each caterpillar). The height of each row is the value of `padding`.
-  - Initialize the variable `y` by assigning it this value: `let y = (i + 0.5) * padding`, where `y` determines the y-coordinate of each caterpillar.
-    - Using the `i` variable, each iteration of the for loop positions a caterpillar in its own row 
-    - Adding 0.5 to `i` centers the caterpillar in that row.
-- Similar to Step 5, add `y` as an argument in the parentheses of the `drawCaterpillar()` function call. 
-  - The line of code should now be: `drawCaterpillar(circX, y);`
+要約すると、`drawCaterpillar()`関数内で使用するためにxとyをパラメータとして割り当てました。`drawCaterpillars()`でこの関数を呼び出す際に、`circX`と`y`を引数として使用します。
 
-In summary, we have assigned `x` and `y` as parameters to be used inside the `drawCaterpillar()` function. We use `circX` and `y` as arguments when calling this function in `drawCaterpillars()`.
+カスタム関数、引数、パラメータについての詳細は、前回のチュートリアル[関数でコードを整理する](/tutorials/organizing-code-with-functions)で学ぶことができます。
 
-You can learn more about custom functions, arguments, and parameters in our previous tutorial, [Organizing Code with Functions](/tutorials/organizing-code-with-functions).
-
-Your `drawCaterpillars()` function should look like this so far:
+`drawCaterpillars()`関数は今のところ以下のようになるはずです：
 
 ```js
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    let padding = height/numCaterpillars;
-    let y = (i + 0.5) * padding;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    let padding = height/numCaterpillars;
+    let y = (i + 0.5) * padding;
 
-    drawCaterpillar(circX, y, 6);
-  }
+    drawCaterpillar(circX, y, 6);
+  }
 }
-```
+````
 
 
-### Drawing with for loop index variables
+### forループのインデックス変数を使用した描画
 
-The index variable of a for loop (`i`) can incrementally increase or decrease with every loop iteration. In this tutorial, the `i` variable starts at 0 and increases by 1 each time the *for loop* runs. 
+forループのインデックス変数（`i`）は、ループの各反復で段階的に増加または減少させることができます。このチュートリアルでは、`i`変数は0から始まり、*forループ*が実行されるたびに1ずつ増加します。
 
-- The first time this for loop runs, `i` is 0. 
-- The second time the loop runs, `i` is 1.
-- The third time it runs, `i` is 2, and so forth.
+- このforループが最初に実行されるとき、`i`は0です。
+- ループが2回目に実行されるとき、`i`は1です。
+- 3回目に実行されるとき、`i`は2です。以降も同様です。
 
-We can use index variables in our drawings to add, subtract, multiply and divide numbers so their result is different for every iteration of the for loop. 
+forループの各反復で結果が異なるように、インデックス変数を使用して描画時に数値を加算、減算、乗算、除算することができます。
 
-In this example, we use `i` to calculate consistent spacing between each caterpillar (see table below):
+この例では、`i`を使用して各イモムシ間の一貫した間隔を計算しています（以下の表を参照）：
 
-- During the first iteration `i` is 0 and `y` is `0.5 * padding`. The first caterpillar is drawn with that y value.
-- During the second iteration, `i` is 1 and `y` becomes `1.5 * padding`. The second caterpillar is drawn at the new y value.
-- During the third iteration, `i` is 2 and `y` becomes `2.5 * padding`. The third caterpillar is drawn at the new y value.
+- 最初の反復では`i`は0で、`y`は`0.5 * padding`です。最初のイモムシはそのy値で描かれます。
+- 2回目の反復では、`i`は1で、`y`は`1.5 * padding`になります。2番目のイモムシは新しいy値で描かれます。
+- 3回目の反復では、`i`は2で、`y`は`2.5 * padding`になります。3番目のイモムシは新しいy値で描かれます。
 
 <table>
 
@@ -655,7 +649,7 @@ In this example, we use `i` to calculate consistent spacing between each caterpi
 
 <th>
 
-Caterpillars (Loop iterations)
+イモムシ（ループの反復）
 
 </th>
 
@@ -677,7 +671,7 @@ Caterpillars (Loop iterations)
 
 <td>
 
-First
+1番目
 
 </td>
 
@@ -699,7 +693,7 @@ First
 
 <td>
 
-Second
+2番目
 
 </td>
 
@@ -721,7 +715,7 @@ Second
 
 <td>
 
-Third
+3番目
 
 </td>
 
@@ -741,53 +735,54 @@ Third
 
 </table>
 
-`drawCaterpillar()` and `drawCaterpillars()` should now look like this:
+`drawCaterpillar()`と`drawCaterpillars()`は以下のようになるはずです：
 
 ```js
-// ... variable declarations, setup(), and draw()
+// ... 変数宣言、setup()、draw()
 
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Space between each caterpillar.
-    let padding = height / numCaterpillars;
-    let y = (i + 0.5) * padding;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    // 各イモムシ間の間隔。
+    let padding = height / numCaterpillars;
+    let y = (i + 0.5) * padding;
 
-    // Draw the caterpillar
-    drawCaterpillar(circX, y);
-  }
+    // イモムシを描く
+    drawCaterpillar(circX, y);
+  }
 }
 
 function drawCaterpillar(x, y) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
+  // 体を形成するために
+  // 円のループを作成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, 50);
 
-    x+=spacing;
-  }
+    x+=spacing;
+  }
 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
-```
+````
 
-Here is how it should look all together:
+
+全体は以下のようになるはずです：
 
 <EditableSketch code={`
 let numCaterpillars = 3;
 
-// Set variables to draw the racetrack.
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let circX = startLine;
 let circY = 250;
 let spacing = 20;
@@ -796,629 +791,661 @@ let segmentSize = 50;
 let eyeSize = 15;
 
 function setup() {
-  createCanvas(500, 500);
-  frameRate(3);
+  createCanvas(500, 500);
+  frameRate(3);
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
   circX += spacing;
 
-  // Draw the caterpillars on the canvas
-  drawCaterpillars();
-  // End the loop when x
-  // reaches the finish line.
-  if (circX > finishLine) {
-    noLoop();
-  }
+  // キャンバス上にイモムシを描きます
+  drawCaterpillars();
+  // xがゴールラインに
+  // 到達したらループを終了します。
+  if (circX > finishLine) {
+    noLoop();
+  }
 }
 
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Space between each caterpillar.
-    let padding = height / numCaterpillars;
-    let y = (i + 0.5) * padding;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    // 各イモムシ間の間隔。
+    let padding = height / numCaterpillars;
+    let y = (i + 0.5) * padding;
 
-    // Draw the caterpillar
-    drawCaterpillar(circX, y);
-  }
+    // イモムシを描く
+    drawCaterpillar(circX, y);
+  }
 }
 
 function drawCaterpillar(x, y) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
+  // 体を形成するために
+  // 円のループを作成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, 50);
 
-    x+=spacing;
-  }
+    x+=spacing;
+  }
 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
 `} />
 
 <Callout>
-Change the value of the `numCaterpillars` global variable and see how the for loop in `drawCaterpillars()` spaces them out vertically on the canvas.
+`numCaterpillars`グローバル変数の値を変更して、`drawCaterpillars()`のforループがキャンバス上で垂直方向にどのようにイモムシを間隔を空けて配置するかを確認してください。
 </Callout>
 
+## ステップ7 – イモムシの位置を配列に格納する
 
-## Step 7 – Create an array to save the position of each caterpillar
+現在、すべてのイモムシは同じ速度で移動しています。各イモムシに異なる速度を与えるために、イモムシの位置を個別に追跡する必要があります。これを行うために、配列を使用します。
 
-Now that we’ve positioned the caterpillars vertically on the canvas, we want to give each one a unique x-coordinate. We can do this using an array. The array will contain the x coordinates for each caterpillar. Then we can move the caterpillars randomly across the screen, making a race possible.
+配列は、複数の値を1つの変数に格納するのに役立ちます。配列内の各値は*要素*と呼ばれ、各要素には*インデックス*があります。インデックスは配列内の要素の位置を示し、0から始まります。
 
+例えば、3つの数値を持つ配列は以下のようになります：
 
-### 7.1 – Create an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+```js
+let myArray = [10, 20, 30];
+```
 
-- Declare the `caterpillarEnds` array right after `numCaterpillars`: `let caterpillarEnds = [];`
-  - This array will hold the x position for the leftmost segment for each caterpillar.
+この配列では：
+- インデックス0の要素は10です
+- インデックス1の要素は20です
+- インデックス2の要素は30です
 
+配列の要素にアクセスするには、配列名の後に角括弧[]を使用し、その中にインデックスを入れます。例えば：
 
-You will learn more about arrays in the next tutorial, [Data Structure Garden](/tutorials/data-structure-garden). Visit the MDN reference for [arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) to learn more.
+```js
+console.log(myArray[0]); // 10を出力
+console.log(myArray[1]); // 20を出力
+console.log(myArray[2]); // 30を出力
+```
 
-- In `setup()`, add the x coordinate for each caterpillar, placing them all on the start line. 
-  - Make a for loop that will repeat once for each caterpillar: `for (let i=0; i < numCaterpillars; i++) { }`
-  - Inside the curly braces, add the line `caterpillarEnds.push(startLine);`
-    - This will add the value `startLine` to the `caterpillarEnds` array once for each caterpillar that needs to be drawn in the sketch. 
-    - The `.push()` method is used to add a new value to the end of an array.
+### 7.1 – イモムシの位置を格納する配列を作成する
 
-Now `setup()` should look like this:
+- `setup()`の上に、新しいグローバル変数`caterpillarX`を宣言します：`let caterpillarX = [];`
+  - 空の角括弧`[]`は、この変数が空の配列であることを示します。
+- `setup()`内で、forループを使用して`caterpillarX`配列にイモムシの開始位置を追加します：
 
 ```js
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(500, 500);
+  frameRate(3);
 
-  // Set a slow frame rate.
-  frameRate(6);
-
-  for (let i=0; i < numCaterpillars; i++) {
-    //add the position of last segment into an array
-    caterpillarEnds.push(startLine);
-  }
-}
-```
-
-- In the `drawCaterpillars()` function, change the line `drawCaterpillar(circX,y)`:
-  - Instead of using `circX`, we will now use the values in the `caterpillarEnds` array.
-  - Since the index `i` in the for loop represents the correct index position in the `caterpillarEnds` array, we can change `circX` to `caterpillarEnds[i]`: `drawCaterpillar(caterpillarEnds[i], y);`
-- Remove `circX` from the function.
-  - Note: `circX` is still used at the end of `draw()`. Go ahead and remove that and we will add it back later.
-
-Your `drawCaterpillars()` function should look like this:
-
-```js
-function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {  
-    // Space between each caterpillar.
-    let padding = height / numCaterpillars;
-    let y = (i + 0.5) * padding;
-
-    // Draw caterpillars using an array.
-    drawCaterpillar(caterpillarEnds[i], y);
-  }
-}
-```
-
-
-### 7.2 – Move the caterpillars randomly
-
-- Create a new custom function outside of `draw()` and name it `moveCaterpillars()`
-- Define a new for loop that iterates the same number of times as there are caterpillars: `for (let i = 0; i < numCaterpillars; i += 1) { }`
-  - This is the same for loop syntax used in the `drawCaterpillars()` function as it allows you to individually refer to each caterpillar.
-- Within the loop, assign a local random value to `move`: 
-
-  ```js
-  let move = random(5,30);
-  ```
-
-- Once the race begins, this will randomly move each caterpillar between 5 and 30 pixels to the right each time `draw()` runs.
-- You can modify the values in `random()` depending on the range of motion you want for your caterpillars. Visit the [p5.js reference for `random()`](/reference/p5/random) to learn more. 
-
-Your function could look like this:
-
-```js
-function moveCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    //Give each caterpillar a
-    //random speed.
-    move = random(5, 30);
-    caterpillarEnds[i] += move;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    caterpillarX.push(startLine);
   }
 }
 ```
 
-In summary, the order of events in the function above is:
+`push()`メソッドは配列の末尾に新しい要素を追加します。この場合、各イモムシの開始位置（`startLine`の値）を配列に追加しています。
 
-- For every loop iteration, we assign `move` to a random number between 5 and 30.
-  - This means every caterpillar is assigned a different random `move`.
-- Then we update the value in the `i`<sup>th</sup> position in the `caterpillarEnds` array, which is what the `drawCaterpillar()` function uses to display the caterpillar.
+### 7.2 – 配列を使用してイモムシを描画する
+
+- `drawCaterpillars()`関数を更新して、`caterpillarX`配列の値を使用します：
+
+```js
+function drawCaterpillars() {
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    let padding = height / numCaterpillars;
+    let y = (i + 0.5) * padding;
+
+    drawCaterpillar(caterpillarX[i], y);
+  }
+}
+```
+
+ここでは、`circX`の代わりに`caterpillarX[i]`を使用しています。これにより、各イモムシは配列内の対応する位置の値を使用します。
+
+### 7.3 – イモムシを個別に移動させる
+
+- `draw()`関数内の`circX += spacing;`の行を削除します。
+- 代わりに、forループを使用して各イモムシを個別に移動させます：
+
+```js
+function draw() {
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
+
+  // 各イモムシを移動させます
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    caterpillarX[i] += spacing;
+  }
+
+  // キャンバス上にイモムシを描きます
+  drawCaterpillars();
+
+  // いずれかのイモムシがゴールラインに
+  // 到達したらループを終了します。
+  if (caterpillarX[0] > finishLine) {
+    noLoop();
+  }
+}
+```
+
+これで、各イモムシの位置が個別に更新されます。ただし、現時点ではすべてのイモムシが同じ速度で移動しています。
+
+## ステップ8 – イモムシにランダムな速度を与える
+
+各イモムシに異なる速度を与えるために、`random()`関数を使用してランダムな値を生成します。
+
+### 8.1 – 速度の配列を作成する
+
+- `setup()`の上に、新しいグローバル変数`caterpillarSpeed`を宣言します：`let caterpillarSpeed = [];`
+- `setup()`内で、forループを使用して`caterpillarSpeed`配列にランダムな速度を追加します：
+
+````js
+function setup() {
+  createCanvas(500, 500);
+  frameRate(3);
+
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    caterpillarX.push(startLine);
+    caterpillarSpeed.push(random(1, 5));
+  }
+}
+````
 
 
-### 7.3 – Move the caterpillars
+`random(1, 5)`は1から5の間のランダムな数値を生成します。これにより、各イモムシは異なる速度を持つことになります。
 
-- Finally, call the `moveCaterpillars()` function in `draw()` before the `drawCaterpillars()` function call. 
+### 8.2 – ランダムな速度を使用してイモムシを移動させる
 
-Your code should look like this!
+- `draw()`関数内のイモムシを移動させるforループを更新します：
+
+````js
+// 各イモムシを移動させます
+for (let i = 0; i < numCaterpillars; i += 1) {
+  caterpillarX[i] += caterpillarSpeed[i];
+}
+````
+
+
+これで、各イモムシは自身の速度で移動します。
+
+### 8.3 – すべてのイモムシがゴールラインに到達したらアニメーションを停止する
+
+現在、最初のイモムシ（インデックス0）がゴールラインに到達したときにアニメーションが停止します。代わりに、すべてのイモムシがゴールラインを通過したときにアニメーションを停止するようにしましょう。
+
+- `draw()`関数内のif文を更新します：
+
+````js
+// すべてのイモムシがゴールラインに到達したかチェックします
+let allFinished = true;
+for (let i = 0; i < numCaterpillars; i += 1) {
+  if (caterpillarX[i] <= finishLine) {
+    allFinished = false;
+    break;
+  }
+}
+if (allFinished) {
+  noLoop();
+}
+````
+
+
+このコードは、すべてのイモムシがゴールラインを通過したかどうかをチェックします。いずれかのイモムシがまだゴールラインに到達していない場合、`allFinished`は`false`に設定され、ループは続行されます。すべてのイモムシがゴールラインを通過すると、`allFinished`は`true`のままとなり、アニメーションは停止します。
+
+これらの変更を加えた後、スケッチは以下のようになるはずです：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+let numCaterpillars = 3;
+
+// レーストラックを描くための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let spacing = 20;
-let segmentSize = 30;
+let segments = 6;
+let segmentSize = 50;
 let eyeSize = 15;
 
-let segments = 6;
+// イモムシの位置と速度を格納する配列
+let caterpillarX = [];
+let caterpillarSpeed = [];
 
-// Set variables for the race.
-let numCaterpillars = 3;
-let caterpillarEnds = [];
 function setup() {
-  createCanvas(500, 500);
-  frameRate(3);
+  createCanvas(500, 500);
+  frameRate(3);
 
-  for (let i=0;i<numCaterpillars;i++) {
-    caterpillarEnds.push(startLine)
-  }
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    caterpillarX.push(startLine);
+    caterpillarSpeed.push(random(1, 5));
+  }
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
+  // 背景を描きます。
+  background(121, 96, 76);
+  // スタートラインとゴールラインを描きます。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
-  
-  // Make changes to caterpillars’ positions.
-  moveCaterpillars();
+  // 各イモムシを移動させます
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    caterpillarX[i] += caterpillarSpeed[i];
+  }
 
-  // Draws caterpillars in their new positions.
-  drawCaterpillars();
-}
+  // キャンバス上にイモムシを描きます
+  drawCaterpillars();
 
-function moveCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    //Give each caterpillar a
-    //random speed.
-    move = random(5, 30);
-
-    // Update caterpillars' x-coordinates
-    caterpillarEnds[i] += move;
+  // すべてのイモムシがゴールラインに到達したかチェックします
+  let allFinished = true;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    if (caterpillarX[i] <= finishLine) {
+      allFinished = false;
+      break;
+    }
+  }
+  if (allFinished) {
+    noLoop();
   }
 }
 
 function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Give each caterpillar their
-    // own x-coordinates.
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    let padding = height / numCaterpillars;
+    let y = (i + 0.5) * padding;
 
-    let padding = height / numCaterpillars;
-    let y = (i + 0.5) * padding;
-    drawCaterpillar(caterpillarEnds[i], y);
-  }
+    drawCaterpillar(caterpillarX[i], y);
+  }
 }
 
 function drawCaterpillar(x, y) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
-    x += spacing; // Change x for next circle.
-  }
+  // 体を形成するために
+  // 円のループを作成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, segmentSize);
 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+    x += spacing;
+  }
+
+  // イモムシの目を描きます。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
 `} />
 
+これで、各イモムシが異なる速度で移動し、すべてのイモムシがゴールラインに到達したときにアニメーションが停止するようになりました！
 
-## Step 8 – Give the caterpillars a crawling motion
+---
+title: "ループで繰り返す"
+description: "ループと配列を使ってクロールするイモムシのレースを作ろう！"
+category: introduction
+categoryIndex: 5
+featuredImage: ../images/featured/loops.png
+featuredImageAlt: スタートラインで待機する3匹のピンクのイモムシ。目玉がついていて、「クリックでスタート」というテキストが表示されている。
+relatedContent:
+  references:
+    - en/p5/for
+    - en/p5/noloop
+    - en/p5/random
+authors:
+  - Joanne Amarisa
+  - Layla Quiñones
+  - Greg Benedis-Grab
+---
 
-To replicate a ‘crawling’ movement, we will randomize the number of segments of each caterpillar using the `random()` function. As a refresher, the global `segments` variable determines the number of segments displayed for the caterpillars. We will now change that to be a parameter in the `drawCaterpillar()` function. 
 
-- Go to the `drawCaterpillar()` function definition.
-  - Add a new parameter called `segments`. It should now look like this: `function drawCaterpillar(x, y, segments) { ... }`
-  - You can remove the `segments` global variable at the top of the sketch.
-- Go to the `drawCaterpillars()` function definition.
-  - Add `crawl` as the third argument in the parentheses where the `drawCaterpillar()` function is called: `drawCaterpillar(x, y, crawl);`
-  - Above this line, assign a new random value to the `crawl` variable by typing: `let crawl = round(random(3, 6));`
-    - This means that while the sketch is running, the program will continuously draw the caterpillars at random lengths (between 3 to 6 circles) while moving them from the start to the finish line.
-    - You can modify the values in `random()` depending on how long and short you want the caterpillars to crawl.
-    - The random value of the `crawl` variable will populate the `segments` parameter in the `drawCaterpillar()` function definition, which determines how many circles are drawn.
+## ステップ9 – マウストリガーでレースを開始する
 
-Your functions should look like this:
-
-```js
-// ... variable declarations, setup(), draw(), moveCaterpillars() functions
-function drawCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Update each caterpillar x-coordinate
-    let padding = height / numCaterpillars;
-    let y = (i + 0.5) * padding;
-
-    // Update length of caterpillar.   
-    let crawl = round(random(3, 6));
-
-    // Draw caterpillars.
-    drawCaterpillar(x, y, crawl);
-  }
-}
-
-function drawCaterpillar(x, y, segments) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
-    x += spacing;
-  }
-
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
-}
-```
-
-## Step 9 – Start the race with a mouse trigger
-
-- Declare a new boolean global variable called `isRacing` and set it to `false`: `let isRacing = false`;
-  - This variable will behave as a state variable, storing information on whether or not the caterpillars are racing, as a Boolean value (`true` or `false`).
-- Define a `mousePressed()` function.
-  - In the function, set the `isRacing` boolean to `true`.
-- The function should look like this:
+- `isRacing`という新しいブール型のグローバル変数を宣言し、`false`に設定します：`let isRacing = false`;
+  - この変数は状態変数として機能し、イモムシがレース中かどうかの情報をブール値（`true`または`false`）として保存します。
+- `mousePressed()`関数を定義します。
+  - 関数内で、`isRacing`ブール値を`true`に設定します。
+- 関数は次のようになります：
 
   ```js
-  // Start the race when the
-  // user presses the mouse.
+  // ユーザーがマウスを押したときに
+  // レースを開始します。
   function mousePressed() {
-    isRacing = true;
+    isRacing = true;
   }
   ```
 
-- In the `draw()` function, create a new if-statement before the `drawCaterpillars()` function call: `if (isRacing === true) { }`
-- Move the `moveCaterpillars()` function call into the if-statement.
-  - This means the caterpillars will only start moving once the race begins (after the mouse is pressed).
-- Your code should look like this:
+- `draw()`関数内で、`drawCaterpillars()`関数呼び出しの前に新しいif文を作成します：`if (isRacing === true) { }`
+- `moveCaterpillars()`関数呼び出しをif文の中に移動します。
+  - これにより、イモムシはレースが始まった後（マウスが押された後）にのみ動き始めます。
+- コードは次のようになります：
 
 ```js
-// ... define global variables
+// ... グローバル変数を定義
 
 let isRacing = false;
 
 function setup() {
-  createCanvas(500, 500);
-  // Set a slow frame rate.
-  frameRate(3);
+  createCanvas(500, 500);
+  // フレームレートを遅く設定します。
+  frameRate(3);
 
-  for (let i=0;i<numCaterpillars;i++) {
-    caterpillarEnds.push(startLine)
-  }
+  for (let i=0;i<numCaterpillars;i++) {
+    caterpillarEnds.push(startLine)
+  }
 }
 
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
+  // 背景を描画します。
+  background(121, 96, 76);
 
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // スタートラインとゴールラインを描画します。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // Move caterpillars if
-  // race has started.
-  if (isRacing === true) {
-    moveCaterpillars();
-  }
+  // レースが開始されていれば
+  // イモムシを動かします。
+  if (isRacing === true) {
+    moveCaterpillars();
+  }
 
-  drawCaterpillars();
+  drawCaterpillars();
 }
 
-// Start the race when the
-// user presses the mouse.
+// ユーザーがマウスを押したときに
+// レースを開始します。
 function mousePressed() {
-  isRacing = true;
+  isRacing = true;
 }
 
-// ... moveCaterpillars, drawCaterpillars, and drawCaterpillar functions.
+// ... moveCaterpillars、drawCaterpillars、drawCaterpillar関数。
 ```
 
+## ステップ10 – レースの開始と終了のメッセージを追加する
 
-## Step 10 – Add messages for the start and end of the race
+よくできました！この段階のスケッチでは、マウスをクリックすると開始するイモムシのレースができています。
 
-Well done! At this stage of your sketch, you have a caterpillar race that starts at the click of a mouse.
-
-Now, all we have to do is add instructions on the canvas on how to use the program. We will also add a message at the end of the race to announce the winning caterpillar, which will be random. We will add back in the noLoop() function so the race ends when a winner is declared.
+あとは、プログラムの使い方をキャンバス上に指示を追加するだけです。また、レースの終了時に勝利したイモムシを発表するメッセージも追加します。勝者はランダムになります。noLoop()関数を再び追加して、勝者が宣言されたらレースが終了するようにします。
 
 
-### 10.1 – Write a start message
+### 10.1 – スタートメッセージを書く
 
-- Create a new custom function after `draw()` and name it `writeStart()`.
-- Inside the function, add: `text(“ 🏁 Click to start!”, width / 2, height / 2);`
-  - This writes the instructions text and places it at the center of the canvas.
-  - Align the text to the center by adding `textAlign(CENTER);` above the `text()` command.
-  - Add styles to the text. In this example, we will give it a white color with no stroke and a text size of 24.
-- Your `writeStart()` function should look like this:
+- `draw()`の後に新しいカスタム関数を作成し、`writeStart()`と名付けます。
+- 関数内に以下を追加します：`text(" 🏁 Click to start!", width / 2, height / 2);`
+  - これは指示テキストを書き、キャンバスの中央に配置します。
+  - `textAlign(CENTER);`を`text()`コマンドの上に追加して、テキストを中央揃えにします。
+  - テキストにスタイルを追加します。この例では、白色で輪郭線なし、テキストサイズ24にします。
+- `writeStart()`関数は次のようになります：
 
   ```js
   function writeStart() {
-   
-    // Style the text.
-    textSize(24);
-    textAlign(CENTER);
-    fill(255);
-    noStroke();
-   
-    // Display the message.
-    text("🏁 Click to start!", width / 2, height / 2);
+   
+    // テキストのスタイルを設定します。
+    textSize(24);
+    textAlign(CENTER);
+    fill(255);
+    noStroke();
+   
+    // メッセージを表示します。
+    text("🏁 Click to start!", width / 2, height / 2);
   }
   ```
 
-- Go back to the `draw()` function and add an else-statement: `else {}`
-  - This else-statement will execute if the race has not yet started
-- Call the `writeStart()` function inside this else-statement code block.
+- `draw()`関数に戻り、else文を追加します：`else {}`
+  - このelse文は、レースがまだ開始されていない場合に実行されます
+- このelse文のコードブロック内で`writeStart()`関数を呼び出します。
 
-The `draw()` function should look like this:
+`draw()`関数は次のようになります：
 
 ```js
 function draw() {
-  // Draw the background.
-  background(121, 96, 76);
-
-  // Draw the start and finish lines.
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
-
-  // Move caterpillars if
-  // race has started.
-  if (isRacing === true) {
-    moveCaterpillars();
-  } else { 
-    // If the race hasn't started,
-    // write instructions to start.
-    writeStart();
-  }
-
-  //draw caterpillars at new position
-  drawCaterpillars();
+  // 背景を描画します。
+  background(121, 96, 76);
+  
+  // スタートラインとゴールラインを描画します。
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
+  
+  // レースが開始されていれば
+  // イモムシを動かします。
+  if (isRacing === true) {
+    moveCaterpillars();
+  } else {
+    // レースが開始されていない場合、
+    // 開始方法の指示を書きます。
+    writeStart();
+  }
+  
+  // 新しい位置にイモムシを描画します
+  drawCaterpillars();
 }
 ```
 
+### 10.2 – 勝者をチェックし、誰が勝ったかを表示する
 
-### 10.2 – Check for a winner and write who won.
+イモムシの一匹が勝ったかどうかをチェックする必要があります。勝者がいれば、その情報を表示してレースを終了させます。
 
-We need to check if one of the caterpillars has won. If so we need to display that information and end the race.
-
-- Create a new function below `draw()` to check the winner: `function checkWinner() {}` 
-- Inside the curly braces for the function, write a for loop to check each of the caterpillars' x values to see if they have won: `for (let i = 0; i < caterpillarEnds.length; i += 1) {}`
-- Inside of the for loop curly braces, include an if statement to see if each caterpillar crossed the finish line: `if (caterpillarEnds[i] >= finishLine) {}`
-- Inside this if statement, write the winner into the text dynamically using a text literal:
+- `draw()`の下に新しい関数を作成して勝者をチェックします：`function checkWinner() {}` 
+- 関数の中括弧内に、各イモムシのx値をチェックして勝者がいるかどうかを確認するforループを書きます：`for (let i = 0; i < caterpillarEnds.length; i += 1) {}`
+- forループの中括弧内に、各イモムシがゴールラインを越えたかどうかを確認するif文を含めます：`if (caterpillarEnds[i] >= finishLine) {}`
+- このif文の中で、テキストリテラルを使用して勝者を動的にテキストに書き込みます：
 
   ```js
   text(`Caterpillar ${i + 1} wins!`, width / 2, height / 2);
   ```
 
-  - This dynamically writes text displaying the index of the caterpillar who won. Since indices start at 0 and typically we count caterpillars starting at 1, we added 1 to the value of `i` 
-  - Similar to Step 9.1, align the text to the center by adding: `textAlign(CENTER);` and add styles to the text. 
-- Inside the if statement also include the `noLoop()` function  to cause `draw()` to stop running. 
+  - これは勝ったイモムシのインデックスを動的に表示するテキストを書きます。インデックスは0から始まり、通常イモムシは1から数えるので、`i`の値に1を加えています。
+  - ステップ9.1と同様に、`textAlign(CENTER);`を追加してテキストを中央揃えにし、テキストにスタイルを追加します。
+- if文の中に`noLoop()`関数も含めて、`draw()`の実行を停止させます。
 
-Your `checkWinner()` function can look like this:
+`checkWinner()`関数は次のようになります：
 
 ```js
 function checkWinner() {
-  for (let i = 0; i < caterpillarEnds.length; i += 1) {
-    if (caterpillarEnds[i] >= finishLine) {
-      // Style the text.
-      textSize(24);
-      textAlign(CENTER);
-      fill(255);
-      noStroke();
+  for (let i = 0; i < caterpillarEnds.length; i += 1) {
+    if (caterpillarEnds[i] >= finishLine) {
+      // テキストのスタイルを設定します。
+      textSize(24);
+      textAlign(CENTER);
+      fill(255);
+      noStroke();
 
-      // Display the message.
-      text(`Caterpillar ${i + 1} wins!`, width / 2, height / 2);
+      // メッセージを表示します。
+      text(`Caterpillar ${i + 1} wins!`, width / 2, height / 2);
 
-      noLoop();
-    }
-  }
+      noLoop();
+    }
+  }
 }
 ```
 
-Your final sketch should look like this:
+最終的なスケッチは次のようになります：
 
 <EditableSketch code={`
-// Set variables to draw the racetrack.
+// レーストラックを描画するための変数を設定します。
 let startLine = 30;
 let finishLine = 400;
 
-// Set variables for the caterpillar.
+// イモムシの変数を設定します。
 let spacing = 20;
 let segmentSize = 30;
 let eyeSize = 15;
 
-// Set variables for the race.
+// レースの変数を設定します。
 let numCaterpillars = 3;
 let caterpillarEnds = [];
 
-// Set a default state
-// before the race begins.
+// レース開始前のデフォルト状態を設定します。
 let isRacing = false;
 
 function setup() {
-  createCanvas(500, 500);
- 
-  // Set a slow frame rate.
-  frameRate(3);
+  createCanvas(500, 500);
+ 
+  // フレームレートを遅く設定します。
+  frameRate(3);
 
-  for (let i=0;i<numCaterpillars;i++) {
-    caterpillarEnds.push(startLine)
-  }
+  for (let i=0;i<numCaterpillars;i++) {
+    caterpillarEnds.push(startLine)
+  }
 }
 
 function draw() {
-  // Draw the background,
-  // start, and finish line.
-  background(121, 96, 76);
-  noStroke();
-  fill(0);
-  rect(startLine, 0, 5, height);
-  fill(0, 255, 0);
-  rect(finishLine, 0, 20, height);
+  // 背景、スタートライン、
+  // ゴールラインを描画します。
+  background(121, 96, 76);
+  noStroke();
+  fill(0);
+  rect(startLine, 0, 5, height);
+  fill(0, 255, 0);
+  rect(finishLine, 0, 20, height);
 
-  // Move caterpillars if
-  // race has started.
-  if (isRacing === true) {
-    moveCaterpillars();
-  } else { 
-    // if the race hasn't started
-    // instructions on start screen
-    writeStart();
-  }
+  // レースが開始されていれば
+  // イモムシを動かします。
+  if (isRacing === true) {
+    moveCaterpillars();
+  } else { 
+    // レースが開始されていない場合
+    // スタート画面に指示を表示します
+    writeStart();
+  }
 
-  // Draw caterpillars at
-  // the starting line.
-  drawCaterpillars();
- 
-  // Check if there is a winner
-  checkWinner();
+  // スタートラインにイモムシを
+  // 描画します。
+  drawCaterpillars();
+ 
+  // 勝者がいるかチェックします
+  checkWinner();
 }
 
-// Draw a message at the
-// start of the race.
+// レース開始時にメッセージを
+// 表示します。
 function writeStart() {
-  // Style the text.
-  textSize(24);
-  textAlign(CENTER);
-  fill(255);
-  noStroke();
+  // テキストのスタイルを設定します。
+  textSize(24);
+  textAlign(CENTER);
+  fill(255);
+  noStroke();
 
-  // Display the message.
-  text("🏁 Click to start!", width / 2, height / 2);
+  // メッセージを表示します。
+  text("🏁 Click to start!", width / 2, height / 2);
 }
 
-// Draw one caterpillar.
+// 1匹のイモムシを描画します。
 function drawCaterpillar(x, y, segments) {
-  // Create a loop of circles
-  // to form the body.
-  for (let i = 0; i < segments; i += 1) {
-    fill(255, 0, 200);
-    stroke(0);
-    strokeWeight(1);
-    circle(x, y, 50);
-    x += spacing;
-  }
+  // 円のループを作成して
+  // 体を形成します。
+  for (let i = 0; i < segments; i += 1) {
+    fill(255, 0, 200);
+    stroke(0);
+    strokeWeight(1);
+    circle(x, y, 50);
+    x += spacing;
+  }
 
-  // Draw the caterpillar's eyes.
-  fill(0);
-  stroke(255);
-  strokeWeight(3);
-  circle(x, y - eyeSize, eyeSize);
-  circle(x - eyeSize, y - eyeSize, eyeSize);
+  // イモムシの目を描画します。
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  circle(x, y - eyeSize, eyeSize);
+  circle(x - eyeSize, y - eyeSize, eyeSize);
 }
 
-// Draw all the caterpillars.
+// すべてのイモムシを描画します。
 function drawCaterpillars() {
-  let padding = height / numCaterpillars;
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Update each caterpillar x-coordinate   
-    let y = (i + 0.5) * padding;
+  let padding = height / numCaterpillars;
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    // 各イモムシのx座標を更新します   
+    let y = (i + 0.5) * padding;
 
-    // Update length of caterpillar.   
-    crawl = random(3, 6);
+    // イモムシの長さを更新します。   
+    crawl = random(3, 6);
 
-    // Draw caterpillars.
-    drawCaterpillar(caterpillarEnds[i], y, crawl);
-  }
+    // イモムシを描画します。
+    drawCaterpillar(caterpillarEnds[i], y, crawl);
+  }
 }
 
-// Start the race when the
-// user presses the mouse.
+// ユーザーがマウスを押したときに
+// レースを開始します。
 function mousePressed() {
-  isRacing = true;
+  isRacing = true;
 }
 
-// Move the caterpillars.
+// イモムシを動かします。
 function moveCaterpillars() {
-  for (let i = 0; i < numCaterpillars; i += 1) {
-    // Give each caterpillar a random
-    // speed once the race has started.
-    let move = round(random(5, 30));
-   
-    // Update caterpillars' x-coordinates
-    caterpillarEnds[i] += move;
-  }
+  for (let i = 0; i < numCaterpillars; i += 1) {
+    // レースが開始されたら、各イモムシに
+    // ランダムな速度を与えます。
+    let move = round(random(5, 30));
+   
+    // イモムシのx座標を更新します
+    caterpillarEnds[i] += move;
+  }
 }
 
-// Display a message and stop the
-// sketch if there's a winner.
+// 勝者がいる場合はメッセージを表示し、
+// スケッチを停止します。
 function checkWinner() {
-  for (let i = 0; i < caterpillarEnds.length; i += 1) {
-    if (caterpillarEnds[i] >= finishLine) {
-      // Style the text.
-      textSize(24);
-      textAlign(CENTER);
-      fill(255);
-      noStroke();
+  for (let i = 0; i < caterpillarEnds.length; i += 1) {
+    if (caterpillarEnds[i] >= finishLine) {
+      // テキストのスタイルを設定します。
+      textSize(24);
+      textAlign(CENTER);
+      fill(255);
+      noStroke();
 
-      // Display the message.
-      text(\`Caterpillar \${i + 1} wins!\`,width/2,height/2);
+      // メッセージを表示します。
+      text(\`Caterpillar \${i + 1} wins!\`,width/2,height/2);
 
-      // end race by stopping draw() from running
-      noLoop();
-    }
-  }
+      // draw()の実行を停止してレースを終了します
+      noLoop();
+    }
+  }
 }
 `} />
 
-## Conclusion
+## まとめ
 
-Congratulations on completing this tutorial! You have now learned to use loops to generate multiple moving shapes in p5.js. Visit the [p5.js Reference](/reference) or the previous tutorials to learn more about [conditional statements, interactivity,](/tutorials/conditionals-and-interactivity) [variables](/tutorials/variables-and-change), and [functions](/tutorials/organizing-code-with-functions).
-
-
-## Next Steps
-
-- Next tutorial: [Data Structure Garden](/tutorials/data-structure-garden)
+このチュートリアルを完了、おめでとうございます！
+ここでは、p5.jsでループを使用して複数の動く形を生成する方法を学びました。
+[p5.jsリファレンス](/reference)や前のチュートリアルを参照して、[条件文、インタラクティビティ](/tutorials/conditionals-and-interactivity)、 [変数](/tutorials/variables-and-change)、[関数](/tutorials/organizing-code-with-functions)についてさらに学んでください。
 
 
-## References
+## 次のステップ
 
-- [Making decisions in your code - MDN](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals)
-- [Loops and iteration - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration)
-- [Arrays - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+- 次のチュートリアル: [データ構造ガーデン](/tutorials/data-structure-garden)
+
+
+## 参考文献
+
+- [コードで決定を下す - MDN](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals)
+- [ループと反復 - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration)
+- [配列 - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
   - [`.push()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+

@@ -1,10 +1,10 @@
 ---
-title: "Data Structure Garden"
-description: A tutorial on how to use JavaScript objects and arrays.
+title: "データ構造ガーデン"
+description: JavaScriptのオブジェクトと配列の使い方に関するチュートリアル。
 category: introduction
 categoryIndex: 6
 featuredImage: ../images/featured/DataStructuresGardenA.png
-featuredImageAlt: A preview of the interactive flower garden with flowers appearing on a light blue canvas as a user clicks with their mouse pointer.
+featuredImageAlt: ユーザーがマウスポインターでクリックすると、薄い青色のキャンバスに花が現れるインタラクティブな花園のプレビュー。
 relatedContent:
   examples:
     - en/13_classes_and_objects/00_snowflakes/description
@@ -23,123 +23,120 @@ import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
 
-![A preview of the interactive flower garden with flowers appearing on a light blue canvas as a user clicks with their mouse pointer.](../images/introduction/data-structure-garden-gif.gif)
+![ユーザーがマウスポインターでクリックすると、薄い青色のキャンバスに花が現れるインタラクティブな花園のプレビュー。](../images/introduction/data-structure-garden-gif.gif)
 
-In this tutorial, you will use p5.js to simulate an [interactive flower garden](https://editor.p5js.org/ptiarram/sketches/8xWVCzmn2). In this project, your digital canvas will come to life with 20 randomly generated flowers, each a different color and size. Users can also add diversity to the garden by clicking on the canvas to add new, unique flowers. Each flower is programmed with a wilting animation. This animation causes the flowers to slowly shrink and vanish, much like the natural cycle of a flower’s life.
+このチュートリアルでは、p5.jsを使用して[インタラクティブな花園](https://editor.p5js.org/ptiarram/sketches/8xWVCzmn2)をシミュレーションします。このプロジェクトでは、デジタルキャンバスに20個のランダムに生成された花が登場し、それぞれ異なる色とサイズを持ちます。ユーザーはキャンバスをクリックして新しいユニークな花を追加し、庭の多様性を増やすこともできます。各花には萎れるアニメーションがプログラムされています。このアニメーションにより、花は自然な花の寿命サイクルのように、ゆっくりと縮小して消えていきます。
 
-In this tutorial, you will:
+このチュートリアルでは、以下のことを学びます：
 
-- Explore data structures like [JavaScript objects](https://developer.mozilla.org/en-US/docs/Glossary/object) by defining, creating, and using your own objects.
-- Explore and use object methods to perform actions on built-in objects like [JavaScript arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
-- Use iteration with for loops to manage multiple objects at once.
-
-
-## Prerequisites
-
-Before you begin, you should be able to:
-
-- Add and customize shapes and color on the canvas using p5.js
-- Declare, initialize, use, and update custom variables, and functions with parameters and return values
-- Add animation on the canvas
-- Comment code and address error messages
-- Create and use custom functions
-- Understand how to use for loops to manage repetitive tasks
-
-For more information on arrays, loops, and custom functions, visit the [Organizing Code with Functions](/tutorials/organizing-code-with-functions) and [Repeating with Loops](/tutorials/repeating-with-loops) tutorials.
-
-- In the [Variables and Change](/tutorials/variables-and-change) tutorial, you learned how to store data using variables. Variables are useful for storing single values like numbers or text. 
-- In the [Animating with Media Objects](/tutorials/animating-with-media-objects) tutorial, you learned to use p5.js’ built-in `p5.Image` and `p5.Graphics` objects. These objects bundle data, like images, together with special functions called [*methods*](https://www.w3schools.com/js/js_object_methods.asp#:~:text=JavaScript%20methods%20are%20actions%20that,property%20containing%20a%20function%20definition.) that enable users to perform operations on that data. 
-
-In this tutorial, you will learn how to:
-
-- define objects
-- create and use custom functions to update and draw objects
-- manage multiple objects using arrays 
-
-Let’s begin!
+- [JavaScriptオブジェクト](https://developer.mozilla.org/en-US/docs/Glossary/object)を定義、作成、使用することで、データ構造を探索します。
+- [JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)のようなビルトインオブジェクトに対してアクションを実行するためのオブジェクトメソッドを探索し、使用します。
+- 複数のオブジェクトを一度に管理するために、forループを使用した反復処理を行います。
 
 
-## JavaScript Objects
+## 前提条件
 
-We have learned that variables can store one value at a time (a number, string, or Boolean). Arrays can store multiple values in indices. Sometimes, however, we want to store several pieces of related data about one thing together. We can do this using [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), which bundle data together by pairing [properties](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript) and values. Properties are special types of variables or names that are associated with an object. Each property stores a value. For example, if we wanted to create a JavaScript object based on a flower, it could have properties that describe its location (x and y) and emoji symbol.  
+始める前に、以下のことができるようになっている必要があります：
 
+- p5.jsを使用してキャンバス上に図形や色を追加およびカスタマイズする
+- カスタム変数、パラメータと戻り値を持つ関数を宣言、初期化、使用、更新する
+- キャンバス上にアニメーションを追加する
+- コードにコメントを付け、エラーメッセージに対処する
+- カスタム関数を作成し使用する
+- 繰り返しタスクを管理するためにforループを使用する方法を理解する
 
-## Step 1: Make your first object
+配列、ループ、カスタム関数の詳細については、[関数によるコードの整理](/tutorials/organizing-code-with-functions)と[ループによる繰り返し](/tutorials/repeating-with-loops)のチュートリアルをご覧ください。
 
-Let’s start our flower garden by creating one flower. We can start by drawing it using an emoji, so we need data on the x-coordinate, the y-coordinate, and the emoji for our flower. 
+- [変数と変更](/tutorials/variables-and-change)チュートリアルでは、変数を使用してデータを保存する方法を学びました。変数は数値やテキストなどの単一の値を保存するのに便利です。
+- [メディアオブジェクトによるアニメーション](/tutorials/animating-with-media-objects)チュートリアルでは、p5.jsのビルトインの`p5.Image`と`p5.Graphics`オブジェクトの使用方法を学びました。これらのオブジェクトは、画像などのデータを[*メソッド*](https://www.w3schools.com/js/js_object_methods.asp#:~:text=JavaScript%20methods%20are%20actions%20that,property%20containing%20a%20function%20definition.)と呼ばれる特別な関数とバンドルし、ユーザーがそのデータに対して操作を実行できるようにします。
 
-- Open a new p5.js project and name it “Data Structure Garden”. Save the project.
+このチュートリアルでは、以下のことを学びます：
 
-- Create a flower object by bundling the flower’s canvas coordinates with the emoji used to draw it. Let's store the object in a variable named `flower`. Add this code above [`setup()`](/reference/p5/setup): 
+- オブジェクトを定義する
+- オブジェクトを更新し描画するためのカスタム関数を作成し使用する
+- 配列を使用して複数のオブジェクトを管理する
+
+それでは始めましょう！
+
+## JavaScriptオブジェクト
+
+変数は一度に1つの値（数値、文字列、またはブール値）を保存できることを学びました。配列はインデックスに複数の値を保存できます。しかし、時には1つのものに関連する複数のデータを一緒に保存したいことがあります。これを[JavaScriptオブジェクト](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)を使用して行うことができます。オブジェクトは[プロパティ](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)と値をペアにしてデータをバンドルします。プロパティはオブジェクトに関連付けられた特別な種類の変数または名前です。各プロパティは値を保存します。例えば、花に基づいてJavaScriptオブジェクトを作成したい場合、その位置（xとy）と絵文字シンボルを記述するプロパティを持つことができます。
+
+## ステップ1：最初のオブジェクトを作成する
+
+花園を1つの花から始めましょう。絵文字を使って描くことから始めるので、花のx座標、y座標、絵文字に関するデータが必要です。
+
+- 新しいp5.jsプロジェクトを開き、「Data Structure Garden」と名付けます。プロジェクトを保存します。
+
+- 花のキャンバス座標と描画に使用する絵文字をバンドルして、花オブジェクトを作成します。このオブジェクトを`flower`という名前の変数に保存しましょう。[`setup()`](/reference/p5/setup)の上にこのコードを追加します：
 
   ```js
-  // Flower object.
-  let flower = { 
-    x: 200, 
-    y: 100, 
-    emoji: '🌸'
+  // 花オブジェクト
+  let flower = { 
+    x: 200, 
+    y: 100, 
+    emoji: '🌸'
   };
   ```
 
-- Print your object to the console by adding the following line of code in `setup()`:
+- `setup()`に以下のコード行を追加して、オブジェクトをコンソールに出力します：
 
   ```js
-  // Print object to the console.
+  // オブジェクトをコンソールに出力
   console.log(flower);
   ```
 
--  Set the background to `"lightblue"`.
+- 背景を`"lightblue"`に設定します。
 
-Your code should look like this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Flower object.
-let flower = { 
-  x: 200, 
-  y: 100,
-  emoji: '🌸' 
+// 花オブジェクト
+let flower = { 
+  x: 200, 
+  y: 100,
+  emoji: '🌸' 
 };
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 
-  // Print object in console.
-  console.log(flower);
+  // オブジェクトをコンソールに出力
+  console.log(flower);
 }
-
 function draw() {
-  background("lightblue");
+  background("lightblue");
 }
 `} />
 
-Try opening the code so far [in the p5.js Web Editor.](https://editor.p5js.org/KM_Playground/sketches/Nwte7l2dD) You should see your flower object printed to the console. Notice how you can click on the arrow in the console to show the properties and values for the object.
+[p5.js Web Editorでここまでのコードを開いてみてください。](https://editor.p5js.org/KM_Playground/sketches/Nwte7l2dD) コンソールに花オブジェクトが出力されているはずです。コンソールの矢印をクリックすると、オブジェクトのプロパティと値が表示されることに注目してください。
 
-Here's the general syntax for defining an object:
+オブジェクトを定義する一般的な構文は以下の通りです：
 
 ```js
-// Define an object
-let objectName = {
-  property1: value1,
-  property2: value2,
-  property3: value3
+// オブジェクトを定義する
+let オブジェクト名 = {
+  プロパティ1: 値1,
+  プロパティ2: 値2,
+  プロパティ3: 値3
 };
 ```
 
-The syntax for objects uses:
+オブジェクトの構文は以下を使用します：
 
-- curly braces (`{}`) to enclose a bundle of [properties](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript); 
-  - Properties can be names, such as the names of variables or functions, or they can be strings. When using spaces in property names, it is often helpful to use a string. For example, I might create an object with a property for a “first name” and a “last name,” like this:
+- 中括弧（`{}`）で[プロパティ](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)のバンドルを囲みます；
+  - プロパティは変数や関数の名前のような名前、または文字列にすることができます。プロパティ名にスペースを使用する場合、文字列を使用すると便利なことがよくあります。例えば、「名」と「姓」のプロパティを持つオブジェクトを作成する場合、次のようになります：
 
     ```js
-    let ironMan = { 
-      "first name" : "Tony",
-      "last name" : "Stark"
+    let ironMan = { 
+      "first name" : "Tony",
+      "last name" : "Stark"
     }
     ```
 
-- a colon (:) to separate each property with specific values;
-  - Values can be of any datatype, and can even be a function!
-- commas (,) to separate each `property : value` pair. 
+- コロン（:）で各プロパティと特定の値を区切ります；
+  - 値は任意のデータ型にすることができ、関数でさえ可能です！
+- カンマ（,）で各`プロパティ : 値`のペアを区切ります。
 
 <AnnotatedLine code={({ top, bottom }) => `
 let ${top('obj', 'flower')} = {
@@ -148,262 +145,258 @@ let ${top('obj', 'flower')} = {
   ${bottom('prop', '  emoji  ')}: ${bottom('val', '  "🌸" ')}
 }
 `}>
-    <Fragment slot="obj">Object name</Fragment>
-    <Fragment slot="prop">Property</Fragment>
-    <Fragment slot="val">Value</Fragment>
+    <Fragment slot="obj">オブジェクト名</Fragment>
+    <Fragment slot="prop">プロパティ</Fragment>
+    <Fragment slot="val">値</Fragment>
 </AnnotatedLine>
 
-You can store objects by initializing new variables when you define them. In the code above, you declared a variable named `flower`. You then initialized the `flower` variable with an object whose properties represent a flower that can be drawn on the canvas.
+オブジェクトを定義するときに新しい変数を初期化することで、オブジェクトを保存できます。上のコードでは、`flower`という名前の変数を宣言しました。そして、キャンバス上に描画できる花を表すプロパティを持つオブジェクトで`flower`変数を初期化しました。
 
-To check the properties and values of an object, you used [`console.log()`](/reference/console/log), which displays the following in the console:
+オブジェクトのプロパティと値を確認するために、[`console.log()`](/reference/console/log)を使用しました。これにより、コンソールに以下のように表示されます：
 
 ```
 ▼ {x: 200, y: 100, emoji: "🌸"}
-   x: 200`
-   y: 100`
-   emoji: "🌸"
+   x: 200`
+   y: 100`
+   emoji: "🌸"
 ```
 
 
-## Step 2: Use your object
+## ステップ2：オブジェクトを使用する
 
-You can access any value stored in object properties by using its variable name, property name, and dot notation like so:
+オブジェクトのプロパティに保存されている任意の値には、その変数名、プロパティ名、そしてドット表記を使用してアクセスできます：
 
 ```js
-// Access the object’s property1 value with dot notation.
-objectName.property1 
+// ドット表記を使用してオブジェクトのプロパティ1の値にアクセスする
+オブジェクト名.プロパティ1 
 ```
 
-- Use the [`text()`](/reference/p5/text) function with flower object properties to place the flower on the canvas.
-  - In [`draw()`](/reference/p5/draw), add the following code: 
+- 花オブジェクトのプロパティを使用して、[`text()`](/reference/p5/text)関数で花をキャンバス上に配置します。
+  - [`draw()`](/reference/p5/draw)内に以下のコードを追加します：
 
     ```js
-    // Display flower object.
+    // 花オブジェクトを表示する
     text(flower.emoji, flower.x, flower.y);
     ```
 
-- You can use `textSize()` before the text function to set the size of the flower.
+- text関数の前に`textSize()`を使用して、花のサイズを設定できます。
 
   ```js
-  // Increase the text/emoji size.
+  // テキスト/絵文字のサイズを大きくする
   textSize(100);
   ```
 
-Your code should look like this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Flower object.
-let flower = { 
-  x: 200, 
-  y: 100,
-  emoji: '🌸' 
+// 花オブジェクト
+let flower = { 
+  x: 200, 
+  y: 100,
+  emoji: '🌸' 
 };
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 }
 
 function draw() {
-  background("lightblue");
+  background("lightblue");
 
-  // Increase the text/emoji size.
-  textSize(100);
+  // テキスト/絵文字のサイズを大きくする
+  textSize(100);
 
-  // Display flower object.
-  text(flower.emoji, flower.x, flower.y);
+  // 花オブジェクトを表示する
+  text(flower.emoji, flower.x, flower.y);
 }
 `} />
 
-To access values in the flower object, we use [dot notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors), which uses the dot operator to access properties and values within objects.
+花オブジェクトの値にアクセスするために、[ドット表記](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)を使用しています。これはドット演算子を使用してオブジェクト内のプロパティと値にアクセスします。
 
-In the code above, you accessed:
+上のコードでは、以下にアクセスしています：
 
-- the emoji for the flower with `flower.emoji` 
-- the x-coordinate with `flower.x` 
-- the y-coordinate with `flower.y`
+- `flower.emoji`で花の絵文字
+- `flower.x`でx座標
+- `flower.y`でy座標
 
-Since these values represent strings and numbers, they can be used in the [`text()`](/reference/p5/text) function, similar to the way variable names are used to access the value they store.
+これらの値は文字列と数値を表すので、変数名が保存する値にアクセスするのと同様に、[`text()`](/reference/p5/text)関数で使用できます。
 
-Visit the p5.js reference to learn more about [objects](/reference/p5/object).
+p5.jsリファレンスで[オブジェクト](/reference/p5/object)についてもっと学ぶことができます。
 
 <Callout>
-- Add a `size` property to the flower object.
-- Replace the `textSize()` value with the `flower` object’s `size`.
+- 花オブジェクトに`size`プロパティを追加してください。
+- `textSize()`の値を`flower`オブジェクトの`size`に置き換えてください。
 
-[Example.](https://editor.p5js.org/KM_Playground/sketches/ezATsCBra) 
+[例。](https://editor.p5js.org/KM_Playground/sketches/ezATsCBra) 
 </Callout>
 
+## ステップ3：`createFlower()`関数を定義する
 
-## Step 3: Define a `createFlower()` function
+次に、キャンバス上に異なる花を表示できる関数を定義しましょう。作成する花オブジェクトをカスタマイズできる`createFlower()`関数を定義します。異なる花のx座標とy座標を変更できるようにしたいです。また、サイズと色も変更したいです。それを行う一つの方法は、花オブジェクトに`size`と`color`の新しいプロパティを追加することです。このプロジェクトでは、花が現れてから一定時間後に消えるようにしたいので、花オブジェクトに`lifespan`プロパティも含めます。
 
-Now, let’s define a function that can display different flowers on the canvas. We will define a `createFlower()` function that will allow us to customize the flower objects we create. We want to make sure that we can change the x- and y-coordinates for different flowers. We also want to change their size and color. One way to do that is to add new properties to the flower object for `size` and `color`. In this project, we also want the flower to appear, then disappear after some time. To do this, we will also include a `lifespan` property for our flower object. 
+`createFlower()`が呼び出されたときに情報を返すようにしたいです。ちょうどビルトインの`text()`関数がキャンバス上にテキストを返すのと同じように。そのため、[戻り値](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values)を指定する必要があります。*戻り値*を使用することは、関数によって計算された情報を変数や配列に保存する素晴らしい方法です。
 
-We want our `createFlower()` to return information when it’s called, just like the built-in `text()` function returns text on the canvas. Therefore, we must specify a [return value](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values). Using *return values* is a great way to save information computed by the function in a variable or array. 
+この例では、[`random()`](/reference/p5/random)を使用して、キャンバス上に描画されるときに花に多様性を持たせます。
 
-In this example, we will be using [`random()`](/reference/p5/random) to create variety in our flowers when they’re drawn on the canvas. 
-
-- Define the `createFlower()` function, which creates a random flower object. All values will be set randomly each time `createFlower() `is called.
-  - Outside of [`draw()`](/reference/p5/draw) and [`setup()`](/reference/p5/setup), add the following function declaration:
+- ランダムな花オブジェクトを作成する`createFlower()`関数を定義します。`createFlower()`が呼び出されるたびに、すべての値がランダムに設定されます。
+  - [`draw()`](/reference/p5/draw)と[`setup()`](/reference/p5/setup)の外側に、以下の関数宣言を追加します：
 
     ```js
-    // Function that creates a random flower object.
+    // ランダムな花オブジェクトを作成する関数
     function createFlower() {
-      // Define a flower object.
-      let flower = {
-        x: random(20, 380),
-        y: random(20, 380),
-        size: random(20, 75),
-        lifespan: random(255, 300),
-        color: color(random(255), random(255), random(255)),
-      };
-      // Return the flower object.
-      return flower;
+      // 花オブジェクトを定義する
+      let flower = {
+        x: random(20, 380),
+        y: random(20, 380),
+        size: random(20, 75),
+        lifespan: random(255, 300),
+        color: color(random(255), random(255), random(255)),
+      };
+      // 花オブジェクトを返す
+      return flower;
     }
     ```
 
-- Test the `createFlower()` function by using it to create a flower object, and store it in a variable called `myFlower`.
-  - Add the following in the [`draw()`](/reference/p5/draw) function:
+- `createFlower()`関数をテストするために、それを使用して花オブジェクトを作成し、`myFlower`という変数に保存します。
+  - [`draw()`](/reference/p5/draw)関数に以下を追加します：
 
     ```js
-    // Create flower object.
+    // 花オブジェクトを作成する
     let myFlower = createFlower();
     ```
 
-- Draw an ellipse on the canvas using `myFlower` properties.
-  - Add the following in the [`draw()`](/reference/p5/draw) function:  
+- `myFlower`のプロパティを使用してキャンバス上に楕円を描画します。
+  - [`draw()`](/reference/p5/draw)関数に以下を追加します：
 
     ```js
-    // Use flower object properties to draw an ellipse.
+    // 花オブジェクトのプロパティを使用して楕円を描画する
     fill(myFlower.color);
     ellipse(myFlower.x, myFlower.y, myFlower.size);
     ```
 
-- Slow down the rate at which each flower appears by changing the frame rate to one frame per second. In [`setup()`](/reference/p5/setup), add: `frameRate(1);`.
+- 各花が現れる速度を遅くするために、フレームレートを1秒あたり1フレームに変更します。[`setup()`](/reference/p5/setup)に以下を追加します：`frameRate(1);`。
 
-Your code should look like this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(400, 400);
-  frameRate(1);
+  createCanvas(400, 400);
+  frameRate(1);
 }
-
 function draw() {
-  background("lightblue");
+  background("lightblue");
 
-  // Create flower object.
-  let myFlower = createFlower();
+  // 花オブジェクトを作成する
+  let myFlower = createFlower();
 
-  // Use flower object properties to draw an ellipse.
-  fill(myFlower.color);
-  ellipse(myFlower.x, myFlower.y, myFlower.size);
+  // 花オブジェクトのプロパティを使用して楕円を描画する
+  fill(myFlower.color);
+  ellipse(myFlower.x, myFlower.y, myFlower.size);
 }
-
 function createFlower() {
-  // Define flower object.
-  let flower = {
-    x: random(20,380),
-    y: random(20,380),
-    size: random(20,75),
-    lifespan: random(255,300),
-    color: color(random(255), random(255), random(255)),
-  };
-  
-  // Return flower object.
-  return flower;
+  // 花オブジェクトを定義する
+  let flower = {
+    x: random(20,380),
+    y: random(20,380),
+    size: random(20,75),
+    lifespan: random(255,300),
+    color: color(random(255), random(255), random(255)),
+  };
+  
+  // 花オブジェクトを返す
+  return flower;
 }
 `} />
 
-In the code above, you use `createFlower()` to create and return a new flower object with random values, then store the object in the variable `myFlower`. `myFlower` is used to access its property’s random values, which are used to draw an ellipse on the canvas. Each time [`draw()`](/reference/p5/draw) runs, a new random flower object is created, and its properties are used to draw a new random ellipse on the canvas. 
+上のコードでは、`createFlower()`を使用してランダムな値を持つ新しい花オブジェクトを作成して返し、それを`myFlower`変数に保存しています。`myFlower`を使用してそのプロパティのランダムな値にアクセスし、それらを使用してキャンバス上に楕円を描画します。[`draw()`](/reference/p5/draw)が実行されるたびに、新しいランダムな花オブジェクトが作成され、そのプロパティを使用してキャンバス上に新しいランダムな楕円が描画されます。
 
-Visit the p5.js reference to learn more about [`return`](/reference/p5/return) values and [`random()`](/reference/p5/random).
+p5.jsリファレンスで[`return`](/reference/p5/return)値と[`random()`](/reference/p5/random)についてもっと学ぶことができます。
 
 <Callout>
-- Change the random range for the flower’s `x` and `y` location and size.
-- Get creative with the color generation; maybe it’s shades of only blues, reds, or purples.
+- 花の`x`と`y`の位置、サイズのランダムな範囲を変更してください。
+- 色の生成を創造的にしてみてください。例えば、青、赤、または紫の色合いだけにするなど。
 
-[Example.](https://editor.p5js.org/KM_Playground/sketches/Cu8PrnNfH) 
+[例。](https://editor.p5js.org/KM_Playground/sketches/Cu8PrnNfH) 
 </Callout>
 
+## ステップ4：パラメータを持つ`drawFlower()`関数を定義する
 
-## Step 4: Define the `drawFlower()` function with a parameter
+`createFlower()`が新しい花オブジェクトを作成して返すことがわかったので、`drawFlower()`関数を定義しましょう。`drawFlower()`関数は花オブジェクトを引数として受け取り、それをキャンバス上に配置します。これにより、コードが整理され管理しやすくなります。
 
-Now that we know that `createFlower()` creates and returns a new flower object, let’s define the `drawFlower()` function.  Our `drawFlower()` function will receive a flower object as an argument and place it on the canvas. This will help make our code organized and manageable.
-
-- Outside of all other functions, define the `drawFlower()` function with one parameter representing a flower object.
+- 他のすべての関数の外側で、花オブジェクトを表す1つのパラメータを持つ`drawFlower()`関数を定義します。
 
   ```js
   function drawFlower(flower) { }
   ```
 
-- Inside the `drawFlower()` function, draw the attributes of a flower, including the petals and center of the flower. Remember to use the flower object properties for the `x` and `y` locations, `size`, and `color`. You can add the following code to the function body:
+- `drawFlower()`関数の内部で、花びらと花の中心を含む花の属性を描画します。花オブジェクトのプロパティを`x`と`y`の位置、`size`、`color`に使用することを忘れないでください。以下のコードを関数本体に追加できます：
 
   ```js
   noStroke();
   fill(flower.color);
   
-  // Draw petals.
-  ellipse(flower.x, flower.y, flower.size / 2, flower.size); 
+  // 花びらを描画する
+  ellipse(flower.x, flower.y, flower.size / 2, flower.size); 
   ellipse(flower.x, flower.y, flower.size, flower.size / 2);
   
-  // Draw a yellow center.
+  // 黄色の中心を描画する
   fill(255, 204, 0);
   circle(flower.x, flower.y, flower.size / 2);
   ```
 
-- Next, we will test the `drawFlower()` function. Add the following to the [`draw()`](/reference/p5/draw) function:
+- 次に、`drawFlower()`関数をテストします。[`draw()`](/reference/p5/draw)関数に以下を追加します：
 
   ```js
-  // Testing drawFlower().
+  // drawFlower()をテストする
   let flower1 = createFlower();
   drawFlower(flower1);
   ```
 
-Your code should look similar to this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(400, 400);
-  frameRate(1);
+  createCanvas(400, 400);
+  frameRate(1);
 }
 
 function draw() {
-  background("lightblue");
+  background("lightblue");
 
-  // Testing drawFlower().
-  let flower1 = createFlower();
-  drawFlower(flower1);
+  // drawFlower()をテストする
+  let flower1 = createFlower();
+  drawFlower(flower1);
 }
 
 function createFlower() {
-  let flower = {
-    x: random(20,380),
-    y: random(20,380),
-    size: random(20,75),
-    lifespan: random(255,300),
-    color: color(random(255), random(255), random(255))
-  };
-  return flower;
+  let flower = {
+    x: random(20,380),
+    y: random(20,380),
+    size: random(20,75),
+    lifespan: random(255,300),
+    color: color(random(255), random(255), random(255))
+  };
+  return flower;
 }
 
-function drawFlower(flower) { 
-  noStroke();
-  fill(flower.color);
+function drawFlower(flower) { 
+  noStroke();
+  fill(flower.color);
 
-  // Draw petals.
-  ellipse(flower.x, flower.y, flower.size / 2, flower.size);
-  ellipse(flower.x, flower.y, flower.size, flower.size / 2);
+  // 花びらを描画する
+  ellipse(flower.x, flower.y, flower.size / 2, flower.size);
+  ellipse(flower.x, flower.y, flower.size, flower.size / 2);
 
-  // Draw a yellow center.
-  fill(255, 204, 0);
-  circle(flower.x, flower.y, flower.size / 2);
-} 
+  // 黄色の中心を描画する
+  fill(255, 204, 0);
+  circle(flower.x, flower.y, flower.size / 2);
+} 
 `} />
 
-In the code above, `createFlower()` is used to create and return a random flower that is stored in `flower1`. The random flower (`flower1`) is then passed into `drawFlower()`, which accesses the flower object properties to draw a flower on the canvas. This process occurs each time the [`draw()`](/reference/p5/draw) function runs, so random flowers appear and disappear on the canvas. 
+上のコードでは、`createFlower()`を使用してランダムな花を作成し、それを`flower1`に保存しています。そしてランダムな花（`flower1`）を`drawFlower()`に渡し、花オブジェクトのプロパティにアクセスしてキャンバス上に花を描画します。このプロセスは[`draw()`](/reference/p5/draw)関数が実行されるたびに発生するので、ランダムな花がキャンバス上に現れては消えます。
 
 <Callout>
-Change and modify the flower drawing using other 2D shapes:
+他の2D形状を使用して花の描画を変更・修正してください：
 
 - [`ellipse()`](/reference/p5/ellipse)
 - [`square()`](/reference/p5/square)
@@ -413,18 +406,17 @@ Change and modify the flower drawing using other 2D shapes:
 - [`point()`](/reference/p5/point)
 - [`arc()`](/reference/p5/arc)
 
-[Example.](https://editor.p5js.org/KM_Playground/sketches/fDX0Xjq31)
+[例。](https://editor.p5js.org/KM_Playground/sketches/fDX0Xjq31)
 </Callout>
 
-## Step 5: Learn to use arrays
+## ステップ5：配列の使用方法を学ぶ
 
-Before we move on to making our garden of flowers by using an array, let’s better understand how arrays work with a few simple examples. [JavaScript arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are objects that can store multiple values in one variable name. Each value is stored in an *element* with a specific location known as its *index*. The *index* of the first *element* in any [JavaScript array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) is 0.
+配列を使用して花の庭を作る前に、いくつかの簡単な例で配列の動作をよりよく理解しましょう。[JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)は1つの変数名で複数の値を保存できるオブジェクトです。各値は*インデックス*と呼ばれる特定の位置に*要素*として保存されます。任意の[JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)の最初の*要素*の*インデックス*は0です。
 
-
-### Example 1: Creating and drawing an array of names
+### 例1：名前の配列の作成と描画
 
 <EditableSketch code={`
-// Create an array flowers
+// flowers配列を作成する
 let flowers = ["Rose", "Daisy", "Tulip"];
 
 function setup() {
@@ -432,15 +424,15 @@ function setup() {
 
   background(220);
 
-  // Draw the first name.
+  // 最初の名前を描画する
   fill('red');
   text(flowers[0], 10, 50);
   
-  // Draw the second name.
+  // 2番目の名前を描画する
   fill('green');
   text(flowers[1], 10, 100);
   
-  // Draw the third name.
+  // 3番目の名前を描画する
   fill('blue');
   text(flowers[2], 10, 150);
 }
@@ -452,24 +444,22 @@ function setup() {
     <Fragment slot="i2">2</Fragment>
 </AnnotatedLine>
 
-In this example, we’ve created an array using square brackets (`[ ]`) and commas that separate each element in the array. The array is a collection of strings, each representing a type of flower, and is stored in a variable called `flowers`. Each element of the array holds a string with a flower name. Each element can be accessed using its index number. For example, `"Rose"` is located at index `0`, `"Daisy"` at index `1`, and `"Tulip"` at index `2`.
-
+この例では、角括弧（`[ ]`）とカンマを使用して配列を作成しています。配列内の各要素はカンマで区切られています。配列は花の種類を表す文字列のコレクションで、`flowers`という変数に保存されています。配列の各要素は花の名前を持つ文字列を保持しています。各要素にはインデックス番号を使用してアクセスできます。例えば、`"Rose"`はインデックス`0`に、`"Daisy"`はインデックス`1`に、`"Tulip"`はインデックス`2`にあります。
 
 <AnnotatedLine code={({ top, bottom }) => `let ${top('var', '   rose   ')} = ${top('arr', 'flowers')}[${top('idx', '   0   ')}];`}>
-    <Fragment slot="var">Variable name to save the element</Fragment>
-    <Fragment slot="arr">Array to point to</Fragment>
-    <Fragment slot="idx">Index in array</Fragment>
+    <Fragment slot="var">要素を保存する変数名</Fragment>
+    <Fragment slot="arr">指す配列</Fragment>
+    <Fragment slot="idx">配列内のインデックス</Fragment>
 </AnnotatedLine>
 
-In the code snippet above, we access the first element of the `flowers` array at index 0 using the index notation: `flowers[0]`. In the example above, this syntax is used to place text on the canvas with the names accessed from various elements in the `flowers` array.
+上のコードスニペットでは、インデックス表記`flowers[0]`を使用して`flowers`配列の最初の要素（インデックス0）にアクセスしています。上の例では、この構文を使用して`flowers`配列のさまざまな要素からアクセスした名前をキャンバス上にテキストとして配置しています。
 
-We then assign that value to a new variable named `rose`. `rose` now holds the string `"Rose"`, which is the first flower name in the `flowers` array. Values stored in other elements can be accessed in the same way.
+そして、その値を`rose`という新しい変数に割り当てています。`rose`は now `flowers`配列の最初の花の名前である文字列`"Rose"`を保持します。他の要素に保存されている値も同じ方法でアクセスできます。
 
-
-### Example 2: Using a `for` loop to iterate through the array of names
+### 例2：`for`ループを使用して名前の配列を反復処理する
 
 <EditableSketch code={`
-// Create an array flowers
+// flowers配列を作成する
 let flowers = ["Rose", "Daisy", "Tulip"];
 
 function setup() {
@@ -479,41 +469,40 @@ function setup() {
 function draw() {
   background(220);
   
-  // Use a for loop to iterate over the array.
+  // forループを使用して配列を反復処理する
   for (let i = 0; i < flowers.length; i += 1) {
     text(flowers[i], 10, 50+(50 * i));
   }
 }
 `} />
 
-Our second example uses a `for` loop to iterate through each element in the array and print the text on the canvas. *Iteration* is a process where a block of code is executed repeatedly for each element in an array. 
+2つ目の例では、`for`ループを使用して配列の各要素を反復処理し、テキストをキャンバスに表示しています。*反復*は、配列の各要素に対してコードブロックが繰り返し実行されるプロセスです。
 
 <AnnotatedLine code={({ top, bottom }) => `
 for (${top('start', 'let i = 0;')} ${top('end', 'i < flowers.length')}; i += 1) {
   text(${bottom('access', 'flowers[i]')}, 10, 50+(50 * i));
 }
 `}>
-    <Fragment slot="start">Start looking at index 0</Fragment>
-    <Fragment slot="end">...up to the end of the array</Fragment>
-    <Fragment slot="access">Grab flowers at element `i`</Fragment>
+    <Fragment slot="start">インデックス0から見始める</Fragment>
+    <Fragment slot="end">...配列の終わりまで</Fragment>
+    <Fragment slot="access">要素`i`の花を取得する</Fragment>
 </AnnotatedLine>
 
-To iterate, the code snippet above uses a `for` loop that “looks through” each element of the flower array. According to the `for` loop, the index `i` starts at `0` and increases with each iteration until it reaches a number that is one less than the number of elements in the array. Since arrays start their index at 0, the index of the last element in the array is one less than the number of elements in the array. The number of elements in any array can be accessed by using the `array.length` property. In the `for` loop above, the length of the `flowers` array is accessed using `flowers.length`. To access the values in the array, we use `flowers[i]` in the `for` loop in the [`text()`](/reference/p5/text) function to display the value in each element as text on the canvas.
+反復処理を行うために、上のコードスニペットでは`for`ループを使用して花の配列の各要素を「見ていきます」。`for`ループによると、インデックス`i`は`0`から始まり、配列の要素数よりも1小さい数に達するまで各反復で増加します。配列はインデックスを0から始めるため、配列の最後の要素のインデックスは配列の要素数よりも1小さくなります。任意の配列の要素数は`array.length`プロパティを使用してアクセスできます。上の`for`ループでは、`flowers.length`を使用して`flowers`配列の長さにアクセスしています。配列の値にアクセスするために、`for`ループ内の[`text()`](/reference/p5/text)関数で`flowers[i]`を使用して、各要素の値をキャンバス上にテキストとして表示しています。
 
-
-### Example 3: Adding new elements to the array
+### 例3：配列に新しい要素を追加する
 
 <EditableSketch code={`
-// Create an array flowers
+// flowers配列を作成する
 let flowers = ["Rose", "Daisy", "Tulip"];
 
 function setup() {
   createCanvas(200, 200);
-  flowers.push("Sunflower"); //add new element
+  flowers.push("Sunflower"); //新しい要素を追加する
 
   background(220);
   
-  // Use a for loop to iterate over the array.
+  // forループを使用して配列を反復処理する
   for (let i = 0; i < flowers.length; i += 1) {
     text(flowers[i], 10, 50+(40 * i));
   }
@@ -524,23 +513,22 @@ function setup() {
 let flowers = ["Rose", "Daisy", "Tulip"${bottom('add', '        ')}];
 flowers${bottom('push', '.push("Sunflower");')}
 `}>
-    <Fragment slot="add">Pushed elements will add here</Fragment>
-    <Fragment slot="push">Add a new element to the end of the `flowers` array</Fragment>
+    <Fragment slot="add">プッシュされた要素がここに追加されます</Fragment>
+    <Fragment slot="push">`flowers`配列の末尾に新しい要素を追加する</Fragment>
 </AnnotatedLine>
 
-Using the array method [`array.push()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push), you can add a new element to the end of the array. In this example, we are adding `"Sunflower"` to the end of the `flowers` array.
+配列メソッド[`array.push()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)を使用して、配列の末尾に新しい要素を追加できます。この例では、`"Sunflower"`を`flowers`配列の末尾に追加しています。
 
-
-### Example 4: Removing an array element
+### 例4：配列要素の削除
 
 <EditableSketch code={`
-// Create an array flowers
+// flowers配列を作成する
 let flowers = ["Rose", "Daisy", "Tulip"];
 
 function setup() {
   createCanvas(200, 200);
   
-  // Starting at index 0, remove one flower.
+  // インデックス0から始めて、1つの花を削除する
   flowers.splice(0, 1); 
 
   background(220);
@@ -558,17 +546,16 @@ flowers.splice(${bottom('start', '   0   ')}, ${bottom('count', '   1   ')});
     <Fragment slot="i0">0</Fragment>
     <Fragment slot="i1">1</Fragment>
     <Fragment slot="i2">2</Fragment>
-    <Fragment slot="start">At this index</Fragment>
-    <Fragment slot="count">...remove one element</Fragment>
+    <Fragment slot="start">このインデックスから</Fragment>
+    <Fragment slot="count">...1つの要素を削除する</Fragment>
 </AnnotatedLine>
 
-In order to remove elements from an array, we use the function [`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice). The function `array.splice()` modifies the `flowers` array with two parameters: one for the starting index and the other for how many elements to remove. `flowers.splice(0,1)` results in the removal of `"Rose"` from the array, leaving only `"Daisy"` and `"Tulip"`.
+配列から要素を削除するために、[`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)関数を使用します。`array.splice()`関数は2つのパラメータを持つ`flowers`配列を変更します：1つは開始インデックス、もう1つは削除する要素の数です。`flowers.splice(0,1)`の結果、配列から`"Rose"`が削除され、`"Daisy"`と`"Tulip"`だけが残ります。
 
-
-### Example 5: Using `for..of` loop for arrays
+### 例5：配列に対する`for..of`ループの使用
 
 <EditableSketch code={`
-// Create an array flowers
+// flowers配列を作成する
 let flowers = ["Rose", "Daisy", "Tulip"];
 
 function setup() {
@@ -577,7 +564,7 @@ function setup() {
   background(220);
   let y = 50;
   
-  // Use the special for loop to look at each element as a variable.
+  // 特別なforループを使用して各要素を変数として見る
   for (let flower of flowers) {
     text(flower, 10, y);
     y += 50;
@@ -585,243 +572,236 @@ function setup() {
 }
 `} />
 
-
 <AnnotatedLine code={({ top, bottom }) => `
 for (${top('decl', 'let flower')} ${top('kw', '   of   ')} ${top('arr', 'flowers')}) {
   print(${bottom('elt', '   flower   ')});
 }
 `}>
-    <Fragment slot="decl">Declare a variable to store the current element</Fragment>
-    <Fragment slot="kw">Keyword to loop over an array</Fragment>
-    <Fragment slot="arr">Array to loop over</Fragment>
-    <Fragment slot="elt">Do something with the current element</Fragment>
+    <Fragment slot="decl">現在の要素を保存する変数を宣言する</Fragment>
+    <Fragment slot="kw">配列をループするためのキーワード</Fragment>
+    <Fragment slot="arr">ループする配列</Fragment>
+    <Fragment slot="elt">現在の要素で何かを行う</Fragment>
 </AnnotatedLine>
 
-We can also iterate over an array using a `for..of` loop. The `flower` variable temporarily stores each element during the loop’s iteration. The `print(flower)` statement inside the loop prints the name of each flower to the console, cycling through `"Rose"`, `"Daisy"`, and `"Tulip"` in order.
+`for..of`ループを使用して配列を反復処理することもできます。`flower`変数はループの反復中に各要素を一時的に保存します。ループ内の`print(flower)`文は各花の名前をコンソールに出力し、順番に`"Rose"`、`"Daisy"`、`"Tulip"`を表示します。
 
-Using a `for..of` loop can make code easier to read when things become more complex, like in these examples: [`for` loop using indices](https://editor.p5js.org/Msqcoding/sketches/HrIxPGZEP) vs [`for..of` loop](https://editor.p5js.org/Msqcoding/sketches/TYq2M6noR). 
+`for..of`ループを使用すると、物事が複雑になったときにコードが読みやすくなることがあります。以下の例を参照してください：[インデックスを使用したforループ](https://editor.p5js.org/Msqcoding/sketches/HrIxPGZEP) vs [`for..of`ループ](https://editor.p5js.org/Msqcoding/sketches/TYq2M6noR)。
 
+## ステップ6：配列を使用して複数の花を生成する
 
-## Step 6: Generate multiple flowers with an array
+さて、配列を使用して画面上に複数の花を生成する時が来ました。
 
-Now, it’s time to generate multiple flowers on the screen using arrays.
-
- 
-
-- First, declare the `flowers` array at the top of your program. The square brackets with nothing in them represent an empty array of flowers.
+- まず、プログラムの先頭で`flowers`配列を宣言します。空の角括弧は空の花の配列を表します。
 
   ```js
-  // Array of flowers.
+  // 花の配列
   let flowers = [];
   ```
 
-- Outside of all other functions, define the `flowerPower()` function. 
+- 他のすべての関数の外側で、`flowerPower()`関数を定義します。
 
   ```js
-  // Function to create 20 flowers.
+  // 20個の花を作成する関数
   function flowerPower() {}
   ```
 
-- Inside `flowerPower()`, create 20 flower objects using a `for` loop and add them to your `flowers` array.
+- `flowerPower()`内で、`for`ループを使用して20個の花オブジェクトを作成し、`flowers`配列に追加します。
 
   ```js
   for(let i = 0; i < 20; i += 1) {
-    // Create a flower in a random location.
-    let flower = createFlower();
-    // Add the flower to the flowers array.
-    flowers.push(flower);
+    // ランダムな位置に花を作成する
+    let flower = createFlower();
+    // 花を花の配列に追加する
+    flowers.push(flower);
   }
   ```
 
-- Call the `flowerPower()` function in the `setup()` function to create the 20 flower objects.
+- `setup()`関数内で`flowerPower()`関数を呼び出して、20個の花オブジェクトを作成します。
 
   ```js
-  // Generate 20 flowers.
+  // 20個の花を生成する
   flowerPower();
   ```
 
-- Use the `for..of` loop for arrays in the `draw()` function to draw each flower in the `flowers` array. The `for..of` loop reads, for each flower element in the array of flowers, call `drawFlower()`.
+- `draw()`関数内で配列用の`for..of`ループを使用して、`flowers`配列内の各花を描画します。`for..of`ループは、花の配列内の各花要素に対して`drawFlower()`を呼び出すと読みます。
 
   ```js
-  // For each flower in the array of flowers.
+  // 花の配列内の各花に対して
   for (let flower of flowers) {
-    drawFlower(flower);
+    drawFlower(flower);
   }
   ```
 
-Your code should look similar to this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Array of flowers.
+// 花の配列
 let flowers = [];
 
 function setup() {
-  createCanvas(400, 400);
-  frameRate(1);
+  createCanvas(400, 400);
+  frameRate(1);
 
-  // Generate 20 flowers.
-  flowerPower();
+  // 20個の花を生成する
+  flowerPower();
 }
-
 function draw() {
-  background("lightblue");
+  background("lightblue");
 
-  // For each flower in the array of flowers.
-  for (let flower of flowers) {
-    drawFlower(flower);
-  }
+  // 花の配列内の各花に対して
+  for (let flower of flowers) {
+    drawFlower(flower);
+  }
 }
 
-// Function to create 20 flowers.
+// 20個の花を作成する関数
 function flowerPower() {
-  for (let i = 0; i < 20; i += 1 ) {
-    // Create a flower in a random location.
-    let flower = createFlower();
+  for (let i = 0; i < 20; i += 1 ) {
+    // ランダムな位置に花を作成する
+    let flower = createFlower();
 
-    // Add the flower to the flowers array.
-    flowers.push(flower);
-  }
+    // 花を花の配列に追加する
+    flowers.push(flower);
+  }
 }
 
-// ... createFlower() and drawFlower()
+// ... createFlower()とdrawFlower()
 function createFlower() {
-  let flower = {
-    x: random(20,380),
-    y: random(20,380),
-    size: random(20,75),
-    lifespan: random(255,300),
-    color: color(random(255), random(255), random(255))
-  };
-  return flower;
+  let flower = {
+    x: random(20,380),
+    y: random(20,380),
+    size: random(20,75),
+    lifespan: random(255,300),
+    color: color(random(255), random(255), random(255))
+  };
+  return flower;
 }
+function drawFlower(flower) { 
+  noStroke();
+  fill(flower.color);
 
-function drawFlower(flower) { 
-  noStroke();
-  fill(flower.color);
+  // 花びらを描画する
+  ellipse(flower.x, flower.y, flower.size / 2, flower.size);
+  ellipse(flower.x, flower.y, flower.size, flower.size / 2);
 
-  // Draw petals.
-  ellipse(flower.x, flower.y, flower.size / 2, flower.size);
-  ellipse(flower.x, flower.y, flower.size, flower.size / 2);
-
-  // Draw a yellow center.
-  fill(255, 204, 0);
-  circle(flower.x, flower.y, flower.size / 2);
-} 
+  // 黄色の中心を描画する
+  fill(255, 204, 0);
+  circle(flower.x, flower.y, flower.size / 2);
+} 
 `} />
 
 <Callout>
-Add a parameter to your `flowerPower()` function so you can easily start with as many flowers as you like.
+`flowerPower()`関数にパラメータを追加して、好きな数の花から簡単に始められるようにしてください。
 
-[Example.](https://editor.p5js.org/KM_Playground/sketches/BkgxufvQf)
+[例。](https://editor.p5js.org/KM_Playground/sketches/BkgxufvQf)
 </Callout>
 
+## ステップ7：配列内の花を更新する
 
-## Step 7: Update the flowers in the array
+花の配列をテストしたので、次は萎れる効果を描画しましょう。花を制御するために配列を使用することの利点の1つは、各花の値を更新できることです。
 
-Now that we have tested the array of flowers, let’s draw the wilting effect. One of the benefits of using an array to control the flowers is the ability to update values in each flower. 
-
-- Outside of all other functions, define a function called `updateAndDrawFlowers()`:
+- 他のすべての関数の外側で、`updateAndDrawFlowers()`という関数を定義します：
 
   ```js
   function updateAndDrawFlowers() {}
   ```
 
-- This function will look at each flower in the array and will draw the flower.
+- この関数は配列内の各花を見て、その花を描画します。
 
   ```js
   for (let flower of flowers) {
-     drawFlower(flower);
+     drawFlower(flower);
   }
   ```
 
-- Inside the `for` loop, decrease the flower object’s `size` and `lifespan` to simulate wilting. 
+- forループ内で、萎れをシミュレートするために花オブジェクトの`size`と`lifespan`を減少させます。
 
-  Add a wilting animation effect, which will decrease the flower size by 1% after the `drawFlower()` function draws the flower. We create the wilting effect by multiplying the current size by 0.99 and storing it back into the flower’s `size` property. Then decrement the lifespan and store it in the flower’s `lifespan` variable. Use the multiply [assignment operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators) and [decrement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement) operator in the following syntax:
+  `drawFlower()`関数が花を描画した後、花のサイズを1%減少させることで萎れのアニメーション効果を追加します。現在のサイズに0.99を掛けて、その結果を花の`size`プロパティに戻すことで萎れ効果を作成します。次に、寿命を減少させ、その値を花の`lifespan`変数に保存します。以下の構文で乗算[代入演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators)と[デクリメント](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement)演算子を使用します：
 
   ```js
-  // Wilting effect for the flower.
+  // 花の萎れ効果
   flower.size *= 0.99;
   
-  // Reduce lifespan.
-  flower.lifespan -= 1; 
+  // 寿命を減少させる
+  flower.size -= 1; 
   ```
 
-- When the flower object’s lifespan is zero or negative, we’ll remove it from the array by using the [`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) method. 
+- 花オブジェクトの寿命がゼロまたは負になったら、[`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)メソッドを使用して配列から削除します。
 
   ```js
   for (let flower of flowers) {
-    // Draw the flower.
-    drawFlower(flower);
+    // 花を描画する
+    drawFlower(flower);
   
-    // Wilting effect for the flower.
-    flower.size *= 0.99;
+    // 花の萎れ効果
+    flower.size *= 0.99;
   
-    // Reduce lifespan.
-    flower.lifespan -= 1; 
+    // 寿命を減少させる
+    flower.lifespan -= 1; 
   
-    if (flower.lifespan <= 0) {
-      // Save index of the flower
-      let i = flowers.indexOf(flower);
+    if (flower.lifespan <= 0) {
+      // 花のインデックスを保存する
+      let i = flowers.indexOf(flower);
   
-      // Remove wilted flower 
-      flowers.splice(i, 1); 
-    }
+      // 萎れた花を削除する 
+      flowers.splice(i, 1); 
+    }
   }
   ```
 
-- Add `updateAndDrawFlowers()` to the `draw()` function.
-- Remove the call to `frameRate(1)` from `setup()`.
+- `draw()`関数に`updateAndDrawFlowers()`を追加します。
+- `setup()`から`frameRate(1)`の呼び出しを削除します。
 
-Your code should look similar to this:
+コードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Array of flowers.
+// 花の配列
 let flowers = []; 
 
 function setup() {
   createCanvas(400, 400);
   
-  // Generate 20 flowers.
+  // 20個の花を生成する
   flowerPower(); 
 }
 
 function draw() {
   background("lightblue");
   
-  // Call your new function.
+  // 新しい関数を呼び出す
   updateAndDrawFlowers();
 }
 
-// Define your new function.
+// 新しい関数を定義する
 function updateAndDrawFlowers() {
   for (let flower of flowers) {
 
-    // Draw the flower.
+    // 花を描画する
     drawFlower(flower);
 
-    // Apply wilting effect by reducing size by 1%
+    // サイズを1%減少させることで萎れ効果を適用する
     flower.size *= 0.99;
 
-    // Reduce lifespan
+    // 寿命を減少させる
     flower.lifespan -= 1;
     
     if (flower.lifespan <= 0) {
-      // Save index of the flower.
+      // 花のインデックスを保存する
       let i = flowers.indexOf(flower);
       
-      // Remove wilted flower.
+      // 萎れた花を削除する
       flowers.splice(i, 1);
     }
   }
 }
 
-// Function to create 20 flowers.
+// 20個の花を作成する関数
 function flowerPower(){
   for(let i = 0; i < 20; i+=1){
-    // Create a flower in a random location.
+    // ランダムな位置に花を作成する
     let flower1 = createFlower();
     
-    // Add the flower to the flowers array.
+    // 花を花の配列に追加する
     flowers.push(flower1);
   }
 }
@@ -842,107 +822,104 @@ function drawFlower(flower) {
   noStroke();
   fill(flower.color);
   
-  // Draw petals.
+  // 花びらを描画する
   ellipse(flower.x, flower.y, flower.size / 2, flower.size);
   ellipse(flower.x, flower.y, flower.size, flower.size / 2);
 
-  // Draw center.
+  // 中心を描画する
   fill(255, 204, 0);
   circle(flower.x, flower.y, flower.size / 2);
-  
-}
+  }
 `} />
 
 <Callout>
-Experiment with the wilting effect using subtraction, random numbers, or any other ideas you come up with.
-
-[Example.](https://editor.p5js.org/KM_Playground/sketches/9YesvTdSi)
+このチュートリアルを完了したら、[クラスによるコードの整理](/tutorials/organizing-code-with-classes)チュートリアルに進んで、オブジェクト指向プログラミングについてさらに学ぶことをおすすめします。
 </Callout>
 
 
-## Step 8: Add more flowers to the array with `mousePressed()`
+## ステップ8: `mousePressed()`を使って配列にさらに花を追加する
 
-Finally, let’s add more flowers to the canvas by using [`mousePressed()`](/reference/p5/mousePressed), [`mouseX`](/reference/p5/mouseX), and [`mouseY`](/reference/p5/mouseY) to add another flower object to the flowers array each time the canvas is clicked.
+最後に、[`mousePressed()`](/reference/p5/mousePressed)、[`mouseX`](/reference/p5/mouseX)、[`mouseY`](/reference/p5/mouseY)を使用して、キャンバスがクリックされるたびに花オブジェクトを flowers 配列に追加しましょう。
 
-- Outside of all other functions, write your `mousePressed()` function:
+- 他のすべての関数の外側に、`mousePressed()` 関数を書きます：
 
   ```js
   function mousePressed() {
-    let flower = createFlower();
+    let flower = createFlower();
   
-    // reassign x to be mouseX
-    flower.x = mouseX; 
-    
-    // reassign y to be mouseY
-    flower.y = mouseY;
+    // xをmouseXに再割り当て
+    flower.x = mouseX; 
+    
+    // yをmouseYに再割り当て
+    flower.y = mouseY;
   
-    // add the flower to the flowers array
-    flowers.push(flower);
+    // 花をflowers配列に追加
+    flowers.push(flower);
   }
   ```
 
-Your code should look something like this:
+あなたのコードは以下のようになるはずです：
 
 <EditableSketch code={`
-// Array of flowers.
+// 花の配列
 let flowers = []; 
 
 function setup() {
   createCanvas(400, 400);
   
-  // Generate 20 flowers.
+  // 20個の花を生成
   flowerPower(); 
 }
 
 function draw() {
   background('lightblue');
   
-  // Call your new function.
+  // 新しい関数を呼び出す
   updateAndDrawFlowers();
 }
 
 function mousePressed() {
   let flower = createFlower();
 
-  // reassign x to be mouseX
+  // xをmouseXに再割り当て
   flower.x = mouseX; 
   
-  // reassign y to be mouseY
+  // yをmouseYに再割り当て
   flower.y = mouseY;
 
-  // add the flower to the flowers array
+  // 花をflowers配列に追加
   flowers.push(flower);
 }
 
 function updateAndDrawFlowers() {
   for (let flower of flowers) {
 
-    // Draw the flower.
+    // 花を描画
     drawFlower(flower);
 
-    // Apply wilting effect by reducing size by 1%
+    // サイズを1%減らすことで萎れる効果を適用
     flower.size *= 0.99;
 
-    // Reduce lifespan
+    // 寿命を減らす
     flower.lifespan -= 1;
     
     if (flower.lifespan <= 0) {
-      // Save index of the flower.
+      // 花のインデックスを保存
       let i = flowers.indexOf(flower);
       
-      // Remove wilted flower.
+      // 萎れた花を取り除く
       flowers.splice(i, 1);
     }
   }
 }
 
-// Function to create 20 flowers.
+// 20個の花を作成する関数
 function flowerPower(){
   for(let i = 0; i < 20; i+=1){
-    // Create a flower in a random location.
+    // ランダムな位置に花を作成
     let flower1 = createFlower();
     
-    // Add the flower to the flowers array.
+    // 花をflowers配列に追加
     flowers.push(flower1);
   }
 }
@@ -963,11 +940,11 @@ function drawFlower(flower) {
   noStroke();
   fill(flower.color);
   
-  // Draw petals.
+  // 花びらを描画
   ellipse(flower.x, flower.y, flower.size / 2, flower.size);
   ellipse(flower.x, flower.y, flower.size, flower.size / 2);
 
-  // Draw center.
+  // 中心を描画
   fill(255, 204, 0);
   circle(flower.x, flower.y, flower.size / 2);
   
@@ -975,33 +952,30 @@ function drawFlower(flower) {
 `} />
 
 <Callout>
-- Add multiple flowers around the `mouseX` and `mouseY` locations when the mouse is pressed. ([Example](https://editor.p5js.org/KM_Playground/sketches/GmkrFWHSj))
-- Experiment with different shapes or colors for the flowers. ([Example](https://editor.p5js.org/KM_Playground/sketches/uyIza6XVJ))
-- Introduce new elements to the garden, like bees or butterflies, and see how they interact with the flowers. ([Example](https://editor.p5js.org/KM_Playground/sketches/jPO02404x))
+- マウスが押されたときに、`mouseX`と`mouseY`の位置の周りに複数の花を追加します。([例](https://editor.p5js.org/KM_Playground/sketches/GmkrFWHSj))
+- 花の形や色を変えて実験してみましょう。([例](https://editor.p5js.org/KM_Playground/sketches/uyIza6XVJ))
+- 蜂や蝶のような新しい要素をガーデンに導入し、花とどのように相互作用するか見てみましょう。([例](https://editor.p5js.org/KM_Playground/sketches/jPO02404x))
 </Callout>
 
+## まとめ
 
-## Conclusion
+データ構造ガーデンチュートリアルを完了おめでとうございます！
 
-Congratulations on completing the Data Structure Garden tutorial!
+この旅を通じて、動的でインタラクティブなガーデンシミュレーションを作成するためのJavaScriptオブジェクトと配列の基本的な概念について学びました。配列を使用して、それぞれが独自のプロパティと動作を持つ複数のオブジェクトをエレガントかつ効率的に管理しました。これはプログラミングの世界で強力なスキルであり、より複雑でインタラクティブなアプリケーションへの扉を開きます。
 
-Throughout this journey, you learned about the fundamental concepts of JavaScript objects and arrays to create a dynamic and interactive garden simulation. Using arrays, you’ve managed multiple objects elegantly and efficiently, each with their own properties and behaviors. This is a powerful skill in the world of programming, opening doors to more complex and interactive applications.
+## 次のステップ
 
+- [HTMLとCSSの作成とスタイリング](/tutorials/creating-styling-html)チュートリアルで、p5.jsでHTMLとCSSを使用します。
+- [アブラカダブラ：手で話す](/tutorials/speak-with-your-hands)チュートリアルで、p5.jsで[ml5.js](https://ml5js.org/)を使用します。
+- [Node.jsを始める](/tutorials/getting-started-with-nodejs)と[シンプルなメロディーアプリ](/tutorials/simple-melody-app/)チュートリアルで、p5.jsで[node.js](https://www.w3schools.com/nodejs/nodejs_intro.asp)を使用します。
 
-## Next Steps
+もう一度、このチュートリアルを完了したことをお祝いします。実験を続け、コーディングを続け、そして最も重要なのは、学習と創造を楽しんでください！
 
-- Use HTML & CSS with p5.js in the [Creating and Styling HTML](/tutorials/creating-styling-html) tutorial.
-- Use [ml5.js](https://ml5js.org/) with p5.js in the [Abracadabra: Speak With Your Hands](/tutorials/speak-with-your-hands) tutorial.
-- Use [node.js](https://www.w3schools.com/nodejs/nodejs_intro.asp) with p5.js in the [Getting Started with Node.js](/tutorials/getting-started-with-nodejs) and [Simple Melody App](/tutorials/simple-melody-app/) tutorials.
+## リソース
 
-Once again, well done on completing this tutorial. Keep experimenting, keep coding, and most importantly, enjoy learning and creating!
-
-
-## Resources
-
-- [JavaScript Objects](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics)
-- [Properties - JavaScript Objects](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)
-- [Property Accessors - dot notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)
-- [Function return values](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values)
-- [JavaScript arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-- [Expressions and Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators)
+- [JavaScript オブジェクト](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics)
+- [プロパティ - JavaScript オブジェクト](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)
+- [プロパティアクセサ - ドット表記法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)
+- [関数の戻り値](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values)
+- [JavaScript 配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+- [式と演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators)

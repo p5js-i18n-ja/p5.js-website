@@ -1,9 +1,9 @@
 ---
-title: "Animating with Media Objects"
-description: Learn how to load images and GIFs to your sketches by creating an interactive garden!
+title: "メディアオブジェクトでアニメーション"
+description: インタラクティブな庭を作成することで、画像とGIFをスケッチにロードする方法を学びましょう！
 category: introduction
 featuredImage: ../images/featured/media.png
-featuredImageAlt: A still frame from an animation of three flowers with petals illustrated using pointillism, three solid stems, and a watering pot.
+featuredImageAlt: ポワンティリスムで描かれた3つの花びらと3本の実線の茎、そして水やり缶のアニメーションの1フレーム。
 relatedContent:
   examples:
     - en/12_advanced_canvas_rendering/00_create_graphics/description
@@ -24,556 +24,489 @@ import { Columns, Column } from "../../../components/Columns";
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 
-## Introduction
+## はじめに
 
-p5.js makes it fun and simple to draw, color and animate shapes on an HTML canvas. It also gives us easy ways to create visuals using media files such as GIFs and still images. 
+p5.jsは、HTMLキャンバス上で図形を描画、着色、アニメーション化することを楽しく簡単にします。また、GIFや静止画像などのメディアファイルを使用して視覚効果を作成する簡単な方法も提供しています。
 
-![A still frame from an animation of three flowers with petals illustrated using pointillism, three solid stems, and a watering pot.](../images/introduction/media-intro.png)
+![ポワンティリスムで描かれた3つの花びらと3本の実線の茎、そして水やり缶のアニメーションの1フレーム。](../images/introduction/media-intro.png)
 
-Image and GIF files contain information that can be used to display or modify them in a p5.js project. In this tutorial you will create an [interactive animation](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB) using media and learn to: 
+画像やGIFファイルには、p5.jsプロジェクトで表示や修正に使用できる情報が含まれています。このチュートリアルでは、メディアを使用して[インタラクティブなアニメーション](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB)を作成し、以下のことを学びます：
 
-- Upload and display image files in a p5.js sketch using the [`preload()`](/reference/p5/preload) function and [`p5.Image`](/reference/p5/p5.Image) objects
-- Adjust the appearance of image files in p5.js using [`p5.Image`](/reference/p5/p5.Image) methods for sizing, positioning, an styling
-- Interact with [`p5.Image`](/reference/p5/p5.Image) objects 
-- Create an extra drawing surface using [`createGraphics()`](/reference/p5/createGraphics)
-- Save the sketch as a GIF file to your device
+- [`preload()`](/reference/p5/preload)関数と[`p5.Image`](/reference/p5/p5.Image)オブジェクトを使用してp5.jsスケッチに画像ファイルをアップロードし表示する
+- サイズ調整、位置決め、スタイリングのための[`p5.Image`](/reference/p5/p5.Image)メソッドを使用してp5.jsでの画像ファイルの外観を調整する
+- [`p5.Image`](/reference/p5/p5.Image)オブジェクトとインタラクトする
+- [`createGraphics()`](/reference/p5/createGraphics)を使用して追加の描画面を作成する
+- スケッチをGIFファイルとしてデバイスに保存する
 
-Explore [this example](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB) of a finished interactive animation using media objects.
+メディアオブジェクトを使用した完成したインタラクティブアニメーションの[この例](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB)を探索してください。
 
 <Columns>
 <Column>
 
-![Three flower images ascending on the screen](../images/introduction/flowers-grow-1.gif)
+![画面上で上昇する3つの花の画像](../images/introduction/flowers-grow-1.gif)
 
 </Column>
 
 <Column>
 
-![A paint can creates an arrangement of colored dots that approximate the colors of flowers.](../images/introduction/flowers-grow-2.gif)
+![ペイント缶が花の色に近似した色のドットの配置を作成します。](../images/introduction/flowers-grow-2.gif)
 
 </Column>
 </Columns>
 
-### Things you’ll need<a id="things-youll-need"></a>
+### 必要なもの<a id="things-youll-need"></a>
 
-- A computer with access to the internet
-- An account on the  [p5.js Web Editor](https://editor.p5js.org/)
-- Four source image files to download for this tutorial: 
-  - [Flower 1 (PNG)](/assets/flower-1.png)
-  - [Flower 2 (PNG)](/assets/flower-2.png)
-  - [Flower 3 (PNG)](/assets/flower-3.png)
-  - [Watering can (GIF)](/assets/Water.gif)
-- An understanding of concepts that enable simple interactivity and animation in p5.js. These include:
-  - variables such as [`mouseX`](/reference/p5/mouseX) and [`mouseY`](/reference/p5/mouseY)
-  - functions such as [`mousePressed()`](/reference/p5/mousePressed) or [`keyPressed()`](/reference/p5/keyPressed) 
-  - conditional statements
-  - creating custom functions with parameters
+- インターネットにアクセスできるコンピュータ
+- [p5.js Web Editor](https://editor.p5js.org/)のアカウント
+- このチュートリアル用にダウンロードする4つのソース画像ファイル：
+  - [花1 (PNG)](/assets/flower-1.png)
+  - [花2 (PNG)](/assets/flower-2.png)
+  - [花3 (PNG)](/assets/flower-3.png)
+  - [水やり缶 (GIF)](/assets/Water.gif)
+- p5.jsでの簡単なインタラクティビティとアニメーションを可能にする概念の理解。これらには以下が含まれます：
+  - [`mouseX`](/reference/p5/mouseX)や[`mouseY`](/reference/p5/mouseY)などの変数
+  - [`mousePressed()`](/reference/p5/mousePressed)や[`keyPressed()`](/reference/p5/keyPressed)などの関数
+  - 条件文
+  - パラメータを持つカスタム関数の作成
 
-For more information on these concepts see these tutorials: [Get Started](/tutorials/get-started),  [Variables and Change](/tutorials/variables-and-change), [Conditionals and Interactivity](/tutorials/conditionals-and-interactivity), and [Organizing Code with Functions](/tutorials/organizing-code-with-functions).
-
-
-## Step 1 – Upload image files to the sketch folder
-
-- Download <a href="#things-youll-need">the three `.png` image files and one .gif file</a> onto your computer. You can also use your own drawings or images, such as from royalty-free image sources such as [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page).
-- Open the [p5.js Web Editor](https://editor.p5js.org/) in a browser, name your project “Animating with Media Objects”, and save it to your account.
-- Select the arrow next to `sketch.js` on the top left of the Editor. The sketch folder will appear on the left sidebar.
-- Click the plus “+” button, and select “*Upload file”*.
-- Select the four images from your device and upload them into the sketch folder. You can drag and drop the files into the upload box that appears, or click the box and select files from your computers’ files manager.
-
-![A user clicks the arrow button, + button and selecting the Upload File option on the p5.js Web Editor.](../images/introduction/upload-editor-files.gif)
+これらの概念の詳細については、以下のチュートリアルを参照してください：[はじめに](/tutorials/get-started)、[変数と変更](/tutorials/variables-and-change)、[条件文とインタラクティビティ](/tutorials/conditionals-and-interactivity)、[関数によるコードの整理](/tutorials/organizing-code-with-functions)。
 
 
-#### Image files
+## ステップ1 – 画像ファイルをスケッチフォルダにアップロードする
 
-Image files store the grid of colored pixels that make up an image. There are a number of different image file types that p5.js can process.. The most common image types are JPEGs, PNGs, or GIFs. You can identify them by the extension found at the end of their filenames: `.jpg`, `.png`, `.gif`.
+- <a href="#things-youll-need">3つの`.png`画像ファイルと1つの.gifファイル</a>をコンピュータにダウンロードします。また、[Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)などのロイヤリティフリーの画像ソースから自分の描画や画像を使用することもできます。
+- ブラウザで[p5.js Web Editor](https://editor.p5js.org/)を開き、プロジェクトに「Animating with Media Objects」という名前を付け、アカウントに保存します。
+- エディタの左上にある`sketch.js`の横の矢印を選択します。スケッチフォルダが左サイドバーに表示されます。
+- プラス "+" ボタンをクリックし、"*Upload file*"を選択します。
+- デバイスから4つの画像を選択し、スケッチフォルダにアップロードします。表示されるアップロードボックスにファイルをドラッグ＆ドロップするか、ボックスをクリックしてコンピュータのファイルマネージャーからファイルを選択できます。
 
-JPEGs and PNGs are among the most common types of static images, which are images that do not move. JPEGs often refer to photographs, whereas PNGs often refer to graphics and designs, as they support images with transparent backgrounds. The term GIF is widely used for animated images. They contain a series of images that can be displayed as an animation.
+![ユーザーがp5.js Web Editorで矢印ボタン、+ボタンをクリックし、Upload Fileオプションを選択する様子。](../images/introduction/upload-editor-files.gif)
 
 
-## Step 2 – Load the images into the canvas
+#### 画像ファイル
 
-- Declare four global variables to represent each image: `let flower1, flower2, flower3, water;`
-- Define the [`preload()`](/reference/p5/preload) function after global variables are declared, and directly before function `setup()`.
-- In the `preload()` function, type in `flower1 = loadImage("flower-1.png");`
-  - This loads the image information into memory using the [`loadImage()`](/reference/p5/loadImage) function.
-  - The image is assigned to the global variable `flower1`.
-  - Repeat this step for all the images.
+画像ファイルは、画像を構成する色付きピクセルのグリッドを保存します。p5.jsが処理できる画像ファイルタイプはいくつかあります。最も一般的な画像タイプはJPEG、PNG、またはGIFです。これらはファイル名の末尾にある拡張子で識別できます：`.jpg`、`.png`、`.gif`。
 
-Your code should look like this:
+JPEGとPNGは最も一般的な静止画像のタイプの中にあります。静止画像とは動かない画像のことです。JPEGはしばしば写真を指し、PNGはグラフィックスやデザインを指すことが多く、透明な背景を持つ画像をサポートしています。GIFという用語は広くアニメーション画像に使用されています。これらには一連の画像が含まれており、アニメーションとして表示できます。
+
+
+## ステップ2 – 画像をキャンバスにロードする
+
+- 各画像を表す4つのグローバル変数を宣言します：`let flower1, flower2, flower3, water;`
+- グローバル変数が宣言された後、function `setup()`の直前に[`preload()`](/reference/p5/preload)関数を定義します。
+- `preload()`関数内で、`flower1 = loadImage("flower-1.png");`と入力します。
+  - これは[`loadImage()`](/reference/p5/loadImage)関数を使用して画像情報をメモリにロードします。
+  - 画像はグローバル変数`flower1`に割り当てられます。
+  - この手順をすべての画像に対して繰り返します。
+
+コードは以下のようになるはずです：
 
 ```js
-//Variables for image files.
+//画像ファイル用の変数。
 let flower1;
 let flower2;
 let flower3;
 let water;
 
 function preload() {
-  //Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  //画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 ```
 
 ### [`preload()`](/reference/p5/preload)
 
-`preload()` is a function that is automatically called by the p5.js library. It is used to load external files in a sketch allowing the computer time to complete this process before your sketch runs. The `setup()` and `draw()` functions only run once the `preload()` function has completed.
+`preload()`は、p5.jsライブラリによって自動的に呼び出される関数です。スケッチで外部ファイルをロードするために使用され、スケッチが実行される前にこのプロセスを完了するための時間をコンピュータに与えます。`setup()`と`draw()`関数は、`preload()`関数が完了した後にのみ実行されます。
 
 
 ### [`loadImage()`](/reference/p5/loadImage)
 
-`loadImage()` follows a path to an image in its located folder, and loads it into memory as a [`p5.Image`](/reference/p5/p5.Image) object. `p5.Image` is an *object* that stores image information. There are many data types in p5.js including integers, Booleans and strings. Later in this tutorial, we’ll explore together how p5.js functions can use that image data.
+`loadImage()`は、配置されたフォルダ内の画像へのパスをたどり、それを[`p5.Image`](/reference/p5/p5.Image)オブジェクトとしてメモリにロードします。`p5.Image`は画像情報を保存する*オブジェクト*です。p5.jsには整数、ブール値、文字列など多くのデータ型があります。このチュートリアルの後半で、p5.js関数がその画像データをどのように使用できるかを一緒に探索します。
 
-To load an image, call `loadImage()` with one string argument containing the filename of the image. For example, `loadImage("flower-1.png");`.
+画像をロードするには、画像のファイル名を含む1つの文字列引数で`loadImage()`を呼び出します。例えば、`loadImage("flower-1.png");`のようにします。
 
-If the image is located in a folder, reference that folder by naming it before the filename, followed by a forward slash “/”. For example, if your image is in a folder called *assets*, you would type: `loadImage("assets/flower-1.png");`
+画像がフォルダ内にある場合、ファイル名の前にフォルダ名を記述し、その後にフォワードスラッシュ "/"を付けてそのフォルダを参照します。例えば、画像が*assets*というフォルダにある場合、次のように入力します：`loadImage("assets/flower-1.png");`
 
-![The Sketch Files panel in the p5.js Editor showing the assets folder with the file named flower-1.png inside. In the text editor, assets/flower-1.png appears within quotation marks in the parenthesis for the loadImage function.](../images/introduction/editor-folder-structure.png)
+![p5.js Editorのスケッチファイルパネルに、assetsフォルダとその中のflower-1.pngという名前のファイルが表示されています。テキストエディタでは、loadImage関数の括弧内の引用符の中にassets/flower-1.pngが表示されています。](../images/introduction/editor-folder-structure.png)
 
-Alternatively, if you load the image from the web, type in the image URL wrapped in quotation marks, such as: `loadImage('https://i.ibb.co/3141Spd/flower-1.png');`
+あるいは、ウェブから画像をロードする場合は、画像のURLを引用符で囲んで入力します。例：`loadImage('https://i.ibb.co/3141Spd/flower-1.png');`
 
-<Callout title="Note">
-When using a web-based image, make sure to access it from a secure and trusted server. Be mindful also of any copyright or licensing required to use the image.
+<Callout title="注意">
+ウェブベースの画像を使用する場合は、安全で信頼できるサーバーからアクセスしていることを確認してください。また、画像を使用するために必要な著作権やライセンスにも注意してください。
 </Callout>
 
-Visit the p5.js Reference to learn more about the [`preload()`](/reference/p5/preload)  [`loadImage()`](/reference/p5/loadImage) functions.
-
-
-## Step 3 – Draw the images onto the canvas
-
-First, let’s display the three static flower images next to each other on a canvas.
-
-- In the `setup()` function, call `imageMode(CENTER)`.
-  - As with the `rect()` function, an image’s x- and y-coordinates refer to its top left corner by default. Calling `imageMode(CENTER)` positions the image’s x- and y-coordinates to its center point.
-  - See [this example](https://editor.p5js.org/joanneamarisa/sketches/ZjxtRj22k) on how `imageMode()` affects an image’s x- and y-coordinates!
-- Place the first flower image onto the canvas by calling `image(flower1, 100, 200);` within the `draw()` function.
-  - This places the flower image stored in the global variable flower1 at the coordinates (100, 200).
-  - Repeat this step for the two other flower images. Set each flower’s x-coordinate 100px apart from each other, and set their y-coordinates as 200.
-- Give the canvas a white background.
-
-<Callout title="Tip">
-- Because every flower will be placed on the same y-coordinate, we can use the same variable to define it: `flowerY`
-- Add comments to describe each step of your code so far.
-</Callout>
-
-Your code should look like this:
-
-<EditableSketch code={`
-//Variables for image files.
-let flower1;
-let flower2;
-let flower3;
-let water;
-
-//y coordinate for all images
-let flowerY = 200;
-
-function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
-}
-
-function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
-
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
-}
-
-function draw() {
-  background(255);
-
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY);
-  image(flower2, 200, flowerY);
-  image(flower3, 300, flowerY);
-}
-`} />
-
-
-### [`image()`](/reference/p5/image)
-
-The `image()` function draws a `p5.Image` object on the canvas. At least three arguments are needed to call `image()`: the variable that was assigned the p5.Image object , the x-coordinate, and the y-coordinate: `image(img, x, y, width);`
-
-Visit the p5.js Reference on [`image()`](/reference/p5/image) to see more ways you can specify how an image is drawn.
-
-
-## Step 4 – Resize the images using the `resize()` method
-
-Next, let’s resize each of the flowers so that they fit on the canvas. 
-
-- In the `setup()` function, add: `flower1.resize(100, 100);`
-  - This will resize the first flower image to 100x100 pixels.
-  - Repeat this process for the other two flower images.
-
-Your code should look like this:
-
-<EditableSketch code={`
-//Variables for image files.
-let flower1;
-let flower2;
-let flower3;
-let water;
-
-//y coordinate for all images
-let flowerY = 200;
-
-function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
-}
-
-function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
-
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
-
-  // Resize the flower images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
-}
-
-function draw() {
-  background(255);
-
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY);
-  image(flower2, 200, flowerY);
-  image(flower3, 300, flowerY);
-}
-`} />
+[`preload()`](/reference/p5/preload)と[`loadImage()`](/reference/p5/loadImage)関数の詳細については、p5.jsリファレンスをご覧ください。
 
 
 
-### [`p5.Image` Methods](/reference/p5/p5.Image)
+## ステップ1 – 画像ファイルをスケッチフォルダにアップロードする
 
-To resize `flower1,` we used the line `flower1.resize(100,100)`. `resize()` is called a *method* because it is a special function that operates on objects. Each object data type has a set of methods that are available to use. You can call methods by typing a dot “.” after the object name followed by the name of the method. `resize()` is one of the methods you can use with `p5.Image` objects. There are many other methods to process or manipulate the pixels of an image.
+- <a href="#things-youll-need">3つの`.png`画像ファイルと1つの.gifファイル</a>をコンピュータにダウンロードします。また、[Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)などのロイヤリティフリーの画像ソースから自分の描画や画像を使用することもできます。
+- ブラウザで[p5.js Web Editor](https://editor.p5js.org/)を開き、プロジェクトに「Animating with Media Objects」という名前を付け、アカウントに保存します。
+- エディタの左上にある`sketch.js`の横の矢印を選択します。スケッチフォルダが左サイドバーに表示されます。
+- プラス "+" ボタンをクリックし、"*Upload file*"を選択します。
+- デバイスから4つの画像を選択し、スケッチフォルダにアップロードします。表示されるアップロードボックスにファイルをドラッグ＆ドロップするか、ボックスをクリックしてコンピュータのファイルマネージャーからファイルを選択できます。
 
-Visit the [`p5.Image` Reference page](/reference/p5/p5.Image) to explore other methods for modifying the appearance of an image.
+![ユーザーがp5.js Web Editorで矢印ボタン、+ボタンをクリックし、Upload Fileオプションを選択する様子。](../images/introduction/upload-editor-files.gif)
 
-<Callout>
-What happens when you try the `p5.Image.filter()` methods below? Add them to your sketch in `setup()`.
+
+#### 画像ファイル
+
+画像ファイルは、画像を構成する色付きピクセルのグリッドを保存します。p5.jsが処理できる画像ファイルタイプはいくつかあります。最も一般的な画像タイプはJPEG、PNG、またはGIFです。これらはファイル名の末尾にある拡張子で識別できます：`.jpg`、`.png`、`.gif`。
+
+JPEGとPNGは最も一般的な静止画像のタイプの中にあります。静止画像とは動かない画像のことです。JPEGはしばしば写真を指し、PNGはグラフィックスやデザインを指すことが多く、透明な背景を持つ画像をサポートしています。GIFという用語は広くアニメーション画像に使用されています。これらには一連の画像が含まれており、アニメーションとして表示できます。
+
+
+## ステップ2 – 画像をキャンバスにロードする
+
+- 各画像を表す4つのグローバル変数を宣言します：`let flower1, flower2, flower3, water;`
+- グローバル変数が宣言された後、function `setup()`の直前に[`preload()`](/reference/p5/preload)関数を定義します。
+- `preload()`関数内で、`flower1 = loadImage("flower-1.png");`と入力します。
+  - これは[`loadImage()`](/reference/p5/loadImage)関数を使用して画像情報をメモリにロードします。
+  - 画像はグローバル変数`flower1`に割り当てられます。
+  - この手順をすべての画像に対して繰り返します。
+
+コードは以下のようになるはずです：
 
 ```js
-flower1.filter(POSTERIZE);
-flower2.filter(ERODE);
-flower3.filter(DILATE);
-```
-
-</Callout>
-
-
-## Step 5 – Animate flowers
-
-The `resize()` method is useful for reducing the *source* size of an image. But we can also change an image’s *display* size on the fly. In this step, we’ll do that by adding a couple of size arguments in the `image()` function call to animate our flowers “growing.”
-
-
-### 5.1 – Set the flowers’ sizes before they grow
-
-- Declare a new variable called `flowerSize` and give it a smaller number. In this example, we will set it as 20.
-  - This will be the starting size of the flowers before they grow.
-- Go to the `draw()` function. In the `image()` functions that draw each flower, introduce `flowerSize` as two extra parameters. 
-  - The code should look like this: `image(flower1, 100, flowerY, flowerSize, flowerSize);`
-
-
-### 5.2 – Draw stems for each flower
-
-- Adjust the `flowerY` variable to 350 to place the flowers near the bottom of the sketch.
-- To draw the first stem, add `line(100, 400, 100, flowerY);` at the start of the `draw()` function.
-  - The line’s x-coordinate would be the same as the first flower’s x-coordinate. In this case, it is drawn at the x value 100.
-  - The line’s y-coordinate would go from the bottom edge of the canvas (400) to the center of the flower (`flowerY`).
-  - Repeat this for the other two flower images, matching each flower’s x-coordinates.
-  - Give the lines a thick brown stroke.
-
-Your code should look like this:
-
-<EditableSketch code={`
-//Variables for images
+//画像ファイル用の変数。
 let flower1;
 let flower2;
 let flower3;
 let water;
 
-// Set variables for growing the flowers.
+function preload() {
+  //画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
+}
+```
+
+### [`preload()`](/reference/p5/preload)
+
+`preload()`は、p5.jsライブラリによって自動的に呼び出される関数です。スケッチで外部ファイルをロードするために使用され、スケッチが実行される前にこのプロセスを完了するための時間をコンピュータに与えます。`setup()`と`draw()`関数は、`preload()`関数が完了した後にのみ実行されます。
+
+
+### [`loadImage()`](/reference/p5/loadImage)
+
+`loadImage()`は、配置されたフォルダ内の画像へのパスをたどり、それを[`p5.Image`](/reference/p5/p5.Image)オブジェクトとしてメモリにロードします。`p5.Image`は画像情報を保存する*オブジェクト*です。p5.jsには整数、ブール値、文字列など多くのデータ型があります。このチュートリアルの後半で、p5.js関数がその画像データをどのように使用できるかを一緒に探索します。
+
+画像をロードするには、画像のファイル名を含む1つの文字列引数で`loadImage()`を呼び出します。例えば、`loadImage("flower-1.png");`のようにします。
+
+画像がフォルダ内にある場合、ファイル名の前にフォルダ名を記述し、その後にフォワードスラッシュ "/"を付けてそのフォルダを参照します。例えば、画像が*assets*というフォルダにある場合、次のように入力します：`loadImage("assets/flower-1.png");`
+
+![p5.js Editorのスケッチファイルパネルに、assetsフォルダとその中のflower-1.pngという名前のファイルが表示されています。テキストエディタでは、loadImage関数の括弧内の引用符の中にassets/flower-1.pngが表示されています。](../images/introduction/editor-folder-structure.png)
+
+あるいは、ウェブから画像をロードする場合は、画像のURLを引用符で囲んで入力します。例：`loadImage('https://i.ibb.co/3141Spd/flower-1.png');`
+
+<Callout title="注意">
+ウェブベースの画像を使用する場合は、安全で信頼できるサーバーからアクセスしていることを確認してください。また、画像を使用するために必要な著作権やライセンスにも注意してください。
+</Callout>
+
+[`preload()`](/reference/p5/preload)と[`loadImage()`](/reference/p5/loadImage)関数の詳細については、p5.jsリファレンスをご覧ください。
+
+
+## ステップ5 – 花をアニメーション化する
+
+`resize()`メソッドは画像の*ソース*サイズを縮小するのに便利です。しかし、画像の*表示*サイズをその場で変更することもできます。このステップでは、`image()`関数呼び出しにサイズ引数を2つ追加して、花が「成長」するようにアニメーション化します。
+
+
+### 5.1 – 花が成長する前のサイズを設定する
+
+- `flowerSize`という新しい変数を宣言し、小さめの数値を与えます。この例では20に設定します。
+  - これが花が成長する前の開始サイズになります。
+- `draw()`関数に移動します。各花を描画する`image()`関数に、`flowerSize`を2つの追加パラメータとして導入します。
+  - コードは以下のようになるはずです：`image(flower1, 100, flowerY, flowerSize, flowerSize);`
+
+
+### 5.2 – 各花の茎を描画する
+
+- `flowerY`変数を350に調整して、花をスケッチの下部近くに配置します。
+- 最初の茎を描画するために、`draw()`関数の先頭に`line(100, 400, 100, flowerY);`を追加します。
+  - 線のx座標は最初の花のx座標と同じになります。この場合、x値100に描画されます。
+  - 線のy座標はキャンバスの下端（400）から花の中心（`flowerY`）まで伸びます。
+  - これを他の2つの花画像に対しても繰り返し、各花のx座標に合わせます。
+  - 線に太い茶色のストロークを与えます。
+
+コードは以下のようになるはずです：
+
+<EditableSketch code={`
+//画像用の変数
+let flower1;
+let flower2;
+let flower3;
+let water;
+
+// 花を成長させるための変数を設定。
 let flowerY = 350;
 let flowerSize = 20;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定。
+  createCanvas(400,400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して
+  // 画像を配置。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
 }
-
 function draw() {
 
-  background(255);
+  background(255);
 
 
-  // Draw individual stems using flowerY.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
- 
-  // Draw the static flower images as one row using variables for growing.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // flowerYを使用して個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
+ 
+  // 成長のための変数を使用して静止花画像を1列に描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 }
 `} />
 
 
-### 5.3 – Use the mouse to grow the flowers
+### 5.3 – マウスを使用して花を成長させる
 
-- In the `draw()` function, start a new if-statement by typing `if (mouseIsPressed) {}`
-  - Any functions placed inside this if-statement’s body (between the curly braces) will only be performed while the mouse is pressed.
-- Inside the curly brackets, add a line of code: `flowerY -= 1`; 
-  - This decrements the `flowerY` value by 1 so the flowers will move farther up the canvas while the mouse is pressed.
-- Right underneath it, add another line of code: `flowerSize += 1;`
-  - This increments the `flowerSize` variable by 1 so the flower images will grow in size while the mouse is pressed.
+- `draw()`関数内で、新しいif文を開始します：`if (mouseIsPressed) {}`
+  - このif文の本体（中括弧の間）に配置された関数は、マウスが押されている間のみ実行されます。
+- 中括弧の中に、次のコード行を追加します：`flowerY -= 1`; 
+  - これにより`flowerY`の値が1ずつ減少し、マウスが押されている間、花がキャンバスの上方に移動します。
+- その直下に、別のコード行を追加します：`flowerSize += 1;`
+  - これにより`flowerSize`変数が1ずつ増加し、マウスが押されている間、花画像のサイズが大きくなります。
 
-Your `draw()` function should look like this:
+`draw()`関数は以下のようになるはずです：
 
 ```js
 function draw() {
-  background(255);
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  background(255);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
+  // 静止花画像を1列に描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    flowerY -= 1;
-    flowerSize += 1;
-  }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    flowerY -= 1;
+    flowerSize += 1;
+  }
 }
 ```
 
 
-### 5.4 – Set limits on the flowers’ growth
+### 5.4 – 花の成長に制限を設ける
 
-To avoid the flowers growing infinitely tall, we will introduce if-statements to limit the growth.
+花が無限に高く成長するのを避けるために、if文を導入して成長を制限します。
 
-- Create a new if-statement and type: `if (flowerSize > 100) { }`
-  - Inside the curly brackets, add: `flowerSize = 100;`
-  - This sets a condition where if the flower size exceeds 100 pixels, it will stay at the value of 100 as its maximum size.
-- Create another if-statement and type: `if (flowerY < 100) { }`
-  - Inside the curly brackets, add two lines of code: `flowerY = 350;` and `flowerSize = 20;`
-  - This sets a condition where if the flower’s y-coordinate is less than 100, it will revert back to its original y-coordinate, and the flower will go back to its original size.
+- 新しいif文を作成し、次のように入力します：`if (flowerSize > 100) { }`
+  - 中括弧の中に、次を追加します：`flowerSize = 100;`
+  - これにより、花のサイズが100ピクセルを超えた場合、100の値で最大サイズに留まる条件が設定されます。
+- 別のif文を作成し、次のように入力します：`if (flowerY < 100) { }`
+  - 中括弧の中に、2行のコードを追加します：`flowerY = 350;`と`flowerSize = 20;`
+  - これにより、花のy座標が100未満になった場合、元のy座標に戻り、花が元のサイズに戻る条件が設定されます。
 
-Your `draw()` function should look like this:
-
-```js
-function draw() {
-  background(255);
-
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
-
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
-
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    flowerY -= 1;
-    flowerSize += 1;
-  }
- 
-  // Limit flower size growth.
-  if (flowerSize > 100) {
-    flowerSize = 100;
-  }
- 
-  // Reset growth if flower
-  // reaches a certain height.
-  if (flowerY > 100) {
-    flowerY = 350;
-    flowerSize = 20;
-  }
-}
-```
-
-This is one way to limit the growth of the flowers. Alternatively, you can nest if-statements to simplify your code:
+`draw()`関数は以下のようになるはずです：
 
 ```js
 function draw() {
-  background(255);
+  background(255);
 
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // 静止花画像を1列に描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    if (flowerY > 100) {
-      flowerY -= 1;
-
-    }
-
-    if (flowerSize < 20) {
-      flowerSize += 1;
-    }
-  }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    flowerY -= 1;
+    flowerSize += 1;
+  }
+ 
+  // 花のサイズの成長を制限。
+  if (flowerSize > 100) {
+    flowerSize = 100;
+  }
+ 
+  // 花が一定の高さに達したら
+  // 成長をリセット。
+  if (flowerY > 100) {
+    flowerY = 350;
+    flowerSize = 20;
+  }
 }
 ```
 
-Try clicking and holding to to grow the flowers:
+これは花の成長を制限する一つの方法です。あるいは、if文をネストしてコードを簡略化することもできます：
+
+```js
+function draw() {
+  background(255);
+
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
+
+  // 静止花画像を1列に描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
+
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    if (flowerY > 100) {
+      flowerY -= 1;
+
+    }
+
+    if (flowerSize < 20) {
+      flowerSize += 1;
+    }
+  }
+}
+```
+
+クリックして押し続けて花を成長させてみてください：
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
 let water;
 
-// Set variables for growing the flowers.
+// 花を成長させるための変数を設定。
 let flowerY = 350;
 let flowerSize = 20;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定。
+  createCanvas(400,400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して
+  // 画像を配置。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
 }
 
 function draw() {
-  background(255);
+  background(255);
 
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 
-  // Draw the static flower images as one row.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // 静止花画像を1列に描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    if (flowerY > 100) {
-      flowerY -= 1;
-    }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    if (flowerY > 100) {
+      flowerY -= 1;
+    }
 
-    if (flowerSize < 20) {
-      flowerSize += 1;
-    }
-  }
+    if (flowerSize < 20) {
+      flowerSize += 1;
+    }
+  }
 }
 `} />
 
-<Callout title="Tip">
-To organize your code, group the functions and if-statements within the `draw()` function into their own separate functions called `drawStems()` and` growFlowers()`.
+<Callout title="ヒント">
+コードを整理するために、`draw()`関数内の関数とif文を`drawStems()`と`growFlowers()`という別々の関数にグループ化してください。
 
 <details>
-<summary>Example</summary>
+<summary>例</summary>
 
 ```js
-// ... Variable declarations, preload(), and draw()
+// ... 変数宣言、preload()、draw()
 function draw() {
-  background(255);
+  background(255);
 
-  // New functions!
-  drawStems();
-  growFlowers();
+  // 新しい関数！
+  drawStems();
+  growFlowers();
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 
 function growFlowers() {
-  // Draw the flower images.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // 花画像を描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    if (flowerY > 100) {
-      flowerY -= 1;
-    }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    if (flowerY > 100) {
+      flowerY -= 1;
+    }
 
-    if (flowerSize < 20) {
-      flowerSize += 1;
-    }
-  }
+    if (flowerSize < 20) {
+      flowerSize += 1;
+    }
+  }
 }
 ```
 
@@ -581,208 +514,208 @@ function growFlowers() {
 </Callout>
 
 
-## Step 6 – Add a watering can GIF
 
-- In the `draw()` function after the `growFlowers()` function, add: `image(water, mouseX, mouseY);` to draw the watering can GIF and position it to follow your mouse.
-- Resize the GIF to 50x50 pixels in `setup()` using a method similar to the one used for the flowers in Step 3.
+## ステップ6 – 水やり缶GIFを追加する
+
+- `draw()`関数内の`growFlowers()`関数の後に、`image(water, mouseX, mouseY);`を追加して、水やり缶GIFを描画し、マウスに追従するように配置します。
+- `setup()`内で、ステップ3で花に使用したのと同様の方法を使用して、GIFのサイズを50x50ピクセルに変更します。
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
 let water;
 
-// Set variables for growing the flowers.
+// 花を成長させるための変数を設定。
 let flowerY = 350;
 let flowerSize = 20;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定。
+  createCanvas(400,400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して
+  // 画像を配置。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
   
-  // Resize the GIF.
-  water.resize(50, 50);
+  // GIFのサイズを変更。
+  water.resize(50, 50);
 }
 
 function draw() {
   background(255);
-  drawStems();
-  growFlowers();
+  drawStems();
+  growFlowers();
   
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
+  // 水やり缶GIFを描画。
+  image(water, mouseX, mouseY);
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 
 function growFlowers() {
-  // Draw the flower images.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // 花画像を描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    if (flowerY > 100) {
-      flowerY -= 1;
-    }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    if (flowerY > 100) {
+      flowerY -= 1;
+    }
 
-    if (flowerSize < 20) {
-      flowerSize += 1;
-    }
-  }
+    if (flowerSize < 20) {
+      flowerSize += 1;
+    }
+  }
 }
 `} />
 
 
-## Step 7 – Animate the GIF using our cursor
+## ステップ7 – カーソルを使ってGIFをアニメーション化する
 
-Next, let’s set the GIF to play only when the mouse is being pressed.
+次に、マウスが押されているときだけGIFが再生されるように設定しましょう。
 
-- In `setup()`, type `water.pause();` to have the GIF in pause mode by default.
-- After `draw()`, define a new `mousePressed()` function. 
-  - Inside the `mousePressed()` function, type `water.play()` to start the animation.
-- After `mousePressed()`, define a new `mouseReleased()` function.
-  - Inside the `mouseReleased()` function, type `water.reset(); `and `water.pause();` to pause and reset the GIF when the mouse is not being pressed.
+- `setup()`内で、`water.pause();`と入力して、デフォルトでGIFを一時停止モードにします。
+- `draw()`の後に、新しい`mousePressed()`関数を定義します。
+  - `mousePressed()`関数内で、`water.play()`と入力してアニメーションを開始します。
+- `mousePressed()`の後に、新しい`mouseReleased()`関数を定義します。
+  - `mouseReleased()`関数内で、`water.reset();`と`water.pause();`と入力して、マウスが押されていないときにGIFを一時停止してリセットします。
 
-Your code and sketch should look like this:
+コードとスケッチは以下のようになるはずです：
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
 let water;
 
-// Set variables for growing the flowers.
+// 花を成長させるための変数を設定。
 let flowerY = 350;
 let flowerSize = 20;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルをロードする。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定。
+  createCanvas(400,400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して
+  // 画像を配置。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
   
-  // Resize the GIF.
-  water.resize(50, 50);
+  // GIFのサイズを変更。
+  water.resize(50, 50);
   
-  // start sketch with the GIF in pause mode.
-  water.pause();
+  // スケッチをGIFの一時停止モードで開始。
+  water.pause();
 }
 
 function draw() {
   background(255);
-  drawStems();
-  growFlowers();
+  drawStems();
+  growFlowers();
   
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
+  // 水やり缶GIFを描画。
+  image(water, mouseX, mouseY);
 }
 
 function mousePressed() {
-  // Play GIF when the mouse is pressed.
-  water.play();
+  // マウスが押されたときにGIFを再生。
+  water.play();
 }
-
 function mouseReleased() {
-  // Resets and pauses the GIF when
-  // mouse is not being pressed.
-  water.reset();
-  water.pause();
+  // マウスが押されていないときに
+  // GIFをリセットして一時停止。
+  water.reset();
+  water.pause();
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 
 function growFlowers() {
-  // Draw the flower images.
-  image(flower1, 100, flowerY, flowerSize, flowerSize);
-  image(flower2, 200, flowerY, flowerSize, flowerSize);
-  image(flower3, 300, flowerY, flowerSize, flowerSize);
+  // 花画像を描画。
+  image(flower1, 100, flowerY, flowerSize, flowerSize);
+  image(flower2, 200, flowerY, flowerSize, flowerSize);
+  image(flower3, 300, flowerY, flowerSize, flowerSize);
 
-  // Grow flowers while the mouse is pressed.
-  if (mouseIsPressed) {
-    if (flowerY > 100) {
-      flowerY -= 1;
-    }
+  // マウスが押されている間、花を成長させる。
+  if (mouseIsPressed) {
+    if (flowerY > 100) {
+      flowerY -= 1;
+    }
 
-    if (flowerSize < 20) {
-      flowerSize += 1;
-    }
-  }
+    if (flowerSize < 20) {
+      flowerSize += 1;
+    }
+  }
 }
 `} />
 
-In this sketch we have used a different approach to interactivity. In the last sketch we checked the state of the Boolean variable `mouseIsPressed` in `draw()`. Now we are using the `mousePressed()` and `mouseReleased()` functions. These functions are automatically called by p5.js based on the event of the mouse button being pressed and released respectively. When the mouse is pressed down the animation begins. When the mouse is released it stops animating and resets to the default image. 
+このスケッチでは、インタラクティビティに対して異なるアプローチを使用しています。前のスケッチでは、`draw()`内でブール変数`mouseIsPressed`の状態をチェックしていました。今回は`mousePressed()`と`mouseReleased()`関数を使用しています。これらの関数は、マウスボタンが押されたり離されたりするイベントに基づいて、p5.jsによって自動的に呼び出されます。マウスが押し下げられるとアニメーションが始まり、マウスが離されるとアニメーションが停止してデフォルトの画像にリセットされます。
 
 <Callout>
-Apply a `.delay()` method in `setup()` to speed up the GIF animation. Pass the number of milliseconds between frames as a parameter, e.g. 
+`setup()`内で`.delay()`メソッドを適用して、GIFアニメーションを速くしてみてください。フレーム間のミリ秒数をパラメータとして渡します。例：
 `water.delay(10);`
 </Callout>
 
 
-## Step 8 – Draw the flowers with a pointillism effect
+## ステップ8 – ポワンティリズム効果で花を描画する
 
-In this next step, we will create an animated pointillism effect for the three flower images.
+次のステップでは、3つの花画像にアニメーションのポワンティリズム効果を作成します。
 
-Pointillism refers to a painting technique that relies on small, colorful dots to form an image. Here is an example, titled [*View of Paris (1885)*, by Albert Dubois-Pillet.](https://www.wikiart.org/en/albert-dubois-pillet/vue-de-paris-1885)
+ポワンティリズムとは、小さな色付きの点を使って画像を形成する絵画技法を指します。ここに例があります。[アルベール・デュボワ＝ピレの*パリの眺め（1885年）*](https://www.wikiart.org/en/albert-dubois-pillet/vue-de-paris-1885)というタイトルの作品です。
 
-![Painting of a Paris park that is constructed out of millions of dots.](../images/introduction/pointillism.png)
+![何百万もの点で構成されたパリの公園の絵画。](../images/introduction/pointillism.png)
 
-Apart from displaying images, p5.js can also extract pixel information from an image. For example we can obtain the color value of a random pixel from an image and then use that color to draw a dot in the same relative position. This will create a cluster of points on the canvas, creating a pointillist, abstract version of your original image. 
+画像を表示するだけでなく、p5.jsは画像からピクセル情報を抽出することもできます。例えば、画像からランダムなピクセルの色値を取得し、その色を使って同じ相対位置に点を描画することができます。これにより、キャンバス上に点の集合が作成され、元の画像のポワンティリズム的な抽象版が作成されます。
 
 
-### 8.1 – Prepare the sketch
+### 8.1 – スケッチを準備する
 
-- Comment out the `growFlowers()` function from `draw()`. We will replace the static flower images with our pointillism animations.
-- Adjust the `flowerY` variable to 200 to place our pointillism flowers across the middle of the canvas.
+- `draw()`から`growFlowers()`関数をコメントアウトします。静止画の花画像をポワンティリズムアニメーションに置き換えます。
+- `flowerY`変数を200に調整して、ポワンティリズムの花をキャンバスの中央に配置します。
 
 ```js
 let flowerY = 200;
@@ -790,113 +723,112 @@ let flowerY = 200;
 // ...
 
 function draw() {
-  background(255);
-  drawStems();
-  // growFlowers();
+  background(255);
+  drawStems();
+  // growFlowers();
 
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
+  // 水やり缶GIFを描画。
+  image(water, mouseX, mouseY);
 }
 ```
 
 
-### 8.2 – Create a new `p5.Graphics` object
+### 8.2 – 新しい`p5.Graphics`オブジェクトを作成する
 
-We’ll start by creating a new [`p5.Graphics`](/reference/p5/p5.Graphics) buffer object. A graphics buffer is similar to creating a new canvas. This allows us to display multiple layers of graphics information on the canvas. For example, in our current sketch, we will use a graphics object to separate our static canvas from the pointillist flowers. When we refresh the canvas background, the pointillist painting will not reset, and continues to develop.
+まず、新しい[`p5.Graphics`](/reference/p5/p5.Graphics)バッファオブジェクトを作成します。グラフィックスバッファは新しいキャンバスを作成するのと似ています。これにより、キャンバス上に複数のレイヤーのグラフィックス情報を表示することができます。例えば、現在のスケッチでは、グラフィックスオブジェクトを使用して静的なキャンバスとポワンティリズムの花を分離します。キャンバスの背景をリフレッシュしても、ポワンティリズムの絵画はリセットされず、発展し続けます。
 
-.![Image showing the canvas background containing the flower stems and watering can and the graphics object containing the three flowers.](../images/introduction/graphics-diagram.jpg) 
+.![花の茎と水やり缶を含むキャンバスの背景と、3つの花を含むグラフィックスオブジェクトを示す画像。](../images/introduction/graphics-diagram.jpg) 
 
-- Declare a new global variable `garden`.
-- In the `setup()` function, create a new graphics object using `createGraphics(400,400)`. This object will have the same dimensions as the canvas. Then, assign this object to the global `garden` variable: `garden = createGraphics(400, 400);`
-- The new `garden` graphics object is transparent by default until graphics objects are placed on it.
-- In the `draw()` function, type `image(garden, 0, 0);` to draw the graphics object on top of the canvas.
-  - Make sure this line is placed *before* the other flowers and GIF `image()` callbacks.
-- Your variables, `setup()`, and `draw()` functions should look like this.
+- 新しいグローバル変数`garden`を宣言します。
+- `setup()`関数内で、`createGraphics(400,400)`を使用して新しいグラフィックスオブジェクトを作成します。このオブジェクトはキャンバスと同じ寸法を持ちます。そして、このオブジェクトをグローバル変数`garden`に割り当てます：`garden = createGraphics(400, 400);`
+- 新しい`garden`グラフィックスオブジェクトは、グラフィックスオブジェクトが配置されるまでデフォルトで透明です。
+- `draw()`関数内で、`image(garden, 0, 0);`と入力して、グラフィックスオブジェクトをキャンバスの上に描画します。
+  - この行が他の花やGIFの`image()`コールバックの*前*に配置されていることを確認してください。
+- 変数、`setup()`、`draw()`関数は以下のようになるはずです。
 
 ```js
 let flower1;
 let flower2;
 let flower3;
 let water;
-let garden; // variable for the new graphics object.
+let garden; // 新しいグラフィックスオブジェクト用の変数。
 
 // ... preload()
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400, 400);
+  // 400x400 pxのキャンバスを設定。
+  createCanvas(400, 400);
 
-  // Create a p5.Graphics object
-  // to render the flowers.
-  garden = createGraphics(400, 400);
+  // 花を描画するための
+  // p5.Graphicsオブジェクトを作成。
+  garden = createGraphics(400, 400);
 
-  // ... imageMode() and resizing
+  // ... imageMode()とリサイズ
 }
 
 function draw() {
-  background(255);
-  drawStems();
-  // growFlowers();
-  // Draw the graphics object.
-  image(garden, 0, 0);
- 
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
-  // Play GIF when the mouse is pressed.
-  if (mouseIsPressed) {
-    water.play();
-  }
+  background(255);
+  drawStems();
+  // growFlowers();
+  // グラフィックスオブジェクトを描画。
+  image(garden, 0, 0);
+ 
+  // 水やり缶GIFを描画。
+  image(water, mouseX, mouseY);
+  // マウスが押されているときにGIFを再生。
+  if (mouseIsPressed) {
+    water.play();
+  }
 }
 
-// ... drawStems() and growFlowers()
+// ... drawStems()とgrowFlowers()
 ```
 
-From this point onwards, every function we want to render onto the `p5.Graphics` object will need to add `garden.` as a prefix. For example, if you wanted to draw a rectangle on the graphics object, you would write `garden.rect(0,0,100,100)`. The dot notation is used because all the regular p5.js functions can also be used as methods on graphics objects.
+この時点から、`p5.Graphics`オブジェクトにレンダリングしたい関数には全て`garden.`をプレフィックスとして追加する必要があります。例えば、グラフィックスオブジェクトに長方形を描画したい場合は、`garden.rect(0,0,100,100)`と書きます。ドット表記を使用するのは、通常のp5.js関数もグラフィックスオブジェクトのメソッドとして使用できるからです。
 
-- See [this example](https://editor.p5js.org/joanneamarisa/sketches/InGcOxd75) for steps on how to draw a graphics object on a canvas.
-- See [this example](https://editor.p5js.org/joanneamarisa/sketches/nL1DP23CR) of rendering different objects on a canvas vs. a graphics object.
+- キャンバス上にグラフィックスオブジェクトを描画する手順については、[この例](https://editor.p5js.org/joanneamarisa/sketches/InGcOxd75)をご覧ください。
+- キャンバスとグラフィックスオブジェクトに異なるオブジェクトをレンダリングする[この例](https://editor.p5js.org/joanneamarisa/sketches/nL1DP23CR)をご覧ください。
 
-We will be drawing our pointillism effect to the graphics object. Note that this is advantageous because when we refresh the background of the canvas, the garden object does not get refreshed, and we can continue adding pointillist dots to the graphics object.
+ポワンティリズム効果をグラフィックスオブジェクトに描画します。これが有利な点は、キャンバスの背景をリフレッシュしても、gardenオブジェクトはリフレッシュされず、グラフィックスオブジェクトにポワンティリズムの点を追加し続けることができるからです。
 
-You can visit the p5.js Reference to learn more about [`p5.Graphics` objects.](/reference/p5/p5.Graphics)
+[`p5.Graphics`オブジェクト](/reference/p5/p5.Graphics)についてさらに学ぶには、p5.jsリファレンスをご覧ください。
 
+### 8.3 – 画像からピクセルの色を取得する
 
-### 8.3 – Source the pixel colors from the image
+ポワンティリズム効果を作るために、まず花の画像のピクセルから色を取得することから始めます。
 
-To create our pointillism effect, we’ll start by sourcing the colors from the flower images’ pixels.
+- `paintFlower()` という新しい関数を定義します。
+- まず、画像内のランダムな点からピクセルを取得するのに役立つ変数を宣言します。最初の花の画像から始めましょう。
+- `sourceX` 変数を宣言し、0から画像の幅までのランダムな値を割り当てます。次のように書きます：`let sourceX = random(0, flower1.width);`
+- `sourceY` 変数を宣言し、0から画像の高さまでのランダムな値を割り当てます。次のように書きます：`let sourceY = random(0, flower1.height);`
+- `let c = flower1.get(sourceX, sourceY);` という行を追加します。
+  - ここでは、`p5.Image` オブジェクトの [`.get()`](/reference/p5.Image/get) メソッドを使用して、画像内のランダムに選択されたピクセルから色の値を「取得」しています。
+  - 変数 `c` が宣言され、その色の値が割り当てられています。
 
-- Define a new function called `paintFlower()`.
-- First, we’ll declare variables to help us source pixels from random points within the image. Let’s begin by doing this for the first flower image.
-- Declare the variable `sourceX` and assign it a random value between 0 and the image’s width. Write: `let sourceX = random(0, flower1.width);`
-- Declare the variable `sourceY` and assign it a random value between 0 and the image’s height. Write: `let sourceY = random(0, flower1.height);`
-- Add the line `let c = flower1.get(sourceX, sourceY);`.
-  - We are using the [`.get()`](/reference/p5.Image/get) method for a `p5.Image` object to “get” the pixel color value from a randomly selected pixel in the image.
-  - The variable `c` is being declared and assigned that color value.
-
-At this stage, the new function should look like this:
+この段階で、新しい関数は次のようになるはずです：
 
 ```js
 function paintFlower() {
-  let sourceX = random(0, flower1.width)
-  let sourceY = random(0, flower1.height);
-  let c = flower1.get(sourceX, sourceY);
+  let sourceX = random(0, flower1.width)
+  let sourceY = random(0, flower1.height);
+  let c = flower1.get(sourceX, sourceY);
 }
 ```
 
-### 8.4 – Draw points onto the canvas
+### 8.4 – キャンバスに点を描く
 
-Now that we’ve obtained a pixel color from a randomly selected pixel in the image, we will draw a point on the canvas with that color at the same relative location. 
+画像からランダムに選択されたピクセルの色を取得したので、今度はその色を使ってキャンバス上の同じ相対位置に点を描きます。
 
-- Set the variable `c` as the stroke color points drawn on the garden graphics object by typing `garden.stroke(c);`
-- Set the stroke weight to a random value between 5 and 10 to make the point visible and of varied size: `garden.strokeWeight(random(5,10));`
-- Draw the point onto the graphics object by typing `garden.point(sourceX, sourceY);`.
-- Finally, call the `paintFlower();` function in `draw()`.
-- You’ve created your first image pointillism!
+- `garden.stroke(c);`と入力して、ガーデングラフィックスオブジェクトに描かれる点のストローク色を変数`c`に設定します。
+- ストロークの太さをランダムに5から10の間の値に設定し、点を見えやすくし、サイズを変化させます：`garden.strokeWeight(random(5,10));`
+- `garden.point(sourceX, sourceY);`と入力して、グラフィックスオブジェクトに点を描きます。
+- 最後に、`draw()`関数内で`paintFlower();`関数を呼び出します。
+- これで最初の画像ポインティリズムが完成しました！
 
-Here's how it looks so far:
+ここまでの様子は以下の通りです：
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
@@ -907,106 +839,102 @@ let garden;
 let flowerY = 200;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルを読み込みます。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定します。
+  createCanvas(400,400);
   
-  // Create a p5.Graphics object
-  // to render the flowers.
-  garden = createGraphics(400, 400);
+  // 花を描画するためのp5.Graphicsオブジェクトを作成します。
+  garden = createGraphics(400, 400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して画像を配置します。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更します。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
   
-  // Resize the GIF.
-  water.resize(50, 50);
+  // GIFのサイズを変更します。
+  water.resize(50, 50);
   
-  // start sketch with the GIF in pause mode.
-  water.pause();
+  // スケッチを開始時、GIFを一時停止モードにします。
+  water.pause();
 }
 
 function draw() {
-  background(255);
-  drawStems();
+  background(255);
+  drawStems();
 
-  // Draw the graphics object.
-  image(garden, width/2, height/2);
- 
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
- 
-  // Draw the pointillism effect.
-  paintFlower();
+  // グラフィックスオブジェクトを描画します。
+  image(garden, width/2, height/2);
+ 
+  // じょうろのGIFを描画します。
+  image(water, mouseX, mouseY);
+ 
+  // ポインティリズム効果を描画します。
+  paintFlower();
 }
 
-// Paint a flower using the
-// pointillism effect.
+// ポインティリズム効果を使用して花を描きます。
 function paintFlower() {
- 
-  // Source a random pixel's color from the image.
-  let sourceX = random(0, flower1.width)
-  let sourceY = random(0, flower1.height);
-  let c = flower1.get(sourceX, sourceY);
- 
-  // Draw the points onto our graphics object.
-  garden.stroke(c);
-  garden.strokeWeight(random(5,10));
-  garden.point(sourceX, sourceY);
+ 
+  // 画像からランダムなピクセルの色を取得します。
+  let sourceX = random(0, flower1.width)
+  let sourceY = random(0, flower1.height);
+  let c = flower1.get(sourceX, sourceY);
+ 
+  // グラフィックスオブジェクトに点を描画します。
+  garden.stroke(c);
+  garden.strokeWeight(random(5,10));
+  garden.point(sourceX, sourceY);
 }
 
 function mousePressed() {
-  // Play GIF when the mouse is pressed.
-  water.play();
+  // マウスが押されたときにGIFを再生します。
+  water.play();
 }
-
 function mouseReleased() {
-  // Resets and pauses the GIF when
-  // mouse is not being pressed.
-  water.reset();
-  water.pause();
+  // マウスが押されていないときにGIFをリセットし、
+  // 一時停止します。
+  water.reset();
+  water.pause();
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画します。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 `} />
 
 
-### 8.5 – Add parameters to the function definition to generalize to the other flowers.
+### 8.5 – 関数定義にパラメータを追加して他の花にも一般化する
 
-- Go back to the `paintFlower()` function and add in three new parameters: `function paintFlower(img, x, y) { }`
-  - `img` specifies the image which we will be using to extract pixel color information.
-  - `x` and `y` specify the x and y position of the image on the graphics object.
-- In the `paintFlower()` function, replace every instance of `flower1` with the parameter name `img`.
-- Change `garden.point(sourceX, sourceY);` to `garden.point(sourceX + x, sourceY + y);`.
-- In the `draw()` function, call the `paintFlower()` function three times. Each time, specify the flower image, x, and y position within the parameters. 
-  - **Note:** Remember that each image is being drawn by its center coordinates thanks to `imageMode(CENTER)`.
-  - In this example, we will place the flowers’ coordinates to the end of each stem: `paintFlower(flower1, 50, 100);
+- `paintFlower()`関数に戻り、3つの新しいパラメータを追加します：`function paintFlower(img, x, y) { }`
+  - `img`は、ピクセルの色情報を抽出するために使用する画像を指定します。
+  - `x`と`y`は、グラフィックスオブジェクト上の画像のx座標とy座標を指定します。
+- `paintFlower()`関数内で、`flower1`のすべての出現箇所をパラメータ名`img`に置き換えます。
+- `garden.point(sourceX, sourceY);`を`garden.point(sourceX + x, sourceY + y);`に変更します。
+- `draw()`関数内で、`paintFlower()`関数を3回呼び出します。それぞれの呼び出しで、パラメータ内に花の画像、x座標、y座標を指定します。
+  - **注意：** `imageMode(CENTER)`のおかげで、各画像は中心座標で描画されていることを覚えておいてください。
+  - この例では、花の座標を各茎の先端に配置します：`paintFlower(flower1, 50, 100);
     paintFlower(flower2, 150, 100);
     paintFlower(flower3, 250, 100);`
 
-Here is how your sketch should look:
+スケッチは以下のようになるはずです：
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
@@ -1017,97 +945,93 @@ let garden;
 let flowerY = 200;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルを読み込みます。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定します。
+  createCanvas(400,400);
   
-  // Create a p5.Graphics object
-  // to render the flowers.
-  garden = createGraphics(400, 400);
+  // 花を描画するためのp5.Graphicsオブジェクトを作成します。
+  garden = createGraphics(400, 400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して画像を配置します。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更します。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
   
-  // Resize the GIF.
-  water.resize(50, 50);
+  // GIFのサイズを変更します。
+  water.resize(50, 50);
   
-  // start sketch with the GIF in pause mode.
-  water.pause();
+  // スケッチを開始時、GIFを一時停止モードにします。
+  water.pause();
 }
 
 function draw() {
-  background(255);
-  drawStems();
+  background(255);
+  drawStems();
 
-  // Draw the graphics object.
-  image(garden, width / 2, height / 2);
+  // グラフィックスオブジェクトを描画します。
+  image(garden, width / 2, height / 2);
   
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
+  // じょうろのGIFを描画します。
+  image(water, mouseX, mouseY);
   
-  // Draw the pointillism effect.
-  paintFlower(flower1, 50, 100);
-  paintFlower(flower2, 150, 100);
-  paintFlower(flower3, 250, 100);
+  // ポインティリズム効果を描画します。
+  paintFlower(flower1, 50, 100);
+  paintFlower(flower2, 150, 100);
+  paintFlower(flower3, 250, 100);
 }
 
-// Paint a flower using the
-// pointillism effect.
+// ポインティリズム効果を使用して花を描きます。
 function paintFlower(img, x, y) {
-  // Source a random pixel's color from the image.
-  let sourceX = random(0, img.width)
-  let sourceY = random(0, img.height);
-  let c = img.get(sourceX, sourceY);
- 
-  // Draw the points onto our graphics object.
-  garden.stroke(c);
-  garden.strokeWeight(random(5, 10));
-  garden.point(sourceX + x, sourceY + y);
+  // 画像からランダムなピクセルの色を取得します。
+  let sourceX = random(0, img.width)
+  let sourceY = random(0, img.height);
+  let c = img.get(sourceX, sourceY);
+ 
+  // グラフィックスオブジェクトに点を描画します。
+  garden.stroke(c);
+  garden.strokeWeight(random(5, 10));
+  garden.point(sourceX + x, sourceY + y);
 }
 
 function mousePressed() {
-  // Play GIF when the mouse is pressed.
-  water.play();
+  // マウスが押されたときにGIFを再生します。
+  water.play();
 }
-
 function mouseReleased() {
-  // Resets and pauses the GIF when
-  // mouse is not being pressed.
-  water.reset();
-  water.pause();
+  // マウスが押されていないときにGIFをリセットし、
+  // 一時停止します。
+  water.reset();
+  water.pause();
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画します。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 `} />
 
-### 8.6 – Animate the flowers when the mouse is pressed
+### 8.6 – マウスが押されたときに花をアニメーション化する
 
-- Similar to Step 4.3, inside the `draw()` function, write `if (mouseIsPressed) { }`. Include the three `paintFlower() `functions inside the curly braces.
+- ステップ4.3と同様に、`draw()`関数内で`if (mouseIsPressed) { }`と書きます。中括弧の中に3つの`paintFlower()`関数を含めます。
 
-The sketch now looks like this:
+スケッチは以下のようになります：
 
 <EditableSketch code={`
-//Variables for images
+//画像用の変数
 let flower1;
 let flower2;
 let flower3;
@@ -1118,48 +1042,46 @@ let garden;
 let flowerY = 200;
 
 function preload() {
-  // Load the image files.
-  flower1 = loadImage("flower-1.png");
-  flower2 = loadImage("flower-2.png");
-  flower3 = loadImage("flower-3.png");
-  water = loadImage("Water.gif");
+  // 画像ファイルを読み込みます。
+  flower1 = loadImage("flower-1.png");
+  flower2 = loadImage("flower-2.png");
+  flower3 = loadImage("flower-3.png");
+  water = loadImage("Water.gif");
 }
 
 function setup() {
-  // Set a 400x400 px canvas.
-  createCanvas(400,400);
+  // 400x400 pxのキャンバスを設定します。
+  createCanvas(400,400);
   
-  // Create a p5.Graphics object
-  // to render the flowers.
-  garden = createGraphics(400, 400);
+  // 花を描画するためのp5.Graphicsオブジェクトを作成します。
+  garden = createGraphics(400, 400);
 
-  // Position images using
-  // center coordinates.
-  imageMode(CENTER);
- 
-  // Resize the images.
-  flower1.resize(100, 100);
-  flower2.resize(100, 100);
-  flower3.resize(100, 100);
+  // 中心座標を使用して画像を配置します。
+  imageMode(CENTER);
+ 
+  // 画像のサイズを変更します。
+  flower1.resize(100, 100);
+  flower2.resize(100, 100);
+  flower3.resize(100, 100);
   
-  // Resize the GIF.
-  water.resize(50, 50);
+  // GIFのサイズを変更します。
+  water.resize(50, 50);
   
-  // start sketch with the GIF in pause mode.
-  water.pause();
+  // スケッチを開始時、GIFを一時停止モードにします。
+  water.pause();
 }
 
 function draw() {
-  background(255);
-  drawStems();
+  background(255);
+  drawStems();
 
-  // Draw the graphics object.
-  image(garden, width / 2, height / 2);
+  // グラフィックスオブジェクトを描画します。
+  image(garden, width / 2, height / 2);
   
-  // Draw the watering can GIF.
-  image(water, mouseX, mouseY);
+  // じょうろのGIFを描画します。
+  image(water, mouseX, mouseY);
   
-  // Draw the pointillism effect.
+  // ポインティリズム効果を描画します。
   if (mouseIsPressed) {
     paintFlower(flower1, 50, 100);
     paintFlower(flower2, 150, 100);
@@ -1167,83 +1089,79 @@ function draw() {
   }
 }
 
-// Paint a flower using the
-// pointillism effect.
+// ポインティリズム効果を使用して花を描きます。
 function paintFlower(img, x, y) {
-  // Source a random pixel's color from the image.
-  let sourceX = random(0, img.width)
-  let sourceY = random(0, img.height);
-  let c = img.get(sourceX, sourceY);
- 
-  // Draw the points onto our graphics object.
-  garden.stroke(c);
-  garden.strokeWeight(random(5, 10));
-  garden.point(sourceX + x, sourceY + y);
+  // 画像からランダムなピクセルの色を取得します。
+  let sourceX = random(0, img.width)
+  let sourceY = random(0, img.height);
+  let c = img.get(sourceX, sourceY);
+ 
+  // グラフィックスオブジェクトに点を描画します。
+  garden.stroke(c);
+  garden.strokeWeight(random(5, 10));
+  garden.point(sourceX + x, sourceY + y);
 }
 
 function mousePressed() {
-  // Play GIF when the mouse is pressed.
-  water.play();
+  // マウスが押されたときにGIFを再生します。
+  water.play();
 }
-
 function mouseReleased() {
-  // Resets and pauses the GIF when
-  // mouse is not being pressed.
-  water.reset();
-  water.pause();
+  // マウスが押されていないときにGIFをリセットし、
+  // 一時停止します。
+  water.reset();
+  water.pause();
 }
 
 function drawStems() {
-  // Draw individual stems.
-  stroke("brown");
-  strokeWeight(3);
-  line(100, 400, 100, flowerY);
-  line(200, 400, 200, flowerY);
-  line(300, 400, 300, flowerY);
+  // 個々の茎を描画します。
+  stroke("brown");
+  strokeWeight(3);
+  line(100, 400, 100, flowerY);
+  line(200, 400, 200, flowerY);
+  line(300, 400, 300, flowerY);
 }
 `} />
 
 <Callout>
-Water each flower individually by painting a flower once the cursor is close to its position, using the [`dist()`](/reference/p5/dist) function.
+[`dist()`](/reference/p5/dist)関数を使用して、カーソルが花の位置に近づいたときに個々の花を描くことで、各花に個別に水をやることができます。
 
-[Example.](https://editor.p5js.org/gbenedis@gmail.com/sketches/twz0BCdKG)
+[例。](https://editor.p5js.org/gbenedis@gmail.com/sketches/twz0BCdKG)
 </Callout>
 
 
-## Step 9 – Save the sketch as a GIF file
+## ステップ9 – スケッチをGIFファイルとして保存する
 
-- Define a new `function keyPressed()` at the bottom of the sketch.
-- In the function, add a new if-statement by typing: `if (key === "s") { }`
-  - Inside the curly brackets, add a new [`saveGif()`](/reference/p5/saveGif) function by typing `saveGif('garden', 5);`.
-    - This will save the animation as a 5-second GIF titled “garden.gif” locally to our device when the S key is pressed.
-- **Optional:** Inside the `keyPressed()` function, add `garden.clear();` to reset the flowers’ painting every time any key is pressed.
+- スケッチの一番下に新しい`function keyPressed()`を定義します。
+- 関数内で、`if (key === "s") { }`と入力して新しいif文を追加します。
+  - 中括弧の中に、`saveGif('garden', 5);`と入力して新しい[`saveGif()`](/reference/p5/saveGif)関数を追加します。
+    - これにより、Sキーが押されたときに5秒間のアニメーションを「garden.gif」というタイトルのGIFとしてローカルデバイスに保存します。
+- **オプション：** `keyPressed()`関数内に`garden.clear();`を追加して、任意のキーが押されるたびに花の描画をリセットします。
 
-Your `keyPressed()` function should look similar to this:
+`keyPressed()`関数は以下のようになるはずです：
 
 ```js
 function keyPressed() {
-  // Save the sketch as a GIF
-  // when the S key is pressed.
-  if (key === "s") {
-    saveGif('garden', 5);
-  }
- 
-  // Reset the painting when
-  // any key is pressed.
-  garden.clear();
+  // Sキーが押されたときに
+  // スケッチをGIFとして保存します。
+  if (key === "s") {
+    saveGif('garden', 5);
+  }
+ 
+  // 任意のキーが押されたときに
+  // 描画をリセットします。
+  garden.clear();
 }
 ```
 
+### まとめ
 
-### Conclusion
+このチュートリアルを完了おめでとうございます！これでp5.jsを使用してGIFアニメーションを[作成し、修正する](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB)ことができました。以下のp5.jsリファレンスページを参照して、p5.jsで画像、ピクセル、アニメーションGIFを表示および操作する他の方法を探索してください。
 
-Congratulations on completing this tutorial! You have now created and [modified a GIF animation](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB) using p5.js. Visit the p5.js Reference pages below to explore other ways to display and manipulate images, pixels, and animated GIFs in p5.js.
-
-Here is [the complete code from this tutorial](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB) for reference.
+参考のために、[このチュートリアルの完全なコード](https://editor.p5js.org/joanneamarisa/sketches/PFmWqy0qB)はこちらです。
 
 
-### Resources & References
+### リソース＆参考文献
 
-- [Media Cheat Sheet](https://www.codecademy.com/learn/learn-p5js/modules/p5js-media/cheatsheet)
-- [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)
-
+- [メディアチートシート](https://www.codecademy.com/learn/learn-p5js/modules/p5js-media/cheatsheet)
+- [ウィキメディア・コモンズ](https://commons.wikimedia.org/wiki/Main_Page)
