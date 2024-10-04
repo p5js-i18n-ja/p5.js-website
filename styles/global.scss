@@ -107,13 +107,14 @@ h2 {
   line-height: 1.125;
   -webkit-text-stroke-width: 0.2px;
   font-family: var(--font-sans);
-  margin-top: calc(var(--spacing-lg) * var(--ja-line-height-by));;
+  margin-top: calc(var(--spacing-lg) * var(--ja-line-height-by));
 
   @media (min-width: $breakpoint-tablet) {
     // font-size: calc(2.5rem * var(--ja-font-size-by));
     font-size: 2.5rem;
     line-height: 1.1;
     -webkit-text-stroke-width: 0.2px;
+    margin-top: calc(var(--spacing-lg) * var(--ja-line-height-by-lg));
   }
 }
 
@@ -131,6 +132,7 @@ h3 {
     font-size: 1.875rem;
     line-height: 1.1333;
     -webkit-text-stroke-width: 0.2px;
+    margin-top: calc(var(--spacing-md) * var(--ja-line-height-by-lg));
   }
 }
 
@@ -146,6 +148,7 @@ h4 {
     font-size: calc(1.5rem * var(--ja-font-size-by));
     line-height: 1.1333;
     -webkit-text-stroke-width: 0.15px;
+    margin-top: calc(var(--spacing-md) * var(--ja-line-height-by-lg));
   } 
 }
 
@@ -201,14 +204,14 @@ h5 {
 .text-body-caption {
   // font-size: calc(0.75rem * var(--ja-font-size-by));
   font-size: 0.75rem;
-  line-height: calc(1.33 * var(--ja-line-height-by-min));
+  line-height: calc(1.33 * var(--ja-line-height-by-sm));
   -webkit-text-stroke-width: 0.05px;
   font-family: var(--font-sans);
 
   @media (min-width: $breakpoint-tablet) {
     // font-size: calc(0.875rem * var(--ja-font-size-by));
     font-size: 0.875rem;
-    line-height: calc(1.42 * var(--ja-line-height-by-min));
+    line-height: calc(1.42 * var(--ja-line-height-by-sm));
     -webkit-text-stroke-width: 0.1px;
   }
 }
