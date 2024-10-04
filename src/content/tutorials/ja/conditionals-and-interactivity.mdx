@@ -854,249 +854,47 @@ if (mouseIsPressed == true && sunHeight === 130) {
 [例](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)
 </Callout>
 
-### マウスとキーボードのインタラクション
+### ブール変数: `mouseIsPressed` と `keyIsPressed`
 
-p5.jsには、マウスとキーボードのインタラクションを追加するための組み込み変数があります。以下は、マウスとキーボードのインタラクションに関連する一般的な変数とイベントの一覧です：
+`mouseIsPressed` と `keyIsPressed` は p5.js に組み込まれた特別な変数で、ブール値を含んでいます。`mouseIsPressed` はキャンバス上でマウスボタンが押されているときに `true` になり、そうでない場合は `false` になります。`keyIsPressed` はキーボードの任意のキーが押されているときに `true` になり、そうでない場合は `false` になります。
 
-<table>
+[この例](https://editor.p5js.org/Msqcoding/sketches/CnKfDeaBG)を探索して、マウスボタンが押されたときにコンソールで `mouseIsPressed` に格納されている値が変化するのを確認してください。
 
-<tr>
+「Try this!」チャレンジでは、`sunHeight` が 130 に等しく *かつ* マウスボタンが押されているとき、空が暗くなります。おそらく日食を表現しているのでしょう！
 
-<th>
-
-変数/イベント
-
-</th>
-
-<th>
-
-説明
-
-</th>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`mouseX`](/reference/p5/mouseX)
-
-</td>
-
-<td>
-
-マウスポインタのx座標
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`mouseY`](/reference/p5/mouseY)
-
-</td>
-
-<td>
-
-マウスポインタのy座標
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`mouseIsPressed`](/reference/p5/mouseIsPressed)
-
-</td>
-
-<td>
-
-マウスボタンが押されているかどうかを示すブール値
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`mousePressed()`](/reference/p5/mousePressed)
-
-</td>
-
-<td>
-
-マウスボタンが押されたときに呼び出される関数
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`mouseReleased()`](/reference/p5/mouseReleased)
-
-</td>
-
-<td>
-
-マウスボタンが離されたときに呼び出される関数
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`keyIsPressed`](/reference/p5/keyIsPressed)
-
-</td>
-
-<td>
-
-キーボードのキーが押されているかどうかを示すブール値
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`keyPressed()`](/reference/p5/keyPressed)
-
-</td>
-
-<td>
-
-キーボードのキーが押されたときに呼び出される関数
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`keyReleased()`](/reference/p5/keyReleased)
-
-</td>
-
-<td>
-
-キーボードのキーが離されたときに呼び出される関数
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`key`](/reference/p5/key)
-
-</td>
-
-<td>
-
-最後に押されたキーの値を格納する変数
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
-[`keyCode`](/reference/p5/keyCode)
-
-</td>
-
-<td>
-
-最後に押された特殊キー（BACKSPACE、DELETE、ENTER、RETURN、TAB、ESCAPE、SHIFT、CONTROL、OPTION、ALT、UP_ARROW、DOWN_ARROW、LEFT_ARROW、RIGHT_ARROW）のキーコードを格納する変数
-
-</td>
-
-</tr>
-
-</table>
-
-これらの変数とイベントを使用して、マウスやキーボードの入力に基づいてスケッチを変更することができます。例えば、以下のコードは、マウスが押されたときに背景色を変更します：
+`mouseIsPressed` を if 文で単独で使用することもできます:
 
 ```js
-function draw() {
-  if (mouseIsPressed) {
-    background(0);
-  } else {
-    background(255);
-  }
+if (mouseIsPressed && sunHeight === 130) {
+  background(0);
 }
 ```
 
-また、特定のキーが押されたときにアクションを実行することもできます：
+`mouseIsPressed` はすでに `true` または `false` の値を格納しているため、ブール式を作成するために比較演算子を使用する必要はありません。ブール式はブール値に評価され、ブール変数はブール値を格納します。条件文はコードを実行するためにブール値が `true` であることだけを必要とします。`mouseIsPressed` が `true` であれば、条件文のコードブロックが実行されます。
 
-```js
-function keyPressed() {
-  if (key === 'A') {
-    console.log("A key is pressed");
-  } else if (keyCode === UP_ARROW) {
-    console.log("Up arrow is pressed");
-  }
-}
-```
+`mouseIsPressed` と `keyIsPressed` を使用した以下の例を探索してください：
 
+- [Mouse and keys](https://editor.p5js.org/Msqcoding/sketches/MQtma5kta): 論理演算子を使用せずに `mouseIsPressed` と `keyIsPressed` を条件文で使用する方法を探索します。
+- [Clickable button](https://editor.p5js.org/Msqcoding/sketches/gmRjOEyu_): mouseIsPressed、mouseX、mouseYを使用してクリック可能なボタンを作成する例を探索します！
+- [Multiple keys:](https://editor.p5js.org/Msqcoding/sketches/kyYpyMh0p) 複数のキーを使用してキャンバス上で変更を加える例を探索します。
 
-
-これらの変数とイベントを使用して、スケッチにさまざまな種類のインタラクションを追加できます。例えば、マウスクリックで太陽の位置をリセットしたり、特定のキーを押して空の色を変更したりすることができます。
-
-<Callout>
-日の出アニメーションに以下の機能を追加してみてください：
-- マウスがクリックされたときに太陽の位置をリセットする
-- スペースキーが押されたときに空の色をランダムに変更する
-
-[例](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)
-</Callout>
+詳細については、p5.js リファレンスページの [`mouseIsPressed`](/reference/p5/mouseIsPressed)、[`keyIsPressed`](/reference/p5/keyIsPressed)、[`key`](/reference/p5/key)、[`keyCode`](/reference/p5/keyCode) をご覧ください。
 
 ## まとめ
 
-このチュートリアルでは、以下の概念を学びました：
-
-1. 条件文（if、if-else、else-if）を使用してコードの実行を制御する方法
-2. ブール値、比較演算子、式を使用して条件をチェックする方法
-3. 加算/減算代入演算子を使用して変数の値を変更する方法
-4. インクリメントとデクリメントを使用して変数の値を1ずつ増減させる方法
-5. マウスボタンの押下とマウスポインタの位置を使用してインタラクティブなスケッチを作成する方法
-
-これらの概念を使用して、インタラクティブな太陽のスケッチと日の出アニメーションを作成しました。これらの技術を使用して、より複雑なアニメーションやインタラクティブなプロジェクトを作成できます。
+これで時間制御された日の出アニメーションができました。形や色を変更してスケッチを修正してみましょう。新しい機能やインタラクションを追加してみてください。おそらく新しい条件文も追加できるでしょう。キー押下やマウス押下でアニメーションを開始するのも試してみてください。
 
 ## 次のステップ
 
-- [配列](/tutorials/arrays)チュートリアルに進んで、複数の値を格納し操作する方法を学びます。
-- [ループ](/tutorials/loops)チュートリアルに進んで、コードを繰り返し実行する方法を学びます。
-- [関数](/tutorials/functions)チュートリアルに進んで、再利用可能なコードブロックを作成する方法を学びます。
+- [関数によるコードの整理](/tutorials/organizing-code-with-functions)
 
 ## 参考文献
 
-- [MDN Web Docs: 条件文](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals)
-- [MDN Web Docs: 式と演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)
-- [p5.js リファレンス: 条件文](https://p5js.org/reference/#/p5/if-else)
-- [p5.js リファレンス: マウス](https://p5js.org/reference/#group-Events)
-- [p5.js リファレンス: キーボード](https://p5js.org/reference/#group-Events)
-
+- [コードで決定を下す](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals)
+- [= 演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment)
+- [+= 演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition_assignment)
+- [-= 演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Subtraction_assignment)
+- [インクリメント (++)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Increment)
+- [デクリメント (--)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement)
+- [論理AND (&&)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND)
+- [論理OR (||)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
