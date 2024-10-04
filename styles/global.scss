@@ -199,14 +199,16 @@ h5 {
 }
 
 .text-body-caption {
-  font-size: calc(0.75rem * var(--ja-font-size-by));
-  line-height: calc(1.33 * var(--ja-line-height-by));
+  // font-size: calc(0.75rem * var(--ja-font-size-by));
+  font-size: 0.75rem;
+  line-height: calc(1.33 * var(--ja-line-height-by-min));
   -webkit-text-stroke-width: 0.05px;
   font-family: var(--font-sans);
 
   @media (min-width: $breakpoint-tablet) {
-    font-size: calc(0.875rem * var(--ja-font-size-by));
-    line-height: calc(1.42 * var(--ja-line-height-by));
+    // font-size: calc(0.875rem * var(--ja-font-size-by));
+    font-size: 0.875rem;
+    line-height: calc(1.42 * var(--ja-line-height-by-min));
     -webkit-text-stroke-width: 0.1px;
   }
 }
