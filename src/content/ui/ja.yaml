@@ -66,13 +66,13 @@ briefPageDescriptions:
   People: p5.jsチームを知ろう。
 contributePage:
   Statement: >
-    Our community values contributions of all forms and seeks to expand the meaning of the word contributor as far and wide as possible. It includes documentation, teaching, writing code, making art, writing, design, activism, organizing, curating, or anything else you might imagine.
+    私たちのコミュニティは、あらゆる形態の貢献を大切にし、「貢献者」という言葉の意味をできる限り広く拡大することを目指しています。それには、ドキュメンテーション、教育、コード作成、アート制作、執筆、デザイン、アクティビズム、組織化、キュレーション、あるいはあなたが想像できるすべてのことが含まれます。
   ImageAltText: >
-    Group photo of participants smiling enthusiastically with their hands in the air.
+    参加者が手を上げて熱心に笑顔で写っている集合写真。
   ImageCaption: >
-    Participants of p5.js Contributors Conference 2019.
+    2019年p5.js貢献者カンファレンスの参加者たち。
   DonateDescription: >
-    p5.js needs your support!
+    p5.jsはあなたのサポートを必要としています！
   # FaqDescription: >
   #   TEXT NEEDED HERE
 peoplePage:
