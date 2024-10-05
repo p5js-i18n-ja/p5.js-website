@@ -30,7 +30,10 @@ const localizedTitle = t(title) as string;
 const localizedDescription =
   description || (t("briefPageDescriptions", title) as string);
 
-const rootUrl = new URL('/', process.env.NODE_ENV === "production" ? Astro.site : Astro.url.href);
+const rootUrl = new URL(
+  "/",
+  process.env.NODE_ENV === "production" ? Astro.site : Astro.url.href
+);
 const ogpImageSrc = new URL(featuredImageSrc, rootUrl);
 ---
 
@@ -52,4 +55,19 @@ const ogpImageSrc = new URL(featuredImageSrc, rootUrl);
   <meta name="twitter:description" content={localizedDescription} />
   <meta name="twitter:image" content={ogpImageSrc} />
   <meta name="twitter:url" content={Astro.url.href} />
+
+  <link
+    rel="preload"
+    href="/fonts/BIZUDPGothic-Bold.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/BIZUDPGothic-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
 </head>
