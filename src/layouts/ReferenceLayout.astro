@@ -42,9 +42,7 @@ const { entries } = Astro.props;
 
 const categoryData = categories.map((category) => {
   // Get all reference entries in the module
-  const directEntries = entries.filter(
-    (e) => e.data.module === t("referenceCategories", "modules", category)
-  );
+  const directEntries = entries.filter((e) => e.data.module === category);
 
   // Get the names of all submodules
   const subcats = [
