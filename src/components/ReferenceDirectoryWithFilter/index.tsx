@@ -2,7 +2,7 @@ import type { ReferenceDocContentItem } from "@/src/content/types";
 import { useMemo, useRef, useState } from "preact/hooks";
 import { type JSX } from "preact";
 import { Icon } from "../Icon";
-import flask from "@src/content/ui/images/icons/flask.svg?raw"; 
+import flask from "@src/content/ui/images/icons/flask.svg?raw";
 
 type ReferenceDirectoryEntry = ReferenceDocContentItem & {
   data: {
@@ -91,12 +91,10 @@ export const ReferenceDirectoryWithFilter = ({
               aria-label={entry.data.title}
               aria-describedby={`${entry.data.title}-description`}
             >
-              <span
-                class="text-body-mono group-hover:underline"
-              >
+              <span class="text-body-mono group-hover:underline">
                 {entry.data.beta && (
                   <div
-                    className="inline-block mr-2 w-[16px] h-[16px] mb-[-2px]"
+                    className="mb-[-2px] mr-2 inline-block h-[16px] w-[16px]"
                     dangerouslySetInnerHTML={{ __html: flask }}
                   />
                 )}
@@ -117,7 +115,7 @@ export const ReferenceDirectoryWithFilter = ({
     category: { name: string },
   ) => {
     return !(!subcat.name || !category.name || subcat.name === "p5.sound");
-  }
+  };
 
   const getSubcatHeading = (
     subcat: { name: string },
@@ -138,7 +136,7 @@ export const ReferenceDirectoryWithFilter = ({
           </a>
         ) : (
           <h3 className="m-0 py-gutter-md" id={subcat.name}>
-            {subcat.name}
+            {uiTranslations["referenceCategories"]["submodules"][subcat.name]}
           </h3>
         )}
       </>
@@ -181,7 +179,7 @@ export const ReferenceDirectoryWithFilter = ({
   return (
     <div>
       <div class="h-0 overflow-visible">
-        <div class="content-grid-simple absolute -top-[75px] -left-0 -right-0 h-[75px] border-b border-sidebar-type-color bg-accent-color px-5 pb-lg md:px-lg ">
+        <div class="content-grid-simple absolute -left-0 -right-0 -top-[75px] h-[75px] border-b border-sidebar-type-color bg-accent-color px-5 pb-lg md:px-lg ">
           <div class="text-body col-span-2 flex w-full max-w-[750px] border-b border-accent-type-color text-accent-type-color">
             <input
               type="text"
