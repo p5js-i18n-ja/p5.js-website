@@ -50,7 +50,7 @@ const relatedEntriesLinks = relatedEntries.map((relatedEntry: any) => {
 });
 // Add link for submodule itself
 relatedEntriesLinks.unshift({
-  label: t("referenceCategories", "modules", entry.data.module) + " > " + t("referenceCategories", "submodules", entry.data.submodule),
+  label: `${t("referenceCategories", "modules", entry.data.module)} > ${t("referenceCategories", "submodules", entry.data.submodule)}`,
   url: `/reference/#${entry.data.submodule}`,
 });
 // Put related links at top of the list
