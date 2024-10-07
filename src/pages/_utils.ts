@@ -42,30 +42,34 @@ export const getCollectionInDefaultLocale = async <C extends keyof AnyEntryMap>(
  * @param locale
  * @returns
  */
-export const getCollectionInLocaleWithFallbacks = memoize(async <
-  C extends keyof AnyEntryMap,
->(
-  collectionName: C,
-  locale: string,
-): Promise<CollectionEntry<C>[]> => {
-  const localizedEntries = await getCollectionInLocale(collectionName, locale);
-  const defaultLocaleCollection =
-    await getCollectionInDefaultLocale(collectionName);
-  const filteredDefaultEntries = defaultLocaleCollection.filter(
-    (defaultEntry) => {
-      const { id: defaultLocaleId } = defaultEntry as EntryWithId;
-      return !localizedEntries.some((localeEntry: unknown) => {
-        const { id: localeId } = localeEntry as EntryWithId;
-        return (
-          removeLocalePrefix(localeId) === removeLocalePrefix(defaultLocaleId)
-        );
-      });
-    },
-  );
+export const getCollectionInLocaleWithFallbacks = memoize(
+  async <C extends keyof AnyEntryMap>(
+    collectionName: C,
+    locale: string,
+  ): Promise<CollectionEntry<C>[]> => {
+    const localizedEntries = await getCollectionInLocale(
+      collectionName,
+      locale,
+    );
+    const defaultLocaleCollection =
+      await getCollectionInDefaultLocale(collectionName);
+    const filteredDefaultEntries = defaultLocaleCollection.filter(
+      (defaultEntry) => {
+        const { id: defaultLocaleId } = defaultEntry as EntryWithId;
+        return !localizedEntries.some((localeEntry: unknown) => {
+          const { id: localeId } = localeEntry as EntryWithId;
+          return (
+            removeLocalePrefix(localeId) === removeLocalePrefix(defaultLocaleId)
+          );
+        });
+      },
+    );
 
-  // Merge the locale entries with the filtered default entries
-  return [...localizedEntries, ...filteredDefaultEntries];
-}, (...args) => args.join("_"));
+    // Merge the locale entries with the filtered default entries
+    return [...localizedEntries, ...filteredDefaultEntries];
+  },
+  (...args) => args.join("_"),
+);
 
 /**
  * Retrieves all the entries in the given collection, filtered to only include
@@ -195,22 +199,27 @@ export const getLibraryLink = (library: CollectionEntry<"libraries">) =>
  * @param examples Reference example strings from MDX
  * @returns The examples separated into individual strings
  */
- // separateReferenceExamples
-export const parseReferenceExamplesAndMetadata = (examples: string[]): { src: string, classes: Record<string, any> }[] =>
+// separateReferenceExamples
+export const parseReferenceExamplesAndMetadata = (
+  examples: string[],
+): { src: string; classes: Record<string, any> }[] =>
   examples
     ?.flatMap((example: string) => example.split("</div>"))
     .map((src: string) => {
-      const matches = [...src.matchAll(/<div class=['"]([^"']*)['"]>/g)]
-      const classes: Record<string, boolean> = {}
+      const matches = [...src.matchAll(/<div class=['"]([^"']*)['"]>/g)];
+      const classes: Record<string, boolean> = {};
       for (const match of matches) {
-        const tokens = match[1].split(/\s+/g)
+        const tokens = match[1].split(/\s+/g);
         for (const token of tokens) {
-          classes[token] = true
+          classes[token] = true;
         }
       }
-      return { classes, src }
+      return { classes, src };
     })
-    .map(({ src, classes }) => ({ classes, src: src.replace(/<\/?div[^>]*>|<\/?code>/g, "") }))
+    .map(({ src, classes }) => ({
+      classes,
+      src: src.replace(/<\/?div[^>]*>|<\/?code>/g, ""),
+    }))
     .filter(({ src }) => src);
 
 /**
@@ -235,7 +244,7 @@ export const escapeCodeTagsContent = (htmlString: string): string => {
   $("code").each(function () {
     // Don't escape code in multiline blocks, as these will already
     // be escaped
-    if ($(this).parent().prop('tagName') === 'PRE') return;
+    if ($(this).parent().prop("tagName") === "PRE") return;
 
     // Get the current text and HTML inside the <code> tag
     const currentHtml = $(this).html() ?? "";
