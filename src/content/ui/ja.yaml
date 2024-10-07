@@ -76,38 +76,38 @@ contributePage:
   # FaqDescription: >
   #   TEXT NEEDED HERE
 peoplePage:
-  PageDescription: p5.js was created by Lauren Lee McCarthy in 2013 as a new interpretation of Processing for the context of the web. Since then we have allowed ourselves space to deviate and grow, while drawing inspiration from Processing and our shared community. p5.js is sustained by a community of contributors, with support from the Processing Foundation. p5.js follows a rotating leadership model started in 2020, and Qianqian Ye has been leading p5.js since 2021.
+  PageDescription: p5.jsは、2013年にLauren Lee McCarthyによって、Processingをウェブの文脈で新しく解釈したものとして作成されました。それ以来、私たちはProcessingと共有コミュニティからインスピレーションを得つつ、独自の発展と成長のための余地を設けてきました。p5.jsは、Processing Foundationのサポートを受けながら、貢献者のコミュニティによって維持されています。p5.jsは2020年に始まった輪番制のリーダーシップモデルに従っており、2021年からはQianqian Yeがp5.jsをリードしています。
 peopleCategories:
   lead: p5.js Leads
   mentor: p5.js Mentors
   alumni: p5.js Alumni
   contributor: p5.js Contributors
 libraryCategories:
-  drawing: "Drawing"
-  color: "Color"
-  ui: "User Interface"
-  math: "Math"
-  physics: "Physics"
-  algorithms: "Algorithms"
+  drawing: "描画"
+  color: "色"
+  ui: "ユーザーインターフェース"
+  math: "数学"
+  physics: "物理"
+  algorithms: "アルゴリズム"
   "3d": "3D"
-  "ai-ml-cv": "AI, ML, and CV"
-  animation: "Animation"
-  shaders: "Shaders"
-  language: "Language"
-  hardware: "Hardware"
-  sound: "Sound"
-  data: "Data"
-  teaching: "Teaching"
-  networking: "Networking"
-  export: "Export"
-  utils: "Utilities"
+  "ai-ml-cv": "AI、機械学習、コンピュータビジョン"
+  animation: "アニメーション"
+  shaders: "シェーダー"
+  language: "言語"
+  hardware: "ハードウェア"
+  sound: "音声"
+  data: "データ"
+  teaching: "教育"
+  networking: "ネットワーキング"
+  export: "エクスポート"
+  utils: "ユーティリティ"
 tutorialCategories:
   introduction: "p5.js 入門"
-  drawing: "Drawing"
-  "web-design": "Web Design"
-  accessibility: "Accessibility"
+  drawing: "描画"
+  "web-design": "Webデザイン"
+  accessibility: "アクセシビリティ"
   webgl: "WebGL"
-  "advanced": "Advanced Topics"
+  "advanced": "上級トピック"
 tutorialsPage:
   education-resources: 教育リソース
   education-resources-snippet: "どのような教育経験にも、ユニークな目標、メッセージ、条件、環境があります。ワークショップやクラスなど、p5.jsの教育リソースを文書化し共有することで、世界中のp5.js学習者と教育者のコミュニティをより良くつなげることを目指しています。"
@@ -131,66 +131,69 @@ exampleCategories:
   Math And Physics: "数学と物理"
 referenceCategories:
   modules:
-    Foundation: Foundation
-    Image: Image
-    Typography: Typography
+    Foundation: 基礎
+    Image: 画像
+    Typography: タイポグラフィ
     3D: 3D
-    Math: Math
-    Events: Events
-    Color: Color
-    Data: Data
-    Transform: Transform
-    Shape: Shape
-    Rendering: Rendering
+    Math: 数学
+    Events: イベント
+    Color: 色
+    Data: データ
+    Transform: 変形
+    Shape: 形状
+    Rendering: レンダリング
     DOM: DOM
-    Constants: Constants
+    Constants: 定数
     p5.sound: p5.sound
-    IO: IO
-    Environment: Environment
-    Structure: Structure
+    IO: 入出力
+    Environment: 環境
+    Structure: 構造
   submodules:
-    Foundation: Foundation
-    Pixels: Pixels
-    Loading & Displaying: Loading & Displaying
-    Material: Material
-    Calculation: Calculation
-    Acceleration: Acceleration
-    Trigonometry: Trigonometry
-    Creating & Reading: Creating & Reading
-    Lights: Lights
-    Array Functions: Array Functions
-    Transform: Transform
-    2D Primitives: 2D Primitives
-    Setting: Setting
-    Vertex: Vertex
-    3D Primitives: 3D Primitives
-    Curves: Curves
-    Rendering: Rendering
-    Conversion: Conversion
-    Camera: Camera
+    Foundation: 基礎
+    Pixels: ピクセル
+    Loading & Displaying: 読み込みと表示
+    Material: マテリアル
+    Calculation: 計算
+    Acceleration: 加速度
+    Trigonometry: 三角法
+    Creating & Reading: 作成と読み取り
+    Lights: ライト
+    Array Functions: 配列関数
+    Transform: 変形
+    2D Primitives: 2D基本図形
+    Setting: 設定
+    Vertex: 頂点
+    3D Primitives: 3D基本図形
+    Curves: 曲線
+    Rendering: レンダリング
+    Conversion: 変換
+    Camera: カメラ
     DOM: DOM
-    LocalStorage: LocalStorage
-    Constants: Constants
+    LocalStorage: ローカルストレージ
+    Constants: 定数
     p5.sound: p5.sound
-    Image: Image
-    Dictionary: Dictionary
-    Vector: Vector
-    Output: Output
-    Environment: Environment
-    Time & Date: Time & Date
-    Interaction: Interaction
-    Structure: Structure
-    Mouse: Mouse
-    Attributes: Attributes
-    Input: Input
-    String Functions: String Functions
-    Keyboard: Keyboard
-    3D Models: 3D Models
-    Noise: Noise
-    Table: Table
-    Random: Random
-    Touch: Touch
+    Image: 画像
+    Dictionary: 辞書
+    Vector: ベクトル
+    Output: 出力
+    Environment: 環境
+    Time & Date: 時間と日付
+    Interaction: インタラクション
+    Structure: 構造
+    Mouse: マウス
+    Attributes: 属性
+    Input: 入力
+    String Functions: 文字列関数
+    Keyboard: キーボード
+    3D Models: 3Dモデル
+    Noise: ノイズ
+    Table: テーブル
+    Random: ランダム
+    Touch: タッチ
 calloutTitles:
-  "Try this!": "Try this!"
-  Tip: Tip
-  Note: Note
+  "Try this!": "試してみよう！"
+  Tip: ヒント
+  Note: 注意
+experimentalApi:
+  title: この API は実験中です
+  description: p5.js の将来のバージョンで動作が変更される可能性があります。
