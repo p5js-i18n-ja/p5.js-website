@@ -29,7 +29,7 @@ type ReferenceDirectoryWithFilterProps = {
       entries: ReferenceDirectoryEntry[];
     }[];
   }[];
-  uiTranslations: { [key: string]: string };
+  uiTranslations: { [key: string]: string | Record<string, any> };
 };
 
 /**
@@ -79,6 +79,10 @@ export const ReferenceDirectoryWithFilter = ({
       return acc;
     }, []);
   }, [categoryData, searchKeyword]);
+
+  const uiTranslationsSubmodules = (
+    uiTranslations["referenceCategories"] as Record<string, any>
+  )["submodules"];
 
   const renderEntries = (entries: ReferenceDirectoryEntry[]) =>
     entries.length === 0 ? null : (
@@ -136,7 +140,7 @@ export const ReferenceDirectoryWithFilter = ({
           </a>
         ) : (
           <h3 className="m-0 py-gutter-md" id={subcat.name}>
-            {uiTranslations["referenceCategories"]["submodules"][subcat.name]}
+            {uiTranslationsSubmodules[subcat.name]}
           </h3>
         )}
       </>
@@ -186,7 +190,7 @@ export const ReferenceDirectoryWithFilter = ({
               id="search"
               ref={inputRef}
               class="w-full bg-transparent py-xs text-accent-type-color placeholder:text-accent-type-color focus:outline-0"
-              placeholder={uiTranslations["Filter by keyword"]}
+              placeholder={String(uiTranslations["Filter by keyword"])}
               onKeyUp={(e: JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
                 const target = e.target as HTMLInputElement;
                 setSearchKeyword(target?.value);
