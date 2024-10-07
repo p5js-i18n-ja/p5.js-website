@@ -1,51 +1,49 @@
 function setup() {
-  // Create screen reader accessible description
+  // スクリーンリーダーでアクセス可能な説明を作成
   textOutput();
 
   createCanvas(720, 400);
 
-  // Use degrees as units for angles
-  // The arc() function uses angles
+  // 角度の単位として度を使用
+  // arc() 関数は角度を使用します
   angleMode(DEGREES);
 
-  // Draw a light gray background
+  // 薄いグレーの背景を描画
   background(220);
 
-  // Draw square
-  // x, y, size
+  // 正方形を描画
+  // x, y, サイズ
   square(20, 20, 100);
 
-  // Draw rectangle on top of square
-  // This appears in front of the square because the function is called
-  // after (further down)
-  // Switching the order of square and rect will make the square appear on
-  // top of the rectangle
-  // x, y, width, height
+  // 正方形の上に長方形を描画
+  // これは関数が後に（下に）呼び出されるため、正方形の前面に表示されます
+  // square と rect の順序を入れ替えると、正方形が長方形の上に表示されます
+  // x, y, 幅, 高さ
   rect(100, 40, 200, 100);
 
-  // Draw eye shape with ellipse, circle, and arc
+  // 楕円、円、弧を使って目の形を描画
 
-  // Draw ellipse as outer eye shape
-  // x, y, width, height
+  // 楕円を外側の目の形として描画
+  // x, y, 幅, 高さ
   ellipse(540, 100, 300, 100);
 
-  // Draw circle as pupil
-  // x, y, diameter
+  // 円を瞳孔として描画
+  // x, y, 直径
   circle(560, 100, 100);
 
-  // Draw arc (compare to ellipse()) as eyelid
-  // x, y, width, heght, start angle, stop angle, mode
+  // 弧を瞼として描画（楕円と比較してください）
+  // x, y, 幅, 高さ, 開始角度, 終了角度, モード
   arc(540, 100, 300, 100, 180, 360, CHORD);
 
-  // Draw line
+  // 線を描画
   // x1, y1, x2, y2
   line(20, 200, 200, 350);
 
-  // Draw triangle
+  // 三角形を描画
   // x1, y1, x2, y2, x3, y3
   triangle(250, 350, 350, 200, 450, 350);
 
-  // Draw quadrilateral
+  // 四角形を描画
   // x1, y1, x2, y2, x3, y3, x4, y4
   quad(500, 250, 550, 200, 700, 300, 650, 350);
 }

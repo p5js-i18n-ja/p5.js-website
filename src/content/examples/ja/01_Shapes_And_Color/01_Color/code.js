@@ -1,91 +1,91 @@
 function setup() {
-  // Create screen reader accessible description
+  // スクリーンリーダーでアクセス可能な説明を作成
   textOutput();
 
   createCanvas(720, 400);
   angleMode(DEGREES);
 
-  // CSS color name
-  // For a list of available color names, see:
+  // CSSの色名
+  // 利用可能な色名のリストについては、以下を参照：
   // https://www.w3.org/wiki/CSS/Properties/color/keywords
-  background('steelblue');
+  background("steelblue");
 
-  // Set width of stroke to 4 units
+  // 線の幅を4単位に設定
   strokeWeight(4);
 
-  // The default color mode uses
-  // Red, green, and blue values
-  // On a scale of 0-255
-  // Light blue
+  // デフォルトのカラーモードは
+  // 赤、緑、青の値を使用
+  // 0-255のスケールで
+  // ライトブルー
   fill(200, 200, 255);
 
-  // Dark blue
+  // ダークブルー
   stroke(20, 20, 100);
   square(20, 20, 100);
 
-  // Dark red
+  // ダークレッド
   stroke(100, 20, 20);
 
-  // The rectangle uses the last set fill color,
-  // which is light blue, set before drawing the square
+  // 長方形は最後に設定された塗りつぶし色を使用します
+  // これは正方形を描画する前に設定されたライトブルーです
   rect(100, 40, 200, 100);
 
-  // Hue, saturation, and brightness values
-  // On scales of 0-360°, 0-100%, and 0-100% respectively
+  // 色相、彩度、明度の値
+  // それぞれ0-360°、0-100%、0-100%のスケールで
   colorMode(HSB);
 
-  // Light green
+  // ライトグリーン
   fill(120, 70, 90);
 
-  // Dark green
+  // ダークグリーン
   stroke(120, 60, 30);
   ellipse(540, 100, 300, 100);
 
-  // Dark fuchsia
+  // ダークフクシア
   fill(300, 90, 30);
 
-  // Draw without lines
+  // 線なしで描画
   noStroke();
   circle(560, 100, 100);
 
-  // Hue, saturation, and lightness values
-  // On scales of 0-360°, 0-100%, and 0-100% respectively
-  // This is similar to HSB (above),
-  // but whereas 100% brightness is the brightest version of that hue,
-  // 100% lightness is always white.
+  // 色相、彩度、輝度の値
+  // それぞれ0-360°、0-100%、0-100%のスケールで
+  // これはHSB（上記）と似ていますが、
+  // 100%の明度がその色相の最も明るいバージョンであるのに対し、
+  // 100%の輝度は常に白になります。
   colorMode(HSL);
 
-  // Light green
+  // ライトグリーン
   fill(120, 70, 90);
 
-  // Dark green
+  // ダークグリーン
   stroke(120, 60, 30);
   arc(540, 100, 300, 100, 180, 360, CHORD);
 
-  // Save current settings
+  // 現在の設定を保存
   push();
 
-  // Switch back to red, green, blue color mode
+  // 赤、緑、青のカラーモードに戻す
   colorMode(RGB);
 
-  // Navy blue
+  // ネイビーブルー
   stroke(20, 10, 80);
   line(20, 200, 200, 350);
 
-  // Restore last saved settings
+  // 最後に保存した設定を復元
   pop();
 
-  // Because the color settings were saved after drawing the arc
-  // and then restored before drawing the triangle,
-  // the triangle uses the same settings as the arc
+  // 色の設定は弧を描いた後に保存され、
+  // 三角形を描く前に復元されたため、
+  // 三角形は弧と同じ設定を使用します
   triangle(250, 350, 350, 200, 450, 350);
 
-  // Hex string
-  // This is a set of red, green, blue values
-  // Encoded in base 16
-  stroke('#EFD8D8');
+  // 16進数の文字列
+  // これは赤、緑、青の値のセットで
+  // 16進数でエンコードされています
+  stroke("#EFD8D8");
 
-  // Draw without inner color
+  // 内側の色なしで描画
   noFill();
   quad(500, 250, 550, 200, 700, 300, 650, 350);
 }
