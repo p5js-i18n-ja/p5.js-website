@@ -273,7 +273,7 @@ a {
   }
 }
 
-code {
+code, .code {
   @extend .text-body-mono;
   font-size: inherit;
   background-color: var(--bg-gray-80);
