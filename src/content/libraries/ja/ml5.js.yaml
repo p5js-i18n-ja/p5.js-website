@@ -1,6 +1,6 @@
 name: ml5.js
 category: ai-ml-cv
-description: Friendly machine learning for the web—a neighborly approach to creating and exploring artificial intelligence in the browser.
+description: ウェブのためのフレンドリーな機械学習 — ブラウザで人工知能を作成し探索するための親しみやすいアプローチを提供します。
 author:
   - name: NYU's Interactive Telecommunications/Interactive Media Arts Program
     url: https://tisch.nyu.edu/itp
@@ -8,9 +8,9 @@ author:
     url: https://ima.shanghai.nyu.edu/
 sourceUrl: https://github.com/ml5js/ml5-library
 websiteUrl: https://ml5js.org/
-npm: 'ml5'
-npmFilePath: 'dist/ml5.min.js'
+npm: "ml5"
+npmFilePath: "dist/ml5.min.js"
 featuredImage: ../images/ml5.png
-featuredImageAlt: Text "Friendly machine learning for the web with ml5.js" on top of a light grey ml5.js logo
+featuredImageAlt: 薄いグレーのml5.jsロゴの上に「Friendly machine learning for the web with ml5.js」というテキスト
 license: MIT
 featured: true

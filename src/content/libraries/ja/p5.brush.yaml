@@ -1,9 +1,9 @@
 name: p5.brush
-description: Unlock custom brushes, natural fill effects and intuitive hatching in p5.js.
+description: p5.jsでカスタムブラシ、自然な塗りつぶし効果、直感的なハッチングを実現します。
 category: drawing
 sourceUrl: https://github.com/acamposuribe/p5.brush
 featuredImage: ../images/p5.brush.png
-featuredImageAlt: The text 'p5.brush' surrounded by colored brush strokes.
+featuredImageAlt: 色とりどりのブラシストロークに囲まれた「p5.brush」というテキスト。
 author:
   name: Alejandro Campos Uribe
   url: https://art.arqtistic.com/
