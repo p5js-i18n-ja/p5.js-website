@@ -131,65 +131,65 @@ exampleCategories:
   Math And Physics: "数学と物理"
 referenceCategories:
   modules:
-    Foundation: 基礎
-    Image: 画像
-    Typography: タイポグラフィ
+    Foundation: Foundation
+    Image: Image
+    Typography: Typography
     3D: 3D
-    Math: 数学
-    Events: イベント
-    Color: 色
-    Data: データ
-    Transform: 変形
-    Shape: 形状
-    Rendering: レンダリング
+    Math: Math
+    Events: Events
+    Color: Color
+    Data: Data
+    Transform: Transform
+    Shape: Shape
+    Rendering: Rendering
     DOM: DOM
-    Constants: 定数
+    Constants: Constants
     p5.sound: p5.sound
-    IO: 入出力
-    Environment: 環境
-    Structure: 構造
+    IO: IO
+    Environment: Environment
+    Structure: Structure
   submodules:
-    Foundation: 基礎
-    Pixels: ピクセル
-    Loading & Displaying: 読み込みと表示
-    Material: マテリアル
-    Calculation: 計算
-    Acceleration: 加速度
-    Trigonometry: 三角法
-    Creating & Reading: 作成と読み取り
-    Lights: ライト
-    Array Functions: 配列関数
-    Transform: 変形
-    2D Primitives: 2D基本図形
-    Setting: 設定
-    Vertex: 頂点
-    3D Primitives: 3D基本図形
-    Curves: 曲線
-    Rendering: レンダリング
-    Conversion: 変換
-    Camera: カメラ
+    Foundation: Foundation
+    Pixels: Pixels
+    Loading & Displaying: Loading & Displaying
+    Material: Material
+    Calculation: Calculation
+    Acceleration: Acceleration
+    Trigonometry: Trigonometry
+    Creating & Reading: Creating & Reading
+    Lights: Lights
+    Array Functions: Array Functions
+    Transform: Transform
+    2D Primitives: 2D Primitives
+    Setting: Setting
+    Vertex: Vertex
+    3D Primitives: 3D Primitives
+    Curves: Curves
+    Rendering: Rendering
+    Conversion: Conversion
+    Camera: Camera
     DOM: DOM
-    LocalStorage: ローカルストレージ
-    Constants: 定数
+    LocalStorage: LocalStorage
+    Constants: Constants
     p5.sound: p5.sound
-    Image: 画像
-    Dictionary: 辞書
-    Vector: ベクトル
-    Output: 出力
-    Environment: 環境
-    Time & Date: 時間と日付
-    Interaction: インタラクション
-    Structure: 構造
-    Mouse: マウス
-    Attributes: 属性
-    Input: 入力
-    String Functions: 文字列関数
-    Keyboard: キーボード
-    3D Models: 3Dモデル
-    Noise: ノイズ
-    Table: テーブル
-    Random: ランダム
-    Touch: タッチ
+    Image: Image
+    Dictionary: Dictionary
+    Vector: Vector
+    Output: Output
+    Environment: Environment
+    Time & Date: Time & Date
+    Interaction: Interaction
+    Structure: Structure
+    Mouse: Mouse
+    Attributes: Attributes
+    Input: Input
+    String Functions: String Functions
+    Keyboard: Keyboard
+    3D Models: 3D Models
+    Noise: Noise
+    Table: Table
+    Random: Random
+    Touch: Touch
 calloutTitles:
   "Try this!": "試してみよう！"
   Tip: ヒント
