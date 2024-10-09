@@ -1,10 +1,10 @@
 ---
-title: "Color Gradients"
-description: Use radial gradients, linear gradients, and blend modes to create lens flare stickers & colorful filters on top of a webcam selfie.
+title: "カラーグラデーション"
+description: 放射状グラデーション、線形グラデーション、ブレンドモードを使用して、ウェブカムのセルフィーの上にレンズフレアステッカーとカラフルなフィルターを作成します。
 category: drawing
 categoryIndex: 0
 featuredImage: ../images/featured/ColorGradientsA.png
-featuredImageAlt: A webcam snapshot of a white person with short dark curly hair wearing pink heart shaped glasses posing for a picture. There is a red to yellow linear gradient filter on top of the photo. Colorful circles are scattered on top of the image with a color gradient overlay. The circles have randomized radial color gradients inside them to mimic a camera's lens flare. Some color gradients are pink to purple, cyan to green, or yellow to orange.
+featuredImageAlt: ピンクのハート型メガネをかけた短い黒い巻き毛の白人の写真を撮影したウェブカムのスナップショット。写真の上に赤から黄色の線形グラデーションフィルターがかかっています。カラフルな円が画像の上に散りばめられ、カラーグラデーションのオーバーレイがあります。円の中にはカメラのレンズフレアを模した、ランダムな放射状カラーグラデーションがあります。一部のカラーグラデーションはピンクから紫、シアンから緑、黄色からオレンジなどです。
 relatedContent:
   references:
     - en/p5/createcapture
@@ -25,372 +25,371 @@ authors:
 import Callout from "../../../components/Callout/index.astro";
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 
-## Introduction
+## はじめに
 
-Welcome! This tutorial provides an introduction to drawing color gradients in p5.js. It is the first part of the Drawing chapter, which will guide you through creating a sticker-based [photo decorating app](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq). For our first exercise, we’re going to use [radial color gradients](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient) and [blend modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode) to create lens flare stickers on top of a selfie you capture with your webcam. We’ll also use [linear color gradients](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient) and blend modes to create a gradient filter on top of your selfie. For reference, a lens flare is that visual effect in photos or videos where bright light scatters in the camera lens, creating streaks, circles, or halos, often adding a dramatic or artistic touch to the image. A filter is an effect that can alter the pixels in a digital image, or overlay the image to alter its shades and colors.
+ようこそ！このチュートリアルでは、p5.jsでカラーグラデーションを描画する方法を紹介します。これは描画の章の最初の部分で、ステッカーベースの[写真装飾アプリ](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq)の作成を通じて学んでいきます。最初の演習では、[放射状カラーグラデーション](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient)と[ブレンドモード](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode)を使用して、ウェブカムで撮影したセルフィーの上にレンズフレアステッカーを作成します。また、[線形カラーグラデーション](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient)とブレンドモードを使用して、セルフィーの上にグラデーションフィルターを作成します。参考までに、レンズフレアとは、写真やビデオで見られる視覚効果で、明るい光がカメラレンズ内で散乱し、筋や円、ハロー効果を生み出し、画像にドラマチックまたは芸術的な雰囲気を加えるものです。フィルターは、デジタル画像のピクセルを変更したり、画像にオーバーレイして色調や色を変更したりする効果です。
 
-![A webcam snapshot of a white person with short dark curly hair wearing pink heart shaped glasses posing for a picture. There is a red to yellow linear gradient filter on top of the photo. Colorful circles are scattered on top of the image with a color gradient overlay. The circles have randomized radial color gradients inside them to mimic a camera's lens flare. Some color gradients are pink to purple, cyan to green, or yellow to orange.](../images/drawing/gradient-snap.png)
-
-
-### Prerequisites
-
-To follow along with this tutorial, you should have:
-
-1. Followed the tutorials in the [Introduction to p5.js](/tutorials/get-started) chapter, or have an understanding of basic concepts and best practices used when creating projects in p5.js.
-2. A desire to learn and experiment. Curiosity and a willingness to experiment are the most important prerequisites. 
-
-This tutorial uses the [p5.js Web Editor](https://editor.p5js.org/) and is designed for learners of all levels, so don’t worry if you’re new to coding – that’s what we’re here to guide you through!
+![ピンクのハート型メガネをかけた短い黒い巻き毛の白人の写真を撮影したウェブカムのスナップショット。写真の上に赤から黄色の線形グラデーションフィルターがかかっています。カラフルな円が画像の上に散りばめられ、カラーグラデーションのオーバーレイがあります。円の中にはカメラのレンズフレアを模した、ランダムな放射状カラーグラデーションがあります。一部のカラーグラデーションはピンクから紫、シアンから緑、黄色からオレンジなどです。](../images/drawing/gradient-snap.png)
 
 
-### Step 1: Set up your p5.js Web Editor and webcam 
+### 前提条件
 
-- Go to [the p5.js Web Editor](https://editor.p5js.org/). 
-- Log in to your account, or create a new one, to save your progress.
-- Rename the project to “Color Gradient Stickers” or another name of your choosing.
-- Set up the webcam:
-  - Call `createCanvas(640, 480)`.
-  - Declare a global variable called `video` using the keyword `let`. You’ll assign a value to this shortly.
-  - In your `setup()` function, assign a `createCapture(VIDEO)` object to your `video` variable by adding: `video = createCapture(VIDEO)`.
-    - This will initialize a [`p5.MediaElement`](/reference/p5/p5.MediaElement) with your webcam to feed the video from your webcam into your sketch using the `video `variable.
-    - Visit the p5.js reference pages for [`let`](/reference/p5/let), [`createCapture()`](/reference/p5/createCapture), and [`p5.MediaElement`](/reference/p5/p5.MediaElement) to learn more.
-  - Set the position to (0, 0), pinning it to the top left of your canvas, using the `.position()` method by adding `.position(0, 0)` in `setup()`.
-    - If you run the sketch now, you should see the video feed from your webcam appear in the preview window. 
-    - See this [example sketch](https://editor.p5js.org/Msqcoding/sketches/mLfhMChZW) that sets up your webcam to display on the canvas. 
-    - Visit the p5.reference pages for [`.position()`](/reference/p5.Element/position) and [`p5.Element`](/reference/p5/p5.Element) to learn more.
-- Create a function to take a snapshot with your webcam.
-  - Declare a global [Boolean](/reference/p5/boolean) variable called `snapped` and assign it a value of `false`.
-    - This variable will keep track of when a snapshot is taken and is known as a [state](https://developer.mozilla.org/en-US/docs/Glossary/State_machine) variable.
-    - Visit the MDN glossary for [state machine](https://developer.mozilla.org/en-US/docs/Glossary/State_machine) for more information about states.
-  - Define a function called `takeSnap()` below your `setup()` function.
-    - Use an `if` statement to check whether the user has already captured a snapshot by adding `if (snapped === false) {}`, or equivalently `if (!snapped) {}`, to the function body. 
-    - Capture a snapshot of your webcam feed and place it on the canvas by adding `image(video, 0, 0)` to the `if` statement’s body.  
-      - Your sketch tracks the [state](https://developer.mozilla.org/en-US/docs/Glossary/State_machine) of your app using the `snapped` variable – when `snapped` is equal to `false`, p5.js captures the snapshot using `image()`. 
-    - Set `snapped` to `true` after capturing your snapshot by adding `snapped = true` under `image()`.
-      - This will let your app know that a snapshot was taken.
-    - Remove the video by adding `video.remove()` as the last line in the `if` statement.
-      - This removes the video element in the `video` variable, so you’re looking at a still photo rendered by `image()` and not the video feed. 
-  - Visit the p5.js reference for [`function`](/reference/p5/function), [`if`](/reference/p5/if), [`image()`](/reference/p5/image), and [`.remove()`](/reference/p5.Element/remove) to learn more.
-* Create an [HTML button](/reference/p5/createButton) to take a snapshot. This works using a few different parts:
-  - The `createButton()` function creates a new button. 
-  - By typing the string `‘snap’` inside this function, we label the new button “snap.” 
-  - This new button is assigned to a variable named `snapButton`.
-  - We add a `.mouseClicked()` method to our `snapButton` and call `takeSnap()` when the button is clicked.
-  - You can do this by adding the following code in `setup()`:
+このチュートリアルを進めるには、以下が必要です：
+
+1. [p5.jsの入門](/tutorials/get-started)の章のチュートリアルを完了しているか、p5.jsでプロジェクトを作成する際の基本的な概念とベストプラクティスを理解していること。
+2. 学び、実験する意欲。好奇心と実験する意欲が最も重要な前提条件です。
+
+このチュートリアルでは[p5.js Web Editor](https://editor.p5js.org/)を使用し、すべてのレベルの学習者向けに設計されているので、コーディングが初めてでも心配しないでください - それを指導するのが私たちの役目です！
+
+
+### ステップ1：p5.js Web Editorとウェブカムのセットアップ
+
+- [p5.js Web Editor](https://editor.p5js.org/)にアクセスします。
+- アカウントにログインするか、新しいアカウントを作成して進捗を保存します。
+- プロジェクト名を「Color Gradient Stickers」または好きな名前に変更します。
+- ウェブカムをセットアップします：
+  - `createCanvas(640, 480)`を呼び出します。
+  - `let`キーワードを使用して`video`というグローバル変数を宣言します。この変数にはすぐに値を割り当てます。
+  - `setup()`関数内で、`video = createCapture(VIDEO)`を追加して、`video`変数に`createCapture(VIDEO)`オブジェクトを割り当てます。
+    - これにより、ウェブカムを使用して[`p5.MediaElement`](/reference/p5/p5.MediaElement)を初期化し、ウェブカムからのビデオフィードを`video`変数を使用してスケッチに取り込みます。
+    - [`let`](/reference/p5/let)、[`createCapture()`](/reference/p5/createCapture)、[`p5.MediaElement`](/reference/p5/p5.MediaElement)のp5.jsリファレンスページを参照して詳細を学んでください。
+  - `setup()`内で`.position(0, 0)`を追加して、位置を(0, 0)に設定し、キャンバスの左上に固定します。
+    - ここでスケッチを実行すると、プレビューウィンドウにウェブカムからのビデオフィードが表示されるはずです。
+    - キャンバスにウェブカムを表示するための[このサンプルスケッチ](https://editor.p5js.org/Msqcoding/sketches/mLfhMChZW)を参照してください。
+    - [`.position()`](/reference/p5.Element/position)と[`p5.Element`](/reference/p5/p5.Element)のp5.jsリファレンスページを参照して詳細を学んでください。
+- ウェブカムでスナップショットを撮る関数を作成します。
+  - `snapped`というグローバル[Boolean](/reference/p5/boolean)変数を宣言し、`false`を割り当てます。
+    - この変数はスナップショットが撮られたかどうかを追跡し、[状態](https://developer.mozilla.org/en-US/docs/Glossary/State_machine)変数として知られています。
+    - 状態に関する詳細については、MDN用語集の[state machine](https://developer.mozilla.org/en-US/docs/Glossary/State_machine)を参照してください。
+  - `setup()`関数の下に`takeSnap()`という関数を定義します。
+    - 関数本体に`if (snapped === false) {}`または同等の`if (!snapped) {}`を追加して、ユーザーがすでにスナップショットを撮ったかどうかを確認する`if`文を使用します。
+    - `if`文の本体に`image(video, 0, 0)`を追加して、ウェブカムフィードのスナップショットを撮影し、キャンバスに配置します。
+      - スケッチは`snapped`変数を使用してアプリの[状態](https://developer.mozilla.org/en-US/docs/Glossary/State_machine)を追跡します - `snapped`が`false`に等しい場合、p5.jsは`image()`を使用してスナップショットを撮影します。
+    - スナップショットを撮影した後、`image()`の下に`snapped = true`を追加します。
+      - これにより、スナップショットが撮られたことをアプリに知らせます。
+    - `if`文の最後の行として`video.remove()`を追加して、ビデオを削除します。
+      - これにより、`video`変数内のビデオ要素が削除され、`image()`によってレンダリングされた静止画像を見ることになり、ビデオフィードは表示されません。
+  - [`function`](/reference/p5/function)、[`if`](/reference/p5/if)、[`image()`](/reference/p5/image)、[`.remove()`](/reference/p5.Element/remove)のp5.jsリファレンスを参照して詳細を学んでください。
+* スナップショットを撮るための[HTMLボタン](/reference/p5/createButton)を作成します。これはいくつかの異なる部分を使用して機能します：
+  - `createButton()`関数は新しいボタンを作成します。
+  - この関数内に文字列`'snap'`を入力することで、新しいボタンに「snap」というラベルを付けます。
+  - この新しいボタンは`snapButton`という変数に割り当てられます。
+  - `snapButton`に`.mouseClicked()`メソッドを追加し、ボタンがクリックされたときに`takeSnap()`を呼び出します。
+  - `setup()`に以下のコードを追加することでこれを行うことができます：
 
     ```js
-    //create a button with snap text on it
+    //snapテキストの付いたボタンを作成
     let snapButton = createButton('snap');
     
-    //When we click the snap button, run the takeSnap function
+    //snapボタンをクリックしたときにtakeSnap関数を実行
     snapButton.mouseClicked(takeSnap);
     ```
 
-Visit the p5.js reference pages for [`createButton()`](/reference/p5/createButton) and [`mouseClicked()`](/reference/p5/mouseClicked) to learn more.
+[`createButton()`](/reference/p5/createButton)と[`mouseClicked()`](/reference/p5/mouseClicked)のp5.jsリファレンスページを参照して詳細を学んでください。
 
-By creating an HTML button, we are inserting `<button></button>` inside our sketch page's HTML and are using it to trigger the code for taking a snapshot of our webcam feed.
+HTMLボタンを作成することで、スケッチページのHTML内に`<button></button>`を挿入し、ウェブカムフィードのスナップショットを撮るコードをトリガーするために使用しています。
 
-Your code can look like this:
+コードは以下のようになります：
 
 ```js
-// variable for video object
+// ビデオオブジェクトの変数
 let video;
 
-/* state variable
-   false - no snapshot has been taken
-   true - snapshot was taken */
+/* 状態変数
+   false - スナップショットが撮られていない
+   true - スナップショットが撮られた */
 let snapped = false;
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(640, 480);
 
-  //instantiate the VIDEO object 
-  video = createCapture(VIDEO);
+  //VIDEOオブジェクトをインスタンス化
+  video = createCapture(VIDEO);
 
-  //draw it on the screen at 0, 0 so we can see webcam feed
-  video.position(0, 0);
+  //ウェブカムフィードが見えるように0, 0の位置に描画
+  video.position(0, 0);
 
-  //create a button with snap text on it
-  let snapButton = createButton('snap');
+  //snapテキストの付いたボタンを作成
+  let snapButton = createButton('snap');
 
-  //When we click the snap button, run the takeSnap function
-  snapButton.mouseClicked(takeSnap);
+  //snapボタンをクリックしたときにtakeSnap関数を実行
+  snapButton.mouseClicked(takeSnap);
 }
 
-/*If we haven’t snapped a photo yet (snapped is false)
-  display the video frame for snapshot
-  set snapped to true and remove the video feed, leaving only the still photo we took */
+/*まだ写真を撮っていない場合（snappedがfalse）
+  スナップショット用のビデオフレームを表示
+  snappedをtrueに設定し、ビデオフィードを削除して撮影した静止画だけを残す */
 function takeSnap() {
-  if (snapped === false) {
-    image(video, 0, 0);
-    snapped = true;
-    video.remove();
-  }
+  if (snapped === false) {
+    image(video, 0, 0);
+    snapped = true;
+    video.remove();
+  }
 }
 ```
 
-Hit play, and you’ll see your webcam feed displayed. Click the “snap” button to take a photo. We’ll layer stickers on top of this photo as we progress through the tutorial. This is what a selfie snapshot can look like:
+再生ボタンを押すと、ウェブカムフィードが表示されます。「snap」ボタンをクリックして写真を撮ります。チュートリアルを進めながら、この写真の上にステッカーを重ねていきます。セルフィーのスナップショットは以下のようになります：
 
-![A white person with short dark curly hair wearing pink heart shaped glasses posing with one hand under his chin, softly smiles, and looks to the right.](../images/drawing/initial-snap-app.png)
+![ピンクのハート型メガネをかけた短い黒い巻き毛の白人が、あごの下に手を置いてポーズをとり、優しく微笑んで右を見ている。](../images/drawing/initial-snap-app.png)
 
 <Callout>
-Right now, our selfie is automatically sized to the dimensions of our canvas. Play with the width and height of the selfie by adding a width parameter and a height parameter after setting the position in the `image(video, 0, 0)` call. You can stretch and distort the selfie this way. Once you’ve done that, try duplicating the selfie by using the image function again, this time with different position and size parameters.
+現在、セルフィーは自動的にキャンバスの寸法にサイズ調整されています。`image(video, 0, 0)`の呼び出しで位置を設定した後に、幅パラメータと高さパラメータを追加してセルフィーの幅と高さを調整してみてください。これにより、セルフィーを伸縮させたり歪ませたりすることができます。それができたら、image関数を再度使用してセルフィーを複製し、今度は異なる位置とサイズのパラメータを使用してみてください。
 
-[Example Code](https://editor.p5js.org/juleskris/sketches/Fn32IViAW)
+[サンプルコード](https://editor.p5js.org/juleskris/sketches/Fn32IViAW)
 </Callout>
 
+### ステップ2：写真の上に線形グラデーションフィルターを追加する
 
-### Step 2: Add a linear gradient filter on top of your photo
+次に、`colorMode()`、`blendMode()`、`lerpColor()`を使用して、セルフィーの上に線形カラーグラデーションを作成します。
 
-Next, we’ll use `colorMode()`, `blendMode()`, and `lerpColor()` to create a linear color gradient over your selfie. 
+- setup関数に`colorMode(HSB, 360, 100, 100);`を追加します。これにより、`colorMode()`がデフォルトのRGB（赤、緑、青）の代わりにHSB（色相、彩度、明度）を使用するように設定されます。360は色相の範囲用です。これは任意の数値でも構いませんが、360はカラーホイールの度数に関連するため一般的な慣例です。100の値は、それぞれ彩度と明度を表します。再び、100は便利に0%から100%の範囲で考えられるため人気のある慣例です。まだ色を混ぜていませんが、ここで定義したシステムをコードの後半で使用します。
 
-- Add `colorMode(HSB, 360, 100, 100);` to your setup function. This will set the `colorMode()` to use HSB (Hue, Saturation, Brightness) instead of the default RGB (Red, Green, Blue). The 360 is for our range of hues; it could be any number, but 360 is a common convention because this relates to degrees on a color wheel. The 100 values represent Hue and Saturation, respectively. Again, 100 is a popular convention because it’s convenient to think of these values spanning 0% to 100%. We haven’t mixed any colors yet, but we’ll use the system we’ve defined here further along in our code.
+![色相、彩度、明度を色スペクトル全体で説明する3次元の円グラフで、虹色のグラデーションがあります](../images/drawing/hsb-diagram.png)
 
-![A 3-dimensional pie chart with a rainbow gradient describing brightness, hue, and saturation across the color spectrum](../images/drawing/hsb-diagram.png)
+上の図からわかるように、色相は色を変更し（0から360）、彩度は白から完全な鮮やかさまでの色の鮮やかさを変更し（0から100）、明度は黒から完全な強度までの色の強さを変更します（0から100）。
 
-As you can see in the diagram above, Hue changes the color (0 to 360), Saturation changes the vibrancy of the color from white to full vibrancy (0 to 100), and Brightness changes the intensity of a color from black to full intensity (0 to 100).
-
-The following example uses HSB color to create a linear color gradient across the canvas. The hue value increases from left to right:
+以下の例では、HSBカラーを使用してキャンバス全体に線形カラーグラデーションを作成しています。色相の値は左から右に増加します：
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);
 
-  // Use the HSB color mode.
-  colorMode(HSB, 360, 100, 100);
+  // HSBカラーモードを使用します。
+  colorMode(HSB, 360, 100, 100);
 
-  for (let x = 0; x < width; x += 1) {
+  for (let x = 0; x < width; x += 1) {
 
-    // Map the x-coordinate to the hue value.
-    let h = map(x, 0, width, 0, 360);
+    // x座標を色相の値にマッピングします。
+    let h = map(x, 0, width, 0, 360);
 
-    // Set the saturation value to 100.
-    let s = 100;
+    // 彩度の値を100に設定します。
+    let s = 100;
 
-    // Set the brightness value to 100.
-    let b = 100;
+    // 明度の値を100に設定します。
+    let b = 100;
 
-    // Set the stroke color.
-    stroke(h, s, b);
+    // ストロークの色を設定します。
+    stroke(h, s, b);
 
-    // Draw a vertical line.
-    line(x, 0, x, height);
-  }
+    // 垂直線を描画します。
+    line(x, 0, x, height);
+  }
 }
 `} />
 
-More variations:
+その他のバリエーション：
 
-- [This example](https://editor.p5js.org/mcintyre/sketches/OHR6gZ1TW) uses HSB color to create a linear color gradient across the canvas. The saturation value increases from left to right.
-- [This example](https://editor.p5js.org/mcintyre/sketches/yR9k7Tcnz) uses HSB color to create a linear color gradient across the canvas. The brightness value increases from left to right.
+- [この例](https://editor.p5js.org/mcintyre/sketches/OHR6gZ1TW)では、HSBカラーを使用してキャンバス全体に線形カラーグラデーションを作成しています。彩度の値が左から右に増加します。
+- [この例](https://editor.p5js.org/mcintyre/sketches/yR9k7Tcnz)では、HSBカラーを使用してキャンバス全体に線形カラーグラデーションを作成しています。明度の値が左から右に増加します。
 
-Next, we'll do something similar in our own sketch:
-- Define a new function called `gradientFilter()`.
-  - Inside this function, create variables called `startColor` and `endColor`, and assign them the HSB values for the colors at each end of your gradient. In this code, it’s a red-to-yellow gradient. Both colors are fully saturated (vivid as opposed to grey) but with 50% brightness. You can experiment with different color values to see what you like.
-  - We’ll use a `for` loop to draw as many horizontal lines as there are pixels spanning the height of our canvas. Each of these lines will be stacked one below the other, and each will have a slightly different stroke color, creating a gradient effect. The loop runs until the `y` reaches the canvas height, and we’ll use this `y` value to manipulate each line.
+次に、自分のスケッチで同様のことを行います：
+- `gradientFilter()`という新しい関数を定義します。
+  - この関数内で、`startColor`と`endColor`という変数を作成し、グラデーションの両端の色のHSB値を割り当てます。このコードでは、赤から黄色へのグラデーションです。両方の色は完全に彩度が高く（灰色ではなく鮮やか）、明度は50%です。異なる色の値を試して、好みのものを見つけることができます。
+  - キャンバスの高さに相当する数のピクセルだけ水平線を描くために`for`ループを使用します。これらの線は互いに積み重ねられ、それぞれが少しずつ異なるストロークの色を持ち、グラデーション効果を作り出します。ループは`y`がキャンバスの高さに達するまで実行され、この`y`値を使って各線を操作します。
     - `for (let y = 0; y < height; y += 1)`
-  - Inside the `for` loop:
-    - Create a variable called `amt`. Use the [`map()`](/reference/p5/map) function to remap our y variable that ranges from 0 to `height` (480) to a range of 0 to 1.
-    - Create a variable called `gradColor`, and use the [`lerpColor()`](/reference/p5/lerpColor) function to interpolate between our `startColor` and `endColor` by the `amt` variable. Interpolate is a fancy way of saying that we’re gradually moving between two color values.
-    - Set the `stroke()` color to `gradColor`.
-    - Draw a line using the `line()` function that starts at the x-y coordinates (0, `y`) and ends at (`width`, `y`). 
-- Add a call to [`blendMode(LIGHTEST)`](/reference/p5/blendMode) to our setup function. Passing the `LIGHTEST` argument to `blendMode()` guarantees only the lightest color is drawn when graphics are layered on top of each other. This will make our linear gradient appear on top of our photo as a translucent overlay that interacts nicely with the light and dark values in our photo.
-- Define a `mousePressed()` function.
-  - Inside the function body, create an `if` statement that checks whether the `snapped` variable equals true, indicating that the user has already taken a photo and is ready to apply a sticker – in which case, we can call the `gradientFilter()` function. 
+  - `for`ループ内で：
+    - `amt`という変数を作成します。[`map()`](/reference/p5/map)関数を使用して、0から`height`（480）の範囲のy変数を0から1の範囲に再マッピングします。
+    - `gradColor`という変数を作成し、[`lerpColor()`](/reference/p5/lerpColor)関数を使用して`startColor`と`endColor`の間を`amt`変数で補間します。補間とは、2つの色の値の間を徐々に移動することを表す fancy な言い方です。
+    - `stroke()`の色を`gradColor`に設定します。
+    - `line()`関数を使用して、x-y座標(0, `y`)から(`width`, `y`)までの線を描きます。
+- setup関数に[`blendMode(LIGHTEST)`](/reference/p5/blendMode)の呼び出しを追加します。`blendMode()`に`LIGHTEST`引数を渡すことで、グラフィックが重ね合わされたときに最も明るい色だけが描画されることが保証されます。これにより、線形グラデーションが写真の上に半透明のオーバーレイとして表示され、写真の明暗の値とうまく相互作用します。
+- `mousePressed()`関数を定義します。
+  - 関数本体内で、`snapped`変数が真であるかどうかをチェックする`if`文を作成します。これは、ユーザーがすでに写真を撮影し、ステッカーを適用する準備ができていることを示します - その場合、`gradientFilter()`関数を呼び出すことができます。
 
-Your code should look something like this:
+コードは以下のようになるはずです：
 
 ```js
 let video;
 
-/* state variable
-   false - no snapshot has been taken
-   true - snapshot was taken */
+/* 状態変数
+   false - スナップショットが撮られていない
+   true - スナップショットが撮られた */
 let snapped = false;
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(640, 480);
 
-  //set the colorMode to HSB instead of RGB
-  colorMode(HSB, 360, 100, 100);
+  //カラーモードをRGBの代わりにHSBに設定
+  colorMode(HSB, 360, 100, 100);
 
-  //instantiate the VIDEO object
-  video = createCapture(VIDEO);
+  //VIDEOオブジェクトをインスタンス化
+  video = createCapture(VIDEO);
 
-  //draw it on the screen at 0, 0 so we can see webcam feed
-  video.position(0, 0);
+  //ウェブカムフィードが見えるように0, 0の位置に描画
+  video.position(0, 0);
 
-  //create a button with snap text on it
-  let snapButton = createButton("snap");
+  //snapテキストの付いたボタンを作成
+  let snapButton = createButton("snap");
 
-  //When we click the snap button, run the takeSnap function
-  snapButton.mouseClicked(takeSnap);
-  blendMode(LIGHTEST);
+  //snapボタンをクリックしたときにtakeSnap関数を実行
+  snapButton.mouseClicked(takeSnap);
+  blendMode(LIGHTEST);
 }
 
-//Run the gradientFilter function when we press the mouse
+//マウスを押したときにgradientFilter関数を実行
 function mousePressed() {
-  if (snapped === true) {
-    gradientFilter();
-  }
+  if (snapped === true) {
+    gradientFilter();
+  }
 }
 
-/*If we haven’t snapped a photo yet (snapped is false)
-  display the video frame for snapshot
-  set snapped to true and remove the video feed, leaving only the still photo we took */
+/*まだ写真を撮っていない場合（snappedがfalse）
+  スナップショット用のビデオフレームを表示
+  snappedをtrueに設定し、ビデオフィードを削除して撮影した静止画だけを残す */
 function takeSnap() {
-  if (snapped === false) {
-    image(video, 0, 0);
-    snapped = true;
-    video.remove();
-  }
+  if (snapped === false) {
+    image(video, 0, 0);
+    snapped = true;
+    video.remove();
+  }
 }
 
-//Draws a linear gradient on the screen using a for loop and lerpColor
+//forループとlerpColorを使用して画面に線形グラデーションを描画
 function gradientFilter() {
-  let startColor = color(0, 100, 50);
-  let endColor = color(60, 100, 50);
-  for (let y = 0; y < height; y += 1) {
-    let amt = map(y, 0, height, 0, 1);
-    let gradColor = lerpColor(startColor, endColor, amt);
-    stroke(gradColor);
-    line(0, y, width, y);
-  }
+  let startColor = color(0, 100, 50);
+  let endColor = color(60, 100, 50);
+  for (let y = 0; y < height; y += 1) {
+    let amt = map(y, 0, height, 0, 1);
+    let gradColor = lerpColor(startColor, endColor, amt);
+    stroke(gradColor);
+    line(0, y, width, y);
+  }
 }
 ```
 
-Hit play, and you’ll be able to take a snapshot and click on the canvas to apply your gradient filter. See how the gradient applies most dramatically to the darkest parts of the photo. This is due to the `blendMode()`, saturation, and brightness settings we are using.
+再生ボタンを押すと、スナップショットを撮影し、キャンバスをクリックしてグラデーションフィルターを適用できます。グラデーションが写真の最も暗い部分に最も劇的に適用されるのがわかります。これは、使用している`blendMode()`、彩度、明度の設定によるものです。
 
-### ![A white person with short dark curly hair wearing pink heart shaped glasses posing with his hand under his chin, with a vertical linear red to yellow gradient applied over the photo as a camera filter. Because of the LIGHTEST blendMode, the colorful gradient is especially visible on his dark hair and dark shirt.](../images/drawing/gradient-overlay.png)
+### ![ピンクのハート型メガネをかけた短い黒い巻き毛の白人が、あごの下に手を置いてポーズをとっている写真に、垂直の赤から黄色の線形グラデーションがカメラフィルターとして適用されています。LIGHTESTブレンドモードのため、カラフルなグラデーションは特に彼の暗い髪と暗いシャツに目立って見えます。](../images/drawing/gradient-overlay.png)
 
 <Callout>
-Alter the colors of our gradient by playing with the HSB values within startColor and endColor!
+startColorとendColor内のHSB値を変更して、グラデーションの色を変更してみてください！
 
-[Example.](https://editor.p5js.org/juleskris/sketches/EM6QHCNpe)
+[例。](https://editor.p5js.org/juleskris/sketches/EM6QHCNpe)
 </Callout>
 
 
-### Step 3: Add color gradient stickers
+### ステップ3：カラーグラデーションステッカーを追加する
 
-Let’s use radial gradients to add some colorful lens flares to place as stickers over our photo. 
+放射状グラデーションを使用して、写真の上に配置するカラフルなレンズフレアを作成しましょう。
 
-- Define a new `lensFlare()` function.
-- We’ll use the [`circle()`](/reference/p5/circle) function to create our lens flares.
-  - Create a variable called `diameter` and set it to 50.
-  - Create a variable called `h` (we’re using this for hue) and set it to 150.
-- Create a for loop that opens with `for (let d = diameter; d > 0; d -= 1)`. This loop will draw multiple circles with different stroke colors that smoothly blend, creating the effect of a rainbow-like fill.
-  - Inside the for loop, write `fill(h, 90 90)`. This assigns the `h` variable to hue, 90 to saturation, and 90 to brightness.
-  - Write `circle(mouseX, mouseY, d)`. This sets our circle’s x-coordinate to `mouseX`, y-coordinate to `mouseY`, and diameter to `d`.
-  - Set `h` to equal `(h + 1) % 360`. We’re using a for loop to iterate through our HSB values, specifically the hue value. The modulo operator (`%`) helps cycle through hue values so that if any h value exceeds 360, it ‘wraps around’ to start at zero again, allowing the color blend to repeat.
-- To create size and color variation, set `diameter` to `random(50, 200)` and `h` to `random(150, 360)`.
-- Inside the `if` statement in your `mousePressed` function, call `lensFlare()`.
+- 新しい`lensFlare()`関数を定義します。
+- レンズフレアを作成するために[`circle()`](/reference/p5/circle)関数を使用します。
+  - `diameter`という変数を作成し、50に設定します。
+  - `h`という変数を作成し（これは色相に使用します）、150に設定します。
+- `for (let d = diameter; d > 0; d -= 1)`で始まるforループを作成します。このループは、異なるストロークの色を持つ複数の円を描画し、滑らかにブレンドして虹のような塗りつぶし効果を作り出します。
+  - forループ内で、`fill(h, 90 90)`と書きます。これにより、色相に`h`変数、彩度に90、明度に90が割り当てられます。
+  - `circle(mouseX, mouseY, d)`と書きます。これにより、円のx座標が`mouseX`、y座標が`mouseY`、直径が`d`に設定されます。
+  - `h`を`(h + 1) % 360`に設定します。forループを使用してHSB値、特に色相値を反復処理しています。モジュロ演算子（`%`）は色相値のサイクルを助け、h値が360を超えた場合に「ラップアラウンド」して0から再開し、色のブレンドが繰り返されるようにします。
+- サイズと色のバリエーションを作成するために、`diameter`を`random(50, 200)`に、`h`を`random(150, 360)`に設定します。
+- `mousePressed`関数の`if`文内で、`lensFlare()`を呼び出します。
 
-Your completed sketch code should look something like this:
+完成したスケッチのコードは以下のようになるはずです：
 
 ```js
 let video;
 
-/* state variable
-   false - no snapshot has been taken
-   true - snapshot was taken */
+/* 状態変数
+   false - スナップショットが撮られていない
+   true - スナップショットが撮られた */
 let snapped = false;
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(640, 480);
 
-  //set the colorMode to HSB instead of RGB
-  colorMode(HSB, 360, 100, 100);
+  //カラーモードをRGBの代わりにHSBに設定
+  colorMode(HSB, 360, 100, 100);
 
-  //instantiate the VIDEO object, and draw it on the screen at 0, 0 
-  video = createCapture(VIDEO);
-  video.position(0, 0);
+  //VIDEOオブジェクトをインスタンス化し、0, 0の位置に描画
+  video = createCapture(VIDEO);
+  video.position(0, 0);
 
-  //create a button with snap text on it
-  let snapButton = createButton('snap');
+  //snapテキストの付いたボタンを作成
+  let snapButton = createButton('snap');
 
-  //When we click the snap button, run the takeSnap function
-  snapButton.mouseClicked(takeSnap);
-  blendMode(LIGHTEST);
-  noStroke();
+  //snapボタンをクリックしたときにtakeSnap関数を実行
+  snapButton.mouseClicked(takeSnap);
+  blendMode(LIGHTEST);
+  noStroke();
 }
 
-//Run the gradientFilter function when we press the mouse
+//マウスを押したときにgradientFilterとlensFlare関数を実行
 function mousePressed() {
-  if (snapped === true) {
-    gradientFilter();
-    lensFlare();
-  }
+  if (snapped === true) {
+    gradientFilter();
+    lensFlare();
+  }
 }
 
-/*If we haven’t snapped a photo yet (snapped is false)
-  display the video frame for snapshot
-  set snapped to true and remove the video feed, leaving only the still photo we took */
+/*まだ写真を撮っていない場合（snappedがfalse）
+  スナップショット用のビデオフレームを表示
+  snappedをtrueに設定し、ビデオフィードを削除して撮影した静止画だけを残す */
 function takeSnap() {
-  if (snapped === false) {
-    image(video, 0, 0);
-    snapped = true;
-    video.remove();
-  }
+  if (snapped === false) {
+    image(video, 0, 0);
+    snapped = true;
+    video.remove();
+  }
 }
 
-//Draws circles filled with radial gradients when we click the screen
-//Each circle’s size and color are a random value contained in the diameter and h variables
+//画面をクリックしたときに放射状グラデーションで塗りつぶされた円を描画
+//各円のサイズと色はdiameterとh変数に含まれるランダムな値
 function lensFlare() {
-  let diameter = random(50, 200);
-  let h = random(150, 360);
-  for (let d = diameter; d > 0; d -= 1) {
-    fill(h, 90, 90);
-    circle(mouseX, mouseY, d);
-    h = (h + 1) % 360;
-  }
+  let diameter = random(50, 200);
+  let h = random(150, 360);
+  for (let d = diameter; d > 0; d -= 1) {
+    fill(h, 90, 90);
+    circle(mouseX, mouseY, d);
+    h = (h + 1) % 360;
+  }
 }
 
-//Draws a linear gradient on the screen using a for loop and lerpColor
+//forループとlerpColorを使用して画面に線形グラデーションを描画
 function gradientFilter() {
-  let startColor = color(0, 100, 50);
-  let endColor = color(60, 100, 50);
-  for (let y = 0; y < height; y += 1) {
-    let amt = map(y, 0, height, 0, 1);
-    let gradColor = lerpColor(startColor, endColor, amt);
-    stroke(gradColor);
-    line(0, y, width, y);
-  }
+  let startColor = color(0, 100, 50);
+  let endColor = color(60, 100, 50);
+  for (let y = 0; y < height; y += 1) {
+    let amt = map(y, 0, height, 0, 1);
+    let gradColor = lerpColor(startColor, endColor, amt);
+    stroke(gradColor);
+    line(0, y, width, y);
+  }
 }
 ```
 
-Hit play for the final result, and click on different parts of the photo to add several lens flare effects. 
+最終結果を見るために再生ボタンを押し、写真の異なる部分をクリックして複数のレンズフレア効果を追加します。
 
-![A webcam snapshot of a white person with short dark curly hair wearing pink heart shaped glasses posing for a picture. There is a red to yellow linear gradient filter on top of the photo. Colorful circles are scattered on top of the image with a color gradient overlay. The circles have randomized radial color gradients inside them to mimic a camera's lens flare. Some color gradients are pink to purple, cyan to green, or yellow to orange.](../images/drawing/radial-gradients.png)
+![ピンクのハート型メガネをかけた短い黒い巻き毛の白人の写真を撮影したウェブカムのスナップショット。写真の上に赤から黄色の線形グラデーションフィルターがかかっています。カラフルな円が画像の上に散りばめられ、カラーグラデーションのオーバーレイがあります。円の中にはカメラのレンズフレアを模した、ランダムな放射状カラーグラデーションがあります。一部のカラーグラデーションはピンクから紫、シアンから緑、黄色からオレンジなどです。](../images/drawing/radial-gradients.png)
 
-Keep adding stickers, and you’ll be able to cover the entire photo. Note how the `LIGHTEST` `blendMode()` interacts with the different layers of your canvas.
+ステッカーを追加し続けると、写真全体を覆うことができます。`LIGHTEST` `blendMode()`がキャンバスの異なるレイヤーとどのように相互作用するかに注目してください。
 
-![A white person with short dark curly hair wearing pink heart shaped glasses posing. Image with lens flares all over the photo, so the entire canvas is overtaken with multicolored lens flares, and we only see a faint image of the person underneath.](../images/drawing/more-radial-gradients.png)
+![ピンクのハート型メガネをかけた短い黒い巻き毛の白人がポーズをとっています。写真全体にレンズフレアがかかっており、キャンバス全体が多色のレンズフレアで覆われ、下の人物の画像がかすかに見えるだけです。](../images/drawing/more-radial-gradients.png)
 
 
 <Callout>
-Change the `blendMode` to different settings to see how they affect the sketch! We chose `LIGHTEST`, but you can find the complete list of options in the p5.js reference page for [`blendMode`](/reference/p5/blendMode). 
+`blendMode`を異なる設定に変更して、スケッチにどのような影響があるか確認してください！私たちは`LIGHTEST`を選択しましたが、完全なオプションリストは[`blendMode`](/reference/p5/blendMode)のp5.jsリファレンスページで確認できます。
 
-[Example.](https://editor.p5js.org/juleskris/sketches/BkHU6ZLSO)
+[例。](https://editor.p5js.org/juleskris/sketches/BkHU6ZLSO)
 </Callout>
 
 
-### Conclusion
+### まとめ
 
-In this tutorial, you learned how to instantiate a view of the webcam, use [`circle`](/reference/p5/circle) to create radial gradients, use [`line`](/reference/p5/line) to create linear gradients, and use the [color()](/reference/p5/color), [lerpColor()](/reference/p5/lerpColor), and [blendMode()](/reference/p5/blendMode) functions to create lens flare stickers to apply to your photos. In our next tutorial, we’ll use `beginShape()`, `endShape()`, `vertex()`, `bezier()`, and `bezierVertex()` to create even more unique stickers!
+このチュートリアルでは、ウェブカムのビューをインスタンス化し、[`circle`](/reference/p5/circle)を使用して放射状グラデーションを作成し、[`line`](/reference/p5/line)を使用して線形グラデーションを作成し、[color()](/reference/p5/color)、[lerpColor()](/reference/p5/lerpColor)、[blendMode()](/reference/p5/blendMode)関数を使用して写真に適用するレンズフレアステッカーを作成する方法を学びました。次のチュートリアルでは、`beginShape()`、`endShape()`、`vertex()`、`bezier()`、`bezierVertex()`を使用して、さらにユニークなステッカーを作成します！
 
-Here's [example code for the completed project](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq) for reference.
-
-
-### Next Steps
-
-Continue on to the next lesson: [Custom Shapes and Smooth Curves](/tutorials/custom-shapes-and-smooth-curves)!
+参考のために、[完成したプロジェクトのサンプルコード](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq)があります。
 
 
-### Resources
+### 次のステップ
 
-- [State machine - MDN Glossary](https://developer.mozilla.org/en-US/docs/Glossary/State_machine)
-- [Using CSS Gradients - MDN tutorial](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients)
-- [Gradient - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient)
-- [Radial gradient - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient)
-- [Blend mode - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode)
-- [Linear gradient - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient)
+次のレッスンに進みましょう：[カスタムシェイプとスムーズカーブ](/tutorials/custom-shapes-and-smooth-curves)！
+
+
+### リソース
+
+- [ステートマシン - MDN用語集](https://developer.mozilla.org/en-US/docs/Glossary/State_machine)
+- [CSSグラデーションの使用 - MDNチュートリアル](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients)
+- [グラデーション - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient)
+- [放射状グラデーション - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient)
+- [ブレンドモード - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode)
+- [線形グラデーション - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient)
 - [p5.js Web Editor](https://editor.p5js.org/son/sketches/LuJ2eGf9p)
