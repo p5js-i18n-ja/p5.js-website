@@ -1,10 +1,10 @@
 ---
-title: "Custom Shapes and Smooth Curves"
-description: Use vertex(), bezierVertex(), beginShape() and endShape() to create angular and curved sparkle stickers to place on top of your webcam selfie.
+title: "カスタムシェイプとスムーズな曲線"
+description: vertex()、bezierVertex()、beginShape()、endShape()を使用して、角張ったものと曲線のスパークルステッカーを作成し、ウェブカムのセルフィーの上に配置します。
 category: drawing
 categoryIndex: 1
 featuredImage: ../images/featured/CustomShapesSmoothCurvesA.png
-featuredImageAlt: A white person with short, dark curly hair wears pink heart-shaped glasses and a dark sleeveless shirt. He places his hand on his cheek and looks diagonally to the left, smiling softly. A vertical linear blue to pink gradient is overlaid. On top of that, we see a mixture of angular and curved white 4-pointed sparkles of varying sizes, with an angular sparkle over the left lens of his glasses, and a curved sparkle over the right lens. We see pink and blue radial gradient circles layered on top, creating a lens flare effect.
+featuredImageAlt: 短い暗い巻き毛の白人が、ピンクのハート型メガネと暗い袖なしシャツを着ています。彼は頬に手を当て、左斜め上を見て、優しく微笑んでいます。垂直の青からピンクへのグラデーションが重ねられています。その上に、様々なサイズの角張ったものと曲線の白い4点スパークルが混在しており、メガネの左レンズの上に角張ったスパークル、右レンズの上に曲線のスパークルがあります。ピンクと青の放射状グラデーション円が上に重ねられ、レンズフレア効果を作り出しています。
 relatedContent:
   references:
     - en/p5/vertex
@@ -21,136 +21,136 @@ authors:
 
 import Callout from "../../../components/Callout/index.astro";
 
-## Introduction
+## はじめに
 
-Welcome! This Drawing chapter provides an introduction to drawing custom shapes constructed from straight and curved line segments using `vertex()` and `bezierVertex()` functions. You’ll use these techniques in combination with `beginShape()` and `endShape()` to create [sparkle stickers](https://editor.p5js.org/juleskris/sketches/IZa2De7xH) for the sticker-based photo decorating app from the [Color Gradients](/tutorials/color-gradients) tutorial. 
-
-
-## Prerequisites
-
-To follow along with this tutorial, you should have completed:
-
-1. [Introduction to p5.js:](/tutorials/get-started)
-
-  It is required for you to have finished and understood the previous chapter “Introduction to p5.js”. This will give you a basic understanding of the p5.js library.
-
-2. [Creating Color Gradients](/tutorials/color-gradients) tutorial:
-
-   This chapter is a continuation of the [Creating Color Gradients](/tutorials/color-gradients), which provides the starting code for this sketch and introduces linear gradients, radial gradients, and some blending mode techniques.
+ようこそ！この描画の章では、`vertex()`と`bezierVertex()`関数を使用して、直線と曲線のセグメントで構成されたカスタムシェイプの描画について紹介します。これらのテクニックを`beginShape()`と`endShape()`と組み合わせて使用し、[Color Gradients](/tutorials/color-gradients)チュートリアルのステッカーベースの写真装飾アプリ用の[スパークルステッカー](https://editor.p5js.org/juleskris/sketches/IZa2De7xH)を作成します。
 
 
-## Step 1 – Open your Creating Color Gradients sketch  
+## 前提条件
 
-To prepare the sketch for adding sparkles, let’s set up a few things.
+このチュートリアルを進めるには、以下を完了している必要があります：
 
-- Open your code from the Creating Color Gradients tutorial, and if you haven’t done that or need a fresh copy, you can start with [this template code.](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq) 
-- Let’s adjust the values of the linear gradient to emulate a dreamy night sky by changing `startColor` to `color(200, 100, 100)` for a bright and saturated blue and `endColor` to `color(300, 100, 100)` for a bright and saturated magenta.
-- For now, comment out where we call the `lensFlare()` function inside `mousePressed()`. We’ll come back to it later.
+1. [p5.jsの紹介:](/tutorials/get-started)
 
-Your code should look something like this:
+  前章の「p5.jsの紹介」を完了し、理解していることが必要です。これにより、p5.jsライブラリの基本的な理解が得られます。
+
+2. [カラーグラデーションの作成](/tutorials/color-gradients)チュートリアル：
+
+   この章は[カラーグラデーションの作成](/tutorials/color-gradients)の続きで、このスケッチの開始コードを提供し、線形グラデーション、放射状グラデーション、およびいくつかのブレンドモードテクニックを紹介します。
+
+
+## ステップ1 – カラーグラデーションの作成スケッチを開く
+
+スパークルを追加するためにスケッチを準備しましょう。
+
+- カラーグラデーションの作成チュートリアルからコードを開き、それを行っていないか新しいコピーが必要な場合は、[このテンプレートコード](https://editor.p5js.org/juleskris/sketches/9kVjcL1Vq)から始めることができます。
+- 夢のような夜空を模倣するために線形グラデーションの値を調整しましょう。`startColor`を`color(200, 100, 100)`（明るく彩度の高い青）に、`endColor`を`color(300, 100, 100)`（明るく彩度の高いマゼンタ）に変更します。
+- 今のところ、`mousePressed()`内で`lensFlare()`関数を呼び出している部分をコメントアウトしてください。後でそれに戻ります。
+
+コードは以下のようになるはずです：
 
 ```js
 let video;
 let snapped = false;
 
 function setup() {
-  createCanvas(640, 480);
-  colorMode(HSB, 360, 100, 100);
+  createCanvas(640, 480);
+  colorMode(HSB, 360, 100, 100);
 
-  //instantiate the VIDEO object, and draw it on the screen at 0, 0 
-  video = createCapture(VIDEO);
-  video.position(0, 0);
+//VIDEOオブジェクトをインスタンス化し、画面の0, 0に描画する
+  video = createCapture(VIDEO);
+  video.position(0, 0);
 
-  //When we click the snap button, run the takeSnap function
-  let snapButton = createButton('snap');
-  snapButton.mouseClicked(takeSnap);
+//スナップボタンをクリックしたら、takeSnap関数を実行する
+  let snapButton = createButton('snap');
+  snapButton.mouseClicked(takeSnap);
 
-  blendMode(LIGHTEST);
-
-  noStroke();
+  blendMode(LIGHTEST);
+  
+  noStroke();
 }
 
 function mousePressed() {
-  if (snapped === true) {
-    gradientFilter();
-    // lensFlare();
-  }
+  if (snapped === true) {
+    gradientFilter();
+    // lensFlare();
+  }
 }
 
-//If we haven’t snapped a photo yet, we see our webcam video feed
-//Once we run the takeSnap function, set snapped to true and remove the video feed, leaving only the still photo we took
+//写真をまだスナップしていない場合、ウェブカムのビデオフィードが表示される
+//takeSnap関数を実行すると、snappedをtrueに設定し、ビデオフィードを削除して、撮影した静止画だけを残す
 function takeSnap() {
-  if (snapped === false) {
-    image(video, 0, 0);
-    snapped = true;
-    video.remove();
-  }
+  if (snapped === false) {
+    image(video, 0, 0);
+    snapped = true;
+    video.remove();
+  }
 }
 
-//Draws circles filled with radial gradients when we click the screen
-//Each circle’s size and color are a random value contained in the diameter and h variables
+//画面をクリックしたときに放射状グラデーションで塗りつぶされた円を描画する
+//各円のサイズと色は、diameterとh変数に含まれるランダムな値
 function lensFlare() {
-  let diameter = random(50, 200);
-  let h = random(150, 360);
-  for (let d = diameter; d > 0; d -= 1) {
-    fill(h, 90, 90);
-    circle(mouseX, mouseY, d);
-    h = (h + 1) % 360;
-  }
+  let diameter = random(50, 200);
+  let h = random(150, 360);
+  for (let d = diameter; d > 0; d -= 1) {
+    fill(h, 90, 90);
+    circle(mouseX, mouseY, d);
+    h = (h + 1) % 360;
+  }
 }
-
-//Draws a linear gradient on the screen using a for loop and lerpColor
+//for loopとlerpColorを使用して画面に線形グラデーションを描画する
 function gradientFilter() {
-  let startColor = color(200, 100, 100);
-  let endColor = color(300, 100, 100);
-  for (let y = 0; y < height; y += 1) {
-    let amt = map(y, 0, height, 0, 1);
-    let gradColor = lerpColor(startColor, endColor, amt);
-    stroke(gradColor);
-    line(0, y, width, y);
-  }
+  let startColor = color(200, 100, 100);
+  let endColor = color(300, 100, 100);
+  for (let y = 0; y < height; y += 1) {
+    let amt = map(y, 0, height, 0, 1);
+    let gradColor = lerpColor(startColor, endColor, amt);
+    stroke(gradColor);
+    line(0, y, width, y);
+  }
 }
 ```
 
-Now run the code. You may have to allow permission for the p5.js editor to access your webcam.
 
-![The modal Chrome shows when p5.js requests camera access. It says, "editor.p5js.org wants to use your camera" followed by buttons labelled "Allow this time," "Allow on every visit," and "Don't allow"](../images/drawing/chrome-camera.png)
+コードを実行してください。p5.jsエディタがウェブカムにアクセスする許可を求める必要があるかもしれません。
 
-Click the “snap” button, then click on the new photo to apply the color gradient effect. The result should look something like this:
+![p5.jsがカメラアクセスを要求したときにChromeが表示するモーダル。「editor.p5js.orgがカメラを使用したいと要求しています」と表示され、その後に「今回のみ許可」「毎回許可」「許可しない」というラベルのボタンが続きます](../images/drawing/chrome-camera.png)
 
-![A white person with short dark curly hair, a dark sleeveless t-shirt, and pink heart shaped glasses tilts his head and looks down at the camera, smiling softly. A blue to pink vertical linear gradient is overlaid on top of the photo.  Because of the LIGHTEST blendMode we're using, the colorful gradient is especially visible on his dark hair and dark shirt.](../images/drawing/gradient-snap.png)
+「snap」ボタンをクリックし、その後新しい写真をクリックしてカラーグラデーション効果を適用します。結果は以下のようになるはずです：
+
+![短い暗い巻き毛の白人が、暗い袖なしTシャツとピンクのハート型メガネを着用し、頭を傾けてカメラを見下ろし、優しく微笑んでいます。青からピンクへの垂直の線形グラデーションが写真の上に重ねられています。使用しているLIGHTESTブレンドモードのため、カラフルなグラデーションは特に彼の暗い髪と暗いシャツで目立ちます。](../images/drawing/gradient-snap.png)
 
 <Callout>
-Think about the mood you want to set. A night sky is chosen here, but you might want something else! Try creating a variable with a third lerpColor, so our gradient goes between three colors instead of two.
+設定したい雰囲気について考えてください。ここでは夜空を選んでいますが、他のものを望むかもしれません！第三のlerpColorで変数を作成し、グラデーションが2色ではなく3色の間で変化するようにしてみてください。
 </Callout>
 
 
-## Step 2 – Create sparkles using the `vertex()` function  
+## ステップ2 – `vertex()`関数を使用してスパークルを作成する
 
-We’ll create angular sparkles made of vertices connected by straight lines using `vertex()` functions. A vertex (plural: vertices) is a point at an x-y coordinate where lines meet to form an angle that we can use to define different polygonal shapes such as triangles, quadrilaterals, and, of course, stars.
+`vertex()`関数を使用して、直線で接続された頂点で作られた角張ったスパークルを作成します。頂点（複数形：vertices）は、x-y座標上の点で、線が交わって角度を形成し、三角形、四角形、そしてもちろん星形などのさまざまな多角形を定義するのに使用できます。
 
-- Define a new function and name it `sparkle()`
-- Inside the `sparkle()` function: 
-  - We’ll want to be able to paste our sparkles as stickers, just like we pasted the lens flares in the previous chapter. Add a `push()` to the beginning of the sparkle function, and a `pop()` to the end of the sparkle function. Then, write `translate(mouseX, mouseY)`. The translate function will shift our shape’s vertex values to move to wherever we click the mouse. The `push()` and `pop()` functions ensure that our `translate` function only runs inside our `sparkle()` function and does not accidentally translate other elements of our sketch.
-  - We’ll start by drawing a white line to demonstrate how the `vertex()` function works.
-  - Write `stroke(255)` to make the line white.
-  - For shapes defined using `vertex()` functions, start with a `beginShape()` function. 
-  - Add a `vertex(100, 100)` to create your first point at an x-y coordinate of (100, 100). The vertex function takes an x value, a y value, and an optional z value. We don’t need the z value because that is for 3-dimensional coordinates, and this is a 2D sketch.
-  - Add a second vertex to form a straight line by writing `vertex(200, 200)`.
-  - As you continue to create more vertex points, they’ll connect to each other by straight lines. For now, end the shape with an `endShape(CLOSE)` function.
+- 新しい関数を定義し、`sparkle()`と名付けます
+- `sparkle()`関数の中で：
+  - 前の章でレンズフレアを貼り付けたように、スパークルをステッカーとして貼り付けられるようにしたいです。sparkle関数の始めに`push()`を、終わりに`pop()`を追加します。そして、`translate(mouseX, mouseY)`を書きます。translate関数は、シェイプの頂点の値をシフトして、マウスをクリックした場所に移動させます。`push()`と`pop()`関数は、`translate`関数が`sparkle()`関数内でのみ実行され、スケッチの他の要素を誤って変換しないようにします。
+  - `vertex()`関数の動作を示すために、まず白い線を描きます。
+  - `stroke(255)`を書いて、線を白くします。
+  - `vertex()`関数を使用して定義されたシェイプの場合、`beginShape()`関数から始めます。
+  - `vertex(100, 100)`を追加して、x-y座標(100, 100)に最初の点を作成します。vertex関数はx値、y値、そしてオプションのz値を取ります。これは2Dスケッチなので、3次元座標用のz値は必要ありません。
+  - `vertex(200, 200)`を書いて、直線を形成する2番目の頂点を追加します。
+  - 頂点を追加し続けると、それらは直線で互いに接続されます。今のところ、`endShape(CLOSE)`関数でシェイプを終了します。
 
-If we add `sparkle()` inside the if statement within the `mousePressed()` function, we’ll see the line we just made when we hit play on our sketch and click on the canvas:
- 
+`mousePressed()`関数内のif文の中に`sparkle()`を追加すると、スケッチを再生してキャンバスをクリックしたときに、作成した線が表示されます：
+ 
 
-![A white person with short dark curly hair, a dark sleeveless t-shirt, and pink heart shaped glasses tilts his head and looks down at the camera, smiling softly. We have added a thin diagonal white line on top of our photo to demonstrate how to draw a simple vertex shape.](../images/drawing/snap-with-line.png)
+![短い暗い巻き毛の白人が、暗い袖なしTシャツとピンクのハート型メガネを着用し、頭を傾けてカメラを見下ろし、優しく微笑んでいます。単純な頂点シェイプの描画方法を示すために、写真の上に細い対角線の白い線を追加しました。](../images/drawing/snap-with-line.png)
 
-We’ll now add some randomness to our `vertex()` functions to vary their size.
+次に、`vertex()`関数にランダム性を追加して、サイズを変化させます。
 
-- Create a variable called `innerRadius` and set it equal to `random(3, 5),` then create a second variable called `outerRadius` and set it to equal `random(10, 50)`. This will allow us to add variation to the size and shape of each sparkle we create.
+- `innerRadius`という変数を作成し、`random(3, 5)`に設定します。次に、`outerRadius`という2番目の変数を作成し、`random(10, 50)`に設定します。これにより、作成する各スパークルのサイズと形状に変化を加えることができます。
 
-- Delete `vertex(100, 100)` and replace `vertex(200, 200)` with `vertex(-innerRadius, innerRadius);`
+- `vertex(100, 100)`を削除し、`vertex(200, 200)`を`vertex(-innerRadius, innerRadius);`に置き換えます。
 
-- To draw a 4-pointed sparkle, we’ll need to create 8 symmetrical vertex points. We’re making this easier for ourselves by using our `innerRadius` and  `outerRadius` variables. Here is how we’ll draw our sparkle:
+- 4点のスパークルを描くには、8つの対称的な頂点を作成する必要があります。`innerRadius`と`outerRadius`変数を使用することで、これを簡単にしています。以下がスパークルの描き方です：
 
   ```js
   vertex(-innerRadius, innerRadius);
@@ -163,114 +163,111 @@ We’ll now add some randomness to our `vertex()` functions to vary their size.
   vertex(-outerRadius, 0);
   ```
 
-Here, we can see how this inversion works to create a 4-pointed sparkle in this diagram, where we see the coordinates of each vertex:
+ここで、この反転がどのように4点のスパークルを作成するかを、各頂点の座標が表示されているこの図で見ることができます：
 
-![A four-pointed star with coordinates labelled at every vertex](../images/drawing/four-corner-sparkle.png)
+![各頂点に座標がラベル付けされた4点の星](../images/drawing/four-corner-sparkle.png)
 
-- In this example, innerRadius is 5 and outerRadius is 50.
-- Notice how every second vertex is an inversion of the other. The outer points mirror each other vertically/horizontally, and the inner points mirror each other diagonally. This maintains the symmetry of our sparkle shape.
-- Call the `sparkle()` function within the `mousePressed()` function, on the line just below  `gradientFilter()`.
+- この例では、innerRadiusは5、outerRadiusは50です。
+- 2つおきの頂点が他の頂点の反転になっていることに注目してください。外側の点は垂直/水平に互いに鏡像になっており、内側の点は対角線上に互いに鏡像になっています。これにより、スパークルの形状の対称性が維持されます。
+- `mousePressed()`関数内の`gradientFilter()`の直下の行に`sparkle()`関数を呼び出します。
 
 
-Your code should look like this:
+コードは以下のようになるはずです：
 
 ```js
 function sparkle() {
-  push();
-
-  // Translate the coordinate space so that (0, 0) matches mouse coordinates.
-  translate(mouseX, mouseY);
-
-  // Define a random inner and outer radius for each star.
-  let innerRadius = random(3, 5);
-  let outerRadius = random(10, 50);
-
-  // Draw the star shape.
-  beginShape();
-  vertex(-innerRadius, innerRadius);
-  vertex(0, outerRadius);
-  vertex(innerRadius, innerRadius);
-  vertex(outerRadius, 0);
-  vertex(innerRadius, -innerRadius);
-  vertex(0, -outerRadius);
-  vertex(-innerRadius, -innerRadius);
-  vertex(-outerRadius, 0);
-  endShape(CLOSE);
-
-  pop();
+  push();
+  
+  // マウスの位置に座標空間を移動させ、(0, 0)がマウス座標と一致するようにします。
+  translate(mouseX, mouseY);
+  
+  // 各星の内側と外側の半径をランダムに定義します。
+  let innerRadius = random(3, 5);
+  let outerRadius = random(10, 50);
+  
+  // 星の形を描きます。
+  beginShape();
+  vertex(-innerRadius, innerRadius);
+  vertex(0, outerRadius);
+  vertex(innerRadius, innerRadius);
+  vertex(outerRadius, 0);
+  vertex(innerRadius, -innerRadius);
+  vertex(0, -outerRadius);
+  vertex(-innerRadius, -innerRadius);
+  vertex(-outerRadius, 0);
+  endShape(CLOSE);
+  
+  pop();
 }
 ```
 
-Hit play, and you’ll see your modified blue-to-pink gradient filter and 4-sided sparkle stickers of varying sizes that appear wherever you click the canvas. 
+再生ボタンを押すと、修正された青からピンクへのグラデーションフィルターと、キャンバスをクリックするたびに様々なサイズの4辺のスパークルステッカーが表示されます。
 
-![A white person with short dark curly hair and pink heart shaped glasses tilts his head. We have added 4-pointed angular white sparkles of varying sizes all over the photo. We also see a sparkle placed over each lens of the person's heart shaped glasses
-](../images/drawing/snap-sparkles.png)
+![短い暗いカールヘアとピンクのハート型メガネを着けた白人が頭を傾けています。写真全体に様々なサイズの4点の角張った白い輝きを追加しました。また、その人のハート型メガネの各レンズの上にも輝きが配置されています。](../images/drawing/snap-sparkles.png)
 
 <Callout>
-We’ve started with four points. Use what we’ve learned about vertices to add more points to these sparkles! Pay attention to how even and odd-numbered sparkles require different calculations to achieve symmetry.
+私たちは4つの点から始めました。頂点について学んだことを使って、これらの輝きにもっと点を追加してみましょう！偶数と奇数の輝きで、対称性を達成するための計算が異なることに注意してください。
 </Callout>
 
 
-## Step 3 – The Bézier Curve Interlude
+## ステップ3 – ベジェ曲線の間奏
 
-We’ve now successfully drawn angular sparkles using the `vertex()` function! You can draw more interesting shapes using curved lines, and Bézier curves are one good way to do that. They define curves using a pair of anchor points (the grey circles below) and a pair of control points (the red points below.) Here’s what they look like. The curve itself is in black, with the grey lines showing how the points relate to the final curve.
+これで`vertex()`関数を使って角張った輝きを描くことに成功しました！曲線を使ってより面白い形を描くこともできます。ベジェ曲線はそのための良い方法の1つです。ベジェ曲線は、アンカーポイントのペア（下の灰色の円）と制御点のペア（下の赤い点）を使って曲線を定義します。以下がその様子です。曲線自体は黒で、灰色の線は各点が最終的な曲線にどのように関係しているかを示しています。
 
-![A simple symmetrical bezier curve with handles, showing the application of anchor points and control points.](../images/drawing/bezier_with_lines.png)
+![ハンドル付きの単純な対称的なベジェ曲線で、アンカーポイントと制御点の適用を示しています。](../images/drawing/bezier_with_lines.png)
 
-Here’s how you can draw that Bézier curve using the `bezier()` function. This curve is drawn by calling `bezier(100, 150, 50, 50, 250, 50, 200, 150)`:
+`bezier()`関数を使ってそのベジェ曲線を描く方法は以下の通りです。この曲線は`bezier(100, 150, 50, 50, 250, 50, 200, 150)`を呼び出すことで描かれます：
 
-![A simple symmetrical bezier curve. Our two anchor points are (100, 150) and (200, 150). Our two control points are (50, 50) and (250, 50).](../images/drawing/bezier_curve.png)
+![単純な対称的なベジェ曲線。2つのアンカーポイントは(100, 150)と(200, 150)です。2つの制御点は(50, 50)と(250, 50)です。](../images/drawing/bezier_curve.png)
 
-Next up, we’ll use `bezierVertex()` to form a shape by connecting Bézier curves.
+次に、`bezierVertex()`を使ってベジェ曲線を接続して形を作ります。
 
 <Callout>
-Change the numbers in the third, fourth, fifth, and sixth parameters within bezier to change the control points and see how that affects the shape!
+bezier関数内の3番目、4番目、5番目、6番目のパラメータの数値を変更して、制御点を変更し、それが形状にどのように影響するかを確認してみてください！
 </Callout>
 
 
-## Step 4 – Create rounded sparkles using the `bezierVertex()` function  
+## ステップ4 – `bezierVertex()`関数を使って丸みを帯びた輝きを作成する
 
-A `bezierVertex()` function begins with an anchor point at the very top, which we call using the `vertex()` function, like we did for the pointed sparkle. This time, however, instead of calling another `vertex()` function to create our shape, we’ll call the `bezierVertex()` function. If you’ve ever used Adobe Illustrator, or similar vector-based illustration software, you’ve probably used bezier curves! `bezierVertex()` works by creating invisible control points, similar to the handles used to manipulate bezier curves in vector graphics software.
+`bezierVertex()`関数は、先端に1つのアンカーポイントから始まります。これは、尖った輝きの時と同様に`vertex()`関数を使って呼び出します。しかし今回は、形を作るために別の`vertex()`関数を呼び出す代わりに、`bezierVertex()`関数を呼び出します。Adobe Illustratorや類似のベクターベースのイラストソフトウェアを使ったことがあれば、おそらくベジェ曲線を使ったことがあるでしょう！`bezierVertex()`は、ベクターグラフィックソフトウェアでベジェ曲線を操作するのに使用されるハンドルに似た、目に見えない制御点を作成することで機能します。
 
- 
-- For now, comment out where we call the `sparkle()` function inside `mousePressed()`. We’ll come back to it later.
-- Define a new function called `curvedSparkle()`
-- Add `push()` and `pop()` functions, and between those, a `translate(mouseX, mouseY)`, just like you did in the `sparkle()` function before.
+- 今のところ、`mousePressed()`内で`sparkle()`関数を呼び出している箇所をコメントアウトしてください。後でまた戻ってきます。
+- `curvedSparkle()`という新しい関数を定義してください。
+- 以前の`sparkle()`関数と同様に、`push()`と`pop()`関数を追加し、その間に`translate(mouseX, mouseY)`を入れてください。
 
-To create a curved line, we’ll need to use the [`bezierVertex()`](/reference/p5/bezierVertex) function. 
+曲線を作成するには、[`bezierVertex()`](/reference/p5/bezierVertex)関数を使用する必要があります。
 
-- Just like we did for the pointed sparkles, we’ll begin our shape with `beginShape()`, and end it with `endShape()`.
-- Any shape with `bezierVertex()` functions must still begin with a `vertex()` function. We’ll call `vertex(x, y)` first. This acts as the first point in our shape.
-  - `x` and `y` represent the x-y coordinates for the first vertex in our star.
-- Next, we’ll call the `bezierVertex()` function. Since we’re working on a 2D sketch, the function takes six parameters, ordered as follows: 
-  - the x-coordinate for the first control point
-  - the y-coordinate for the first control point
-  - the x-coordinate for the second control point
-  - the y-coordinate for the second control point
-  - the x-coordinate for the anchor point
-  - the y-coordinate for the anchor point
+- 尖った輝きの時と同様に、`beginShape()`で形を始め、`endShape()`で終わります。
+- `bezierVertex()`関数を持つ形は、必ず`vertex()`関数から始める必要があります。まず`vertex(x, y)`を呼び出します。これが形の最初の点となります。
+  - `x`と`y`は、星の最初の頂点のx-y座標を表します。
+- 次に、`bezierVertex()`関数を呼び出します。2Dスケッチで作業しているため、この関数は以下の順序で6つのパラメータを取ります：
+  - 最初の制御点のx座標
+  - 最初の制御点のy座標
+  - 2番目の制御点のx座標
+  - 2番目の制御点のy座標
+  - アンカーポイントのx座標
+  - アンカーポイントのy座標
 
-Now that you have some context, let’s begin our shape!
+これで文脈が分かったので、形を作り始めましょう！
 
-![The beginnings of a new bezier curve, only showing the first two anchor points at (0, -100) and (100, 0).](../images/drawing/bezier-segment.png)
-
+![新しいベジェ曲線の始まりで、(0, -100)と(100, 0)の最初の2つのアンカーポイントのみを示しています。](../images/drawing/bezier-segment.png)
 
 ```js
-// Draw the curved star shape.
+// 曲線の星形を描く
 beginShape();
 
-// Original anchor at top.
-vertex(0, -100);     // anchor point 1
+// 上部の元のアンカー
+vertex(0, -100);     // アンカーポイント1
 
-// Top-right curve.
-bezierVertex(0, -50, // control point 1 x-y coord
-             50, 0,  // control point 2 x-y coord
-             100, 0  // anchor point 2
+// 右上の曲線
+bezierVertex(0, -50, // 制御点1のx-y座標
+             50, 0,  // 制御点2のx-y座標
+             100, 0  // アンカーポイント2
 );
 endShape();
 ```
 
-You may be wondering where the control points are since it looks like there are only two points and a line between them. The control points are invisibly controlling the curve of the line! Here is how that would work:
+2点とその間の線しかないように見えるため、制御点がどこにあるのか疑問に思うかもしれません。制御点は目に見えない形で線の曲線を制御しています！以下がその仕組みです：
 
 ```js
 stroke('orange');
@@ -279,278 +276,275 @@ line(50, 0, 100, 0);
 circle(0, -50, 5);
 ```
 
-Here, we can see the control points visualized as circles, with lines connecting them to the anchor points:
+ここでは、制御点が円として可視化され、アンカーポイントに線で接続されているのが分かります：
 
-![The beginnings of a new bezier curve, now showing both the first two anchor points at (0, -100) and (100, 0) and the first two control points at (0, -50) and (50, 0).](../images/drawing/bezier-control-points.png)
+![新しいベジェ曲線の始まりで、(0, -100)と(100, 0)の最初の2つのアンカーポイントと、(0, -50)と(50, 0)の最初の2つの制御点を示しています。](../images/drawing/bezier-control-points.png)
 
-Let’s go back to our main sketch and continue to build out our curved sparkle shape! We’ll use the same variables as before, but we’ll alter them by making them negative and adding or subtracting proportional numbers.
+メインのスケッチに戻って、曲線の輝き形状を作り続けましょう！以前と同じ変数を使用しますが、それらを負にしたり、比例した数を加減したりして変更します。
 
-Let’s complete our shape:
+形を完成させましょう：
 
 ```js
-// Draw the curved star shape.
+// 曲線の星形を描く
 beginShape();
 
-// Original anchor at top.
+// 上部の元のアンカー
 vertex(0, -100);
 
-// Top-right curve.
+// 右上の曲線
 bezierVertex(0, -50, 50, 0, 100, 0);
 
-// Bottom-right curve.
+// 右下の曲線
 bezierVertex(50, 0, 0, 50, 0, 100);
 
-// Bottom-left curve.
-bezierVertex(  0, 50, -50, 0, -100, 0);
+// 左下の曲線
+bezierVertex(  0, 50, -50, 0, -100, 0);
 
-// Top-left curve.
+// 左上の曲線
 bezierVertex(-50, 0, 0,-50, 0,-100);
 endShape();
 ```
 
-- Let’s also add a `scale()` function with a `random()` function as a parameter so that each time we click, the curved sparkle randomly scales between 0.1 and 0.5 (between 10% and 50% of its original size). [`scale()`](/reference/p5/scale) is another transformation function, much like `translate()`, but instead of moving the coordinates written below it, it resizes the shape to make it larger or smaller.
+- クリックするたびに曲線の輝きがランダムに0.1から0.5（元のサイズの10%から50%）の間でスケーリングされるように、`random()`関数をパラメータとして`scale()`関数を追加しましょう。[`scale()`](/reference/p5/scale)は`translate()`と同様に変換関数ですが、その下に書かれた座標を移動する代わりに、形状のサイズを大きくしたり小さくしたりします。
 
   ```js
   let starScale = random(0.1, 0.5);
   scale(starScale);
   ```
 
-- We’ll set the fill for our curved sparkle to `fill(0, 0, 100)` to make it a bright white.
+- 曲線の輝きの塗りつぶしを`fill(0, 0, 100)`に設定して、明るい白色にします。
 
-Your `curvedSparkle()` function looks like this:
+`curvedSparkle()`関数は以下のようになります：
 
 ```js
 function curvedSparkle() {
-  push();
+  push();
 
-  // Translate to the mouse's position.
-  translate(mouseX, mouseY);
+  // マウスの位置に移動
+  translate(mouseX, mouseY);
 
-  // Scale the coordinate system.
-  let starScale = random(0.1, 0.5);
-  scale(starScale);
+  // 座標系をスケーリング
+  let starScale = random(0.1, 0.5);
+  scale(starScale);
 
-  // Set fill color.
-  fill(0, 0, 100);
+  // 塗りつぶし色を設定
+  fill(0, 0, 100);
 
-  // Draw the curved star shape.
-  beginShape();
+  // 曲線の星形を描く
+  beginShape();
 
-  // Original anchor at top.
-  vertex(0, -100);
+  // 上部の元のアンカー
+  vertex(0, -100);
 
-  // Top-right curve.
-  bezierVertex(0, -50, 50, 0, 100, 0);
+  // 右上の曲線
+  bezierVertex(0, -50, 50, 0, 100, 0);
 
-  // Bottom-right curve.
-  bezierVertex(50, 0, 0, 50, 0, 100);
+  // 右下の曲線
+  bezierVertex(50, 0, 0, 50, 0, 100);
 
-  // Bottom-left curve.
-  bezierVertex(  0, 50, -50, 0, -100, 0);
+  // 左下の曲線
+  bezierVertex(  0, 50, -50, 0, -100, 0);
 
-  // Top-left curve.
-  bezierVertex(-50, 0, 0,-50, 0,-100);
+  // 左上の曲線
+  bezierVertex(-50, 0, 0,-50, 0,-100);
 
-  endShape();
-  pop();
+  endShape();
+  pop();
 }
 ```
 
-- Call the `curvedSparkle()` function inside `mousePressed`, beneath where we call the `gradientFilter()` function.
+- `mousePressed`内の`gradientFilter()`関数を呼び出す箇所の下に、`curvedSparkle()`関数を呼び出してください。
 
-Hit play, and you’ll see your modified blue-to-pink gradient filter and 4-pointed *curved* sparkle stickers of varying sizes that appear wherever you click the canvas. 
+再生ボタンを押すと、修正された青からピンクのグラデーションフィルターと、キャンバス上でクリックした場所に現れる様々なサイズの4点*曲線*輝きステッカーが表示されます。
 
-
-![A white person with short dark curly hair, a dark sleeveless t-shirt, and pink heart shaped glasses rests head on hand. We have replaced the 4-pointed angular white sparkles with 4-pointed curved white sparkles of varying sizes all over the photo.](../images/drawing/curved-sparkle.png)
+![短い暗いカールヘアの白人が、暗いノースリーブのTシャツとピンクのハート型メガネを着け、手に頭を乗せています。4点の角張った白い輝きを、様々なサイズの4点の曲線の白い輝きに置き換え、写真全体に配置しています。](../images/drawing/curved-sparkle.png)
 
 <Callout>
-Try changing the values of the control points to see how it changes the curves of the sparkles!
+制御点の値を変更して、輝きの曲線がどのように変化するか試してみてください！
 
-**Hint:** You can achieve this by changing the values of the first four parameters in the `bezierVertex()` function.
+**ヒント：** `bezierVertex()`関数の最初の4つのパラメータの値を変更することで、これを実現できます。
 </Callout>
 
 
-## Step 5 – Switch between the three sticker types with each click
+## ステップ5 – クリックごとに3種類のステッカーを切り替える
 
-Let’s create conditional statements to switch between the lens flare, the angular sparkle, and the curved sparkle stickers.
+レンズフレア、角張った輝き、曲線の輝きステッカーを切り替えるための条件文を作成しましょう。
 
-- Create a global variable called `sparkleCounter` and set it to equal 0. This counter will increment each time we place a sticker, helping track which of the three stickers we’ll paste on the next click.
-- Inside the mousePressed() function, within the `snapped === true` block, create a set of conditional statements:
+- `sparkleCounter`というグローバル変数を作成し、0に設定します。このカウンターはステッカーを配置するたびに増加し、次のクリックで3つのステッカーのうちどれを貼り付けるかを追跡するのに役立ちます。
+- mousePressed()関数内の`snapped === true`ブロック内に、一連の条件文を作成します：
 
 ```js
 if (sparkleCounter % 3 === 0) {
-  sparkle();
+  sparkle();
 } else if (sparkleCounter % 3 === 1) {
-  curvedSparkle();
+  curvedSparkle();
 } else {
-  lensFlare();
+  lensFlare();
 }
 sparkleCounter += 1;
 ```
 
-- Let’s break down what this if statement does! It runs each time we click on the canvas. We use modulo (`%`) to divide sparkleCounter by 3 (the number of sticker functions we have) and calculate its remainder. We run a function depending on whether the remainder equals 0, 1, or something else. Each time we do that calculation, we add 1 to our sparkleCounter. This allows us to cycle through our three sticker functions each time we click on the canvas.
-- Make sure there is a `push()` at the beginning of each of your sticker functions and a `pop()` at the end of each of your sticker functions. This will ensure that the various translations we apply within those functions don’t affect anything outside of the functions.
+- このif文が何をしているのか、分解して説明しましょう！これはキャンバスをクリックするたびに実行されます。モジュロ（`%`）を使用してsparkleCounterを3（ステッカー関数の数）で割り、その余りを計算します。余りが0、1、またはそれ以外かによって関数を実行します。この計算を行うたびに、sparkleCounterに1を加えます。これにより、キャンバスをクリックするたびに3つのステッカー関数を順番に実行できます。
+- 各ステッカー関数の先頭に`push()`があり、各関数の最後に`pop()`があることを確認してください。これにより、それらの関数内で適用する様々な変換が関数外の何にも影響を与えないようになります。
 
-
-Your final code can look like this:
+最終的なコードは以下のようになります：
 
 ```js
 let video;
 let snapped = false;
 let sparkleCounter = 0;
 function setup() {
-  createCanvas(640, 480);
-  colorMode(HSB, 360, 100, 100);
-  noStroke();
+  createCanvas(640, 480);
+  colorMode(HSB, 360, 100, 100);
+  noStroke();
 
-  //instantiate the VIDEO object, and draw it on the screen at 0, 0 
-  video = createCapture(VIDEO);
-  video.position(0, 0);
+  //VIDEOオブジェクトをインスタンス化し、画面の0, 0に描画する
+  video = createCapture(VIDEO);
+  video.position(0, 0);
 
-  //When we click the snap button, run the takeSnap function
-  let snapButton = createButton("snap");
-  snapButton.mouseClicked(takeSnap);
-  blendMode(LIGHTEST);
+  //snapボタンをクリックしたときにtakeSnap関数を実行する
+  let snapButton = createButton("snap");
+  snapButton.mouseClicked(takeSnap);
+  blendMode(LIGHTEST);
 }
 
-//Cycle through our three stickers each time we press the mouse
+//マウスを押すたびに3つのステッカーを順番に切り替える
 function mousePressed() {
-  if (snapped === true) {
-    gradientFilter();
-    if (sparkleCounter % 3 === 0) {
-      sparkle();
-    } else if (sparkleCounter % 3 === 1) {
-      curvedSparkle();
-    } else {
-      lensFlare();
-    }
-    sparkleCounter += 1;
-  }
+  if (snapped === true) {
+    gradientFilter();
+    if (sparkleCounter % 3 === 0) {
+      sparkle();
+    } else if (sparkleCounter % 3 === 1) {
+      curvedSparkle();
+    } else {
+      lensFlare();
+    }
+    sparkleCounter += 1;
+  }
 }
 
 
-//If we haven’t snapped a photo yet, we see our webcam video feed
+//まだ写真を撮っていない場合は、ウェブカメラのビデオフィードが表示される
 
-//Once we run the takeSnap function, set snapped to true and remove the video feed, leaving only the still photo we took
+//takeSnap関数を実行すると、snappedをtrueに設定し、ビデオフィードを削除して、撮影した静止画だけを残す
 function takeSnap() {
-  if (snapped === false) {
-    image(video, 0, 0);
-    snapped = true;
-    video.remove();
-  }
+  if (snapped === false) {
+    image(video, 0, 0);
+    snapped = true;
+    video.remove();
+  }
 }
 
 function sparkle() {
-  push();
-  // Translate to the mouse's position.
-  translate(mouseX, mouseY);
+  push();
+  // マウスの位置に移動する
+  translate(mouseX, mouseY);
 
-  // Set the shape's vertices.
-  let vertex1 = random(3, 5);
-  let vertex2 = random(10, 50);
+  // 形状の頂点を設定する
+  let vertex1 = random(3, 5);
+  let vertex2 = random(10, 50);
 
-  // Draw the star shape.
-  beginShape();
-  vertex(-vertex1, vertex1);
-  vertex(0, vertex2);
-  vertex(vertex1, vertex1);
-  vertex(vertex2, 0);
-  vertex(vertex1, -vertex1);
-  vertex(0, -vertex2);
-  vertex(-vertex1, -vertex1);
-  vertex(-vertex2, 0);
-  endShape(CLOSE);
-  pop();
+  // 星形を描く
+  beginShape();
+  vertex(-vertex1, vertex1);
+  vertex(0, vertex2);
+  vertex(vertex1, vertex1);
+  vertex(vertex2, 0);
+  vertex(vertex1, -vertex1);
+  vertex(0, -vertex2);
+  vertex(-vertex1, -vertex1);
+  vertex(-vertex2, 0);
+  endShape(CLOSE);
+  pop();
 }
 
 function curvedSparkle() {
-  push();
+  push();
 
-  // Translate to the mouse's position.
-  translate(mouseX, mouseY);
+  // マウスの位置に移動する
+  translate(mouseX, mouseY);
 
-  // Scale the coordinate system.
-  let starScale = random(0.1, 0.5);
-  scale(starScale);
+  // 座標系をスケーリングする
+  let starScale = random(0.1, 0.5);
+  scale(starScale);
 
-  // Set fill color.
-  fill(0, 0, 100);
+  // 塗りつぶし色を設定する
+  fill(0, 0, 100);
 
-  // Draw the curved star shape.
-  beginShape();
+  // 曲線の星形を描く
+  beginShape();
 
-  // Original anchor at top.
-  vertex(0, -100);
+  // 上部の元のアンカー
+  vertex(0, -100);
 
-  // Top-right curve.
-  bezierVertex(0, -50, 50, 0, 100, 0);
+  // 右上の曲線
+  bezierVertex(0, -50, 50, 0, 100, 0);
 
-  // Bottom-right curve.
-  bezierVertex(50, 0, 0, 50, 0, 100);
+  // 右下の曲線
+  bezierVertex(50, 0, 0, 50, 0, 100);
 
-  // Bottom-left curve.
-  bezierVertex(  0, 50, -50, 0, -100, 0);
+  // 左下の曲線
+  bezierVertex(  0, 50, -50, 0, -100, 0);
 
-  // Top-left curve.
-  bezierVertex(-50, 0, 0,-50, 0,-100);
-  endShape();
-  pop();
+  // 左上の曲線
+  bezierVertex(-50, 0, 0,-50, 0,-100);
+  endShape();
+  pop();
 }
 
-//Draws circles filled with radial gradients when we click the screen
-//Each circle’s size and color are a random value contained in the diameter and h variables
+//画面をクリックしたときに放射状グラデーションで塗りつぶされた円を描く
+//各円のサイズと色はdiameterとh変数に含まれるランダムな値
 function lensFlare() {
-  push();
-  let diameter = random(50, 200);
-  let h = random(150, 360);
-  for (let d = diameter; d > 0; d -= 1) {
-    fill(h, 90, 90);
-    circle(mouseX, mouseY, d);
-    h = (h + 1) % 360;
-  }
-  pop();
+  push();
+  let diameter = random(50, 200);
+  let h = random(150, 360);
+  for (let d = diameter; d > 0; d -= 1) {
+    fill(h, 90, 90);
+    circle(mouseX, mouseY, d);
+    h = (h + 1) % 360;
+  }
+  pop();
 }
 
-//Draws a linear gradient on the screen using a for loop and lerpColor
+//forループとlerpColorを使用して画面に線形グラデーションを描く
 function gradientFilter() {
-  push();
-  let startColor = color(200, 100, 100);
-  let endColor = color(300, 100, 100);
-  for (let y = 0; y < height; y += 1) {
-    let amt = map(y, 0, height, 0, 1);
-    let gradColor = lerpColor(startColor, endColor, amt);
-    stroke(gradColor);
-    line(0, y, width, y);
-  }
-  pop();
+  push();
+  let startColor = color(200, 100, 100);
+  let endColor = color(300, 100, 100);
+  for (let y = 0; y < height; y += 1) {
+    let amt = map(y, 0, height, 0, 1);
+    let gradColor = lerpColor(startColor, endColor, amt);
+    stroke(gradColor);
+    line(0, y, width, y);
+  }
+  pop();
 }
 ```
 
-Hit play, snap your photo, click on the canvas, and you’ll be able to see the final result!
+再生ボタンを押し、写真を撮影し、キャンバスをクリックすると、最終結果を見ることができます！
 
-![A white person with short, dark curly hair wears pink heart-shaped glasses and a dark sleeveless shirt. He places his hand on his cheek and looks diagonally to the left, smiling softly. A vertical linear blue to pink gradient is overlaid. On top of that, we see a mixture of angular and curved white 4-pointed sparkles of varying sizes, with an angular sparkle over the left lens of his glasses, and a curved sparkle over the right lens. We see pink and blue radial gradient circles layered on top, creating a lens flare effect.](../images/drawing/final-snap.png)
+![短い暗いカールヘアの白人が、ピンクのハート型メガネと暗いノースリーブシャツを着ています。彼は頬に手を当て、左斜め方向を見て、優しく微笑んでいます。垂直の青からピンクへのリニアグラデーションが重ねられています。その上に、様々なサイズの角張った白い4点輝きと曲線の白い4点輝きが混在しており、メガネの左レンズの上に角張った輝きが、右レンズの上に曲線の輝きがあります。上層にピンクと青の放射状グラデーション円が重なり、レンズフレア効果を作り出しています。](../images/drawing/final-snap.png)
 
-Keep adding stickers, and you’ll be able to cover the entire screen in stickers, and see how the `LIGHTEST` blendMode interacts with all of the layers of the canvas.
+ステッカーを追加し続けると、画面全体をステッカーで覆うことができ、`LIGHTEST`ブレンドモードがキャンバスのすべてのレイヤーとどのように相互作用するかを見ることができます。
 
-![A white person with short, dark curly hair wears pink heart-shaped glasses and a dark sleeveless shirt. He places his hand on his cheek and looks diagonally to the left, smiling softly. Image is covered in angular and curved 4-pointed white sparkles and lens flares to create a humorous effect. We see only a tiny sliver of the person's face and the gradient.](../images/drawing/even-more-sparkles.png)
+![短い暗いカールヘアの白人が、ピンクのハート型メガネと暗いノースリーブシャツを着ています。彼は頬に手を当て、左斜め方向を見て、優しく微笑んでいます。画像は角張った4点輝きと曲線の4点白い輝き、そしてレンズフレアで覆われており、ユーモラスな効果を生み出しています。人物の顔とグラデーションのごくわずかな部分しか見えません。](../images/drawing/even-more-sparkles.png)
 
-[Here is the completed sketch](https://editor.p5js.org/juleskris/sketches/IZa2De7xH) for reference.
-
+[こちらが完成したスケッチ](https://editor.p5js.org/juleskris/sketches/IZa2De7xH)です。参考にしてください。
 
 <Callout>
-Use what you’ve learned so far to create a fourth sticker function, containing anything from the previous lessons. Then, add it to our existing conditional statement within mousePressed so the sketch cycles through all four shape functions each time you click the canvas.
+これまでに学んだことを使って、前のレッスンの内容を含む4つ目のステッカー関数を作成してください。そして、それをmousePressed内の既存の条件文に追加し、キャンバスをクリックするたびに4つの形状関数すべてを順番に実行するようにしてください。
 </Callout>
 
 
-## Conclusion
+## まとめ
 
-In this tutorial, you learned how to use `vertex()` and `bezierVertex()` to create angular and curved sparkle stickers. You also learned how to use `translate()` to place custom shapes beneath your mouse pointer. Finally, you learned how to create a counter to iterate through three different functions each time you click on the canvas. Congrats! Try changing the coordinates, sizes, and color values within this sketch or even introducing your own custom shapes using what you’ve learned!
+このチュートリアルでは、`vertex()`と`bezierVertex()`を使用して角張った輝きと曲線の輝きステッカーを作成する方法を学びました。また、`translate()`を使用してマウスポインタの下にカスタム形状を配置する方法も学びました。最後に、キャンバスをクリックするたびに3つの異なる関数を繰り返し実行するカウンターの作成方法を学びました。おめでとうございます！このスケッチ内の座標、サイズ、色の値を変更したり、学んだことを使って独自のカスタム形状を導入したりしてみてください！
 
+## 次のステップ
 
-## Next Steps
+以下の他のチュートリアルを試してみてください：
 
-Try one of our other tutorials:
+- [HTMLの作成とスタイリング](/tutorials/creating-styling-html)（Webデザインの章）
+- [アブラカダブラ：手で話す](/tutorials/speak-with-your-hands)（ml5.jsとp5.js）
+- [シンプルなメロディーアプリ](/tutorials/simple-melody-app/)（Node.jsとp5.js）
 
-- [Creating and Styling HTML](/tutorials/creating-styling-html) (Web Design Chapter)
-- [Abracadabra: Speak With Your Hands](/tutorials/speak-with-your-hands) (ml5.js and p5.js)
-- [Simple Melody App](/tutorials/simple-melody-app/) (Node.js and p5.js)
