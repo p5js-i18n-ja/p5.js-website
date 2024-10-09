@@ -1,10 +1,10 @@
 ---
-title: "Coordinates and Transformations"
-description: An overview of the different ways you can position objects in WebGL mode.
+title: "座標と変換"
+description: WebGLモードでオブジェクトを配置するさまざまな方法の概要。
 category: webgl
 categoryIndex: 0
 featuredImage: ../images/featured/coordinates-and-transformations.jpg
-featuredImageAlt: A cube on top of a grid with colored lines showing its movement in 3D space.
+featuredImageAlt: 3D空間での動きを示す色付きの線が付いたグリッド上のキューブ。
 relatedContent:
   examples:
     - en/05_transformation/00_translate/description
@@ -27,38 +27,35 @@ import SketchEmbed from "../../../components/SketchEmbed/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 import fs from "node:fs/promises";
 
-This tutorial will introduce new concepts for creating 3D sketches with p5.js, including x, y, and z.
+このチュートリアルでは、p5.jsを使用して3Dスケッチを作成するための新しい概念（x、y、zを含む）を紹介します。
 
-Let's start by setting up the p5.js to use WebGL, by passing `WEBGL` as a third parameter into `createCanvas()`.
+まず、p5.jsでWebGLを使用するようにセットアップしましょう。`createCanvas()`の3番目のパラメータとして`WEBGL`を渡します。
 
 ```javascript
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  describe('A red box on a white background.');
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  describe('白い背景に赤い箱。');
 }
-
 function draw() {
-  background(255);
-  fill(255, 0, 0);
-  box();
+  background(255);
+  fill(255, 0, 0);
+  box();
 }
 ```
 
-## 3D coordinate space
+## 3D座標空間
 
-2D sketches use the x- and y-axes to define horizontal and vertical positions. 3D sketches extend this model with a z-axis which defines depth. When drawing in 2D, the point (0,0) is located at the top left corner of the screen. In WebGL mode, the origin of the sketch (0,0,0) is located in the middle of the screen. By default, the x-axis goes left to right, the y-axis goes up to down, and the z-axis goes from further to closer, “out of” the screen.
+2Dスケッチでは、x軸とy軸を使用して水平方向と垂直方向の位置を定義します。3Dスケッチはこのモデルを拡張し、奥行きを定義するz軸を追加します。2Dで描画する場合、点(0,0)は画面の左上隅にあります。WebGLモードでは、スケッチの原点(0,0,0)は画面の中央にあります。デフォルトでは、x軸は左から右へ、y軸は上から下へ、z軸は奥から手前へ、つまり画面の「外側に向かって」伸びています。
 
-![An illustration showing a 2D coordinate system on the left, showing an origin of (0,0) at its top left, and a 3D coordinate system on the right, showing an origin of (0,0,0) in its center](../images/webgl/2d3d_coordinates.png)
+![左側に2D座標系を示す図（左上に原点(0,0)がある）と、右側に3D座標系を示す図（中央に原点(0,0,0)がある）](../images/webgl/2d3d_coordinates.png)
 
-You can call [`debugMode()`](https://p5js.org/reference/#/p5/debugMode) in your `setup()` function to add a grid on the x- and z-axes and the red-green-blue x, y, and z arrows to your sketch, similar to the illustration above.
+`setup()`関数で[`debugMode()`](https://p5js.org/reference/#/p5/debugMode)を呼び出すと、x軸とz軸上のグリッドと、上の図のような赤緑青のx、y、z軸の矢印がスケッチに追加されます。
 
+## 変換：3D形状の位置とサイズ
 
-## Transformations: Position and Size of 3D Shapes
+p5.jsには、3D空間内でオブジェクトを配置し向きを変える関数がいくつかあります：`translate()`、`rotate()`、`scale()`です。これらを総称してオブジェクトの*変換*と呼びます。これらのメソッドは2Dと3Dの両方の描画で利用できます。
 
-p5.js has a few functions that we can use to position and orient objects within 3D space: `translate()`, `rotate()`, and `scale()`. Collectively these are known as the *transformation* of an object. These methods are available for both 2D and 3D drawing.
-
-
-### `translate()`: Moving Objects in Space
+### `translate()`：空間内でオブジェクトを移動する
 
 <SketchEmbed
   code={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/translate/sketch.js")}
@@ -66,24 +63,21 @@ p5.js has a few functions that we can use to position and orient objects within 
   bodyCode={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/translate/index.html")}
 />
 
-`translate()` moves the origin to a given point. Anything drawn after we call `translate()` will be positioned relative to that point. `translate()` accepts arguments for x, y, and z values. Use the sliders in the sketch above to change the translation of the box and see how it moves along each axis. The code snippet below demonstrates simple translation on a `box()` shape.
+`translate()`は原点を指定された点に移動させます。`translate()`を呼び出した後に描画されるものは、すべてその点を基準に配置されます。`translate()`はx、y、z値の引数を受け取ります。上のスケッチのスライダーを使用して箱の平行移動を変更し、各軸に沿ってどのように移動するかを確認してください。以下のコードスニペットは、`box()`形状に対する単純な平行移動を示しています。
 
 ```javascript
-// draw a box 100 units to the right
+// 箱を右に100単位移動させる
 translate(100,0,0);
 box();
 ```
 
-
-
 <Callout>
 
-A [random walk](https://upload.wikimedia.org/wikipedia/commons/f/f3/Random_walk_2500_animated.svg) involves moving in a random direction each step. Try doing a random walk in 3D using `translate()`, drawing a cube after each step like a trail of breadcrumbs!
+[ランダムウォーク](https://upload.wikimedia.org/wikipedia/commons/f/f3/Random_walk_2500_animated.svg)は、各ステップでランダムな方向に移動することを意味します。`translate()`を使用して3Dでランダムウォークを試してみましょう。各ステップの後にキューブを描画して、パンくずの軌跡のようにしてみてください！
 
 </Callout>
 
-
-### `rotate()`: Orienting Objects in Space
+### `rotate()`：空間内でオブジェクトの向きを変える
 
 <SketchEmbed
   code={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/rotate/sketch.js")}
@@ -91,66 +85,65 @@ A [random walk](https://upload.wikimedia.org/wikipedia/commons/f/f3/Random_walk_
   bodyCode={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/rotate/index.html")}
 />
 
-`rotate()` reorients whatever is drawn after it.
+`rotate()`は、その後に描画されるものの向きを変更します。
 
-There are a few functions that can be used to rotate an object in 3D. Most of the time, it's easiest to call functions like `rotateX()`, `rotateY()`, and `rotateZ()`, which each allow for rotation around a specific axis. Each function accepts a single argument specifying the angle of rotation. Try moving the sliders in the example above to see how rotation is performed on each axis. The code below shows each of these methods in use.
+3Dでオブジェクトを回転させるためにいくつかの関数を使用できます。ほとんどの場合、`rotateX()`、`rotateY()`、`rotateZ()`のような関数を呼び出すのが最も簡単で、これらはそれぞれ特定の軸を中心に回転させることができます。各関数は回転角度を指定する単一の引数を受け取ります。上の例のスライダーを動かして、各軸での回転がどのように行われるかを確認してください。以下のコードは、これらのメソッドの使用例を示しています。
 
 ```javascript
-// rotate X, Y, and Z axes by 45 degrees
+// X、Y、Z軸をそれぞれ45度回転させる
 rotateX(QUARTER_PI);
 rotateY(QUARTER_PI);
 rotateZ(QUARTER_PI);
 box();
 ```
 
-By default, p5.js expects angles to be in radians. Radians use numbers from 0 to `TWO_PI` to specify an angle. To use degrees, either convert degrees to radians using `radians(numberInDegrees)` or use `angleMode(DEGREES)`:
+デフォルトでは、p5.jsは角度をラジアンで期待します。ラジアンは0から`TWO_PI`までの数値を使用して角度を指定します。度数を使用するには、`radians(numberInDegrees)`を使用して度数をラジアンに変換するか、`angleMode(DEGREES)`を使用します：
 
 ```javascript
-// rotate each axis by 45 degrees
+// 各軸を45度回転させる
 rotateX(radians(45));
 box();
-// or
+// または
 angleMode(DEGREES);
 rotateY(45);
 box();
 ```
 
-You can also use `rotate(angle, axis)`, which allows you to specify which axis you'd like to rotate around using a vector as the second argument. This lets you rotate a shape about any axis you choose. In the example below, we create an axis using the mouse coordinates, and rotate about it:
+また、`rotate(angle, axis)`を使用することもできます。これにより、2番目の引数としてベクトルを使用して回転させたい軸を指定できます。これにより、任意の軸を中心に形状を回転させることができます。以下の例では、マウス座標を使用して軸を作成し、その周りを回転させています：
 
 <EditableSketch code={`function setup() {
-  createCanvas(200, 200, WEBGL);
+  createCanvas(200, 200, WEBGL);
 }
 
 function draw() {
-  background(255);
+  background(255);
  
-  // Slowly rotate over time
-  let angle = millis() * 0.001;
+  // 時間とともにゆっくりと回転
+  let angle = millis() * 0.001;
  
-  // The axis of rotation will be the line
-  // going through the center of the canvas
-  // and the mouse
-  let axis = createVector(
-    mouseX - width/2,
-    mouseY - height/2,
-    0
-  );
+  // 回転軸はキャンバスの中心と
+  // マウスを通る線になります
+  let axis = createVector(
+    mouseX - width/2,
+    mouseY - height/2,
+    0
+  );
  
-  // Visualize the axis
-  strokeWeight(3);
-  stroke('red');
-  line(0, 0, 0, axis.x, axis.y, axis.z);
-  stroke('blue');
-  line(0, 0, 0, -axis.x, -axis.y, -axis.z);
+  // 軸を可視化
+  strokeWeight(3);
+  stroke('red');
+  line(0, 0, 0, axis.x, axis.y, axis.z);
+  stroke('blue');
+  line(0, 0, 0, -axis.x, -axis.y, -axis.z);
  
-  // Rotate a box about that axis
-  lights();
-  noStroke();
-  rotate(angle, axis);
-  box();
+  // その軸を中心に箱を回転させる
+  lights();
+  noStroke();
+  rotate(angle, axis);
+  box();
 }`} />
 
-### `scale()`: Size in Space
+### `scale()`：空間内のサイズ
 
 <SketchEmbed
   code={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/scale/sketch.js")}
@@ -158,325 +151,319 @@ function draw() {
   bodyCode={await fs.readFile("src/content/tutorials/sketches/coordinates-and-transformation/scale/index.html")}
 />
 
-`scale()` changes the size of whatever is drawn after it. Like the other functions described, it accepts arguments for x, y, and z values.
+`scale()`は、その後に描画されるものの大きさを変更します。他の関数と同様に、x、y、z値の引数を受け取ります。
 
 <Callout>
 
-Try making a cube jump up and down, but use `scale()` to have it [squash and stretch](https://en.wikipedia.org/wiki/Squash_and_stretch) when it bounces to give it a cartoon feel!
+キューブを上下に跳ねさせてみましょう。ただし、`scale()`を使用して、跳ねる際に[つぶれて伸びる](https://en.wikipedia.org/wiki/Squash_and_stretch)ようにして、漫画のような感じを出してみてください！
 
 </Callout>
 
+## 複数の形状の変換
 
-## Transforming Multiple Shapes
+変換関数は累積的で、その後に描画されるすべてのものに影響します。例えば、`translate(50, 0, 0)`を2回呼び出すと、それらは加算され、`translate(100, 0, 0)`を1回呼び出すのと同じになります。しかし、異なる形状を異なる変換で描画したい場合もあります。
 
-Transform functions are cumulative and affect everything drawn after them. For example, if you call `translate(50, 0, 0)` twice, they add together, making it equivalent to calling `translate(100, 0, 0)` once.  However, sometimes you will want to draw different shapes with different transformations.
-
-The `push()` function saves the current transformations and style settings. Then, after performing new transformations, the `pop()` function is used to restore us to the original transformations. The result is that whatever transformations or styling changes that are made between `push()` and `pop()` are isolated to that portion of the code. In the example below, we draw a number of boxes at their own distinct locations by placing their transforms between `push()` and `pop()`:
+`push()`関数は現在の変換とスタイル設定を保存します。その後、新しい変換を行った後、`pop()`関数を使用して元の変換に戻ります。結果として、`push()`と`pop()`の間で行われた変換やスタイルの変更は、そのコードの部分に限定されます。以下の例では、`push()`と`pop()`の間に変換を配置することで、それぞれ独自の位置に複数の箱を描画しています：
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(200, 200, WEBGL);
+  createCanvas(200, 200, WEBGL);
 }
-
 function draw() {
-  background(220);
-  noStroke();
-  lights();
-  orbitControl();
+  background(220);
+  noStroke();
+  lights();
+  orbitControl();
  
-  push();
-  translate(-50, 0, -100);
-  fill('red');
-  sphere(50);
-  pop();
+  push();
+  translate(-50, 0, -100);
+  fill('red');
+  sphere(50);
+  pop();
  
-  push();
-  translate(0, -100, -300);
-  fill('green');
-  sphere(50);
-  pop();
+  push();
+  translate(0, -100, -300);
+  fill('green');
+  sphere(50);
+  pop();
  
-  push();
-  translate(25, 25, 50);
-  fill('blue');
-  sphere(50);
-  pop();
+  push();
+  translate(25, 25, 50);
+  fill('blue');
+  sphere(50);
+  pop();
 }
 `} />
 	
 <details>
-<summary>Transformation Matrices</summary>
+<summary>変換行列</summary>
 
-*While this is a more advanced topic, each of these transformations affects what is called the model matrix. The model matrix is combined with the view matrix and the projection matrix, both of which help simulate the view of a camera, and this combination results in our 3D scene! You can* [*learn more about Model View Projection on MDN.*](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection)
+*これはより高度なトピックですが、これらの変換のそれぞれはモデル行列と呼ばれるものに影響します。モデル行列はビュー行列と投影行列と組み合わされ、これらはカメラのビューをシミュレートするのに役立ちます。この組み合わせが3Dシーンを生成します！* [*MDNでモデルビュー投影についてさらに学ぶことができます。*](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection)
 
 </details>
 
 <Callout>
 
-Try making two spheres that can be moved around separately, with arrow keys controlling one, and WASD keys controlling the other.
+別々に動かせる2つの球体を作ってみましょう。矢印キーで1つを、WASDキーでもう1つを制御できるようにしてみてください。
 
 </Callout>
 
+## 変換の順序が重要です！
 
-## The Order of Transformations Matters!
+変換が互いにどのように影響し合うかは、最初は予測不可能に感じるかもしれません。なぜなら、順序が重要だからです。各変換は常に次の変換に影響します。例えば、`rotate()`の後に`translate()`を呼び出すと、その平行移動の方向は回転の影響を受けます。座標系全体が回転し移動しているのであって、形状自体だけではありません。以下は、異なる変換順序のレシピで、使用できるものです。
 
-The way transformations affect each other can feel unpredictable at first because order matters. Each transformation always affects the next one. For example, if `rotate()` is called, followed by `translate()`, the direction of that translation will be affected by the rotation. The entire coordinate system is rotating and moving, not just the shape itself. Here are some recipes for different transformation orders that you can use.
+### デフォルト：シーン内のオブジェクトの配置
 
-
-### The Default: Positioning Objects in a Scene
-
-If you are drawing many objects, chances are that each one will have a unique position, orientation, and scale. For this, you should first `translate()` to the center of where the object should be, then `rotate()` to match its orientation, and finally `scale()` to fit its size. This is a good order to use by default.
+多くのオブジェクトを描画する場合、それぞれが独自の位置、向き、スケールを持つ可能性が高いです。このために、まずオブジェクトがあるべき中心に`translate()`し、次にその向きに合わせて`rotate()`し、最後にサイズに合わせて`scale()`します。これはデフォルトで使用するのに適した順序です。
 
 <EditableSketch code={`
 let positions = [];
 let rotations = [];
 let scales = [];
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  for (let i = 0; i < 10; i++) {
-    positions.push(createVector(
-      random(-width / 2, width / 2),
-      random(-height / 2, height / 2),
-      random(-width / 2, width / 2)
-    ));
-    rotations.push(createVector(
-      random(TWO_PI),
-      random(TWO_PI),
-      random(TWO_PI)
-    ));
-    scales.push(random(0.5, 2));
-  }
+  createCanvas(200, 200, WEBGL);
+  for (let i = 0; i < 10; i++) {
+    positions.push(createVector(
+      random(-width / 2, width / 2),
+      random(-height / 2, height / 2),
+      random(-width / 2, width / 2)
+    ));
+    rotations.push(createVector(
+      random(TWO_PI),
+      random(TWO_PI),
+      random(TWO_PI)
+    ));
+    scales.push(random(0.5, 2));
+  }
 }
-
 function draw() {
-  background(255);
-  orbitControl();
-  noStroke();
-  lights();
+  background(255);
+  orbitControl();
+  noStroke();
+  lights();
  
-  for (let i = 0; i < 10; i += 1) {
-    push();
-    translate(
-      positions[i].x,
-      positions[i].y,
-      positions[i].z
-    );
-    rotateX(rotations[i].x);
-    rotateY(rotations[i].y);
-    rotateZ(rotations[i].z);
-    scale(scales[i]);
-    box(20);
-    pop();
-  }
+  for (let i = 0; i < 10; i += 1) {
+    push();
+    translate(
+      positions[i].x,
+      positions[i].y,
+      positions[i].z
+    );
+    rotateX(rotations[i].x);
+    rotateY(rotations[i].y);
+    rotateZ(rotations[i].z);
+    scale(scales[i]);
+    box(20);
+    pop();
+  }
 }
 `} />
 	
 <Callout>
 
-Try making a solar system, where each planet has its own independent position as it moves around the sun, and each has its own rotation as they spin at different speeds!
+太陽系を作ってみましょう。各惑星が太陽の周りを独立して動き、それぞれが異なる速度で自転しているようにしてください！
 
 </Callout>
 
 
-### Rotating Around a Pivot Point
+### ピボットポイントを中心に回転させる
 
-Sometimes you want to rotate a shape about a point that isn't its center. For this, you can `translate()` to the pivot point, `rotate()` or `scale()` as needed, and then `translate()` back to the center before drawing your shape. The sketch below uses this method to make a shape squash and stretch about its base rather than its center.
+時には、形状の中心ではない点を中心に回転させたいことがあります。これには、ピボットポイントに`translate()`し、必要に応じて`rotate()`または`scale()`を行い、形状を描画する前に中心に戻るように`translate()`します。以下のスケッチでは、この方法を使用して、形状の中心ではなく底面を基準にして押しつぶしたり引き伸ばしたりしています。
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(200, 200, WEBGL);
+  createCanvas(200, 200, WEBGL);
 }
 
 function draw() {
-  background(255);
-  orbitControl();
-  noStroke();
-  lights();
+  background(255);
+  orbitControl();
+  noStroke();
+  lights();
  
-  // Rotate left/right over time
-  let angle = sin(millis() * 0.005) * PI * 0.2;
+  // 時間とともに左右に回転
+  let angle = sin(millis() * 0.005) * PI * 0.2;
  
-  // This represents how much to scale vertically by.
-  let squash = map(
-    sin(millis() * 0.0125),
-    -1, 1,
-    1, 0.3
-  );
+  // これは垂直方向にどれだけスケーリングするかを表します。
+  let squash = map(
+    sin(millis() * 0.0125),
+    -1, 1,
+    1, 0.3
+  );
  
-  // When vertically compressed, squish out in the
-  // other axes.
-  let stretch = 1/squash;
-  let pivot = createVector(0, 50, 0);
+  // 垂直方向に圧縮されたとき、他の軸方向に押し出します。
+  let stretch = 1/squash;
+  let pivot = createVector(0, 50, 0);
  
-  push()
-  translate(pivot.x, pivot.y, pivot.z);
+  push()
+  translate(pivot.x, pivot.y, pivot.z);
  
-  // Apply a transformation centered at the pivot
-  rotateZ(angle);
-  scale(stretch, squash, stretch);
+  // ピボットを中心に変換を適用
+  rotateZ(angle);
+  scale(stretch, squash, stretch);
  
-  translate(-pivot.x, -pivot.y, -pivot.z);
-  cylinder(20, 100);
-  pop()
+  translate(-pivot.x, -pivot.y, -pivot.z);
+  cylinder(20, 100);
+  pop()
 }
 `} />
 	
 <Callout>
 
-Try making a character waving its arm! You will want to rotate the arm about the point where the arm connects to its body so that it stays connected.
+腕を振るキャラクターを作ってみましょう！腕が体につながったままになるように、腕と体が接続する点を中心に回転させる必要があります。
 
 </Callout>
 
-### Drawing with Symmetry
+### 対称性を持たせて描画する
 
-Sometimes you want to draw the same thing multiple times with mirror or radial symmetry. In these cases, you will end up drawing in a loop. For each iteration, `rotate()` or `scale()` depending on the type of symmetry you want. Finally, apply any other transformations needed to draw your shape.
+時には、鏡像対称や回転対称性を持たせて同じものを複数回描画したいことがあります。このような場合、ループで描画することになります。各反復で、望む対称性の種類に応じて`rotate()`または`scale()`を使用します。最後に、形状を描画するために必要な他の変換を適用します。
 
-In the example below, `scale(-1, 1)` is used to add horizontal symmetry to draw the eyes and ears of a face:
+以下の例では、`scale(-1, 1)`を使用して水平方向の対称性を追加し、顔の目と耳を描画しています：
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(200, 200, WEBGL);
+  createCanvas(200, 200, WEBGL);
 }
 
 function draw() {
-  background(255);
-  lights();
-  noStroke();
-  orbitControl();
+  background(255);
+  lights();
+  noStroke();
+  orbitControl();
  
-  // The head
-  push();
-  scale(1, 1.25, 1);
-  sphere(50);
-  pop();
+  // 頭
+  push();
+  scale(1, 1.25, 1);
+  sphere(50);
+  pop();
  
-  // The nose
-  push()
-  translate(0, 0, 50);
-  scale(1, 1.5, 1);
-  sphere(10);
-  pop()
+  // 鼻
+  push()
+  translate(0, 0, 50);
+  scale(1, 1.5, 1);
+  sphere(10);
+  pop()
  
-  // Draw symmetrical parts by looping over each
-  // side, represented by the horizontal scale applied.
-  for (let side of [-1, 1]) {
-    push();
-    // Apply the symmetrical transformation
-    scale(side, 1, 1);
-   
-    // Eyes
-    push();
-    translate(20, -10, 40);
-    sphere(8);
-    pop();
-   
-    // Ears
-    push();
-    translate(50, 0, 0);
-    scale(1, 1, 0.3);
-    sphere(20);
-    pop();
-   
-    pop();
-  }
+  // 適用される水平方向のスケールで表される
+  // 各側をループして対称的な部分を描画します。
+  for (let side of [-1, 1]) {
+    push();
+    // 対称変換を適用
+    scale(side, 1, 1);
+   
+    // 目
+    push();
+    translate(20, -10, 40);
+    sphere(8);
+    pop();
+   
+    // 耳
+    push();
+    translate(50, 0, 0);
+    scale(1, 1, 0.3);
+    sphere(20);
+    pop();
+   
+    pop();
+  }
 }
 `} />
 
 	
-In this example, `rotateY()` is used to create radial symmetry for a stonehenge scene.
+この例では、`rotateY()`を使用してストーンヘンジのシーンに回転対称性を持たせています。
 
 <EditableSketch code={`
 function setup() {
-  createCanvas(200, 200, WEBGL);
+  createCanvas(200, 200, WEBGL);
 }
 
 function draw() {
-  background(255);
-  noStroke();
-  lights();
-  orbitControl();
+  background(255);
+  noStroke();
+  lights();
+  orbitControl();
  
-  let numArches = 6;
+  let numArches = 6;
  
-  for (let i = 0; i < numArches; i++) {
-    const angle = map(i, 0, numArches-1, -PI/2, PI/2);
-   
-    // Apply radially symmetrical transformation
-    push();
-    rotateY(angle);
-   
-    // Draw each arch
-    translate(0, 0, -150);
-   
-    // Left beam
-    push();
-    translate(-20, 0, 0);
-    cylinder(10, 100);
-    pop();
-   
-    // Right beam
-    push();
-    translate(20, 0, 0);
-    cylinder(10, 100);
-    pop();
-   
-    // Top
-    push();
-    translate(0, -50, 0);
-    rotateZ(PI/2);
-    cylinder(10, 80);
-    pop();
-   
-    pop();
-  }
+  for (let i = 0; i < numArches; i++) {
+    const angle = map(i, 0, numArches-1, -PI/2, PI/2);
+   
+    // 放射状対称変換を適用
+    push();
+    rotateY(angle);
+   
+    // 各アーチを描画
+    translate(0, 0, -150);
+   
+    // 左の柱
+    push();
+    translate(-20, 0, 0);
+    cylinder(10, 100);
+    pop();
+   
+    // 右の柱
+    push();
+    translate(20, 0, 0);
+    cylinder(10, 100);
+    pop();
+   
+    // 上部
+    push();
+    translate(0, -50, 0);
+    rotateZ(PI/2);
+    cylinder(10, 80);
+    pop();
+   
+    pop();
+  }
 }
 `} />
 
 	
 <Callout>
 
-Try giving a body with arms and legs to the head in the example!
+例の頭に、腕と脚のある体を追加してみましょう！
 
 </Callout>
 
-## Conclusion
+## まとめ
 
-By having control over 3D coordinates, you will be able to create more complex scenes in 3D. The tutorials that follow this one build on these skills by giving you more control over what you draw after you have transformed it.
+3D座標を制御することで、より複雑な3Dシーンを作成できるようになります。この後に続くチュートリアルでは、これらのスキルを基に、変換後に描画するものをより細かく制御する方法を学びます。
 
 
-## Glossary
+## 用語集
 
 #### GPU
 
-The GPU (Graphics Processing Unit) is a piece of hardware that is particularly well suited for performing many calculations in parallel, making it powerful for 3D graphics.
+GPU（Graphics Processing Unit）は、多くの計算を並列で実行するのに特に適したハードウェアで、3Dグラフィックスに強力な性能を発揮します。
 
 
-#### Model
+#### モデル
 
-A custom 3D geometry that can be saved and loaded from a file.
-
-
-#### Matrix
-
-A special array that can hold information about the transformation of a geometry.
+ファイルから保存および読み込みができるカスタム3Dジオメトリ。
 
 
-#### Camera
+#### 行列
 
-The viewpoint of a 3D scene.
-
-
-#### Transformation
-
-The combined scale, rotation, and translation of a geometry. The verb *transform* is used when describing altering these properties.
+ジオメトリの変換に関する情報を保持できる特殊な配列。
 
 
-#### Vertex
+#### カメラ
 
-A point in 3D space with an x, y, and z position.
+3Dシーンの視点。
 
 
-#### Face
+#### 変換
 
-A collection of three points that create a solid surface.
+ジオメトリのスケール、回転、平行移動を組み合わせたもの。動詞*transform*は、これらのプロパティを変更する際に使用されます。
+
+
+#### 頂点
+
+x、y、z位置を持つ3D空間上の点。
+
+
+#### 面
+
+固体の表面を作成する3つの点の集合。
 

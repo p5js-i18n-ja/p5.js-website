@@ -1,10 +1,10 @@
 ---
-title: "Optimizing WebGL Sketches"
-description: Tips to help make your sketches run as smoothly as possible on as many devices as possible.
+title: "WebGLスケッチの最適化"
+description: できるだけ多くのデバイスで、スケッチをできるだけスムーズに実行するためのヒント。
 category: webgl
 categoryIndex: 5
 featuredImage: ../images/featured/optimizing-webgl-sketches.png
-featuredImageAlt: A screenshot of the profiler in the developer tools of Google Chrome
+featuredImageAlt: Google Chromeの開発者ツールのプロファイラーのスクリーンショット
 relatedContent:
   examples:
     - en/11_3d/04_filter_shader/description
@@ -27,147 +27,139 @@ import { Image } from "astro:assets";
 import cubeImage from "../images/webgl/cube.png";
 import cubeGridImage from "../images/webgl/cube-grid.png";
 
-WebGL mode in p5.js gives you access to your computer's graphics hardware. This can allow you to produce 3D visuals even on lower-powered mobile devices. When doing more complex tasks, however, you can sometimes end up writing code that struggles to maintain a good framerate. We'll go over some ways to measure and debug your sketch's performance, and offer some tips for structuring your code for success.
+p5.jsのWebGLモードを使用すると、コンピューターのグラフィックスハードウェアにアクセスできます。これにより、低性能のモバイルデバイスでも3Dビジュアルを生成することができます。しかし、より複雑なタスクを実行する場合、良好なフレームレートを維持するのが難しいコードを書いてしまうことがあります。ここでは、スケッチのパフォーマンスを測定およびデバッグする方法と、成功するためのコード構造のヒントをいくつか紹介します。
 
+## スケッチはどの程度うまく動作していますか？
 
-## How well does your sketch run?
+パフォーマンスが低下すると、draw関数が期待通りの頻度で実行されないことに気づくでしょう。これにより、アニメーションが遅くなったり、ぎこちなくなったりする可能性があります。パフォーマンスを向上させるための変更を行う際、状況が明らかに改善されたかどうかを確認したいと思うでしょう。アニメーションの滑らかさを感じるだけでなく、*フレームレート*を表示することもできます。
 
-When performance drops, you will notice your draw function doesn’t run as often as it should. This can cause slow or choppy animation. When you make a change to improve performance, you will want to check to see if you made the situation noticeably better. In addition to seeing how smooth the animation feels, we can display the *frame rate.*
+フレームレートは、1秒間に`draw()`が呼び出される回数をカウントします。スケッチの実行速度が速いほど、この数値は高くなります—少なくとも、画面がそれ以上更新できなくなるまでは。多くのディスプレイでは、この制限は60です。スケッチが60フレーム/秒に達しなくても心配する必要はありません：30フレーム/秒でもスムーズに見えます—映画は通常24フレーム/秒で実行されています。
 
-The frame rate counts the number of times `draw()` is called per second. The faster your sketch runs, the higher this number will be—at least, up to the point when your screen can't refresh any quicker. On many displays, this limit is 60. Don't worry if your sketch doesn't quite reach 60 frames per second: 30 frames per second will also appear smooth—feature films typically run at 24 frames per second.
-
-To measure your sketch's frame rate, we can create a new `<p>` element on the page and update it every frame:
+スケッチのフレームレートを測定するために、ページに新しい`<p>`要素を作成し、毎フレーム更新することができます：
 
 ```js
 let frameRateP;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  frameRateP = createP();
+  createCanvas(200, 200, WEBGL);
+  frameRateP = createP();
 }
-
 function draw() {
-  frameRateP.html(round(frameRate()));
-  // Put the rest of your sketch here
+  frameRateP.html(round(frameRate()));
+  // ここにスケッチの残りの部分を配置します
 }
 ```
 
-It's normal for this value to flicker a bit. Sometimes you will want to display a *moving average* of the frame rate to get a better estimate. Augmenting the previous code to show a moving average looks like this:
+この値が少し揺れるのは正常です。時には、より良い推定値を得るためにフレームレートの*移動平均*を表示したい場合があります。前のコードを拡張して移動平均を表示すると、次のようになります：
 
 ```js
 let frameRateP;
-// Over how many frames should we average the frame rate?
+// フレームレートを何フレームにわたって平均化するか？
 let numSamples = 30;
-// An array to store for all the individual samples
+// すべての個別サンプルを保存する配列
 let frameRateSamples = [];
-// A running count of the sum of the array
+// 配列の合計の実行カウント
 let frameRateSum = 0;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  frameRateP = createP();
+  createCanvas(200, 200, WEBGL);
+  frameRateP = createP();
 }
-
 function draw() {
-  let newSample = frameRate();
-  frameRateSamples.push(newSample);
-  frameRateSum += newSample;
-  if (frameRateSamples.length > numSamples) {
-    frameRateSum -= frameRateSamples.shift();
-  }
-  frameRateP.html(
+  let newSample = frameRate();
+  frameRateSamples.push(newSample);
+  frameRateSum += newSample;
+  if (frameRateSamples.length > numSamples) {
+    frameRateSum -= frameRateSamples.shift();
+  }
+  frameRateP.html(
     round(frameRateSum / frameRateSamples.length)
   );
-  // Put the rest of your sketch here
+  // ここにスケッチの残りの部分を配置します
 }
 ```
 
 <Callout>
-What does it take to get the frame rate to drop? Try drawing many shapes in a `for` loop. How many shapes do you need to draw before you notice a change in frame rate? Is that number different when you look at your sketch on a phone instead of a desktop or laptop?
+フレームレートを低下させるには何が必要ですか？`for`ループで多くの形状を描画してみてください。フレームレートの変化に気づくまでに、いくつの形状を描画する必要がありますか？デスクトップやラップトップではなく、スマートフォンでスケッチを見た場合、その数は異なりますか？
 </Callout>
 
-## Getting the best performance out of WebGL
+## WebGLから最高のパフォーマンスを引き出す
 
-Here are some best practices for WebGL sketches. Following these will start you off on good footing for performance.
+WebGLスケッチのためのベストプラクティスをいくつか紹介します。これらに従うことで、パフォーマンスの良いスタートを切ることができます。
 
+### WebGLモードでは`p5.Graphics`よりも`p5.Framebuffer`を優先する
 
-### Prefer `p5.Framebuffer` over `p5.Graphics `in WebGL Mode
+2Dモードでは、何かを描画してそれを他の何かのテクスチャとして使用する必要がある場合、`p5.Graphics`オブジェクトを使用します。このアプローチは、2Dモードで行われることの多くがコンピューターのCPUで行われるため、うまく機能します。WebGLモードでは、`p5.Framebuffer`を使用する方が高速です。これはWebGLスケッチと共にコンピューターのグラフィックスハードウェアに存在し、データ転送を最小限に抑えます。
 
-In 2D mode, if you need to draw something and then use it as a texture for something else, you would reach for a `p5.Graphics` object. This approach works well because much of what happens in 2D mode happens on your computer’s CPU. In WebGL mode, it will be faster to use a `p5.Framebuffer`, which lives on your computer's graphics hardware along with your WebGL sketch, minimizing data transfer.
-
-Here's an example of some code that uses `p5.Graphics`, and an improved example using `p5.Framebuffer`:
+以下は、`p5.Graphics`を使用するコードの例と、`p5.Framebuffer`を使用して改善した例です：
 
 <Columns>
 <Column>
-#### ❌ Using `p5.Graphics`
+#### ❌ `p5.Graphics`の使用
 ```js
 let layer;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  layer = createGraphics(200, 200);
-  describe(
-    'a rotating red cube with yellow ' +
-    'dots on each face'
+  createCanvas(200, 200, WEBGL);
+  layer = createGraphics(200, 200);
+  describe(
+    '各面に黄色の点がある回転する赤い立方体'
   );
 }
-
 function draw() {
-  let t = millis() * 0.001;
-  layer.background('red');
-  layer.noStroke();
-  layer.fill('yellow');
-  for (let i = 0; i < 30; i += 1) {
-    layer.circle(
-      map(noise(i*10, 0, t), 0, 1, 0, width),
-      map(noise(i*10, 100, t), 0, 1, 0, height),
-      20
-    );
-  }
+  let t = millis() * 0.001;
+  layer.background('red');
+  layer.noStroke();
+  layer.fill('yellow');
+  for (let i = 0; i < 30; i += 1) {
+    layer.circle(
+      map(noise(i*10, 0, t), 0, 1, 0, width),
+      map(noise(i*10, 100, t), 0, 1, 0, height),
+      20
+    );
+  }
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layer);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layer);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 ```
 </Column>
 <Column>
-#### ✅ Using `p5.Framebuffer`
+#### ✅ `p5.Framebuffer`の使用
 
 ```js
 let layer;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  layer = createFramebuffer();
-  describe(
-    'a rotating red cube with yellow ' +
-    'dots on each face'
+  createCanvas(200, 200, WEBGL);
+  layer = createFramebuffer();
+  describe(
+    '各面に黄色の点がある回転する赤い立方体'
   );
 }
-
 function draw() {
-  let t = millis() * 0.001;
-  layer.begin();
-  background('red');
-  noStroke();
-  fill('yellow');
-  for (let i = 0; i < 30; i += 1) {
-    circle(
-      map(noise(i*10, 0, t), 0, 1, -width/2, width/2),
-      map(noise(i*10, 100, t), 0, 1, -height/2, height/2),
-      20
-    );
-  }
-  layer.end();
+  let t = millis() * 0.001;
+  layer.begin();
+  background('red');
+  noStroke();
+  fill('yellow');
+  for (let i = 0; i < 30; i += 1) {
+    circle(
+      map(noise(i*10, 0, t), 0, 1, -width/2, width/2),
+      map(noise(i*10, 100, t), 0, 1, -height/2, height/2),
+      20
+    );
+  }
+  layer.end();
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layer);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layer);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 ```
 </Column>
@@ -175,33 +167,32 @@ function draw() {
 <SketchEmbed width={200} height={200} code={`
 let layer;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  layer = createFramebuffer();
-  describe('a rotating red cube with yellow dots on each face');
+  createCanvas(200, 200, WEBGL);
+  layer = createFramebuffer();
+  describe('各面に黄色の点がある回転する赤い立方体');
 }
-
 function draw() {
-  let t = millis() * 0.001;
-  layer.begin();
-  background('red');
-  noStroke();
-  fill('yellow');
-  for (let i = 0; i < 30; i += 1) {
-    circle(
-      map(noise(i*10, 0, t), 0, 1, -width/2, width/2),
-      map(noise(i*10, 100, t), 0, 1, -height/2, height/2),
-      20
-    );
-  }
-  layer.end();
+  let t = millis() * 0.001;
+  layer.begin();
+  background('red');
+  noStroke();
+  fill('yellow');
+  for (let i = 0; i < 30; i += 1) {
+    circle(
+      map(noise(i*10, 0, t), 0, 1, -width/2, width/2),
+      map(noise(i*10, 100, t), 0, 1, -height/2, height/2),
+      20
+    );
+  }
+  layer.end();
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layer);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layer);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 `} />
 </Column>
@@ -209,87 +200,84 @@ function draw() {
 
 <Callout>
 
-If you were using a 2D mode `p5.Graphics`, switching to a `p5.Framebuffer` means using WebGL mode instead. WebGL mode can draw 2D shapes too! Try adapting a 2D sketch you've made in the past to WebGL mode. Remember that the point (0,0) is in the *top left* of the canvas in 2D mode, but in the *center* in WebGL mode!
+2Dモードの`p5.Graphics`を使用していた場合、`p5.Framebuffer`に切り替えることはWebGLモードを使用することを意味します。WebGLモードでも2D形状を描画できます！過去に作成した2DスケッチをWebGLモードに適応させてみてください。2Dモードではポイント(0,0)がキャンバスの*左上*にありますが、WebGLモードでは*中央*にあることを忘れないでください！
 
 </Callout>
 
+### 静的な`p5.Graphics`を`p5.Image`に置き換える
 
-### Replace static `p5.Graphics` with `p5.Image`
-
-Sometimes, you can't use `p5.Framebuffer`—maybe because you really need to draw something in 2D mode. If you are using `p5.Graphics`, but you won't be changing its contents every frame, you can turn it into a `p5.Image` by calling `.get()` on it. This lets p5.js know that it doesn't need to send new image data to a texture every frame, and it can continue to reuse the initial texture instead.
+時には、`p5.Framebuffer`を使用できない場合があります—たとえば、本当に2Dモードで何かを描画する必要がある場合です。`p5.Graphics`を使用しているが、そのコンテンツを毎フレーム変更しない場合は、`.get()`を呼び出して`p5.Image`に変換することができます。これにより、p5.jsは毎フレーム新しい画像データをテクスチャに送信する必要がないことを認識し、代わりに初期テクスチャを再利用し続けることができます。
 
 <Columns>
 <Column>
-#### ❌ Using `p5.Graphics`
+#### ❌ `p5.Graphics`の使用
 
 ```js
 let layer;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  layer = createGraphics(200, 200);
-  layer.background('red');
-  layer.noStroke();
-  layer.fill('yellow');
-  layer.textAlign(CENTER, CENTER);
-  layer.textSize(50);
-  layer.text('Hello!', width/2, height/2);
+  createCanvas(200, 200, WEBGL);
+  layer = createGraphics(200, 200);
+  layer.background('red');
+  layer.noStroke();
+  layer.fill('yellow');
+  layer.textAlign(CENTER, CENTER);
+  layer.textSize(50);
+  layer.text('Hello!', width/2, height/2);
 
-  describe(
-    'a rotating red cube with the word ' +
-    '"Hello!" in yellow on each face'
+  describe(
+    '各面に黄色で"Hello!"と書かれた' +
+    '回転する赤い立方体'
   );
 }
-
 function draw() {
-  let t = millis() * 0.001;
+  let t = millis() * 0.001;
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layer);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layer);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 ```
 </Column>
 <Column>
-#### ✅ Using `p5.Image`
+#### ✅ `p5.Image`の使用
 
 ```js
 let layerImg;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  let layer = createGraphics(200, 200);
-  layer.background('red');
-  layer.noStroke();
-  layer.fill('yellow');
-  layer.textAlign(CENTER, CENTER);
-  layer.textSize(50);
-  layer.text('Hello!', width/2, height/2);
+  createCanvas(200, 200, WEBGL);
+  let layer = createGraphics(200, 200);
+  layer.background('red');
+  layer.noStroke();
+  layer.fill('yellow');
+  layer.textAlign(CENTER, CENTER);
+  layer.textSize(50);
+  layer.text('Hello!', width/2, height/2);
  
-  // Save as a static image
-  layerImg = layer.get();
+  // 静的な画像として保存
+  layerImg = layer.get();
  
-  // We no longer need the original
-  layer.remove();
+  // 元のものはもう必要ありません
+  layer.remove();
 
-  describe(
-    'a rotating red cube with the word ' +
-    '"Hello!" in yellow on each face'
+  describe(
+    '各面に黄色で"Hello!"と書かれた' +
+    '回転する赤い立方体'
   );
 }
-
 function draw() {
-  let t = millis() * 0.001;
+  let t = millis() * 0.001;
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layerImg);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layerImg);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 ```
 </Column>
@@ -297,108 +285,105 @@ function draw() {
 <SketchEmbed width={200} height={200} code={`
 let layerImg;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  let layer = createGraphics(200, 200);
-  layer.background('red');
-  layer.noStroke();
-  layer.fill('yellow');
-  layer.textAlign(CENTER, CENTER);
-  layer.textSize(50);
-  layer.text('Hello!', width/2, height/2);
+  createCanvas(200, 200, WEBGL);
+  let layer = createGraphics(200, 200);
+  layer.background('red');
+  layer.noStroke();
+  layer.fill('yellow');
+  layer.textAlign(CENTER, CENTER);
+  layer.textSize(50);
+  layer.text('Hello!', width/2, height/2);
  
-  // Save as a static image
-  layerImg = layer.get();
+  // 静的な画像として保存
+  layerImg = layer.get();
  
-  // We no longer need the original
-  layer.remove();
+  // 元のものはもう必要ありません
+  layer.remove();
 
-  describe(
-    'a rotating red cube with the word ' +
-    '"Hello!" in yellow on each face'
+  describe(
+    '各面に黄色で"Hello!"と書かれた' +
+    '回転する赤い立方体'
   );
 }
-
 function draw() {
-  let t = millis() * 0.001;
+  let t = millis() * 0.001;
  
-  background(255);
-  lights();
-  noStroke();
-  texture(layerImg);
-  rotateX(t);
-  rotateY(t);
-  box(100);
+  background(255);
+  lights();
+  noStroke();
+  texture(layerImg);
+  rotateX(t);
+  rotateY(t);
+  box(100);
 }
 `} />
 </Column>
 </Columns>
 
 <Callout>
-Try making a slideshow of generative art images, where you use `.get()` on a `p5.Graphics` to create each slide!
+ジェネラティブアート画像のスライドショーを作成してみてください。各スライドを作成するために`p5.Graphics`で`.get()`を使用します！
 </Callout>
 
-### Use `p5.Geometry` for shapes that don't change
+### 変化しない形状には `p5.Geometry` を使用する
 
-Using `beginShape()` and `endShape()` lets you create interesting geometry, but it spends time processing your shapes into a form that can be rendered. Similarly, you can make interesting shapes out of many simple pieces like `sphere()` and `box()`, but having too many at once can slow down a sketch.
+`beginShape()` と `endShape()` を使用すると興味深い形状を作成できますが、形状をレンダリング可能な形式に処理するのに時間がかかります。同様に、`sphere()` や `box()` のような単純な部品から興味深い形状を作ることもできますが、一度に多すぎると描画が遅くなる可能性があります。
 
-If you have shapes (or pieces of shapes) that don't change internally over time, even if their *position, scales, and orientations* change, you can collapse them into a single, reusable model using `buildGeometry`. This means that p5.js can avoid recalculating positions again and again every frame.
+形状（または形状の一部）が時間とともに内部的に変化しない場合、たとえ *位置、スケール、向き* が変化しても、`buildGeometry` を使用して単一の再利用可能なモデルにまとめることができます。これにより、p5.jsはフレームごとに位置を何度も再計算する必要がなくなります。
 
 <Columns>
 <Column>
-#### ❌ Redrawing the same shape
+#### ❌ 同じ形状を再描画する
 
 ```js
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  describe('a rotating corkscrew');
+  createCanvas(200, 200, WEBGL);
+  describe('回転するコルクスクリュー');
 }
-
 function draw() {
-  background(255);
-  noStroke();
-  lights();
-  rotateY(millis() * 0.01);
+  background(255);
+  noStroke();
+  lights();
+  rotateY(millis() * 0.01);
  
-  for (let y = -100; y <= 100; y += 0.5) {
-    const angle = y * 0.1;
-    const vec = createVector(50, 0)
-      .rotate(angle);
-    push();
-    translate(vec.x, y, vec.y);
-    sphere(5);
-    pop();
-  }
+  for (let y = -100; y <= 100; y += 0.5) {
+    const angle = y * 0.1;
+    const vec = createVector(50, 0)
+      .rotate(angle);
+    push();
+    translate(vec.x, y, vec.y);
+    sphere(5);
+    pop();
+  }
 }
 ```
 </Column>
 <Column>
-#### ✅ Using `buildGeometry()`
+#### ✅ `buildGeometry()` を使用する
 
 ```js
 let shape;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  shape = buildGeometry(function() {
-    for (let y = -100; y <= 100; y += 0.5) {
-      let angle = y * 0.1;
-      let vec = createVector(50, 0)
-        .rotate(angle);
-      push();
-      translate(vec.x, y, vec.y);
-      sphere(5);
-      pop();
-    }
-  });
-  describe('a rotating corkscrew');
+  createCanvas(200, 200, WEBGL);
+  shape = buildGeometry(function() {
+    for (let y = -100; y <= 100; y += 0.5) {
+      let angle = y * 0.1;
+      let vec = createVector(50, 0)
+        .rotate(angle);
+      push();
+      translate(vec.x, y, vec.y);
+      sphere(5);
+      pop();
+    }
+  });
+  describe('回転するコルクスクリュー');
 }
-
 function draw() {
-  background(255);
-  noStroke();
-  lights();
-  rotateY(millis() * 0.01);
+  background(255);
+  noStroke();
+  lights();
+  rotateY(millis() * 0.01);
  
-  model(shape);
+  model(shape);
 }
 ```
 </Column>
@@ -406,133 +391,130 @@ function draw() {
 <SketchEmbed width={200} height={200} code={`
 let shape;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  shape = buildGeometry(function() {
-    for (let y = -100; y <= 100; y += 0.5) {
-      let angle = y * 0.1;
-      let vec = createVector(50, 0)
-        .rotate(angle);
-      push();
-      translate(vec.x, y, vec.y);
-      sphere(5);
-      pop();
-    }
-  });
-  describe('a rotating corkscrew');
+  createCanvas(200, 200, WEBGL);
+  shape = buildGeometry(function() {
+    for (let y = -100; y <= 100; y += 0.5) {
+      let angle = y * 0.1;
+      let vec = createVector(50, 0)
+        .rotate(angle);
+      push();
+      translate(vec.x, y, vec.y);
+      sphere(5);
+      pop();
+    }
+  });
+  describe('回転するコルクスクリュー');
 }
-
 function draw() {
-  background(255);
-  noStroke();
-  lights();
-  rotateY(millis() * 0.01);
+  background(255);
+  noStroke();
+  lights();
+  rotateY(millis() * 0.01);
  
-  model(shape);
+  model(shape);
 }
 `} />
 </Column>
 </Columns>
 
 <Callout>
-Try making a swarm of bugs, flock of birds, or school of fish by making a `p5.Geometry` for one animal, then drawing it many times!
+1匹の動物用の `p5.Geometry` を作成し、それを何度も描画することで、虫の群れ、鳥の群れ、魚の群れを作ってみてください！
 </Callout>
 
 
-### Prefer shaders over modifying `pixels`
+### `pixels` の変更よりもシェーダーを優先する
 
-There are many effects one can achieve that involve looking at and modifying individual pixels on the canvas. Unfortunately, modifying `pixels` in your sketch involves looping through every pixel, one at a time, in JavaScript. A shader, on the other hand, can run in parallel for every pixel at once, making it a great alternative for when speed is required.
+キャンバス上の個々のピクセルを見て変更することで達成できる効果は多くあります。残念ながら、スケッチ内で `pixels` を変更すると、JavaScriptで1つずつすべてのピクセルをループ処理する必要があります。一方、シェーダーはすべてのピクセルを一度に並列で実行できるため、速度が必要な場合の優れた代替手段となります。
 
-Here is an example of some noise-based dithering using `pixels`, and the equivalent filter using a shader. Be sure to check out our [introduction to shaders](https://docs.google.com/document/u/0/d/1R7eO9XHcACHnxanFCKVviBK2c1Pci0y9qfRwuHY2_PI/edit) for more information about shader programming.
+以下は、`pixels` を使用したノイズベースのディザリングの例と、シェーダーを使用した同等のフィルターです。シェーダープログラミングの詳細については、[シェーダー入門](https://docs.google.com/document/u/0/d/1R7eO9XHcACHnxanFCKVviBK2c1Pci0y9qfRwuHY2_PI/edit)を必ずチェックしてください。
 
 <Columns>
 <Column>
-#### ❌ Using `pixels`
+#### ❌ `pixels` を使用する
 
 ```js
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  pixelDensity(1);
-  describe('a rotating cube with stippled shading');
+  createCanvas(200, 200, WEBGL);
+  pixelDensity(1);
+  describe('点描シェーディングを施した回転する立方体');
 }
-
 function draw() {
-  background(255);
-  const t = millis() * 0.001;
-  push();
-  rotateX(t);
-  rotateY(t);
-  noStroke();
-  lights();
-  box(100);
-  pop();
+  background(255);
+  const t = millis() * 0.001;
+  push();
+  rotateX(t);
+  rotateY(t);
+  noStroke();
+  lights();
+  box(100);
+  pop();
  
-  loadPixels();
-  for (let x = 0; x < width; x += 1) {
-    for (let y = 0; y < height; y += 1) {
-      let idx = (y * height + x) * 4;
-      let newValue;
-      if (pixels[idx] + noise(x, y)*50 >= 220) {
-        newValue = 255;
-      } else {
-        newValue = 0;
-      }
-      pixels[idx] = newValue;
-      pixels[idx + 1] = newValue;
-      pixels[idx + 2] = newValue;
-    }
-  }
-  updatePixels();
+  loadPixels();
+  for (let x = 0; x < width; x += 1) {
+    for (let y = 0; y < height; y += 1) {
+      let idx = (y * height + x) * 4;
+      let newValue;
+      if (pixels[idx] + noise(x, y)*50 >= 220) {
+        newValue = 255;
+      } else {
+        newValue = 0;
+      }
+      pixels[idx] = newValue;
+      pixels[idx + 1] = newValue;
+      pixels[idx + 2] = newValue;
+    }
+  }
+  updatePixels();
 }
 ```
 
 </Column>
 <Column>
-#### ✅ Using a shader
+#### ✅ シェーダーを使用する
 
 ```js
 let dither;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  dither = createFilterShader(`
+  createCanvas(200, 200, WEBGL);
+  dither = createFilterShader(`
 precision highp float;
 uniform sampler2D tex0;
 varying vec2 vTexCoord;
 float random(vec2 p) {
-  vec3 p3  = fract(vec3(p.xyx) * .1031);
-  p3 += dot(p3, p3.yzx + 33.33);
-  return fract((p3.x + p3.y) * p3.z);
+  vec3 p3  = fract(vec3(p.xyx) * .1031);
+  p3 += dot(p3, p3.yzx + 33.33);
+  return fract((p3.x + p3.y) * p3.z);
 }
 void main() {
-  float sample = texture2D(tex0, vTexCoord).r;
-  sample += random(vTexCoord*100.0) * 0.2;
-  // 0 if sample < 0.98; 1 otherwise
-  float level = step(0.98, sample);
-  gl_FragColor = vec4(vec3(level), 1.);
+  float sample = texture2D(tex0, vTexCoord).r;
+  sample += random(vTexCoord*100.0) * 0.2;
+  // sample < 0.98 の場合は 0、それ以外は 1
+  float level = step(0.98, sample);
+  gl_FragColor = vec4(vec3(level), 1.);
 }
 `);
-  describe('a rotating cube with stippled shading');
+  describe('点描シェーディングを施した回転する立方体');
 }
-
 function draw() {
-  background(255);
-  let t = millis() * 0.001;
-  push();
-  rotateX(t);
-  rotateY(t);
-  noStroke();
-  lights();
-  box(100);
-  pop();
+  background(255);
+  let t = millis() * 0.001;
+  push();
+  rotateX(t);
+  rotateY(t);
+  noStroke();
+  lights();
+  box(100);
+  pop();
  
-  filter(dither);
+  filter(dither);
 }
 ```
 </Column>
 <Column fixed>
 <SketchEmbed width={200} height={200} code={`
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  dither = createFilterShader(\`
+  createCanvas(200, 200, WEBGL);
+  dither = createFilterShader(\`
 precision highp float;
 uniform sampler2D tex0;
 varying vec2 vTexCoord;
@@ -546,26 +528,25 @@ float random(vec2 p) {
 void main() {
   float sample = texture2D(tex0, vTexCoord).r;
   sample += random(vTexCoord*100.0) * 0.2;
-  // 0 if sample < 0.98; 1 otherwise
+  // sample < 0.98 の場合は 0、それ以外は 1
   float level = step(0.98, sample);
   gl_FragColor = vec4(vec3(level), 1.);
 }
 \`);
-  describe('a rotating cube with stippled shading');
+  describe('点描シェーディングを施した回転する立方体');
 }
-
 function draw() {
-  background(255);
-  let t = millis() * 0.001;
-  push();
-  rotateX(t);
-  rotateY(t);
-  noStroke();
-  lights();
-  box(100);
-  pop();
+  background(255);
+  let t = millis() * 0.001;
+  push();
+  rotateX(t);
+  rotateY(t);
+  noStroke();
+  lights();
+  box(100);
+  pop();
  
-  filter(dither);
+  filter(dither);
 }
 `} />
 </Column>
@@ -573,86 +554,85 @@ function draw() {
 
 
 <Callout>
-Try adapting the dithering shader into a grain shader by making it add a small random amount of color to each pixel!
+ディザリングシェーダーを、各ピクセルに少量のランダムな色を追加するグレインシェーダーに適応させてみてください！
 </Callout>
 
 
-## Other tips
+## その他のヒント
 
-Aside from the other structural changes we've listed so far, you may also be able to squeeze more performance out of your sketch by tweaking some minor settings that affect how the sketch gets rendered. These may provide varying levels of improvement on different browsers, screens, and computers, so try your changes out in a variety of spots.
+これまでに挙げた構造的な変更以外にも、スケッチのレンダリング方法に影響を与えるいくつかの小さな設定を調整することで、スケッチのパフォーマンスをさらに向上させることができるかもしれません。これらの改善は、異なるブラウザ、画面、コンピューターで様々なレベルの効果を発揮する可能性があるので、様々な場所で変更を試してみてください。
 
 
-### Pixel density
+### ピクセル密度
 
-Some devices have high-resolution screens. To ensure that everything isn't tiny on your browser, those devices will render four pixels in a 2-by-2 grid for every pixel on a lower-density display. This makes images crisp, but it means there are four times the number of pixels to draw.
+一部のデバイスには高解像度の画面があります。ブラウザ上ですべてが小さくならないようにするために、これらのデバイスは低密度ディスプレイの1ピクセルごとに2x2のグリッドで4ピクセルをレンダリングします。これにより画像がくっきりしますが、描画するピクセル数が4倍になることを意味します。
 
-If your sketches are slower on these devices, consider adding `pixelDensity(1)` to only draw the number of pixels you specify in the width and height of your canvas. Your sketch may appear a bit blurry, but that could be fine depending on your sketch.
+これらのデバイスでスケッチが遅くなる場合は、`pixelDensity(1)` を追加して、キャンバスの幅と高さで指定した数のピクセルのみを描画することを検討してください。スケッチが少しぼやけて見える可能性がありますが、スケッチによっては問題ないかもしれません。
 
 ```js
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  pixelDensity(1);
+  createCanvas(200, 200, WEBGL);
+  pixelDensity(1);
 }
 ```
 
 
-### Antialiasing
+### アンチエイリアシング
 
-Antialiasing is the process of smoothing the colors of pixels when a shape intersects only part of the pixel. This can avoid jagged lines and visible pixel grids. However, like high pixel density displays, this is done by doing extra calculations per pixel. Sometimes, when you don't need that extra smoothness, you can turn off antialiasing to run faster.
+アンチエイリアシングは、形状がピクセルの一部のみと交差する場合に、ピクセルの色を滑らかにするプロセスです。これにより、ギザギザの線や目に見えるピクセルグリッドを避けることができます。しかし、高ピクセル密度ディスプレイと同様に、これはピクセルごとに追加の計算を行うことで実現されます。追加の滑らかさが必要ない場合は、アンチエイリアシングをオフにしてより速く実行することができます。
 
 ```js
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  setAttributes({ antialias: false });
+  createCanvas(200, 200, WEBGL);
+  setAttributes({ antialias: false });
 }
 ```
 
-### Curve Detail
+### 曲線の詳細度
 
-When you aren't drawing premade shapes with `model()`, things generally run faster when fewer triangles and edges are involved. One way to tune how detailed your shapes are is with `curveDetail()`: the larger the value you give, the more edges and triangles are used when breaking down curves. Try using a level of detail smaller than the default value of 20.
+`model()` で既製の形状を描画していない場合、一般的に三角形とエッジの数が少ないほど処理が速くなります。形状の詳細度を調整する1つの方法は `curveDetail()` を使用することです。与える値が大きいほど、曲線を分解する際に使用されるエッジと三角形の数が増えます。デフォルト値の20よりも小さい詳細度を試してみてください。
 
 <EditableSketch width={200} height={250} code={`
 let detailSlider;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  detailSlider = createSlider(
-    3, // min
-    20, // max
-    20, // initial value
-    1 // step
-  );
+  createCanvas(200, 200, WEBGL);
+  detailSlider = createSlider(
+    3, // 最小値
+    20, // 最大値
+    20, // 初期値
+    1 // ステップ
+  );
 
-  describe('an arch made of line segments')
+  describe('線分で作られたアーチ')
 }
-
 function draw() {
-  background(200);
-  strokeWeight(3);
-  curveDetail(detailSlider.value());
-  curve(250, 600, 0, -30, 40, 0, 30, 30, 0, -250, 600, 0);
+  background(200);
+  strokeWeight(3);
+  curveDetail(detailSlider.value());
+  curve(250, 600, 0, -30, 40, 0, 30, 30, 0, -250, 600, 0);
 }
 `} />
 
 <Callout>
-What level of detail do you need for the curve above to appear smooth to you? Does it change the level you need if you draw the curve larger? What about smaller?
+上の曲線が滑らかに見えるために必要な詳細度のレベルはどれくらいですか？曲線をより大きく描画した場合、必要なレベルは変わりますか？小さく描画した場合はどうでしょうか？
 </Callout>
 
-## Debugging further
+## さらなるデバッグ
 
-If your sketch is still running slowly and you don't know what part is causing it, it can be helpful to use your browser's profiler. This will vary based on your browser. For more information, you can get more detailed instructions [for Chrome here](https://developer.chrome.com/docs/devtools/performance/) or [for Firefox here](https://profiler.firefox.com/docs/#/./guide-getting-started).
+スケッチの実行がまだ遅く、どの部分が原因なのかわからない場合は、ブラウザのプロファイラを使用すると便利です。これはブラウザによって異なります。詳細な手順については、[Chromeの場合はこちら](https://developer.chrome.com/docs/devtools/performance/)、[Firefoxの場合はこちら](https://profiler.firefox.com/docs/#/./guide-getting-started)で詳しい情報を得ることができます。
 
-In general, you start by opening up the browser's developer tools. An easy way to do that is to right-click somewhere on the page and click "Inspect." In the new toolbar that opens, there will be a tab labeled "Performance" that you can click on to get to the profiler. Here is what that looks like in Chrome:
+一般的に、まずブラウザの開発者ツールを開きます。簡単な方法は、ページのどこかを右クリックして「検証」をクリックすることです。開いた新しいツールバーには、「パフォーマンス」というラベルのついたタブがあり、クリックするとプロファイラにアクセスできます。Chromeでの表示は次のようになります：
 
-![A screenshot of the Chrome developer tools. The Performance tab is selected. The window is mostly blank, with a message in the center that says, "Click the record button or hit Cmd E to start a new recording."](../images/webgl/chrome-dev-tools.png)
+![Chromeの開発者ツールのスクリーンショット。パフォーマンスタブが選択されています。ウィンドウはほとんど空白で、中央に「録画ボタンをクリックするか、Cmd+Eを押して新しい録画を開始します」というメッセージが表示されています。](../images/webgl/chrome-dev-tools.png)
 
-Start running your sketch, then click the **record** button in the profiler. After a few seconds, you can click again to stop the recording. It will now look something like this:
+スケッチの実行を開始し、プロファイラの**録画**ボタンをクリックします。数秒後、もう一度クリックして録画を停止します。すると、次のような表示になります：
 
-![A screenshot of the Chrome developer tools after having recorded a sketch in the Performance tab. It shows a 2D graph, with boxes going from left, and successively smaller boxes stacked vertically below each initial box.](../images/webgl/chrome-perf-profile.png)
+![パフォーマンスタブでスケッチを録画した後のChromeの開発者ツールのスクリーンショット。2Dグラフが表示され、左からボックスが並び、各初期ボックスの下に垂直方向に徐々に小さくなるボックスが積み重なっています。](../images/webgl/chrome-perf-profile.png)
 
-The horizontal axis of this graph is time, showing what code is executing. The longer a block in the graph, the longer that code took to run. The vertical axis shows nested function calls. High up in the stack should be your `draw()` function, and below it will be any functions called within it, and below that will be any functions called by those functions. If you zoom in with your mouse wheel so that one `draw()` call takes up most of the width of the window, you can see a breakdown of how it spends its time by looking at the level right below it and how long those blocks are. The longest blocks are most likely the ones you want to try to optimize further.
+このグラフの横軸は時間を表し、どのコードが実行されているかを示しています。グラフ内のブロックが長いほど、そのコードの実行に時間がかかっていることを意味します。縦軸はネストされた関数呼び出しを示しています。スタックの上部には`draw()`関数があり、その下にはその中で呼び出される関数、さらにその下にはそれらの関数から呼び出される関数があります。マウスホイールでズームインして、1回の`draw()`呼び出しがウィンドウの幅のほとんどを占めるようにすると、その直下のレベルを見てブロックの長さを確認することで、時間の使い方の内訳を見ることができます。最も長いブロックが、さらに最適化を試みるべき対象である可能性が高いです。
 
-![A screenshot of the Chrome developer tools after having recorded a sketch in the Performance tab, zoomed in on one frame of animation. The draw() function takes up the whole frame, and it is subdivided into the functions called by draw(), and the functions those functions call.](../images/webgl/chrome-perf-tools-zoom.png)
+![パフォーマンスタブでスケッチを録画した後のChromeの開発者ツールのスクリーンショット。アニメーションの1フレームにズームインしています。draw()関数がフレーム全体を占め、draw()から呼び出される関数とそれらの関数が呼び出す関数に細分化されています。](../images/webgl/chrome-perf-tools-zoom.png)
 
-## Conclusion
+## まとめ
 
-With these tips and tools, you should be able to hit the ground running with WebGL projects that run fast. Optimization can be complicated though, so don't worry if you get stuck! Consider [joining the p5.js Discord server](https://discord.gg/SHQ8dH25r9) where you will be able to ask for suggestions.
+これらのヒントとツールを使えば、高速に動作するWebGLプロジェクトをすぐに始められるはずです。ただし、最適化は複雑な場合もあるので、行き詰まっても心配しないでください！[p5.js Discordサーバーに参加する](https://discord.gg/SHQ8dH25r9)ことを検討してみてください。そこでは提案を求めることができます。

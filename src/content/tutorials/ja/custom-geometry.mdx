@@ -1,10 +1,10 @@
 ---
-title: "Creating Custom Geometry in WebGL"
-description: A guide to the different ways you can create your own 3D shapes.
+title: "WebGLでカスタムジオメトリを作成する"
+description: 独自の3Dシェイプを作成するさまざまな方法についてのガイド。
 category: webgl
 categoryIndex: 1
 featuredImage: ../images/featured/custom-geometry.png
-featuredImageAlt: A bunch of red ladybugs on a green background
+featuredImageAlt: 緑の背景に赤いてんとう虫がたくさん
 relatedContent:
   examples:
     - en/11_3d/00_geometries/description
@@ -23,84 +23,81 @@ authors:
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 
-p5.js has a number of built-in basic shapes, like `box()` and `sphere()`. It can also render complex custom geometry, both from 3D model files or code. This tutorial will walk through how to import 3D models into p5.js, as well as how to create geometry from scratch.
+p5.jsには、`box()`や`sphere()`のような多くの組み込みの基本的な形状があります。また、3Dモデルファイルやコードから複雑なカスタムジオメトリをレンダリングすることもできます。このチュートリアルでは、3Dモデルをp5.jsにインポートする方法と、ゼロからジオメトリを作成する方法について説明します。
 
-## Loading 3D models from file
+## ファイルから3Dモデルを読み込む
 
-Custom geometry can be imported into p5.js using either OBJ or STL files. These files are usually generated in a 3D modeling tool like Blender, which offers much more control when constructing a 3D scene. This is done using the `loadModel()` method, which should be used within `preload()`. Then, you can use the `model()` function to draw the model, as demonstrated in the example below.
+カスタムジオメトリは、OBJファイルまたはSTLファイルを使用してp5.jsにインポートできます。これらのファイルは通常、Blenderのような3Dモデリングツールで生成され、3Dシーンを構築する際にはるかに多くの制御が可能です。これは`loadModel()`メソッドを使用して行われ、`preload()`内で使用する必要があります。その後、以下の例で示すように、`model()`関数を使用してモデルを描画できます。
 
 <EditableSketch code={`
 let teapotModel;
 function preload() {
-  teapotModel = loadModel('/models/teapot.obj', true);
+  teapotModel = loadModel('/models/teapot.obj', true);
 }
-
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  describe('A model of a teapot');
+  createCanvas(200, 200, WEBGL);
+  describe('ティーポットのモデル');
 }
-
 function draw(){
-  background(255);
+  background(255);
  
-  // Click and drag to look around the shape
-  orbitControl();
+  // クリックしてドラッグすると形状を見回せます
+  orbitControl();
  
-  // This adds color to the model according to the angle of the surface
-  normalMaterial();
-  model(teapotModel);
+  // これは表面の角度に応じてモデルに色を追加します
+  normalMaterial();
+  model(teapotModel);
 }
 `} />
 
-A common issue that can come up with custom models is scaling. Depending on how the model is constructed, it might be a very different size when drawn in p5.js, or be too small to be drawn at all. The `loadModel()` method includes a `normalize` parameter that will resize the model to something that works better in p5.js.
+カスタムモデルで発生する一般的な問題の1つはスケーリングです。モデルの構築方法によっては、p5.jsで描画したときにサイズが大きく異なったり、描画するには小さすぎたりする場合があります。`loadModel()`メソッドには`normalize`パラメータがあり、これによりモデルのサイズをp5.jsでより適切に機能するようにリサイズします。
 
-*Note that there is currently no support for loading materials and colors from model files. You can add color, materials, and textures manually after loading a model.*
+*モデルファイルからマテリアルや色を読み込むサポートは現在ありません。モデルを読み込んだ後、色、マテリアル、テクスチャを手動で追加できます。*
 
 <Callout>
 
-Try [finding a 3D model online](https://sketchfab.com/features/free-3d-models) and integrating it into a sketch!
+[オンラインで3Dモデルを見つけて](https://sketchfab.com/features/free-3d-models)、スケッチに統合してみてください！
 
 </Callout>
 
 
-## Creating procedural geometry
+## プロシージャルジオメトリの作成
 
-Geometry can also be defined procedurally using code. This is a great way to create geometry that moves or is formed using your own set of rules. There are a number of methods that can be used to create 3D geometry in a way that is similar to 2D drawing. For example, functions like `quad()`, `triangle()`, `rect()`, and `circle()` each have extra parameters that make it possible to use them in 3D.
+ジオメトリはコードを使用してプロシージャルに定義することもできます。これは、動くジオメトリや独自のルールセットを使用して形成されるジオメトリを作成するのに最適な方法です。2D描画と同様の方法で3Dジオメトリを作成するために使用できるメソッドがいくつかあります。例えば、`quad()`、`triangle()`、`rect()`、`circle()`などの関数には、3Dで使用できるようにする追加のパラメータがあります。
 
-There are other functions that offer greater control of the geometry. A shape can be defined point-by-point using `beginShape()`, `vertex()`, and `endShape()`. The following example shows how these functions can be used to construct a 3D shape.
+ジオメトリをより細かく制御できる他の関数もあります。形状は`beginShape()`、`vertex()`、`endShape()`を使用してポイントごとに定義できます。次の例は、これらの関数を使用して3D形状を構築する方法を示しています。
 
 
 <EditableSketch code={`
 function setup() {
   createCanvas(216, 216, WEBGL);
   colorMode(HSB);
-  describe('A ribbon rotating in a spiral');
+  describe('らせん状に回転するリボン');
 }
 
 function draw() {
   background(255);
   
-  // Click and drag to look around the shape
+  // クリックしてドラッグすると形状を見回せます
   orbitControl();
   
-  // Angle down and to the right to get a better view
+  // より良い視点を得るために下と右に角度をつけます
   rotateX(PI * -0.2);
   rotateY(PI * 0.2);
   
-  // Draw a strip of quads in a spiral formation
+  // らせん形成で四角形のストリップを描画します
   beginShape(QUAD_STRIP);
   for (let z = -100; z < 100; z += 5) {
     fill((z + frameCount) % 360, 100, 100);
     
-    // Rotate the end point based on how far back it is,
-    // and additionally based on the time
+    // 終点を、どれだけ後ろにあるかと
+    // さらに時間に基づいて回転させます
     let endPoint = createVector(0, 20);
     endPoint.rotate((z + frameCount) * 0.1);
     
-    // In a QUAD_STRIP, each pair of vertices forms a
-    // quad with the next pair. By making each pair have
-    // a small y offset between them, we make a vertical
-    // ribbon.
+    // QUAD_STRIPでは、各頂点のペアが次のペアと
+    // 四角形を形成します。各ペアに小さなy軸オフセットを
+    // 設けることで、垂直なリボンを作ります。
     vertex(endPoint.x, endPoint.y - 5, z);
     vertex(endPoint.x, endPoint.y + 5, z);
   }
@@ -110,41 +107,41 @@ function draw() {
 
 <Callout>
 
-Can you create a 3D bolt of lightning using `beginShape(QUAD_STRIP)`?
+`beginShape(QUAD_STRIP)`を使用して3Dの稲妻を作成できますか？
 
 </Callout>
 
 
-## Reusing procedural geometry
+## プロシージャルジオメトリの再利用
 
-This method is great for creating custom shapes that change over time. Sometimes, you might only need a fixed shape or want an efficient way to draw a shape many times. For this, p5.js has a function called buildGeometry() to turn your custom shapes into the same format as a loaded model. If you are planning on making a particle system, this is a good tool to reach for.
+この方法は、時間とともに変化するカスタム形状を作成するのに最適です。時には、固定された形状だけが必要な場合や、形状を何度も効率的に描画したい場合があります。このために、p5.jsには`buildGeometry()`という関数があり、カスタム形状を読み込まれたモデルと同じ形式に変換します。パーティクルシステムを作成する予定がある場合、これは使用すべき良いツールです。
 
-It takes in a function that draws some shapes. It will then output geometry that you can draw with model() as often as you like.
+この関数は、いくつかの形状を描画する関数を受け取ります。そして、`model()`で好きなだけ描画できるジオメトリを出力します。
 
 <EditableSketch code={`
 let bug;
 
 function setup() {
   createCanvas(200, 200, WEBGL);
-  describe('Bugs randomly moving around');
+  describe('ランダムに動き回る虫たち');
   
-  // Record shapes and store them
+  // 形状を記録して保存します
   bug = buildGeometry(() => {
-    // Head
+    // 頭
     push();
     translate(-50, 0, 0);
     sphere(70);
     
-    // Draw symmetrical parts of the head that come
-    // in pairs by looping over each side of the head
+    // 頭の対称的な部分を描画します
+    // 頭の各側をループして対になる部分を描画します
     for (let side of [-1, 1]) {
-      // Eye
+      // 目
       push();
       translate(-20, -60, side * 30);
       sphere(20);
       pop();
 
-      // Antenna
+      // 触角
       push();
       translate(0, -100, side * 30);
       rotateX(PI * -0.1 * side);
@@ -153,7 +150,7 @@ function setup() {
     }
     pop();
 
-    // Body
+    // 体
     push();
     translate(50, 0, 0);
     scale(1.5, 0.8, 1);
@@ -170,21 +167,21 @@ function draw() {
   noStroke();
   lights();
   
-  // Draw a bunch of bugs
+  // たくさんの虫を描画します
   for (let i = 0; i < 20; i++) {
     push();
-    // Move each bug to a random position and rotation using noise
+    // 各虫をノイズを使ってランダムな位置と回転に移動させます
     translate(
       map(
-        noise(frameCount*0.001, i, 0), // Map this value...
-        0, 1, // ...from this range...
-        -150, 150 // ...into this range
+        noise(frameCount*0.001, i, 0), // この値を...
+        0, 1, // ...この範囲から...
+        -150, 150 // ...この範囲にマッピングします
       ),
       0,
       map(
-        noise(frameCount*0.001, i, 100),  // Map this value...
-        0, 1, // ...from this range...
-        -200, 300 // ...into this range
+        noise(frameCount*0.001, i, 100),  // この値を...
+        0, 1, // ...この範囲から...
+        -200, 300 // ...この範囲にマッピングします
       )
     );
     rotateY(noise(frameCount*0.01, i, 200) * TWO_PI);
@@ -197,25 +194,25 @@ function draw() {
 	
 <Callout>
 
-Try making a few snowflakes using `buildGeometry`, and then use them to create a big snowfall!
+`buildGeometry`を使用していくつかの雪の結晶を作成し、それらを使用して大きな雪降りを作成してみてください！
 
 </Callout>
 
 
-## Smooth shading
+## スムーズなシェーディング
 
-A normal is the direction that is perpendicular to the face, which helps p5.js calculate lighting across the surface.
+法線は面に垂直な方向であり、p5.jsが表面全体の照明を計算するのに役立ちます。
 
-![A triangular face with an arrow pointing directly out of it representing its normal](../images/webgl/face-normal.png)
+![面の法線を表す矢印が直接出ている三角形の面](../images/webgl/face-normal.png)
 
-As long as every vertex shared between touching faces has the same normal, then shading will look smooth. You can specify normals manually by calling `normal(x, y, z)` before each `vertex(x, y, z)`, but p5.js includes functionality to calculate these for you. The following example uses `geometry.calculateNormals(SMOOTH)` to create a warped tube with smooth lighting.
+接触している面間で共有されるすべての頂点が同じ法線を持っている限り、シェーディングはスムーズに見えます。各`vertex(x, y, z)`の前に`normal(x, y, z)`を呼び出すことで法線を手動で指定できますが、p5.jsにはこれらを計算する機能が含まれています。次の例では`geometry.calculateNormals(SMOOTH)`を使用して、スムーズな照明を持つ歪んだチューブを作成しています。
 
 <EditableSketch code={`
 let tube;
 
 function setup() {
   createCanvas(216, 216, WEBGL);
-  describe("A rotating, warped tube");
+  describe("回転する歪んだチューブ");
   
   tube = buildGeometry(() => {
     let verticesPerRing = 20;
@@ -227,22 +224,22 @@ function setup() {
           let y = map(ring + ringOffset, 0, rings, 70, -70);
           let angle = map(i, 0, verticesPerRing, 0, TWO_PI);
           
-          // Rotate a line 70px from the tube center according to the angle
+          // チューブの中心から70px離れた線を角度に応じて回転させます
           let position = createVector(70, 0).rotate(angle);
 
-          // Pick a random value between 0 and 1 that we'll use to squish
-          // the tube in towards the center. The input to noise() changes
-          // based on the position of the shape to get a smoothly changing
-          // output.
-          // If you were to set radius=1 instead, you would get a perfect
-          // tube with no warping.
+          // チューブを中心に向かって押しつぶすために使用する
+          // 0から1の間のランダムな値を選びます。noise()への入力は
+          // 形状の位置に基づいて変化し、滑らかに変化する
+          // 出力を得ます。
+          // radius=1に設定すると、歪みのない完全な
+          // チューブが得られます。
           let radius = noise(
             200 + position.x * 0.01,
             200 + y * 0.01,
             200 + position.y * 0.01
           );
 
-          // Use radius to squish in towards the center of the tube
+          // radiusを使用してチューブの中心に向かって押しつぶします
           let squishedPosition = createVector(
             position.x * radius,
             y,
@@ -274,136 +271,136 @@ function draw() {
 
 <Callout>
 
-Try making a smooth, organic shape in p5. Can you create buildings in the style of [Frank Gehry](https://en.wikipedia.org/wiki/Guggenheim_Museum_Bilbao#/media/File:Museo_Guggenheim,_Bilbao_\(31273245344\).jpg), built out of smooth, wavy strips?
+p5でスムーズで有機的な形状を作ってみてください。[フランク・ゲーリー](https://en.wikipedia.org/wiki/Guggenheim_Museum_Bilbao#/media/File:Museo_Guggenheim,_Bilbao_\(31273245344\).jpg)のスタイルで、スムーズで波打つストリップで構成された建物を作れますか？
 
 </Callout>
 
-## Advanced geometry techniques
 
-Sometimes, you need even more flexibility when making shapes. For example, sometimes you want vertices to be connected irregularly into faces rather than through a grid, or you want to use custom normals or texture coordinates calculated after having generated all your vertices. The `p5.Geometry` class gives full flexibility in creating vertices, faces, texture coordinates, and normals. p5.js uses `p5.Geometry` internally for `loadModel()` and `buildGeometry()`.
+## 高度なジオメトリ技術
 
-In 3D, a face refers to a collection of three points that make up a surface, giving our geometry the appearance of being solid. In `p5.Geometry`, you create faces by:
+時には、形状を作る際にさらに柔軟性が必要になることがあります。例えば、頂点を格子状ではなく不規則に面に接続したい場合や、すべての頂点を生成した後にカスタムの法線やテクスチャ座標を使用したい場合などです。`p5.Geometry`クラスは、頂点、面、テクスチャ座標、法線の作成に完全な柔軟性を提供します。p5.jsは`loadModel()`と`buildGeometry()`の内部で`p5.Geometry`を使用しています。
 
-1. Putting all the points you will use into a big array in the `geometry.vertices` property, and remembering the **order** the points are added.
-2. Putting sets of three indices at a time into the `geometry.faces` array. The **index** of a point refers to its position in the array, determined by the order in which it was added. Index 0 corresponds to the first point you added, index 1 corresponds to the second, index 2 corresponds to the third, etc.
+3Dでは、面は表面を形成する3つの点の集合を指し、ジオメトリに固体の外観を与えます。`p5.Geometry`では、以下の方法で面を作成します：
 
-![An illustration of how to create faces by referring to vertices by their positions in the array. Four vertices are created in a square in a left-to-right then top-to-bottom order. A trianlge is formed in the bottom left of the square with indices \[0, 3, 2\], and a triangle is formed in the top right with indices \[0, 1, 3\].](../images/webgl/faces.svg)
+1. 使用するすべての点を`geometry.vertices`プロパティの大きな配列に入れ、点が追加された**順序**を覚えておきます。
+2. 3つのインデックスのセットを`geometry.faces`配列に入れます。点の**インデックス**は、追加された順序によって決定される配列内の位置を指します。インデックス0は最初に追加した点に、インデックス1は2番目に、インデックス2は3番目に対応し、以下同様です。
 
-The following example uses this method of creating vertices and faces to create a custom tetrahedron shape.
+![配列内の位置を参照して面を作成する方法を示す図。4つの頂点が左から右へ、次に上から下への順序で正方形に作成されています。インデックス[0, 3, 2]で正方形の左下に三角形が形成され、インデックス[0, 1, 3]で右上に三角形が形成されています。](../images/webgl/faces.svg)
+
+次の例では、この頂点と面を作成する方法を使用して、カスタムの四面体形状を作成しています。
 
 <EditableSketch code={`
 let tetrahedron;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  describe('A rotating tetrahedron');
+  createCanvas(200, 200, WEBGL);
+  describe('回転する四面体');
  
-  tetrahedron = new p5.Geometry();
+  tetrahedron = new p5.Geometry();
  
-  // Give each geometry a unique gid
-  tetrahedron.gid = 'tetrahedron';
+  // 各ジオメトリに一意のgidを与える
+  tetrahedron.gid = 'tetrahedron';
  
-  // Add four points of the tetrahedron
+  // 四面体の4つの点を追加する
  
-  let radius = 50;
-  // A 2D triangle:
-  tetrahedron.vertices.push(createVector(radius, 0, 0));
-  tetrahedron.vertices.push(createVector(radius, 0, 0).rotate(TWO_PI / 3));
-  tetrahedron.vertices.push(createVector(radius, 0, 0).rotate(TWO_PI * 2 / 3));
-  // Add a tip in the z axis:
-  tetrahedron.vertices.push(createVector(0, 0, radius));
+  let radius = 50;
+  // 2Dの三角形：
+  tetrahedron.vertices.push(createVector(radius, 0, 0));
+  tetrahedron.vertices.push(createVector(radius, 0, 0).rotate(TWO_PI / 3));
+  tetrahedron.vertices.push(createVector(radius, 0, 0).rotate(TWO_PI * 2 / 3));
+  // z軸に先端を追加：
+  tetrahedron.vertices.push(createVector(0, 0, radius));
  
-  // Create the four faces by connecting the sets of three points
-  tetrahedron.faces.push([0, 1, 2]);
-  tetrahedron.faces.push([0, 1, 3]);
-  tetrahedron.faces.push([0, 2, 3]);
-  tetrahedron.faces.push([1, 2, 3]);
+  // 3点のセットを接続して4つの面を作成する
+  tetrahedron.faces.push([0, 1, 2]);
+  tetrahedron.faces.push([0, 1, 3]);
+  tetrahedron.faces.push([0, 2, 3]);
+  tetrahedron.faces.push([1, 2, 3]);
 }
-
 function draw() {
-  background(200);
-  strokeWeight(2);
-  orbitControl();
-  rotateY(millis() * 0.001);
-  model(tetrahedron);
+  background(200);
+  strokeWeight(2);
+  orbitControl();
+  rotateY(millis() * 0.001);
+  model(tetrahedron);
 }
 `} />
 
-You can also push a `p5.Vector` into the `geometry.normals` array for each vertex you push into `geometry.vertices`. However, you can still call `geometry.computeNormals()` for custom `p5.Geometry` just like you can for geometry built with `buildGeometry()`.
+また、`geometry.vertices`に頂点をプッシュするたびに、`p5.Vector`を`geometry.normals`配列にプッシュすることもできます。ただし、`buildGeometry()`で構築されたジオメトリと同様に、カスタムの`p5.Geometry`に対しても`geometry.computeNormals()`を呼び出すことができます。
 
 <Callout>
 
-A tetrahedron is part of a group of shapes called [Platonic solids](https://en.wikipedia.org/wiki/Platonic_solid). Try generating more of them as `p5.Geometry`!
+四面体は[プラトンの立体](https://en.wikipedia.org/wiki/Platonic_solid)と呼ばれる形状のグループの一部です。他のプラトンの立体を`p5.Geometry`として生成してみてください！
 
 </Callout>
 
-## Conclusion
+## まとめ
 
-Now, you should be able to create custom geometry, making it possible to create unique shapes, both from other tools and from code. Spend some time working with a variety of 3D modeling tools so you can find the one that works best for you. If you find bugs please raise an issue on [Github](https://github.com/processing/p5.js/), or if you run into trouble, feel free to ask questions [on Discord](https://discord.gg/SHQ8dH25r9) or the [Processing Foundation Discourse forum](https://discourse.processing.org/).
-
-
-## Glossary
-
-#### Procedural
-
-Meaning that something is defined mathematically, instead of from stored data, like a file.
+これで、カスタムジオメトリを作成できるようになり、他のツールやコードから独自の形状を作成することが可能になりました。様々な3Dモデリングツールを使って、自分に最適なものを見つけてください。バグを見つけた場合は[Github](https://github.com/processing/p5.js/)で問題を報告し、困ったことがあれば[Discord](https://discord.gg/SHQ8dH25r9)や[Processing Foundation Discourseフォーラム](https://discourse.processing.org/)で質問してください。
 
 
-#### Model
+## 用語集
 
-A representation of geometry.
+#### プロシージャル
+
+ファイルのような保存されたデータではなく、数学的に定義されていることを意味します。
+
+
+#### モデル
+
+ジオメトリの表現。
 
 
 #### STL
 
-STL (most often standing for "standard tesselation language") is a file format for 3D models. It only stores information about the geometry.
+STL（多くの場合「standard tesselation language」の略）は3Dモデルのファイル形式です。ジオメトリに関する情報のみを保存します。
 
 
 #### OBJ
 
-OBJ is an open file format that stores geometry data as well as some material and texture data. In p5.js, we are limited to its geometry, although an image can still be mapped to the surface using textures.
+OBJはジオメトリデータだけでなく、一部のマテリアルとテクスチャデータも保存するオープンなファイル形式です。p5.jsでは、そのジオメトリに限定されますが、テクスチャを使用して画像を表面にマッピングすることはできます。
 
 
-#### Vertices
+#### 頂点
 
-The points of a shape that make up the corners of its faces.
-
-
-#### Faces
-
-The solid surface that is generated between three points.
+面の角を形成する形状の点。
 
 
-#### Normals
+#### 面
 
-The direction that is perpendicular to a face which is often needed when calculating lighting or using materials.
-
-
-#### Normalization
-
-Changing something so that it fits within a standard range.
+3つの点の間に生成される固体の表面。
 
 
-#### Indices
+#### 法線
 
-Positions in the array of vertices. Faces reference vertices by these positions.
+面に垂直な方向で、照明の計算やマテリアルの使用時によく必要とされます。
+
+
+#### 正規化
+
+標準的な範囲内に収まるように何かを変更すること。
+
+
+#### インデックス
+
+頂点配列内の位置。面は頂点をこれらの位置で参照します。
 
 #### `loadModel()`
 
-A p5.js function to load a shape from an OBJ or STL file.
+OBJまたはSTLファイルから形状を読み込むp5.js関数。
 
 #### `p5.Geometry`
 
-A class that p5.js uses to store shapes.
+p5.jsが形状を保存するために使用するクラス。
 
 #### `model()`
 
-A p5.js function to draw a shape to the screen.
+形状を画面に描画するp5.js関数。
 
 #### `buildGeometry()`
 
-A p5.js function to record all the shapes that get drawn and save them into a new `p5.Geometry` object.
+描画されるすべての形状を記録し、新しい`p5.Geometry`オブジェクトに保存するp5.js関数。
 
 #### `computeNormals()`
 
-A method that can be called on `p5.Geometry` to calculate the direction coming out of each face so that they don't need to be manually created.
+`p5.Geometry`で呼び出すことができるメソッドで、各面から出る方向を計算し、手動で作成する必要がないようにします。
 
