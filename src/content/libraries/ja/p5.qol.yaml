@@ -1,9 +1,9 @@
 name: p5.qol
-description: Extend p5 with Quality of Life utilities.
+description: p5に品質向上のためのユーティリティを追加します。
 category: utils
 sourceUrl: https://github.com/error-four-o-four/p5.qol.js
 featuredImage: ../images/p5qol.png
-featuredImageAlt: The cover image for the library. Displays the name of the library on a deep pink background.
+featuredImageAlt: ライブラリのカバー画像。濃いピンクの背景にライブラリの名前が表示されています。
 author:
   name: Jens Bachmayer
   url: https://github.com/error-four-o-four

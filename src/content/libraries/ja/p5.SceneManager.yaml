@@ -1,10 +1,10 @@
 name: p5.SceneManager
-description: p5.SceneManager helps you create sketches with multiple states / scenes. Each scene is a like a sketch within the main sketch.
+description: p5.SceneManagerは、複数の状態/シーンを持つスケッチの作成を支援します。各シーンはメインスケッチ内のスケッチのようなものです。
 category: utils
 sourceUrl: https://github.com/mveteanu/p5.SceneManager
 author:
   name: CodeGuppy
   url: https://codeguppy.com
 featuredImage: ../images/scene_manager.png
-featuredImageAlt: Game states shown above an arcade game
+featuredImageAlt: アーケードゲームの上に表示されたゲームの状態
 license: CC BY 2.0

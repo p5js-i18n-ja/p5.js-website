@@ -1,11 +1,9 @@
 name: p5.localessage
 category: utils
-description: p5.localmessage provides a simple interface to send messages locally
-  from one sketch to another.
+description: p5.localmessageは、あるスケッチから別のスケッチへローカルにメッセージを送信するためのシンプルなインターフェースを提供します。
 author:
-- name: Ben Moren
-  url: https://benmoren.com
+  - name: Ben Moren
+    url: https://benmoren.com
 sourceUrl: https://github.com/bmoren/p5.localmessage
 featuredImage: "../images/p5localmessage.png"
-featuredImageAlt: Two rounded rectangles with ellipses between. connecting lines give
-  the effect of messages being sent between the rectangles via the ellipses.
+featuredImageAlt: 2つの丸みを帯びた長方形の間に楕円があります。接続線が楕円を通じて長方形間でメッセージが送信されているような効果を与えています。

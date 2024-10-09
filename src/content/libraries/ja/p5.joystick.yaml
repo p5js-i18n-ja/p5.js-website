@@ -1,9 +1,9 @@
 name: p5.joystick
-description: Connect and play with physical joysticks.
+description: 物理的なジョイスティックを接続してプレイします。
 category: hardware
 sourceUrl: https://github.com/Vamoss/p5.joystick
 featuredImage: ../images/p5.joystick.png
-featuredImageAlt: Joystick image
+featuredImageAlt: ジョイスティックの画像
 author:
   name: Vamoss
   url: https://www.vamoss.com.br

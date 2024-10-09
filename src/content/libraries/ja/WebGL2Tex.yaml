@@ -1,9 +1,9 @@
 name: WebGL2Tex
-description: A simple library for OOP encapsulation and abstraction of some of the different WebGL2 textures while still giving full control over them.
+description: WebGL2の異なるテクスチャのいくつかをOOPでカプセル化および抽象化しつつ、完全な制御を可能にするシンプルなライブラリです。
 category: drawing
 sourceUrl: https://github.com/RandomGamingDev/WebGL2Tex
 featuredImage: ../images/WebGL2Tex.png
-featuredImageAlt: A checkboard pattern with the name WebGL2Tex in the center
+featuredImageAlt: 中央にWebGL2Texという名前が書かれたチェッカーボードパターン
 author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html

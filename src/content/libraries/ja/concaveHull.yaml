@@ -1,9 +1,9 @@
 name: concaveHull
-description: Calculate a Concave Hull from a set of points in 2D space
+description: 2D空間の点集合から凹包を計算します
 category: algorithms
 sourceUrl: https://github.com/markroland/concaveHullJS
 featuredImage: ../images/concaveHull.png
-featuredImageAlt: A line showing an outline of points
+featuredImageAlt: 点の輪郭を示す線
 author:
   name: Mark Roland
   url: https://markroland.com

@@ -1,9 +1,9 @@
 name: p5.mapper
-description: A projection mapping library for p5.js
+description: p5.js用のプロジェクションマッピングライブラリ
 category: drawing
 sourceUrl: https://github.com/jdeboi/p5.mapper
 featuredImage: ../images/p5.mapper.jpg
-featuredImageAlt: projection mapping shapes (quad, triangle, lines, bezier)
+featuredImageAlt: プロジェクションマッピングの形状（四角形、三角形、線、ベジェ曲線）
 author:
   name: Jenna deBoisblanc
   url: https://jdeboi.com

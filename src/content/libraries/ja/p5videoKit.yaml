@@ -1,9 +1,9 @@
 name: p5videoKit
-description: A dashboard for mixing video in the browser
+description: ブラウザ内でビデオをミキシングするためのダッシュボード
 category: algorithms
 sourceUrl: https://github.com/molab-itp/p5videoKit
 featuredImage: ../images/p5videokit.jpeg
-featuredImageAlt: 9 video effects of the author's face in a 3x3 grid
+featuredImageAlt: 3x3のグリッドに配置された作者の顔の9つのビデオエフェクト
 author: 
   - name: John Henry Thompson
     url: https://jht1493.net/johnhenrythompson/

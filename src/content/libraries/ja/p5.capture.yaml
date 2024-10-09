@@ -1,12 +1,13 @@
 name: p5.capture
-description: Record your p5.js sketches effortlessly!
+description: p5.jsのスケッチを簡単に記録！
 category: export
 sourceUrl: https://github.com/tapioca24/p5.capture
+websiteUrl: https://tapioca24.github.io/p5.capture/
 featuredImage: ../images/p5.capture.png
-featuredImageAlt: "p5.capture: Record your p5.js sketches effortlessly!"
+featuredImageAlt: p5.captureのロゴ。赤い背景に白い文字で「p5.capture」と書かれています。
 author:
   name: tapioca24
   url: https://github.com/tapioca24
-npm: p5.capture
+npm: "@tapioca24/p5.capture"
 license: MIT
 featured: true

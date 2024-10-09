@@ -1,12 +1,10 @@
 name: p5.geolocation
 category: hardware
-description: p5.geolocation provides techniques for acquiring, watching, calculating,
-  and geofencing user locations for p5.js.
+description: p5.geolocationは、p5.jsのユーザー位置の取得、監視、計算、ジオフェンシングのための技術を提供します。
 author:
 - name: Ben Moren
   url: https://benmoren.com
 sourceUrl: https://github.com/bmoren/p5.geolocation
 featuredImage: "../images/p5geolocation.png"
 license: GNU LGPL 2.1
-featuredImageAlt: A radiating polar grid of concentric circles and lines, like a radar
-  screen.
+featuredImageAlt: レーダー画面のような、同心円と線の放射状の極座標グリッド。

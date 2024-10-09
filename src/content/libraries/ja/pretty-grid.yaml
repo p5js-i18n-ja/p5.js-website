@@ -1,9 +1,9 @@
 name: pretty-grid
-description: Create and manipulate grids with Javascript
+description: JavaScriptでグリッドを作成および操作する
 category: utils
 sourceUrl: https://github.com/VadimGouskov/pretty-grid
 featuredImage: ../images/pretty-grid.png
-featuredImageAlt: Six examples showing different grid structures created with the pretty-grid library
+featuredImageAlt: pretty-gridライブラリで作成された異なるグリッド構造を示す6つの例
 author:
   name: Vadim Gouskov
   url: https://vadimgouskov.com

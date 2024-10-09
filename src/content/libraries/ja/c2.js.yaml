@@ -1,6 +1,6 @@
 name: c2.js
 category: algorithms
-description: c2.js is a JavaScript library for creative coding based on computational geometry, physics simulation, evolutionary algorithm and other modules.
+description: c2.jsは、計算幾何学、物理シミュレーション、進化的アルゴリズムなどのモジュールに基づいたクリエイティブコーディングのためのJavaScriptライブラリです。
 author:
   name: Ren Yuan
   url: https://renyuan.io
@@ -9,5 +9,5 @@ websiteUrl: https://c2js.org
 npm: c2.js
 npmFilePath: dist/c2.min.js
 featuredImage: ../images/c2.js.png
-featuredImageAlt: Limited Voronoi
+featuredImageAlt: 制限付きボロノイ図
 license: MIT

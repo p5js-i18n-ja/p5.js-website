@@ -1,8 +1,8 @@
 name: Shader Park
 category: shaders
-description: Explore shader programming through a JavaScript interface without the complexity of GLSL. Quickly script shaders using a P5.js style language.
+description: GLSLの複雑さなしにJavaScriptインターフェースを通じてシェーダープログラミングを探索します。P5.jsスタイルの言語を使用して素早くシェーダーをスクリプト化できます。
 featuredImage: ../images/shader-park.png
-featuredImageAlt: An abstract 3D shape made of a few partial spherical shells organically joined together.
+featuredImageAlt: 有機的に結合された部分的な球殻からなる抽象的な3D形状
 sourceUrl: https://github.com/shader-park/shader-park-core
 websiteUrl: https://shaderpark.com/
 author:

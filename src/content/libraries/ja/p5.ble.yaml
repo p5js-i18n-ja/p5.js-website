@@ -1,10 +1,10 @@
 name: p5.ble
 category: hardware
-description: A Javascript library that enables communication between your BLE devices and your p5.js sketch. 
+description: BLEデバイスとp5.jsスケッチ間の通信を可能にするJavaScriptライブラリ。
 sourceUrl: https://github.com/ITPNYU/p5.ble.js
 websiteUrl: https://itpnyu.github.io/p5ble-website/
 featuredImage: ../images/p5.ble.png
-featuredImageAlt: A browser window and a chip with an LED and a Bluetooth icon exchanging information via arrows back and forth
+featuredImageAlt: ブラウザウィンドウとLEDとBluetoothアイコンが付いたチップが矢印を介して情報を交換している
 author:
   - name: Yining Shi
     url: https://1023.io/

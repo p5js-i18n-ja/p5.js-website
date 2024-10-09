@@ -1,10 +1,10 @@
 name: p5.colorGenerator
 category: color
-description: p5.colorGenerator generates harmonious color schemes by starting from a given base color or selecting a random color as a starting point.
+description: p5.colorGeneratorは、指定された基本色から始めるか、ランダムな色を開始点として選択することで、調和の取れた配色を生成します。
 author:
 - name: Alex Codes Art
   url: https://alexcodesart.com
 sourceUrl: https://github.com/alexandru-postolache/p5.colorGenerator
 websiteUrl: https://alexandru-postolache.github.io/p5.colorGenerator/demo
 featuredImage: "../images/p5.colorGenerator.png"
-featuredImageAlt: Waves coloured using different tints of yellow
+featuredImageAlt: 黄色の異なる色調を使用して着色された波

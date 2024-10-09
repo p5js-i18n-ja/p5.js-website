@@ -1,6 +1,5 @@
 name: p5.Polar
-description: p5.Polar provides mathematical abstractions making it easy to create
-  create beautiful, kaleidoscopic, radial patterns.
+description: p5.Polarは数学的な抽象化を提供し、美しい万華鏡のような放射状のパターンを簡単に作成できます。
 category: drawing
 sourceUrl: https://github.com/liz-peng/p5.Polar
 featuredImage: "../images/p5.Polar.jpg"
@@ -8,4 +7,4 @@ author:
   name: Liz Peng
 npm: "@liz-peng/p5.polar"
 license: MIT
-featuredImageAlt: symmetrical geometric patterns
+featuredImageAlt: 対称的な幾何学模様

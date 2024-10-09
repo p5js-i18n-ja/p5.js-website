@@ -1,5 +1,5 @@
 name: número
-description: A friendly and intuitive math library for p5.js.
+description: p5.js用のフレンドリーで直感的な数学ライブラリ。
 category: math
 sourceUrl: https://github.com/nickmcintyre/numero
 websiteUrl: https://mcintyre.io/numero
@@ -8,6 +8,5 @@ author:
   name: Nick McIntyre
   url: https://mcintyre.io
 license: MIT
-featuredImageAlt: A matrix and a vector both filled with asterisks. The math is written
-  in white on a red background.
+featuredImageAlt: アスタリスクで埋められた行列とベクトル。数式は赤い背景に白で書かれています。
 featured: true

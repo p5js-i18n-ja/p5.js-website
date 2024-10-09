@@ -1,5 +1,5 @@
 name: rita.js
-description: tools for natural language and generative writing
+description: 自然言語処理と生成的な文章作成のためのツール
 category: language
 sourceUrl: https://github.com/dhowe/ritajs
 websiteUrl: https://rednoise.org/rita
@@ -7,7 +7,7 @@ featuredImage: "../images/rita.jpg"
 author:
   name: Daniel C Howe
   url: https://rednoise.org/daniel
-featuredImageAlt: rita.js logo
+featuredImageAlt: rita.jsのロゴ
 npm: rita
 npmFilePath: "dist/rita.min.js"
 

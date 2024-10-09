@@ -1,6 +1,6 @@
 name: p5.party
 category: networking
-description: quickly prototype networked multiplayer games and apps
+description: ネットワーク対応のマルチプレイヤーゲームやアプリを素早くプロトタイピング
 author: 
   name: Justin Bakse
   url: http://justinbakse.com
@@ -9,6 +9,6 @@ websiteUrl: https://p5party.org
 npm: p5.party
 npmFilePath: dist/p5.party.js
 featuredImage: ../images/p5.party.png
-featuredImageAlt: p5.party logo. cheerful pastel block letters spelling "p5.party"
+featuredImageAlt: p5.partyのロゴ。明るいパステルカラーのブロック文字で「p5.party」と綴られています
 license: MIT
 featured: true

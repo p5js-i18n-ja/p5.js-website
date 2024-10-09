@@ -1,9 +1,9 @@
 name: BMWalker.js
-description: A simple JavaScript library for drawing the biological motion 'Walker'.
+description: 生物学的運動「ウォーカー」を描画するためのシンプルなJavaScriptライブラリ。
 category: animation
 sourceUrl: https://github.com/tetunori/BMWalker.js
 featuredImage: ../images/bmwalker.js.png
-featuredImageAlt: People represented by circles and lines are walking in various directions. A logo and description of 'BMWalker.js' library are placed in the center.
+featuredImageAlt: 円と線で表現された人々が様々な方向に歩いています。'BMWalker.js'ライブラリのロゴと説明が中央に配置されています。
 author:
   name: Tetsunori Nakayama
   url: https://github.com/tetunori

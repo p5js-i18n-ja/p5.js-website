@@ -1,10 +1,10 @@
 name: TurtleGFX
-description: TurtleGFX allows to code with Turtle Graphics in JavaScript. Great for education and creative coding.
+description: TurtleGFXを使用すると、JavaScriptでタートルグラフィックスをコーディングできます。教育やクリエイティブコーディングに最適です。
 category: drawing
 sourceUrl: https://github.com/CodeGuppyPrograms/TurtleGFX
 author:
   name: CodeGuppy
   url: https://codeguppy.com
 featuredImage: ../images/turtle_gfx.png
-featuredImageAlt: A turtle and crayons shown above a fractal generated tree
+featuredImageAlt: フラクタルで生成された木の上に表示されたカメと色鉛筆
 license: CC BY 2.0

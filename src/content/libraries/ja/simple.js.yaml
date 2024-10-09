@@ -1,5 +1,5 @@
 name: simple.js
-description: Helper functions and defaults for young and new coders.
+description: 若い初心者コーダー向けのヘルパー関数とデフォルト設定。
 category: teaching
 sourceUrl: https://github.com/makeyourownalgorithmicart/simple.js
 websiteUrl: https://github.com/makeyourownalgorithmicart/simple.js/wiki
@@ -8,4 +8,4 @@ author:
   name: Tariq Rashid
   url: https://www.youtube.com/@AlgorithmicArt/videos
 license: GPLv2
-featuredImageAlt: simple.js logo
+featuredImageAlt: simple.jsのロゴ

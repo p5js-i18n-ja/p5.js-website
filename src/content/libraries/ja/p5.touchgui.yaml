@@ -1,9 +1,9 @@
 name: p5.touchgui
 category: ui
-description: p5.touchgui is intended to extend p5.js and make it easy to add buttons, sliders, and other GUI (graphical user interface) objects to your p5.js sketches, enabling you to focus on quickly iterating ideas with easily created GUI objects that work with both mouse and multi-touch input.
+description: p5.touchguiは、p5.jsを拡張し、ボタン、スライダー、その他のGUI（グラフィカルユーザーインターフェース）オブジェクトをp5.jsスケッチに簡単に追加できるようにすることを目的としています。これにより、マウスとマルチタッチ入力の両方で動作する簡単に作成されたGUIオブジェクトを使用して、アイデアを素早く反復することに集中できます。
 sourceUrl: https://github.com/L05/p5.touchgui
 featuredImage: ../images/p5touchgui.png
-featuredImageAlt: A grid of buttons and sliders created by the library.
+featuredImageAlt: このライブラリで作成されたボタンとスライダーのグリッド。
 author:
   name: Carlos L05 Garcia
   url: https://l05.is/

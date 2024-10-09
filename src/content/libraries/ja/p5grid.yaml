@@ -1,5 +1,5 @@
 name: p5grid
-description: Hexagonal Tiling Library
+description: 六角形タイリングライブラリ
 category: drawing
 sourceUrl: https://github.com/aahdee/p5grid
 featuredImage: "../images/p5grid.png"
@@ -7,5 +7,4 @@ author:
   name: Aren Davey
   url: https://aahdee.net/
 license: LGPL-2.1
-featuredImageAlt: A hexagonal grid with pink rings eminating from the center. Each
-  pink ring is followed by pink rings of a lighter color
+featuredImageAlt: 中心から放射状にピンクの輪が広がる六角形グリッド。各ピンクの輪の後には、より薄い色のピンクの輪が続きます

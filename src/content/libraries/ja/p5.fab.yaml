@@ -1,5 +1,5 @@
 name: p5.fab
-description: 'p5.fab controls digital fabrication machines from p5.js!
+description: 'p5.fabはp5.jsからデジタル製造機械を制御します！
 
 '
 category: hardware
@@ -11,5 +11,5 @@ author:
   url: https://blahblahblair.com/
 npm: p5-fab
 license: MIT
-featuredImageAlt: An image of 3D printed vase made with p5.fab, next to lines of G-Code
-  overlayed with the title 'p5.fab'.
+featuredImageAlt: p5.fabで作成された3Dプリントされた花瓶の画像。その横にはGコードの行が表示され、
+  'p5.fab'というタイトルがオーバーレイされています。

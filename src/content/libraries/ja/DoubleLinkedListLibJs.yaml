@@ -1,6 +1,5 @@
 name: DoubleLinkedListLibJs
-description: A simple double linked list that stores the head, tail and length of
-  the list
+description: リストの先頭、末尾、長さを保存するシンプルな双方向連結リスト
 category: algorithms
 sourceUrl: https://github.com/RandomGamingDev/DoubleLinkedListLibJs
 featuredImage: "../images/DoubleLinkedListLibJs.png"
@@ -8,5 +7,4 @@ author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html
 license: MIT
-featuredImageAlt: A logo displaying a double linked list with the name "DoubleLinkedListLibJs"
-  displayed in the center of the one of the nodes
+featuredImageAlt: 双方向連結リストを表示するロゴ。ノードの1つの中央に「DoubleLinkedListLibJs」という名前が表示されています

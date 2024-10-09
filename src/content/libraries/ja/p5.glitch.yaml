@@ -1,10 +1,10 @@
 name: p5.glitch
 category: animation
-description: p5.js library for glitching images and binary files in the web browser
+description: Webブラウザで画像やバイナリファイルをグリッチ化するためのp5.jsライブラリ
 sourceUrl: https://github.com/ffd8/p5.glitch
 websiteUrl: https://p5.glitch.me
 featuredImage: ../images/p5.glitch.jpg
-featuredImageAlt: p5.glitch logo glitching as a webp file
+featuredImageAlt: webpファイルとしてグリッチ化されたp5.glitchロゴ
 author:
   name: Ted Davis
   url: https://teddavis.org

@@ -1,9 +1,9 @@
 name: VecJs
-description: A basic javascript library for dynamic vectors (e.g. vec2 & vec3) based on lists.
+description: リストに基づく動的ベクトル（例：vec2 & vec3）のための基本的なJavaScriptライブラリ。
 category: math
 sourceUrl: https://github.com/RandomGamingDev/VecJs
 featuredImage: ../images/VecJs.png
-featuredImageAlt: An image of 2 vectors, a large red one, and a smaller blue one, with the VecJs name on the red one
+featuredImageAlt: 2つのベクトルの画像。大きな赤いものと小さな青いもの。赤いベクトルにVecJsの名前が書かれています
 author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html

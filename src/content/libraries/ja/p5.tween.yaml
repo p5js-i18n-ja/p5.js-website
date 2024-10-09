@@ -1,9 +1,9 @@
 name: p5.tween
-description: With p5.tween you can create easily animations as tween in a few keyframes.
+description: p5.tweenを使用すると、数個のキーフレームでトゥイーンとしてアニメーションを簡単に作成できます。
 category: animation
 sourceUrl: https://github.com/Milchreis/p5.tween
 featuredImage: ../images/p5.tween.png
-featuredImageAlt: Two circles in different colors and sizes and an arrow from left to right that stylizes a transition.
+featuredImageAlt: 異なる色とサイズの2つの円と、左から右への矢印で遷移を表現しています。
 author:
   name: Nick Müller
   url: https://github.com/Milchreis

@@ -1,9 +1,9 @@
 name: p5.csg
-description: A library for constructive solid geometry. Do Boolean operations on your p5.Geometry to make new shapes!
+description: 構成的立体幾何学のためのライブラリ。p5.Geometryにブーリアン演算を行って新しい形状を作成します！
 category: 3d
 sourceUrl: https://github.com/davepagurek/p5.csg
 featuredImage: ../images/p5.csg.png
-featuredImageAlt: An egg cut up into slices
+featuredImageAlt: スライスに切り分けられた卵
 author:
   name: Dave Pagurek
   url: https://www.davepagurek.com

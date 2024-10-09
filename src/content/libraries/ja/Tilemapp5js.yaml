@@ -1,9 +1,9 @@
 name: Tilemapp5js
-description: A simple to use & performant tilemap p5.js library
+description: 使いやすく高性能なp5.jsタイルマップライブラリ
 category: drawing
 sourceUrl: https://github.com/RandomGamingDev/Tilemapp5js/
 featuredImage: ../images/Tilemapp5js.png
-featuredImageAlt: A Tilemapp5js tilemap with the Tilemapp5js name in the top right
+featuredImageAlt: 右上にTilemapp5jsの名前が書かれたTilemapp5jsタイルマップ
 author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html

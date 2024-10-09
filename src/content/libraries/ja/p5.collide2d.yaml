@@ -1,7 +1,6 @@
 name: p5.collide2d
 category: math
-description: p5.collide2D provides tools for calculating collision detection for 2D
-  geometry with p5.js.
+description: p5.collide2Dは、p5.jsで2D幾何学の衝突検出を計算するためのツールを提供します。
 author:
 - name: Ben Moren
   url: https://benmoren.com
@@ -10,5 +9,4 @@ websiteUrl: https://editor.p5js.org/p52dcollide/collections/taUUdSGhj
 npm: p5.collide2d
 featuredImage: "../images/p5collide2d.png"
 license: CC BY-NC-SA 4.0
-featuredImageAlt: Various colored shaped overlapping and colliding representing the
-  functions of the p5.collide2d library
+featuredImageAlt: p5.collide2dライブラリの機能を表す、重なり合い衝突している様々な色の形状

@@ -1,10 +1,10 @@
 name: p5.fillGradient
 category: drawing
-description: Fill shapes in p5.js with Linear, Radial and Conic Gradients.
+description: p5.jsで線形、放射状、円錐形のグラデーションを使用して図形を塗りつぶします。
 sourceUrl: https://github.com/alterebro/p5.fillGradient
 websiteUrl: https://www.npmjs.com/package/p5.fillgradient
 featuredImage: ../images/p5.fillGradient.png
-featuredImageAlt: Three gradients (linear, radial, and conic) created using p5.fillGradient
+featuredImageAlt: p5.fillGradientを使用して作成された3つのグラデーション（線形、放射状、円錐形）
 author:
   name: Jorge Moreno
   url: https://alterebro.com

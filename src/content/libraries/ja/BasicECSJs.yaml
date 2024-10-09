@@ -1,6 +1,5 @@
 name: BasicECSJs
-description: A basic javascript ECS system, with SceneManagers, Scenes and GameObjects
-  with their own Start and Update functions.
+description: SceneManager、Scene、独自のStartおよびUpdate関数を持つGameObjectを備えた基本的なJavaScript ECSシステム。
 category: algorithms
 sourceUrl: https://github.com/RandomGamingDev/BasicECSJs/
 featuredImage: "../images/BasicECSJs.png"
@@ -8,6 +7,4 @@ author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html
 license: MIT
-featuredImageAlt: The name BasicECSJs on the top and an image of a duck (named duk)
-  and a mannequin lying down on top of it, as well as a torch in the bottom right
-  corner, titled Entity 0 to 2 in the respective order.
+featuredImageAlt: 上部にBasicECSJsの名前があり、その下にアヒル（dukと名付けられている）とマネキンが横たわっている画像、右下隅にトーチがあります。それぞれEntity 0から2と順番にタイトルが付けられています。

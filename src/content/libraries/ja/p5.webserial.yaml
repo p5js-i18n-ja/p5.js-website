@@ -1,9 +1,9 @@
 name: p5.webserial
-description: A library for interacting with Serial devices from within the browser, based on Web Serial API (available on Chrome and Edge).
+description: Web Serial API（ChromeとEdgeで利用可能）に基づいて、ブラウザ内からシリアルデバイスと対話するためのライブラリ。
 category: hardware
 sourceUrl: https://github.com/gohai/p5.webserial
 featuredImage: ../images/p5.webserial.png
-featuredImageAlt: Fingers resting on an acrylic cube sporting buttons to control a game unfolding on a laptop screen visible in the background
+featuredImageAlt: 背景に見えるラップトップ画面上で展開されるゲームを制御するボタンを備えたアクリル製キューブに指が置かれています
 author:
   name: Gottfried Haider
   url: https://github.com/gohai/

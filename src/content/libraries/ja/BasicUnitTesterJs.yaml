@@ -1,6 +1,5 @@
 name: BasicUnitTesterJs
-description: BasicUnitTesterJs is a basic javascript unit tester designed to work
-  on all JS platforms and be small and streamlined for the best developer experience.
+description: BasicUnitTesterJsは、すべてのJSプラットフォームで動作し、最高の開発者体験のために小さくて効率的に設計された基本的なJavaScriptユニットテスターです。
 category: utils
 sourceUrl: https://github.com/RandomGamingDev/BasicUnitTesterJs/
 featuredImage: "../images/BasicUnitTesterJs.png"
@@ -8,6 +7,4 @@ author:
   name: RandomGamingDev
   url: https://randomgamingdev.github.io/index.html
 license: MIT
-featuredImageAlt: An image of the word "BasicUnitTesterJs" with "Basic" on the side
-  of and "UnitTesterJs" being on a test paper with a check and x as well as an exclamation
-  mark on the right and a little bit of text on the left saying "Error!"
+featuredImageAlt: 「BasicUnitTesterJs」という単語の画像。「Basic」が側面にあり、「UnitTesterJs」がチェックマークとXマークのついたテスト用紙の上にあります。右側に感嘆符があり、左側に「Error!」という小さなテキストがあります。

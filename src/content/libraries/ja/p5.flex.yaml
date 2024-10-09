@@ -1,9 +1,9 @@
 name: p5.flex
-description: p5 container with responsive canvas feature.
+description: レスポンシブキャンバス機能を持つp5コンテナ。
 category: utils
 sourceUrl: https://github.com/ZRNOF/p5.flex
 featuredImage: ../images/p5.flex.png
-featuredImageAlt: p5.flex preview image
+featuredImageAlt: p5.flexのプレビュー画像
 author:
   name: Zaron Chen
   url: https://zrnof.github.io/

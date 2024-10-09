@@ -1,9 +1,9 @@
 name: p5.teach.js
-description: A beginner friendly math animation library for p5.js
+description: p5.js用の初心者向け数学アニメーションライブラリ
 category: teaching
 sourceUrl: https://github.com/two-ticks/p5.teach.js
 featuredImage: ../images/p5.teach.js.png
-featuredImageAlt: Wave equation on the upper left corner and right upper corner has a graph of cosine function plus some polynomial terms. A logo and description of 'p5.teach.js' library are placed in the center.
+featuredImageAlt: 左上隅に波動方程式、右上隅に余弦関数と多項式項のグラフがあります。中央に'p5.teach.js'ライブラリのロゴと説明が配置されています。
 author:
   - name: Aditya Siddheshwar
     url: https://two-ticks.github.io/

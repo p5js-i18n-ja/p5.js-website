@@ -1,9 +1,9 @@
 name: p5.bezier
-description: p5.bezier helps draw Bézier curves with more than four control points and closed curves.
+description: p5.bezierは4つ以上の制御点を持つベジェ曲線や閉じた曲線を描画するのに役立ちます。
 category: drawing
 sourceUrl: https://github.com/peilingjiang/p5.bezier
 featuredImage: ../images/p5.bezier.png
-featuredImageAlt: The p5.bezier text with curves of different colors.
+featuredImageAlt: 異なる色の曲線が描かれたp5.bezierのテキスト。
 author:
   name: Peiling Jiang
   url: https://jiang.pl/
