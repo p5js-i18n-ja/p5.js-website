@@ -1,31 +1,29 @@
-// Define the global variables.
-// The balls variable will contain all the
-// balls in the canvas.
+// グローバル変数を定義します。
+// balls変数は、キャンバス内のすべての
+// ボールを含みます。
 let balls = [];
 
-// The threshold variable will be used to check
-// if the mobile device has been moved enough to
-// initiate a response.
+// threshold変数は、モバイルデバイスが
+// 反応を開始するのに十分に動いたかどうかを
+// チェックするために使用されます。
 let threshold = 30;
 
-// accChangeX and accChangeY will measure the acceleration
-// when the mobile device is moved.
+// accChangeXとaccChangeYは、モバイルデバイスが
+// 動いたときの加速度を測定します。
 let accChangeX = 0;
 let accChangeY = 0;
 
-// accChangeT will be used to calculate the overall change
-// for the mobile device's position.
+// accChangeTは、モバイルデバイスの位置の
+// 全体的な変化を計算するために使用されます。
 let accChangeT = 0;
 
 function setup() {
-  describe(
-    'Twenty circles that bounce around in the canvas whenever the mobile device is tilted.'
-  );
+  describe("モバイルデバイスが傾くたびにキャンバス内でバウンドする20個の円。");
 
-  // Create a canvas that fills the entire viewport display.
+  // ビューポートディスプレイ全体を埋めるキャンバスを作成します。
   createCanvas(displayWidth, displayHeight);
 
-  // Create 20 instances of the Ball class.
+  // Ballクラスのインスタンスを20個作成します。
   for (let i = 0; i < 20; i++) {
     balls.push(new Ball());
   }
@@ -34,9 +32,8 @@ function setup() {
 function draw() {
   background(0);
 
-  // For each ball created, move the ball
-  // in response to the measurements gathered
-  // by the checkForShake() function.
+  // 作成された各ボールに対して、checkForShake()関数で
+  // 収集された測定値に応じてボールを移動させます。
   for (let i = 0; i < balls.length; i++) {
     balls[i].move();
     balls[i].display();
@@ -45,24 +42,24 @@ function draw() {
 }
 
 function checkForShake() {
-  // Calculate the total change for accelerationX and accelerationY.
+  // accelerationXとaccelerationYの総変化を計算します。
   accChangeX = abs(accelerationX - pAccelerationX);
   accChangeY = abs(accelerationY - pAccelerationY);
 
-  // Calculate the overall change in the mobile device's acceleration.
+  // モバイルデバイスの加速度の全体的な変化を計算します。
   accChangeT = accChangeX + accChangeY;
 
-  // If the overall change meets or is greater than the threshold,
-  // call the shake() and turn() methods and change the direction
-  // and speed of each ball.
+  // 全体的な変化がしきい値以上の場合、
+  // shake()とturn()メソッドを呼び出し、
+  // 各ボールの方向と速度を変更します。
   if (accChangeT >= threshold) {
     for (let i = 0; i < balls.length; i++) {
       balls[i].shake();
       balls[i].turn();
     }
   }
-  // If the overall change doesn't meet the threshold,
-  // gradually slow down the ball movement.
+  // 全体的な変化がしきい値に満たない場合、
+  // ボールの動きを徐々に遅くします。
   else {
     for (let i = 0; i < balls.length; i++) {
       balls[i].stopShake();
@@ -72,11 +69,11 @@ function checkForShake() {
   }
 }
 
-// Create the Ball class.
+// Ballクラスを作成します。
 class Ball {
   constructor() {
-    // Make each ball created have a random size, speed, and starting
-    // placement in the canvas.
+    // 作成された各ボールにランダムなサイズ、速度、
+    // キャンバス内の開始位置を与えます。
     this.x = random(width);
     this.y = random(height);
     this.diameter = random(10, 30);
@@ -84,22 +81,22 @@ class Ball {
     this.yspeed = random(-2, 2);
     this.direction = 0.7;
 
-    // oxspeed will be used to calculate the decrease in speed in the
-    // stopShake() method.
+    // oxspeedはstopShake()メソッドで速度の減少を
+    // 計算するために使用されます。
     this.oxspeed = this.xspeed;
     this.oyspeed = this.yspeed;
   }
 
-  // Whenever the ball's move() method is called,
-  // multiply its speed and direction of movement
-  // and have that equal its new placement in the canvas.
+  // ボールのmove()メソッドが呼び出されるたびに、
+  // その速度と移動方向を掛け合わせ、
+  // それをキャンバス内の新しい位置とします。
   move() {
     this.x += this.xspeed * this.direction;
     this.y += this.yspeed * this.direction;
   }
 
-  // If the ball ever touches the edge of the canvas,
-  // have it bounce off the edge.
+  // ボールがキャンバスの端に触れた場合、
+  // 端から跳ね返るようにします。
   turn() {
     if (this.x < 0) {
       this.x = 0;
@@ -116,16 +113,16 @@ class Ball {
     }
   }
 
-  // Whenever the ball's shake() method is called,
-  // add to the speed of the ball based on
-  // the change in the accelerationX value.
+  // ボールのshake()メソッドが呼び出されるたびに、
+  // accelerationXの値の変化に基づいて
+  // ボールの速度を増加させます。
   shake() {
     this.xspeed += random(5, accChangeX / 3);
     this.yspeed += random(5, accChangeX / 3);
   }
 
-  // Whenever the ball's stopShake() method is called,
-  // gradually slow down its speed.
+  // ボールのstopShake()メソッドが呼び出されるたびに、
+  // その速度を徐々に遅くします。
   stopShake() {
     if (this.xspeed > this.oxspeed) {
       this.xspeed -= 0.6;
@@ -139,8 +136,9 @@ class Ball {
     }
   }
 
-  // Draw the ball on the canvas, given its randomized diameter
-  // and current coordinates calculated with the methods listed above.
+  // 上記のメソッドで計算された現在の座標と
+  // ランダム化された直径に基づいて、
+  // キャンバス上にボールを描画します。
   display() {
     ellipse(this.x, this.y, this.diameter, this.diameter);
   }

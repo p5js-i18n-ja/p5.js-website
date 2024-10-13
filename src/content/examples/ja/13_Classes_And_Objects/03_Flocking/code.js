@@ -2,18 +2,18 @@ let flock;
 
 function setup() {
   createCanvas(640, 360);
-  createP('Drag the mouse to generate new boids.');
+  createP("マウスをドラッグして新しいボイドを生成します。");
 
   flock = new Flock();
 
-  // Add an initial set of boids into the system
+  // システムに初期のボイドのセットを追加
   for (let i = 0; i < 100; i++) {
     let b = new Boid(width / 2, height / 2);
     flock.addBoid(b);
   }
 
   describe(
-    'A group of bird-like objects, represented by triangles, moving across the canvas, modeling flocking behavior.'
+    "三角形で表現された鳥のようなオブジェクトのグループが、群れの行動をモデル化してキャンバス上を移動します。",
   );
 }
 
@@ -22,21 +22,21 @@ function draw() {
   flock.run();
 }
 
-// On mouse drag, add a new boid to the flock
+// マウスドラッグ時に、新しいボイドを群れに追加
 function mouseDragged() {
   flock.addBoid(new Boid(mouseX, mouseY));
 }
 
-// Flock class to manage the array of all the boids
+// すべてのボイドの配列を管理するFlockクラス
 class Flock {
   constructor() {
-    // Initialize the array of boids
+    // ボイドの配列を初期化
     this.boids = [];
   }
 
   run() {
     for (let boid of this.boids) {
-      // Pass the entire list of boids to each boid individually
+      // ボイド全体のリストを各ボイドに個別に渡す
       boid.run(this.boids);
     }
   }
@@ -53,10 +53,10 @@ class Boid {
     this.position = createVector(x, y);
     this.size = 3.0;
 
-    // Maximum speed
+    // 最大速度
     this.maxSpeed = 3;
 
-    // Maximum steering force
+    // 最大操舵力
     this.maxForce = 0.05;
     colorMode(HSB);
     this.color = color(random(256), 255, 255);
@@ -70,60 +70,60 @@ class Boid {
   }
 
   applyForce(force) {
-    // We could add mass here if we want: A = F / M
+    // ここに質量を追加することもできます: A = F / M
     this.acceleration.add(force);
   }
 
-  // We accumulate a new acceleration each time based on three rules
+  // 3つのルールに基づいて、毎回新しい加速度を蓄積します
   flock(boids) {
     let separation = this.separate(boids);
     let alignment = this.align(boids);
     let cohesion = this.cohesion(boids);
 
-    // Arbitrarily weight these forces
+    // これらの力を任意に重み付け
     separation.mult(1.5);
     alignment.mult(1.0);
     cohesion.mult(1.0);
 
-    // Add the force vectors to acceleration
+    // 力のベクトルを加速度に加える
     this.applyForce(separation);
     this.applyForce(alignment);
     this.applyForce(cohesion);
   }
 
-  // Method to update location
+  // 位置を更新するメソッド
   update() {
-    // Update velocity
+    // 速度を更新
     this.velocity.add(this.acceleration);
 
-    // Limit speed
+    // 速度を制限
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
 
-    // Reset acceleration to 0 each cycle
+    // 各サイクルで加速度を0にリセット
     this.acceleration.mult(0);
   }
 
-  // A method that calculates and applies a steering force towards a target
+  // ターゲットに向かう操舵力を計算して適用するメソッド
   // STEER = DESIRED MINUS VELOCITY
   seek(target) {
-    // A vector pointing from the location to the target
+    // 現在位置からターゲットへのベクトル
     let desired = p5.Vector.sub(target, this.position);
 
-    // Normalize desired and scale to maximum speed
+    // desiredを正規化し、最大速度にスケーリング
     desired.normalize();
     desired.mult(this.maxSpeed);
 
-    // Steering = Desired minus Velocity
+    // 操舵 = 目的 - 速度
     let steer = p5.Vector.sub(desired, this.velocity);
 
-    // Limit to maximum steering force
+    // 最大操舵力に制限
     steer.limit(this.maxForce);
     return steer;
   }
 
   render() {
-    // Draw a triangle rotated in the direction of velocity
+    // 速度の方向に回転した三角形を描画
     let theta = this.velocity.heading() + radians(90);
     fill(this.color);
     stroke(255);
@@ -138,7 +138,7 @@ class Boid {
     pop();
   }
 
-  // Wraparound
+  // 画面端のラップアラウンド
   borders() {
     if (this.position.x < -this.size) {
       this.position.x = width + this.size;
@@ -157,40 +157,40 @@ class Boid {
     }
   }
 
-  // Separation
-  // Method checks for nearby boids and steers away
+  // 分離
+  // 近くのボイドをチェックし、離れるように操舵するメソッド
   separate(boids) {
     let desiredSeparation = 25.0;
     let steer = createVector(0, 0);
     let count = 0;
 
-    // For every boid in the system, check if it's too close
+    // システム内のすべてのボイドに対して、近すぎないかチェック
     for (let boid of boids) {
       let distanceToNeighbor = p5.Vector.dist(this.position, boid.position);
 
-      // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
+      // 距離が0より大きく、任意の量未満の場合（0は自分自身の場合）
       if (distanceToNeighbor > 0 && distanceToNeighbor < desiredSeparation) {
-        // Calculate vector pointing away from neighbor
+        // 隣接ボイドから離れる方向のベクトルを計算
         let diff = p5.Vector.sub(this.position, boid.position);
         diff.normalize();
 
-        // Scale by distance
+        // 距離に応じてスケーリング
         diff.div(distanceToNeighbor);
         steer.add(diff);
 
-        // Keep track of how many
+        // カウントを記録
         count++;
       }
     }
 
-    // Average -- divide by how many
+    // 平均 -- カウント数で割る
     if (count > 0) {
       steer.div(count);
     }
 
-    // As long as the vector is greater than 0
+    // ベクトルの大きさが0より大きい場合
     if (steer.mag() > 0) {
-      // Implement Reynolds: Steering = Desired - Velocity
+      // レイノルズの実装: 操舵 = 目的 - 速度
       steer.normalize();
       steer.mult(this.maxSpeed);
       steer.sub(this.velocity);
@@ -199,8 +199,8 @@ class Boid {
     return steer;
   }
 
-  // Alignment
-  // For every nearby boid in the system, calculate the average velocity
+  // 整列
+  // システム内の近くのすべてのボイドに対して、平均速度を計算
   align(boids) {
     let neighborDistance = 50;
     let sum = createVector(0, 0);
@@ -224,24 +224,24 @@ class Boid {
     }
   }
 
-  // Cohesion
-  // For the average location (i.e., center) of all nearby boids, calculate steering vector towards that location
+  // 結合
+  // 近くのすべてのボイドの平均位置（つまり中心）に向かう操舵ベクトルを計算
   cohesion(boids) {
     let neighborDistance = 50;
-    let sum = createVector(0, 0); // Start with empty vector to accumulate all locations
+    let sum = createVector(0, 0); // すべての位置を蓄積するための空のベクトルで開始
     let count = 0;
     for (let i = 0; i < boids.length; i++) {
       let d = p5.Vector.dist(this.position, boids[i].position);
       if (d > 0 && d < neighborDistance) {
-        sum.add(boids[i].position); // Add location
+        sum.add(boids[i].position); // 位置を追加
         count++;
       }
     }
     if (count > 0) {
       sum.div(count);
-      return this.seek(sum); // Steer towards the location
+      return this.seek(sum); // その位置に向かって操舵
     } else {
       return createVector(0, 0);
     }
   }
-} // class Boid
+} // Boidクラス

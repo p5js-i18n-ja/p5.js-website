@@ -1,96 +1,95 @@
-// Array of path objects, each containing an array of particles
+// パーティクルの配列を含むパスオブジェクトの配列
 let paths = [];
 
-// How long until the next particle
+// 次のパーティクルまでの時間
 let framesBetweenParticles = 5;
 let nextParticleFrame = 0;
 
-// Location of last created particle
+// 最後に作成されたパーティクルの位置
 let previousParticlePosition;
 
-// How long it takes for a particle to fade out
+// パーティクルがフェードアウトするまでの時間
 let particleFadeFrames = 300;
 
 function setup() {
   createCanvas(720, 400);
   colorMode(HSB);
 
-  // Start with a default vector and then use this to save the position
-  // of the last created particle
+  // デフォルトのベクトルで開始し、これを使用して最後に作成されたパーティクルの位置を保存する
   previousParticlePosition = createVector();
   describe(
-    'When the cursor drags along the black background, it draws a pattern of multicolored circles outlined in white and connected by white lines. The circles and lines fade out over time.'
+    "カーソルが黒い背景上をドラッグすると、白い輪郭線で描かれた多色の円と、それらを結ぶ白い線のパターンが描かれます。円と線は時間とともにフェードアウトします。",
   );
 }
 
 function draw() {
   background(0);
 
-  // Update and draw all paths
+  // すべてのパスを更新して描画する
   for (let path of paths) {
     path.update();
     path.display();
   }
 }
 
-// Create a new path when mouse is pressed
+// マウスが押されたときに新しいパスを作成する
 function mousePressed() {
   nextParticleFrame = frameCount;
   paths.push(new Path());
 
-  // Reset previous particle position to mouse
-  // so that first particle in path has zero velocity
+  // 前のパーティクルの位置をマウスにリセットする
+  // これにより、パスの最初のパーティクルの速度がゼロになる
   previousParticlePosition.set(mouseX, mouseY);
   createParticle();
 }
 
-// Add particles when mouse is dragged
+// マウスがドラッグされたときにパーティクルを追加する
 function mouseDragged() {
-  // If it's time for a new point
+  // 新しいポイントを作成する時間になったら
   if (frameCount >= nextParticleFrame) {
     createParticle();
   }
 }
 
 function createParticle() {
-  // Grab mouse position
+  // マウスの位置を取得する
   let mousePosition = createVector(mouseX, mouseY);
 
-  // New particle's velocity is based on mouse movement
+  // 新しいパーティクルの速度はマウスの動きに基づく
   let velocity = p5.Vector.sub(mousePosition, previousParticlePosition);
   velocity.mult(0.05);
 
-  // Add new particle
+  // 新しいパーティクルを追加する
   let lastPath = paths[paths.length - 1];
   lastPath.addParticle(mousePosition, velocity);
 
-  // Schedule next particle
+  // 次のパーティクルをスケジュールする
   nextParticleFrame = frameCount + framesBetweenParticles;
 
-  // Store mouse values
+  // マウスの値を保存する
   previousParticlePosition.set(mouseX, mouseY);
 }
 
-// Path is a list of particles
+// パスはパーティクルのリストである
 class Path {
   constructor() {
     this.particles = [];
   }
 
   addParticle(position, velocity) {
-    // Add a new particle with a position, velocity, and hue
+    // 位置、速度、色相を持つ新しいパーティクルを追加する
     let particleHue = (this.particles.length * 30) % 360;
     this.particles.push(new Particle(position, velocity, particleHue));
   }
 
-  // Update all particles
+  // すべてのパーティクルを更新する
   update() {
     for (let particle of this.particles) {
       particle.update();
     }
   }
 
-  // Draw a line between two particles
+  // 2つのパーティクル間に線を引く
   connectParticles(particleA, particleB) {
     let opacity = particleA.framesRemaining / particleFadeFrames;
     stroke(255, opacity);
@@ -98,27 +97,27 @@ class Path {
       particleA.position.x,
       particleA.position.y,
       particleB.position.x,
-      particleB.position.y
+      particleB.position.y,
     );
   }
 
-  // Display path
+  // パスを表示する
   display() {
-    // Loop through backwards so that when a particle is removed,
-    // the index number for the next loop will match up with the
-    // particle before the removed one
+    // パーティクルが削除されたとき、次のループのインデックス番号が
+    // 削除されたパーティクルの前のパーティクルと一致するように、
+    // 後ろからループする
     for (let i = this.particles.length - 1; i >= 0; i -= 1) {
-      // Remove this particle if it has no frames remaining
+      // このパーティクルの残りフレームがなければ削除する
       if (this.particles[i].framesRemaining <= 0) {
         this.particles.splice(i, 1);
 
-        // Otherwise, display it
+        // そうでなければ、表示する
       } else {
         this.particles[i].display();
 
-        // If there is a particle after this one
+        // このパーティクルの後にパーティクルがある場合
         if (i < this.particles.length - 1) {
-          // Connect them with a line
+          // それらを線で結ぶ
           this.connectParticles(this.particles[i], this.particles[i + 1]);
         }
       }
@@ -126,7 +125,7 @@ class Path {
   }
 }
 
-// Particle along a path
+// パスに沿ったパーティクル
 class Particle {
   constructor(position, velocity, hue) {
     this.position = position.copy();
@@ -137,17 +136,17 @@ class Particle {
   }
 
   update() {
-    // Move it
+    // 移動させる
     this.position.add(this.velocity);
 
-    // Slow it down
+    // 減速させる
     this.velocity.mult(this.drag);
 
-    // Fade it out
+    // フェードアウトさせる
     this.framesRemaining = this.framesRemaining - 1;
   }
 
-  // Draw particle
+  // パーティクルを描画する
   display() {
     let opacity = this.framesRemaining / particleFadeFrames;
     noStroke();
