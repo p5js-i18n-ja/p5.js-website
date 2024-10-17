@@ -23,11 +23,13 @@ description: >
   算術演算子を組み合わせて使用するのが一般的です：</p>
 
   <pre><code class="language-js">// 中心に円を描く
+
   circle(width / 2, height / 2, 20);
 
   </code></pre>
 
   <pre><code class="language-js">// 左から右に移動する円を描く
+
   circle(frameCount * 0.01, 50, 20);
 
   </code></pre>
@@ -35,10 +37,15 @@ description: >
   <p>以下は算術演算子の簡単な概要です：</p>
 
   <pre><code class="language-js">1 + 2 // 加算
+
   1 - 2 // 減算
+
   1 * 2 // 乗算
+
   1 / 2 // 除算
+
   1 % 2 // 剰余
+
   1 ** 2 // べき乗
 
   </code></pre>
@@ -60,9 +67,13 @@ description: >
   <p>以下は代入演算子の簡単な概要です：</p>
 
   <pre><code class="language-js">x += 2 // 加算代入
+
   x -= 2 // 減算代入
+  
   x *= 2 // 乗算代入
+  
   x /= 2 // 除算代入
+  
   x %= 2 // 剰余代入
 
   </code></pre>
@@ -71,7 +82,7 @@ description: >
   <a
   href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators"
   target="_blank">関係演算子</a>
-  <code>></code>, <code><< code="">, <code>>=</code>, <code><=< code="">,
+  <span class="code">></span>, <span class="code"><</span>, <span class="code">>=</span>, <span class="code"><=</span>,
   <code>===</code>, <code>!==</code>を使用して比較できます。例えば、スケッチの
   <a href="/reference/p5/frameCount/">frameCount</a>をタイマーとして使用できます：</=<></code></<></code></p>
 
@@ -81,13 +92,20 @@ description: >
 
   </code></pre>
 
-  <p><code>frameCount > 1000</code>のような式は<code>true</code>または<code>false</code>の
+  <p><span class="code">frameCount > 1000</span>のような式は<code>true</code>または<code>false</code>の
   <code>Boolean</code>値に評価されます。関係演算子はすべて<code>Boolean</code>値を生成します：</p>
 
   <pre><code class="language-js">2 > 1 // true
+
   2 < 1 // false
+
   2 >= 2 // true
-  2 <= 2="" true="" !="=" false="" <="" code=""/></code></pre>
+
+  2 <= 2 // true
+ 
+  2 === 2 // true
+ 
+  2 !== 2 // false</code></pre>
 
   <p>比較と条件についての詳細は<a href="/reference/p5/Boolean/">Boolean</a>を参照してください。</p>
 

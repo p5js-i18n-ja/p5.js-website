@@ -11,10 +11,12 @@ description: >
   ループを使うと、「複数の線を描く」というアイデアを次のように簡単に表現できます：</p>
 
   <pre><code class="language-js">// 繰り返しを追跡する変数を宣言する
+
   let x = 10;
 
 
   // x < 100である限り繰り返す
+
   while (x < 100) {
     line(x, 25, x, 75);
 
@@ -35,16 +37,19 @@ description: >
   次のループはカウントアップしないため、決して反復を停止しません：</p>
 
   <pre><code class="language-js">// 繰り返しを追跡する変数を宣言する
+
   let x = 10;
 
 
   // x < 100である限り繰り返す
+
   while (x < 100) {
     line(x, 25, x, 75);
   }
 
 
   // これはループの本体内にあるべきです！
+
   x += 20;
 
   </code></pre>
@@ -56,6 +61,7 @@ description: >
   例えば、同心円をランダムな間隔で描くことができます：</p>
 
   <pre><code class="language-js">let d = 100;
+
   let minSize = 5;
 
 
