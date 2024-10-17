@@ -1,0 +1,204 @@
+---
+title: Boolean
+module: Foundation
+submodule: Foundation
+file: src/core/reference.js
+description: >
+  <p><code>true</code>または<code>false</code>のいずれかの値。</p>
+
+  <p><code>Boolean</code>値はコード内で決定を下すのに役立ちます。論理的な条件がチェックされるときはいつでも現れます。例えば、「マウスボタンが押されているか？」という条件は、<code>true</code>か<code>false</code>のいずれかでなければなりません：</p>
+
+  <pre><code class="language-js">// ユーザーがマウスを押したら、マウスの位置に円を描く
+
+  if (mouseIsPressed === true) {
+    circle(mouseX, mouseY, 20);
+  }
+
+  </code></pre>
+
+  <p><code>if</code>文は<a href="/reference/p5/mouseIsPressed/">mouseIsPressed</a>が<code>true</code>かどうかをチェックし、そうであれば円を描きます。<code>mouseIsPressed === true</code>のような<code>Boolean</code>式は、2つの可能な<code>Boolean</code>値のうちの1つ、<code>true</code>または<code>false</code>に評価されます。</p>
+
+  <p><code>===</code>演算子（等価）は2つの値が等しいかどうかをチェックします。等しければ、式は<code>true</code>と評価されます。そうでなければ、<code>false</code>と評価されます。</p>
+
+  <p>注意：3つではなく2つの<code>=</code>を使用した<code>==</code>演算子もありますが、これは使用しないでください。</p>
+
+  <p><a href="/reference/p5/mouseIsPressed/">mouseIsPressed</a>システム変数は常に<code>true</code>または<code>false</code>なので、上記のコードスニペットは次のように書くこともできます：</p>
+
+  <pre><code class="language-js">if (mouseIsPressed) {
+    circle(mouseX, mouseY, 20);
+  }
+
+  </code></pre>
+
+  <p><code>!==</code>演算子（不等価）は2つの値が等しくないかどうかをチェックします。以下の例のようになります：</p>
+
+  <pre><code class="language-js">if (2 + 2 !== 4) {
+    text('戦争は平和である。', 50, 50);
+  }
+
+  </code></pre>
+
+  <p>左から始めると、算術式<code>2 + 2</code>は値<code>4</code>を生成します。<code>Boolean</code>式<code>4 !== 4</code>は<code>false</code>と評価されます。なぜなら<code>4</code>は自身と等しいからです。結果として、<code>if</code>文の本体はスキップされます。</p>
+
+  <p>注意：2つではなく1つの<code>=</code>を使用した<code>!=</code>演算子もありますが、これは使用しないでください。</p>
+
+  <p><code>Boolean</code>演算子<code>&&</code>（AND）は2つの式が両方とも<code>true</code>かどうかをチェックします：</p>
+
+  <pre><code class="language-js">if (keyIsPressed === true && key === 'p') {
+    text('あなたは"p"キーを押しました！', 50, 50);
+  }
+
+  </code></pre>
+
+  <p>ユーザーがキーを押していて、かつそのキーが<code>'p'</code>である場合、メッセージが表示されます。</p>
+
+  <p><code>Boolean</code>演算子<code>||</code>（OR）は2つの式のうち少なくとも1つが<code>true</code>かどうかをチェックします：</p>
+
+  <pre><code class="language-js">if (keyIsPressed === true || mouseIsPressed === true) {
+    text('何かしました！', 50, 50);
+  }
+
+  </code></pre>
+
+  <p>ユーザーがキーを押すか、マウスボタンを押すか、またはその両方を行った場合、メッセージが表示されます。</p>
+
+  <p>以下の真理値表は<code>&&</code>と<code>||</code>に関するいくつかの一般的なシナリオをまとめたものです：</p>
+
+  <pre><code class="language-js">true && true  // true
+
+  true && false // false
+
+  false && false // false
+
+  true || true  // true
+
+  true || false // true
+
+  false || false // false
+
+  </code></pre>
+
+  <p>関係演算子<code>></code>、<code><</code>、<code>>=</code>、<code><=</code>も<code>Boolean</code>値を生成します：</p>
+
+  <pre><code class="language-js">2 > 1 // true
+
+  2 < 1 // false
+
+  2 >= 2 // true
+
+  2 <= 2 // true
+
+  </code></pre>
+
+  <p><code>if</code>文についての詳細は<a href="/reference/p5/if/">if</a>を、<code>Number</code>についての詳細は<a href="/reference/p5/Number/">Number</a>を参照してください。</p>
+line: 502
+isConstructor: false
+itemtype: property
+example:
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      describe('グレーの正方形。ユーザーがマウスを押すと、その位置に円が表示される。');
+    }
+
+    function draw() {
+      background(200);
+
+      // ユーザーがマウスを押したら、その位置に円を描く。
+      if (mouseIsPressed) {
+        circle(mouseX, mouseY, 20);
+      }
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      describe('グレーの正方形。ユーザーがマウスを押すと、その位置に円が表示される。');
+    }
+
+    function draw() {
+      background(200);
+
+      // ユーザーがマウスを押したら、その位置に円を描く。
+      if (mouseIsPressed === true) {
+        circle(mouseX, mouseY, 20);
+      }
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    // キャンバスをクリックしてキー押下の検出を開始します。
+
+    function setup() {
+      createCanvas(100, 100);
+
+      describe('ユーザーがマウスを押すかキーを押すとピンク色に変わるグレーの正方形。');
+    }
+
+    function draw() {
+      background(200);
+
+      // ユーザーがマウスを押したら、背景色を変更する。
+      if (mouseIsPressed === true || keyIsPressed === true) {
+        background('deeppink');
+      }
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    // キャンバスをクリックしてキー押下の検出を開始します。
+
+    // Boolean変数を作成します。
+    let isPlaying = false;
+
+    function setup() {
+      createCanvas(100, 100);
+
+      describe(
+        '黒い背景に緑色で書かれた"Begin?\nY or N"というメッセージ。"y"キーを押すと"Good luck!"というメッセージが表示される。'
+      );
+    }
+
+    function draw() {
+      background(0);
+
+      // テキストのスタイルを設定します。
+      textAlign(CENTER, CENTER);
+      textFont('Courier New');
+      textSize(16);
+      fill(0, 255, 0);
+
+      // ユーザーがプレイを開始したときに異なるメッセージを表示します。
+      if (isPlaying === false) {
+        text('Begin?', 50, 40);
+        text('Y or N', 50, 60);
+      } else {
+        text('Good luck!', 50, 50);
+      }
+    }
+
+    // ユーザーが'y'キーを押したらプレイを開始します。
+    function keyPressed() {
+      if (key === 'y') {
+        isPlaying = true;
+      }
+    }
+    </code>
+    </div>
+class: p5
+---
+
+
+# Boolean
