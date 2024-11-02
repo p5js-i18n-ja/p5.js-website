@@ -8,6 +8,7 @@ import {
 import { readFile } from "fs/promises";
 import yaml from "js-yaml";
 import { defaultLocale } from "@/src/i18n/const";
+import { p5Version } from "@/src/globals/p5-version";
 
 /* Repo to pull the contributor documentation from */
 const sourceRepoUrl = "https://github.com/processing/p5.js.git";
@@ -25,7 +26,7 @@ const outputDirectory = path.join(
 const run = async () => {
   console.log("Copying people from p5.js website into people collection...");
 
-  await cloneLibraryRepo(clonedRepoPath, sourceRepoUrl);
+  await cloneLibraryRepo(clonedRepoPath, sourceRepoUrl, p5Version);
 
   const contents = await readFile(
     path.join(clonedRepoPath, ".all-contributorsrc"),
