@@ -195,6 +195,10 @@ calloutTitles:
   "Try this!": "試してみよう！"
   Tip: ヒント
   Note: 注意
+LibrariesLayout:
+  View All: すべて表示
+  Featured: 注目
+  Everything: すべて
 experimentalApi:
   title: この API は実験中です
   description: p5.js の将来のバージョンで動作が変更される可能性があります。
