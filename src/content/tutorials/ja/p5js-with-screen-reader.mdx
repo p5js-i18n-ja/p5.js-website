@@ -1,9 +1,9 @@
 ---
-title: "How to Use the p5.js Web Editor with a Screen Reader"
-description: A tutorial for setting up the p5.js Web Editor for screen readers.
+title: "スクリーンリーダーでp5.js Webエディタを使用する方法"
+description: スクリーンリーダー向けのp5.js Webエディタのセットアップチュートリアル。
 category: accessibility
 featuredImage: ../images/featured/HowtoUseScreenReaderA.png
-featuredImageAlt: A white circle in the center of a gray background with an example of a p5.js Web Editor alt text output listed at the bottom.
+featuredImageAlt: グレーの背景の中央に白い円があり、下部にp5.js Webエディタの代替テキスト出力例が表示されている。
 authors:
   - Nick McIntyre
   - Layla Quiñones
@@ -11,133 +11,126 @@ authors:
 
 import AccessibleOutput from '../../../components/AccessibleOutput/index.astro';
 
-# How to Use the p5.js Web Editor with a Screen Reader
+# スクリーンリーダーでp5.js Webエディタを使用する方法
 
-This guide will introduce ways to make the p5.js Web Editor easier to use with a [screen reader](https://en.wikipedia.org/wiki/Screen_reader). We will introduce important keyboard shortcuts, menu settings, and demonstrate the p5.js Web Editor’s features for playing warning sounds for syntax errors and reading text descriptions of the canvas.
+このガイドでは、[スクリーンリーダー](https://en.wikipedia.org/wiki/Screen_reader)でp5.js Webエディタをより簡単に使用する方法を紹介します。重要なキーボードショートカット、メニュー設定を紹介し、構文エラーの警告音の再生やキャンバスのテキスト説明を読み上げるp5.js Webエディタの機能についてデモンストレーションを行います。
 
+## 前提条件
 
-## Prerequisites
+1. p5.js Webエディタを初めて使用する場合は、[はじめに](/tutorials/get-started)ガイドをお読みください。
+2. [`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)の詳しい説明については、[アクセシブルなキャンバス説明の書き方](/tutorials/writing-accessible-canvas-descriptions)をお読みください。p5.js Webエディタはこれらの関数を使用して、スクリーンリーダー向けにスケッチキャンバスのテキスト説明を生成します。
 
-1. If you’re new to using the p5.js Web Editor, read the [Get Started](/tutorials/get-started) guide.
-2. Read [Writing Accessible Canvas Descriptions](/tutorials/writing-accessible-canvas-descriptions) for a detailed introduction of [`textOutput()`](/reference/p5/textOutput) and [`gridOutput()`](/reference/p5/gridOutput). The p5.js Web Editor uses these functions to generate text descriptions of sketch canvases for a screen reader.
+## ステップ1 – 利用可能なキーボードショートカットを確認する
 
+p5.js Webエディタには、一般的なナビゲーションとコード編集のためのキーボードショートカットがあります。
 
-## Step 1 – Review the Available Keyboard Shortcuts
+メインメニューの「Help」ドロップダウンから「Keyboard Shortcuts」を選択して、キーボードショートカットのリストを確認できます。
 
-The p5.js Web Editor has keyboard shortcuts for general navigation and code editing. 
+![p5.js Webエディタを表示しているウェブブラウザ。「Help」ドロップダウンメニューが開いており、「Keyboard Shortcuts」メニュー項目が選択されています。赤い矢印が「Keyboard Shortcuts」を指しています。](../images/accessibility/keyboard-shortcuts.png)
 
-Read a list of the keyboard shortcuts by navigating to the ‘Help’ dropdown on the main menu and selecting ‘Keyboard Shortcuts’. 
+「Keyboard Shortcuts」を選択すると、利用可能なショートカットのポップアップが表示されます。リストには、コード編集用ショートカットと一般的なショートカットの2つのセクションがあります。
 
-![A web browser displaying the p5.js Web Editor. The ‘Help’ dropdown menu is open and its ‘Keyboard Shortcuts’ menu item is selected. A red arrow points to ‘Keyboard Shortcuts.’](../images/accessibility/keyboard-shortcuts.png)
+具体的なキーショートカットの組み合わせはオペレーティングシステムによって異なります。例えば、アクセシブル出力をオンにするには、macOSではCMD + SHIFT + 1を、WindowsとLinuxではCTRL + SHIFT + 1を押します。リストには英語QWERTYのmacOSキーボードのキーストロークが反映されています。
 
-Selecting ‘Keyboard Shortcuts’ will display a pop-up of available shortcuts. The list contains two sections, one for Code Editing shortcuts and another for General shortcuts. 
+![p5.js Webエディタを表示しているウェブブラウザ。ページ中央の長方形のメニューに利用可能なキーボードショートカットが表示されています。メニューは上部の「Code Editing」と下部の「General」に分かれています。](../images/accessibility/shortcuts-menu.png)
 
-The specific key shortcut combinations depend on your operating system. For example, you can turn on accessible outputs by pressing CMD + SHIFT + 1 on macOS or CTRL + SHIFT + 1 on Windows and Linux. The list reflects the keystrokes for an English QWERTY macOS keyboard. 
+キーボードショートカットは以下の通りです：
 
-![A web browser displaying the p5.js Web Editor. A rectangular menu in the middle of the page displays available keyboard shortcuts. The menu is separated into an upper section for ‘Code Editing’ and a lower section for ‘General.’](../images/accessibility/shortcuts-menu.png)
+### コード編集用キーボードショートカット
 
-The keyboard shortcuts are as follows:
+コード編集用キーボードショートカットは[Sublime Textのショートカット](https://shortcuts.design/toolspage-sublimetext.html)に従っています。
 
+- ⌘ + ⇧ + F 整形
+- ⌘ + F テキストを検索
+- ⌘ + G 次のテキスト一致を検索
+- ⌘ + ⇧ + G 前のテキスト一致を検索
+- ⌘ + ⌥ + F テキスト一致を置換
+- ⌘ + [ コードを左にインデント
+- ⌘ + ] コードを右にインデント
+- ⌘ + / 行をコメントアウト
+- ⌘ + . 行をコメントアウト
+- ⌘ + K インラインカラーピッカーを表示
 
-### Code Editing Keyboard Shortcuts
+### 一般的なキーボードショートカット
 
-Code editing keyboard shortcuts follow [Sublime Text shortcuts](https://shortcuts.design/toolspage-sublimetext.html).
+- ⌘ + S 保存
+- ⌘ + Enter スケッチを開始
+- ⌘ + ⇧ + Enter スケッチを停止
+- ⌘ + ⇧ + 1 アクセシブル出力をオン
+- ⌘ + ⇧ + 2 アクセシブル出力をオフ
+- ⇧ + Right ヒンターで選択された項目のリファレンスに移動
 
-- ⌘ + ⇧ + F Tidy
-- ⌘ + F Find Text
-- ⌘ + G Find Next Text Match
-- ⌘ + ⇧ + G Find Previous Text Match
-- ⌘ + ⌥ + F Replace Text Match
-- ⌘ + \ [Indent Code Left
-- ⌘ + ] Indent Code Right
-- ⌘ + / Comment Line
-- ⌘ + . Comment Line
-- ⌘ + K Show Inline Color Picker
+## ステップ2 – アクセシビリティ設定を開く
 
+メインメニューの下、右上にある「Open Preferences」ボタンを選択して、p5.js Webエディタの設定メニューを開きます。
 
-### General Keyboard Shortcuts
+![p5.js Webエディタを表示しているウェブブラウザ。ウェブページの左上にある歯車アイコンに赤い矢印が指しています。](../images/accessibility/open-preferences.png)
 
-- ⌘ + S Save
-- ⌘ + Enter Start Sketch
-- ⌘ + ⇧ + Enter Stop Sketch
-- ⌘ + ⇧ + 1 Turn On Accessible Output
-- ⌘ + ⇧ + 2 Turn Off Accessible Output
-- ⇧ + Right Go to Reference for Selected Item in Hinter
+設定メニューを開いたら、利用可能なオプションにアクセスするために、メニューから「Accessibility」設定タブを選択します。
 
+![p5.js Webエディタを表示しているウェブブラウザ。ページ中央の四角いメニューにアクセシビリティ設定が表示されています。四角いメニューの上部近くにある「Accessibility」タブに赤い矢印が指しています。](../images/accessibility/accessibility-settings.png)
 
-## Step 2 – Open the Accessibility Settings
+最初のアクセシビリティ設定では、行番号を表示するかどうかを制御できます。行番号は一般的にデバッグに役立つため、p5.js Webエディタではデフォルトで表示されます。次のセクションでは、警告音とテキスト説明のオプションについて説明します。
 
-Open the p5.js Web Editor’s preferences menu by selecting the ‘Open Preferences’ button at the top right, below the main menu.
+## ステップ3 – Lint警告音を有効にする
 
-![A web browser displaying the p5.js Web Editor. A red arrow points to a gear icon at the top left of the web page.](../images/accessibility/open-preferences.png)
-
-Once you’ve opened the preferences menu, select the ‘Accessibility’ settings tab from the menu to access the available options.
-
-![A web browser displaying the p5.js Web Editor. A square menu in the middle of the page displays accessibility settings. A red arrow points to the “Accessibility” tab near the top of the square menu.](../images/accessibility/accessibility-settings.png)
-
-The first accessibility setting lets you control whether to display line numbers. The p5.js Web Editor displays line numbers by default since they’re generally helpful for debugging. In the next few sections, you’ll explore the options for warning sounds and text descriptions.
-
-
-## Step 3 – Enable Lint Warning Sounds
-
-The p5.js Web Editor shows visual cues when it detects problems with your code. The code changes color when a function call has unmatched parentheses, like in the following code snippet:
+p5.js Webエディタは、コードに問題を検出すると視覚的な手がかりを表示します。以下のコードスニペットのように、関数呼び出しに対応する括弧がない場合、コードの色が変わります：
 
 ```js
 function draw() {
-  // The function call is missing a
-  // closing parenthesis.
-  background(220
+  // この関数呼び出しには閉じ括弧が
+  // 欠けています
+  background(220
 }
 ```
 
-Within this example, the red text indicates a class of problems called [syntax errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError). 
+この例では、赤いテキストは[構文エラー](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError)と呼ばれる問題の種類を示しています。
 
-In addition to visual cues, the p5.js Web Editor can play a friendly warning noise when it detects syntax errors. To enable this feature, turn the ‘Lint warning sound’ to ‘On’ within the accessibility settings menu. You also have the option to preview the sound within this menu.
+視覚的な手がかりに加えて、p5.js Webエディタは構文エラーを検出すると、フレンドリーな警告音を再生することができます。この機能を有効にするには、アクセシビリティ設定メニュー内で「Lint warning sound」を「On」に設定します。このメニューでは、音をプレビューすることもできます。
 
-![A web browser displaying the p5.js Web Editor. A square menu in the middle of the page displays accessibility settings. A red arrow points to the ‘Lint warning sound’ section of the menu. The ‘On’ option is selected and displayed in boldface.](../images/accessibility/lint-warning-sound.png)
+![p5.js Webエディタを表示しているウェブブラウザ。ページ中央の四角いメニューにアクセシビリティ設定が表示されています。メニューの「Lint warning sound」セクションに赤い矢印が指しています。「On」オプションが選択され、太字で表示されています。](../images/accessibility/lint-warning-sound.png)
 
-Now that you’ve enabled the warning sound, test it by introducing a syntax error. Remove a parenthesis from `background()`.
+警告音を有効にしたら、構文エラーを導入してテストしてみましょう。`background()`から括弧を1つ削除します。
 
-![A web browser displaying the p5.js Web Editor. Lines 5 and 7 of the text editor are highlighted in red, indicating a syntax error. A red arrow points to the end of line 6, which is missing a closing parenthesis.](../images/accessibility/syntax-error.png)
+![p5.js Webエディタを表示しているウェブブラウザ。テキストエディタの5行目と7行目が赤く強調表示され、構文エラーを示しています。6行目の末尾に閉じ括弧が欠けている部分に赤い矢印が指しています。](../images/accessibility/syntax-error.png)
 
-A syntax error appeared on line 6 because the `background()` call is missing a parenthesis. With ‘Lint warning sound’ on, the p5.js Web Editor will play a warning tone to call attention to the bug.
+`background()`呼び出しに括弧が欠けているため、6行目に構文エラーが表示されました。「Lint warning sound」がオンの状態では、p5.js Webエディタはバグに注意を促す警告音を再生します。
 
+## ステップ4 – プレーンテキスト説明を有効にする
 
-## Step 4 – Enable Plain-Text Descriptions
+p5.js Webエディタには、キャンバスのテキスト説明を挿入するための2つのオプションがあります。最初のオプションは、p5.jsの[`textOutput()`](/reference/p5/textOutput)関数に基づくプレーンテキストです。これはキャンバスのサイズ、色、および各視覚要素の色、位置、キャンバス内で占める領域を説明するリストを生成します。
 
-The p5.js Web Editor has two options for inserting text descriptions of the canvas. The first option is plain text, based on p5.js’ [`textOutput()`](/reference/p5/textOutput) function. It generates a list describing the canvas size, color, as well as each visual element’s color, position, and the area it covers within the canvas.
+p5.js Webエディタは、これらのプレーンテキスト説明を自動的に挿入することができます。これを有効にするには、アクセシビリティ設定メニューに戻り、「Accessible text bases canvas」セクションの下にある「Plain-text」チェックボックスを選択します。
 
-The p5.js Web Editor can automatically insert these plain text descriptions for you. To enable them, navigate back to the Accessibility settings menu and select the ‘Plain-text’ check-box under the ‘Accessible text bases canvas’ section. 
+![p5.js Webエディタを表示しているウェブブラウザ。ページ中央の四角いメニューにアクセシビリティ設定が表示されています。メニューの「Accessible text-based canvas」セクションに赤い矢印が指しています。「Plain-text」オプションがチェックされています。](../images/accessibility/plain-text-description.png)
 
-![A web browser displaying the p5.js Web Editor. A square menu in the middle of the page displays accessibility settings. A red arrow points to the ‘Accessible text-based canvas’ section of the menu. The ‘Plain-text’ option is checked.](../images/accessibility/plain-text-description.png)
+プレーンテキスト説明が有効になったので、キャンバスに図形を追加して説明をテストしてみましょう。例として、以下の画像は[`draw()`](/reference/p5/draw)関数内の円を示しています。
 
-Now that plain-text descriptions are enabled, add a shape to your canvas and test out the description. As an example, the following image shows a circle within the [`draw()`](/reference/p5/draw) function.
+![p5.js Webエディタを表示しているウェブブラウザ。ページの左半分に短いJavaScriptプログラムが表示されています。右半分には中央に白い円のあるグレーの四角が表示されています。](../images/accessibility/simple-sketch.png)
 
-![A web browser displaying the p5.js Web Editor. The left half of the page shows a short JavaScript program. The right half of the page shows a gray square with a white circle at its center.](../images/accessibility/simple-sketch.png)
-
-The canvas now has the following plain-text description:
+キャンバスには以下のようなプレーンテキスト説明が付きました：
 
 <AccessibleOutput>
-Your output is a 400 by 400 pixel gray canvas containing the following shape:
+出力は400 x 400ピクセルのグレーのキャンバスで、以下の図形を含んでいます：
 
-- white circle, at middle, covering 1% of the canvas.
+- 白い円、中央に位置し、キャンバスの1%を占めています。
 
-**white circle** location = middle area = 1%
+**白い円** 位置 = 中央 面積 = 1%
 </AccessibleOutput>
 
-## Step 5 – Enable Table-Text Descriptions
+## ステップ5 – テーブルテキスト説明を有効にする
 
-The p5.js Web Editor has another option for text descriptions that can give you a sense of position. This feature uses the [`gridOutput()`](/reference/p5/gridOutput) function behind the scenes to do so. It places shape descriptions in a `<table>` element that’s used as a grid. Each shape in the grid is placed in a cell whose row and column correspond to the shape’s location on the canvas.
+p5.js Webエディタには、位置感覚を与えることができるテキスト説明の別のオプションがあります。この機能は、背後で[`gridOutput()`](/reference/p5/gridOutput)関数を使用しています。これは図形の説明を`<table>`要素内に配置し、グリッドとして使用します。グリッド内の各図形は、その図形のキャンバス上の位置に対応する行と列のセルに配置されます。
 
-To enable these descriptions, head to the **Accessible text-based canvas** section of the Accessibility settings one more time. You will de-select the ‘Plain-text’ check-box and select ‘Table-text’ instead. If you have both these functions turned on, the screen reader will repeat information which could be confusing. 
+これらの説明を有効にするには、もう一度アクセシビリティ設定の**Accessible text-based canvas**セクションに移動します。「Plain-text」チェックボックスの選択を解除し、代わりに「Table-text」を選択します。両方の機能をオンにすると、スクリーンリーダーが情報を繰り返すため、混乱を招く可能性があります。
 
-![A web browser displaying the p5.js Web Editor. A square menu in the middle of the page displays accessibility settings. A red arrow points to the ‘Accessible text-based canvas’ section of the menu. The ‘Table-text’ option is checked.](../images/accessibility/table-text-description.png)
+![p5.js Webエディタを表示しているウェブブラウザ。ページ中央の四角いメニューにアクセシビリティ設定が表示されています。メニューの「Accessible text-based canvas」セクションに赤い矢印が指しています。「Table-text」オプションがチェックされています。](../images/accessibility/table-text-description.png)
 
-Now, run your sketch again to test the table-text description. The previous example of a white circle produces the following canvas description:
+では、スケッチをもう一度実行して、テーブルテキスト説明をテストしてみましょう。白い円の前の例では、以下のようなキャンバス説明が生成されます：
 
 <AccessibleOutput>
 
-gray canvas, 400 by 400 pixels, contains 1 shape: 1 circle
+グレーのキャンバス、400 x 400ピクセル、1つの図形を含む：1つの円
 
 <table>
 
@@ -185,7 +178,7 @@ gray canvas, 400 by 400 pixels, contains 1 shape: 1 circle
 
 <td>
 
-white circle
+白い円
 
 </td>
 
@@ -225,12 +218,12 @@ white circle
 
 </table>
 
-**white circle**, location = bottom right, area = 1 %
+**白い円**、位置 = 右下、面積 = 1%
 
 </AccessibleOutput>
 
-## Conclusion
+## 結論
 
-The p5.js Web Editor has several features that make it easier to code while using a screen reader. Warning sounds can alert you to syntax errors while you code. Text descriptions of the canvas can help you to keep track of visual outputs. 
+p5.js Webエディタには、スクリーンリーダーを使用しながらコーディングを容易にする機能がいくつかあります。警告音はコーディング中の構文エラーを知らせることができます。キャンバスのテキスト説明は、視覚的な出力を把握するのに役立ちます。
 
-Keep in mind that the features described above only work within the p5.js Web Editor while you code. Check out [How to Label Your p5.js Canvas](./writing-accessible-canvas-descriptions) for detailed guidance on p5.js code accessibility. This is an important step for making your project accessible when sharing it outside of the p5.js Web Editor.
+上記で説明した機能は、コーディング中のp5.js Webエディタ内でのみ動作することに注意してください。p5.jsコードのアクセシビリティに関する詳しいガイダンスについては、[p5.jsキャンバスのラベル付け方法](./writing-accessible-canvas-descriptions)をご覧ください。これは、p5.js Webエディタの外部でプロジェクトを共有する際に、プロジェクトをアクセシブルにするための重要なステップです。
