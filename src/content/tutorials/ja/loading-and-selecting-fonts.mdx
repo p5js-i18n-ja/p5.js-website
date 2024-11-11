@@ -1,9 +1,9 @@
 ---
-title: "Loading and Selecting Fonts"
-description: "Explore typography in creative coding: A Quick guide to choosing and selecting fonts."
+title: "フォントの読み込みと選択"
+description: "クリエイティブコーディングにおけるタイポグラフィの探求：フォントの選択とセレクションのクイックガイド"
 category: web-design
 featuredImage: ../images/featured/FontsA.png
-featuredImageAlt: "Bold typography in contrasting white and black against a deep blue background. It features the words 'FONTSTYLE' in black at the top. 'TYPEFACE' is in white in the middle. 'abc' is in white at the bottom. Each is in a different font size. This creates a bold and striking display of font styles and typefaces."
+featuredImageAlt: "濃い青の背景に白と黒のコントラストが効いた大胆なタイポグラフィ。上部に黒で'FONTSTYLE'、中央に白で'TYPEFACE'、下部に白で'abc'が、それぞれ異なるフォントサイズで表示されています。これによりフォントスタイルとタイプフェイスの大胆で印象的な表示が作られています。"
 relatedContent:
   references:
     - en/p5/preload
@@ -20,77 +20,77 @@ authors:
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 
-Welcome to the chapter finale. In the last two tutorials, you have embarked on a journey of building and styling your HTML, crafting responsive buttons, and executing the logic for your snake game. In this closing tutorial, our focus shifts to Fonts and their pivotal role in design. You'll learn the art of loading and selecting fonts for your sketch, contributing to your game's visual identity and user experience.
+チャプターの最終回へようこそ。前回の2つのチュートリアルでは、HTMLの構築とスタイリング、レスポンシブなボタンの作成、そしてスネークゲームのロジックの実装という旅を経てきました。この最終チュートリアルでは、デザインにおいて重要な役割を果たすフォントに焦点を当てます。スケッチにフォントを読み込んで選択する技術を学び、ゲームのビジュアルアイデンティティとユーザー体験の向上に貢献します。
 
-![Bold typography in contrasting white and black against a deep blue background. It features the words "FONTSTYLE" in black at the top. "TYPEFACE" is in white in the middle. "abc" is in white at the bottom. Each is in a different font size. This creates a bold and striking display of font styles and typefaces.](../images/web-design/fonts.png)
+![濃い青の背景に白と黒のコントラストが効いた大胆なタイポグラフィ。上部に黒で'FONTSTYLE'、中央に白で'TYPEFACE'、下部に白で'abc'が、それぞれ異なるフォントサイズで表示されています。これによりフォントスタイルとタイプフェイスの大胆で印象的な表示が作られています。](../images/web-design/fonts.png)
 
-Fonts are important in design, and we will learn how to load and choose them for your snake game sketch. You will learn practical techniques for seamless integration and as we finish the series, you will have a complete snake game. You will also understand the important role fonts have in digital experiences, delve into typography, and add finishing touches to your digital masterpiece.
+フォントはデザインにおいて重要であり、スネークゲームのスケッチに適したフォントの読み込みと選択方法を学びます。シームレスな統合のための実践的なテクニックを学び、このシリーズを終える頃には、完全なスネークゲームが完成します。また、デジタル体験におけるフォントの重要な役割を理解し、タイポグラフィを深く掘り下げ、デジタルマスターピースに仕上げのタッチを加えることができるようになります。
 
+## 前提条件
 
-## Prerequisites
-
-- You must have finished the [Creating and Styling HTML](/tutorials/creating-styling-html) and [Responding to Inputs tutorials](/tutorials/responding-to-inputs).
-- [Complete Responding to inputs code](https://editor.p5js.org/ruthikegah/sketches/TKoGPLJfe)
-
-
-### Step 1 – Learn about fonts
-
-Fonts refer to a set of characters, symbols, and styles within a [typeface](https://fonts.google.com/knowledge/glossary/typeface). They dictate the visual appearance of text, encompassing factors like size, style, and weight.
-
-For best practices, these are some guidelines you should consider while choosing a font to suit your project best:
-
-- **Consider project requirements:** Understand your project's goals, audience, and tone. Different projects may require fonts with specific characteristics. For example, you may use a formal serif font to make an interactive version of a vintage newspaper, while you may use a playful sans-serif for a game.
-- **Pairing fonts effectively:** Experiment with font pairings. Effective font pairings contribute to visual hierarchy and readability. For example, you may want to pair a distinctive display font with a legible sans-serif for body text.
-- **Evaluate font properties:** Pay attention to font properties like thickness, slant, and width. Adjust these properties based on the project's visual requirements and the desired impact.
-- **Readability:** Prioritize readability. Choose clear and legible fonts, especially for large bodies of text and consider factors like letter spacing and line height.
-- **Explore font libraries:** [Google Fonts](https://fonts.google.com/) and [Font Squirrel](https://www.fontsquirrel.com/) offer diverse collections of free and open-source fonts. Use the search and filtering options to narrow your choices based on categories, popularity, and trending fonts. Take advantage of the live preview feature to see how fonts will appear in your design.
-- **Accessibility:** Your sketch may run on a wide range of devices, from phones to large projector installations. Choose fonts that scale well across different screen sizes without sacrificing legibility. Google Fonts and Font Squirrel provide information on each font's character set, language support, and variability. This information will help you make informed choices for responsive designs.
-- **License:** Be mindful of font licenses. Some fonts are free for commercial use, while others may have restrictions. Adhere to licensing agreements. 
-
-Choosing suitable fonts involves a thoughtful and systematic approach. You can create visually appealing and user-friendly projects by considering factors such as readability, consistency, and responsive design. Remember to explore the font libraries, test fonts in various environments, and seek inspiration to make informed design decisions. With these guidelines, you'll be well-equipped to enhance your design projects with the perfect typography.
-
-Check out [Google Fonts' "Choosing type" section](https://fonts.google.com/knowledge/choosing_type) to learn more about selecting fonts and best practices.
-
-In this case, you will use the fonts to style your text prompts in your game, i.e., the Display message and Game Over prompt. Considering the project is a retro game console, we will use a retro font for our prompts. 
+- [HTMLの作成とスタイリング](/tutorials/creating-styling-html)と[入力への応答チュートリアル](/tutorials/responding-to-inputs)を完了している必要があります。
+- [入力への応答の完全なコード](https://editor.p5js.org/ruthikegah/sketches/TKoGPLJfe)
 
 
-### Step 2 – Style text with web-safe fonts
+### ステップ1 – フォントについて学ぶ
 
-Before moving to Google custom fonts that fit the project, let’s start with more common web-safe fonts like Arial and Courier New to style your texts. [Web-safe fonts](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#web_safe_fonts) are available on most computers by default. 
+フォントとは、[タイプフェイス](https://fonts.google.com/knowledge/glossary/typeface)内の文字、記号、スタイルのセットを指します。フォントは、サイズ、スタイル、ウェイトなどの要素を含む、テキストの視覚的な外観を決定します。
 
-To set the font for your display messages, you will use the p5.js [`textFont()`](/reference/p5/textFont) function. This function sets the font for the contents of your [`text()`](/reference/p5/text) function. In your `displayStartMessage()` and `displayEndMessage()` functions, add your font:
+ベストプラクティスとして、プロジェクトに最適なフォントを選ぶ際に考慮すべきガイドラインをいくつか紹介します：
+
+- **プロジェクトの要件を考慮する：** プロジェクトの目的、対象者、トーンを理解します。プロジェクトによって、特定の特徴を持つフォントが必要になる場合があります。例えば、ビンテージ新聞のインタラクティブバージョンを作る場合はフォーマルなセリフフォントを使用し、ゲームの場合は遊び心のあるサンセリフを使用するかもしれません。
+- **フォントの効果的な組み合わせ：** フォントの組み合わせを試してみましょう。効果的なフォントの組み合わせは、視覚的な階層と読みやすさに貢献します。例えば、特徴的なディスプレイフォントと、本文用の読みやすいサンセリフフォントを組み合わせることができます。
+- **フォントのプロパティを評価する：** 太さ、傾き、幅などのフォントプロパティに注意を払います。プロジェクトの視覚的要件と望む効果に基づいて、これらのプロパティを調整します。
+- **読みやすさ：** 読みやすさを優先します。特に大量のテキストには、明確で読みやすいフォントを選び、文字間隔や行の高さなどの要素を考慮します。
+- **フォントライブラリを探索する：** [Google Fonts](https://fonts.google.com/)や[Font Squirrel](https://www.fontsquirrel.com/)は、無料でオープンソースのフォントの多様なコレクションを提供しています。カテゴリー、人気度、トレンドに基づいて検索やフィルタリングオプションを使用して選択肢を絞り込みましょう。ライブプレビュー機能を活用して、デザインでのフォントの表示を確認できます。
+- **アクセシビリティ：** スケッチは、スマートフォンから大型プロジェクターまで、幅広いデバイスで実行される可能性があります。読みやすさを損なうことなく、異なる画面サイズに適切にスケールするフォントを選びましょう。Google FontsとFont Squirrelは、各フォントの文字セット、言語サポート、可変性に関する情報を提供しています。この情報は、レスポンシブデザインのための適切な選択を行う助けとなります。
+- **ライセンス：** フォントのライセンスに注意を払いましょう。商用利用が無料のフォントもあれば、制限のあるフォントもあります。ライセンス契約を遵守してください。
+
+
+適切なフォントの選択には、思慮深く体系的なアプローチが必要です。読みやすさ、一貫性、レスポンシブデザインなどの要素を考慮することで、視覚的に魅力的でユーザーフレンドリーなプロジェクトを作成することができます。フォントライブラリを探索し、様々な環境でフォントをテストし、インスピレーションを求めて、十分な情報に基づいたデザインの決定を行うことを忘れないでください。これらのガイドラインがあれば、完璧なタイポグラフィでデザインプロジェクトを強化する準備は万端です。
+
+フォントの選択とベストプラクティスについてさらに学ぶには、[Google Fontsの「Choosing type」セクション](https://fonts.google.com/knowledge/choosing_type)をチェックしてください。
+
+今回の場合、フォントを使ってゲーム内のテキストプロンプト、つまり表示メッセージとゲームオーバープロンプトをスタイリングします。プロジェクトがレトロなゲームコンソールであることを考慮して、プロンプトにはレトロなフォントを使用します。
+
+
+### ステップ2 – Webセーフフォントでテキストをスタイリングする
+
+プロジェクトに適したGoogleカスタムフォントに移る前に、まずArialやCourier Newなどの一般的なWebセーフフォントでテキストのスタイリングを始めましょう。[Webセーフフォント](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#web_safe_fonts)は、ほとんどのコンピュータにデフォルトで搭載されています。
+
+表示メッセージのフォントを設定するには、p5.jsの[`textFont()`](/reference/p5/textFont)関数を使用します。この関数は[`text()`](/reference/p5/text)関数の内容のフォントを設定します。`displayStartMessage()`と`displayEndMessage()`関数にフォントを追加します：
 
 ```js
-// Start message.
+// スタートメッセージ
 function displayStartMessage() {
-  textSize(20);
-  textAlign(CENTER);
+  textSize(20);
+  textAlign(CENTER);
 
-  //Add font
-  textFont('Courier New');
-  fill(255, 0, 0);
-  text('Press ▶ to Start', width / 2, height / 2);
+  //フォントを追加
+  textFont('Courier New');
+  fill(255, 0, 0);
+  text('Press ▶ to Start', width / 2, height / 2);
 }
 
-// End message.
+// エンドメッセージ
 function displayEndMessage() {
-  background(0);
-  textSize(40);
-  textAlign(CENTER);
+  background(0);
+  textSize(40);
+  textAlign(CENTER);
 
-  //Add font
-  textFont('Courier New');
-  fill(255, 0, 0);
-  text('Game Over', width / 2, height / 2);
-  textSize(14);
-  text('Press ▶ to Start', width / 2, height / 2 + 50);
+  //フォントを追加
+  textFont('Courier New');
+  fill(255, 0, 0);
+  text('Game Over', width / 2, height / 2);
+  textSize(14);
+  text('Press ▶ to Start', width / 2, height / 2 + 50);
 }
 ```
 
-Next, you change the logo text. It's an HTML element, so you will be using the [`.style()`](/reference/p5.Element/style) method. As stated in the previous chapter, the `.style()` method is used to manipulate HTML elements. In your `gameBoyText` `div`, add your font like this:
+次に、ロゴテキストを変更します。これはHTML要素なので、[`.style()`](/reference/p5.Element/style)メソッドを使用します。前章で説明したように、`.style()`メソッドはHTML要素を操作するために使用されます。`gameBoyText` `div`に以下のようにフォントを追加します：
 
 ```js
-// Create the game boy text
+// ゲームボーイテキストを作成
 let gameBoyText = createDiv('GameBoy');
 gameBoyText.id('game-boy-text');
 gameBoyText.style('margin', '10px 145px');
@@ -100,144 +100,141 @@ gameBoyText.style('background-color', '#000');
 gameBoyText.style('padding', '10px');
 gameBoyText.style('border-radius', '5px');
 
-// Add font
+// フォントを追加
 gameBoyText.style('font-family', 'Arial');
 ```
 
-Your fonts should look like this:
+フォントは以下のように表示されるはずです：
 
-![The image features a digital rendition of a Gameboy with a gray body and a dark screen displaying the text "Press > to Start" in a classic Courier font. Below the screen, the word "GameBoy" is presented in a bold, sans-serif font on a blue background, creating a contrast. Red arrow buttons and blue round buttons for play and pause are also visible, adding to the nostalgic gaming theme.](../images/web-design/gameboy-fonts.png)
+![グレーのボディと暗い画面を持つデジタルゲームボーイの画像。画面には「Press > to Start」というテキストがクラシックなCourierフォントで表示されています。画面の下には「GameBoy」という文字が青い背景に太字のサンセリフフォントで表示されています。また、プレイとポーズ用の赤い矢印ボタンと青い丸ボタンも見えており、ノスタルジックなゲーミングテーマを演出しています。](../images/web-design/gameboy-fonts.png)
 
-In this exercise, you can observe the impact of different fonts on your project. The intention is to familiarize yourself with web-safe fonts. We will enhance this style in the following steps. For now, feel free to delete the changes made to the fonts.
+この演習では、プロジェクトにおける異なるフォントの影響を観察することができます。目的は、Webセーフフォントに慣れることです。次のステップでこのスタイルを改善していきます。今のところは、フォントに加えた変更を削除して構いません。
 
 <Callout>
-Experiment with the textAlign() and textStyle() functions to see how they modify your fonts.
+textAlign()とtextStyle()関数を試して、フォントがどのように変更されるか確認してみましょう。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/w1SZv_0w6)
+[解答例](https://editor.p5js.org/ruthikegah/sketches/w1SZv_0w6)
 </Callout>
 
 
-### Step 3 – Download a font from Google fonts
+### ステップ3 – Google fontsからフォントをダウンロードする
 
-Now, it’s time to add a custom font to your project. Go to [Google Fonts](https://fonts.google.com/) and search for PressStart2P, a font with a retro gaming design.
+では、プロジェクトにカスタムフォントを追加しましょう。[Google Fonts](https://fonts.google.com/)にアクセスし、レトロゲームデザインのフォントであるPressStart2Pを検索します。
 
-![A screenshot from the Google Fonts website showing a sample of the 'Press Start 2P' font. The font, designed by CodeMan38, has a pixelated, blocky style that is reminiscent of text seen in early computer and video game screens. In the example, the bold letters spell out "Whereas disregard and contempt for human rights have...". This shows the font's retro gaming style and digital type.](../images/web-design/PressStart2P.png)
+![Google Fontsウェブサイトのスクリーンショットで、'Press Start 2P'フォントのサンプルを表示しています。CodeMan38によってデザインされたこのフォントは、初期のコンピュータやビデオゲーム画面で見られるようなピクセル化された、ブロック状のスタイルを持っています。例では、太字の文字で「Whereas disregard and contempt for human rights have...」とつづられており、フォントのレトロゲーム風スタイルとデジタルタイプを示しています。](../images/web-design/PressStart2P.png)
 
-Click on Download Family to download the font. It usually comes in a zip file; open it and extract the .ttf file.
+Download Familyをクリックしてフォントをダウンロードします。通常はzipファイルでダウンロードされるので、開いて.ttfファイルを抽出します。
 
 <Callout>
-Search Google Fonts for other styles that you’d like to use for your game.
+Google Fontsで、ゲームに使いたい他のスタイルも探してみましょう。
 </Callout>
 
 
-### Step 4 – Upload the font file to your project
+### ステップ4 – フォントファイルをプロジェクトにアップロードする
 
-In your web editor, click on the + icon on the top right corner of your screen and select Create Folder. Name your folder assets, click on the folder, and select upload file. Upload your `.ttf` file to your assets folder.
+Webエディタで、画面右上の+アイコンをクリックしてCreate Folder（フォルダを作成）を選択します。フォルダ名をassetsとし、フォルダをクリックしてupload file（ファイルをアップロード）を選択します。`.ttf`ファイルをassetsフォルダにアップロードします。
 
-![A dynamic GIF illustrating how to create a folder on the p5.js web editor. You open the files window on the top left by clicking the “&gt;” icon, click the plus icon and select the “Create Folder" option.](../images/web-design/create-folder.gif)
+![p5.js webエディタでフォルダを作成する方法を示すダイナミックなGIF。左上のファイルウィンドウを「>」アイコンをクリックして開き、プラスアイコンをクリックして「Create Folder」オプションを選択します。](../images/web-design/create-folder.gif)
 
 
-### Step 5 – Preload your font
+### ステップ5 – フォントをプリロードする
 
-p5.js’ [`preload()`](/reference/p5/preload)  function loads external assets before the rest of your sketch is executed. The `preload()` function is called directly before `setup()`. It is used to handle asynchronous loading of external files in a blocking way. If the `preload()` function is defined, `setup()` will wait until any load calls within have finished.
+p5.jsの[`preload()`](/reference/p5/preload)関数は、スケッチの残りの部分が実行される前に外部アセットを読み込みます。`preload()`関数は`setup()`の直前に呼び出されます。これは外部ファイルの非同期読み込みをブロッキング方式で処理するために使用されます。`preload()`関数が定義されている場合、`setup()`は内部のロード呼び出しが完了するまで待機します。
 
-For example: 
+例：
 
 <EditableSketch code={`
 let myFont;
 function preload() {
-  // Load a custom font before the sketch starts
-  myFont = loadFont('Bold.ttf');
+  // スケッチ開始前にカスタムフォントを読み込む
+  myFont = loadFont('Bold.ttf');
 }
-
 function setup() {
-  createCanvas(400, 200);
-  background(255);
-  // Apply the loaded font
-  textFont(myFont);
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  text('Custom Font Loaded!', width / 2, height / 2);
+  createCanvas(400, 200);
+  background(255);
+  // 読み込んだフォントを適用
+  textFont(myFont);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  text('Custom Font Loaded!', width / 2, height / 2);
 }
 `} />
 
-Inside the `preload()` function, you can use p5.js's various asset-loading functions such as `loadImage()`, `loadSound()`, and `loadFont()` to load external files. These functions take the path to the asset file as an argument.
+`preload()`関数内では、p5.jsの様々なアセット読み込み関数（`loadImage()`、`loadSound()`、`loadFont()`など）を使用して外部ファイルを読み込むことができます。これらの関数は、アセットファイルへのパスを引数として受け取ります。
 
-At the start of your `sketch.js` file, write the following code:
+`sketch.js`ファイルの先頭に、以下のコードを記述します：
 
 ```js
 let myFont;
 function preload(){
-  myFont = loadFont("assets/PressStart2P-Regular.ttf");
+  myFont = loadFont("assets/PressStart2P-Regular.ttf");
 }
 ```
 
-You declare a variable myFont to store your font. The `preload()` function loads your font with the `loadFont()` function, passing your file path as the argument. 
+フォントを格納するための変数myFontを宣言します。`preload()`関数は`loadFont()`関数を使用してフォントを読み込み、ファイルパスを引数として渡します。
 
 
-### Step 6 – Use your fonts in your display messages
+### ステップ6 – 表示メッセージでフォントを使用する
 
-With your fonts loaded, using them where needed is relatively easy now. Call The p5.js [`textFont()`](/reference/p5/textFont) function and pass in your `myFont` variable as its argument. The `textFont()` function sets the font that will be used by your [`text()`](/reference/p5/text) function. Syntax:
+フォントが読み込まれたら、必要な場所で使用するのは比較的簡単です。p5.jsの[`textFont()`](/reference/p5/textFont)関数を呼び出し、`myFont`変数を引数として渡します。`textFont()`関数は、[`text()`](/reference/p5/text)関数で使用されるフォントを設定します。構文：
 
 ```js
 textFont(font);
 ```
 
-Now use the `textFont()` function to load your font in your `displayStartMessage()` and `displayEndMessage()` like this: 
+では、`textFont()`関数を使用して、`displayStartMessage()`と`displayEndMessage()`でフォントを読み込みましょう：
 
 ```js
-// Start message.
+// スタートメッセージ
 function displayStartMessage() {
-  textSize(20);
-  textAlign(CENTER);
-  fill(255, 0, 0);
-  // Use your font
-  textFont(myFont);
-  text('Press ▶ to Start', width / 2, height / 2);
+  textSize(20);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  // フォントを使用
+  textFont(myFont);
+  text('Press ▶ to Start', width / 2, height / 2);
 }
 
-// End message.
+// エンドメッセージ
 function displayEndMessage() {
-  background(0);
-  textSize(40);
-  textAlign(CENTER);
-  fill(255, 0, 0);
-  // Use your font
-  textFont(myFont);
-  text('Game Over', width / 2, height / 2);
-  textSize(14);
-  text('Press ▶ to Start', width / 2, height / 2 + 50);
+  background(0);
+  textSize(40);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  // フォントを使用
+  textFont(myFont);
+  text('Game Over', width / 2, height / 2);
+  textSize(14);
+  text('Press ▶ to Start', width / 2, height / 2 + 50);
 }
 ```
- 
 
-Your Start message should look like this:
+スタートメッセージは以下のように表示されるはずです：
 
-![An image with a gray background and the text “Press ▶ to Start” centered on the image, colored in red. The text is in the retro gaming style font PressStart2P-Regular.](../images/web-design/press-start-font.png)
+![グレーの背景に「Press ▶ to Start」というテキストが中央に赤色で表示されている画像。テキストはレトロゲーム風のフォントPressStart2P-Regularで表示されています。](../images/web-design/press-start-font.png)
 
-Your End message:
+エンドメッセージ：
 
-![An image with a black background and a bold text “Game Over” centered on the image, below it is a smaller centered text “Press ▶ to start”. Both texts are colored red and in the retro gaming font PressStart2P-Regular. On the top right is the text “Score: 0”, colored white and in the retro gaming font PressStart2P-Regular. ](../images/web-design/game-over-font.png)
+![黒い背景に「Game Over」という太字のテキストが中央に表示され、その下に小さめの「Press ▶ to start」というテキストが中央揃えで表示されている画像。両方のテキストは赤色で、レトロゲーム風のフォントPressStart2P-Regularで表示されています。右上には白色で「Score: 0」というテキストが、同じくレトロゲーム風のフォントPressStart2P-Regularで表示されています。](../images/web-design/game-over-font.png)
 
-Adjust the `textSize()` if the text becomes too big or too small for the screen.
+テキストが画面に対して大きすぎたり小さすぎたりする場合は、`textSize()`を調整してください。
 
 <Callout>
-Make the `textSize()` a fraction of the sketch `height` or `width`.
+`textSize()`をスケッチの`height`や`width`の分数にしてみましょう。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/_bnQ40m9l)
-
+[解答例](https://editor.p5js.org/ruthikegah/sketches/_bnQ40m9l)
 </Callout>
 
 
-### Step 7 – Setting the font for your logo text
+### ステップ7 – ロゴテキストのフォントを設定する
 
-We are almost at the end of this project! The final thing to do now is to set a font for your logo text. Since it is an HTML element, you use the `.style()` method to directly manipulate the style of the element.
+このプロジェクトもほぼ完成です！最後にすべきことは、ロゴテキストのフォントを設定することです。これはHTML要素なので、`.style()`メソッドを使用して要素のスタイルを直接操作します。
 
-In your `gameBoyText` div, add another .style() method with the property `'font-family'` and value `'PressStart2P-Regular'` which is the name of the font you are using:
+`gameBoyText` divに、プロパティ`'font-family'`と値`'PressStart2P-Regular'`（使用しているフォントの名前）を持つ別の.style()メソッドを追加します：
 
 ```js
-// Create the game boy text
+// ゲームボーイテキストを作成
 let gameBoyText = createDiv('GameBoy');
 gameBoyText.id('game-boy-text');
 gameBoyText.style('margin', '10px 145px');
@@ -247,65 +244,65 @@ gameBoyText.style('background-color', '#000');
 gameBoyText.style('padding', '10px');
 gameBoyText.style('border-radius', '5px');
 
-// Add font for gameBoyText
+// gameBoyTextにフォントを追加
 gameBoyText.style('font-family', 'PressStart2P-Regular');
 ```
 
-Your logo should now look like this:
+ロゴは以下のように表示されるはずです：
 
-![An rectangular image with a light gray background and the text “Gameboy”. The text is wrapped in a small rectangular, black background and is colored white. It is styled with a retro gaming style font.](../images/web-design/gameboy-logo-font.png)
+![薄いグレーの背景に「Gameboy」というテキストが表示された長方形の画像。テキストは小さな長方形の黒い背景で囲まれ、白色で表示されています。レトロゲーム風のフォントでスタイリングされています。](../images/web-design/gameboy-logo-font.png)
 
-Make sure to adjust the size if the text becomes too large or small in your text area.
+テキストがテキストエリアに対して大きすぎたり小さすぎたりする場合は、サイズを調整してください。
 
 <Callout>
-Load and try out other fonts to see which one you feel is best for your game.
+他のフォントを読み込んで試し、ゲームに最適だと感じるものを見つけてみましょう。
 </Callout>
 
-Here are some other retro fonts that can give you that retro feel:
+以下は、レトロな雰囲気を出せる他のフォントの例です：
 
 - [Amarante](https://fonts.google.com/specimen/Amarante)
 
-  ![A square image with a dark gray background and a text “Press Play to Start” centered on it. The text is red in color and is styled with a classic font, Amarante.](../images/web-design/amarante-example.png)
+  ![濃いグレーの背景に「Press Play to Start」というテキストが中央に表示された正方形の画像。テキストは赤色で、クラシカルなフォントAmaranteでスタイリングされています。](../images/web-design/amarante-example.png)
 
-  This font gives an elegant, narrow, serif typeface; it can work as a display face and surprisingly well in texts and headlines.
+  このフォントは優雅で細身のセリフ体です。ディスプレイフェイスとして機能し、テキストや見出しでも驚くほど効果的です。
 
 - [Geostar Fill](https://fonts.google.com/specimen/Geostar+Fill?query=Geos)
 
-  ![A square image with a dark gray background and a text “Press Play to Start” centered on it. The text is red in color and is styled with a classic font, Geostar Fill.](../images/web-design/geostar-example.png)
+  ![濃いグレーの背景に「Press Play to Start」というテキストが中央に表示された正方形の画像。テキストは赤色で、クラシカルなフォントGeostar Fillでスタイリングされています。](../images/web-design/geostar-example.png)
 
-  Geostar is a great font for large headlines. Its single weight allows for easy legibility and captivates the audience at first glance. Because Geostar is so symmetrical, it is a fantastic option to add charisma and sophistication to your screen.
+  Geostarは大きな見出しに最適なフォントです。単一のウェイトで読みやすさを確保し、一目で観客の心を捉えます。Geostarは非常に対称的なため、画面にカリスマ性と洗練さを加えるのに素晴らしいオプションです。
 
 - [Ewert](https://fonts.google.com/specimen/Ewert?query=Ewert)
 
-  ![A square image with a dark gray background and a text “Press Play to Start” centered on it. The text is red in color and is styled with a classic font, Ewert.](../images/web-design/ewert-example.png)
+  ![濃いグレーの背景に「Press Play to Start」というテキストが中央に表示された正方形の画像。テキストは赤色で、クラシカルなフォントEwertでスタイリングされています。](../images/web-design/ewert-example.png)
 
-  Ewert is a slab serif wood type inspired by, and loosely based on, the collection of cultural infographic maps by Estonian graphic artist Olev Soans. It gives your screen text a stylish, robust fantasy aesthetic.
-
-
-## Conclusion
-
-Congratulations for making it this far! You have completed your p5.js GameBoy sketch. Throughout this series, you've embarked on a comprehensive coding journey, mastering key aspects of web development and creative coding:
-
-- HTML Crafting: You learned how to structure and style your HTML elements with p5.js, setting the foundation for a visually appealing and responsive interface.
-- Interactive Buttons: Implementing buttons with p5.js, you gained hands-on experience in creating interactive elements for user input, which is crucial for game control.
-- Gameplay Logic: Delving into the core of game development, you implemented gameplay logic for a snake game. You tackled input handling, movement, collision detection, and scoring on the way to building a fully functional game.
-- Font Integration: Understanding the significance of fonts in design, you explored the process of loading and selecting fonts using Google Fonts. Applying this knowledge, you stylized your game's display messages with a retro font.
-- Design Principles: Beyond coding, you grasped essential design principles, considering factors like readability, consistency, and responsive design to enhance user experience.
-
-With this series, you've acquired technical coding and input logic skills and honed your design sensibilities. The journey concludes with a fully functional retro game console and a snake game that reflects your newfound expertise. 
-
-Congratulations again on reaching this milestone!
-
-Here is an [example finished project](https://editor.p5js.org/ruthikegah/sketches/fDU72YAkp) for reference.
+  Ewertは、エストニアのグラフィックアーティストOlev Soansによる文化的インフォグラフィックマップのコレクションにインスピレーションを受け、緩やかに基づいたスラブセリフのウッドタイプです。画面のテキストにスタイリッシュで力強いファンタジー的な美しさを与えます。
 
 
-### Next steps
+## 結論
 
-- [Abracadabra: Speak With Your Hands in p5.js and ml5.js](/tutorials/speak-with-your-hands)
-- [Color Gradients](/tutorials/color-gradients)
+ここまで到達できたことを祝福します！p5.js GameBoyスケッチが完成しました。このシリーズを通じて、ウェブ開発とクリエイティブコーディングの重要な側面を習得する包括的なコーディングの旅を経験してきました：
+
+- HTML構築：p5.jsを使用してHTML要素を構造化しスタイリングする方法を学び、視覚的に魅力的でレスポンシブなインターフェースの基礎を築きました。
+- インタラクティブなボタン：p5.jsでボタンを実装することで、ゲームコントロールに不可欠なユーザー入力のためのインタラクティブな要素の作成を実践的に経験しました。
+- ゲームプレイのロジック：ゲーム開発の核心に踏み込み、スネークゲームのゲームプレイロジックを実装しました。入力処理、移動、衝突検出、スコアリングに取り組みながら、完全に機能するゲームを構築しました。
+- フォントの統合：デザインにおけるフォントの重要性を理解し、Google Fontsを使用したフォントの読み込みと選択のプロセスを探求しました。この知識を活用して、ゲームの表示メッセージをレトロなフォントでスタイリングしました。
+- デザイン原則：コーディングだけでなく、読みやすさ、一貫性、レスポンシブデザインなどの要素を考慮してユーザー体験を向上させる重要なデザイン原則を理解しました。
+
+このシリーズを通じて、技術的なコーディングと入力ロジックのスキルを習得しただけでなく、デザインセンスも磨きました。この旅は、あなたの新たな専門知識を反映した、完全に機能するレトロなゲームコンソールとスネークゲームの完成で締めくくられます。
+
+再度、この節目に到達したことをお祝いします！
+
+参考として、[完成したプロジェクトの例](https://editor.p5js.org/ruthikegah/sketches/fDU72YAkp)をご覧ください。
 
 
-### References
+### 次のステップ
+
+- [アブラカダブラ：p5.jsとml5.jsで手を使って話す](/tutorials/speak-with-your-hands)
+- [カラーグラデーション](/tutorials/color-gradients)
+
+
+### 参考文献
 
 - [Google fonts](https://fonts.google.com/)
-- [Understanding typography (Canva)](https://www.canva.com/learn/typography-guide/)
+- [タイポグラフィの理解（Canva）](https://www.canva.com/learn/typography-guide/)

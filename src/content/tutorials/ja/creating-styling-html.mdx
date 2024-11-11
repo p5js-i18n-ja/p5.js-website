@@ -1,9 +1,9 @@
 ---
-title: "Creating and Styling HTML"
-description: Dive into the art of creative coding and learn to build and beautify HTML with p5.js.
+title: "HTMLの作成とスタイリング"
+description: クリエイティブコーディングの技術に飛び込み、p5.jsでHTMLの構築と装飾を学びましょう。
 category: web-design
 featuredImage: ../images/featured/HtmlA.png
-featuredImageAlt: A graphic illustration of a code editor with colorful lines that suggest syntax highlighting code. Two floating circles resembling HTML tags surround the editor.
+featuredImageAlt: コードエディタのグラフィックイラストで、シンタックスハイライトを表現するカラフルな線が描かれています。HTMLタグを表現する2つの浮かぶ円がエディタを囲んでいます。
 relatedContent:
   references:
     - en/p5/p5element
@@ -17,360 +17,357 @@ authors:
 
 import Callout from "../../../components/Callout/index.astro";
 
-This tutorial provides a practical approach to learning how to use the core concepts of p5.js and the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) by building a simple [Game Boy](https://en.wikipedia.org/wiki/Game_Boy) emulator in the [p5.js Web Editor](https://editor.p5js.org/). You'll learn how p5.js works with HTML and CSS, its architecture, and [`p5.Element`](/reference/p5/p5.Element) functions for creating and styling HTML elements. At the end of this tutorial, you will successfully develop a [retro-style](https://en.wikipedia.org/wiki/Retro_style) Game Boy emulator capable of running a basic snake game.
+このチュートリアルでは、[p5.js Web Editor](https://editor.p5js.org/)で簡単な[ゲームボーイ](https://en.wikipedia.org/wiki/Game_Boy)エミュレータを構築することで、p5.jsと[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)の核となる概念を実践的に学びます。p5.jsがHTMLとCSSをどのように扱うのか、その構造と[`p5.Element`](/reference/p5/p5.Element)関数を使ったHTML要素の作成とスタイリングについて学びます。このチュートリアルの最後には、基本的なスネークゲームを実行できる[レトロスタイル](https://en.wikipedia.org/wiki/Retro_style)のゲームボーイエミュレータを開発することができます。
 
-This tutorial is the first in a series of tutorials on [Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3). Check out the [final sketch example](https://editor.p5js.org/ruthikegah/sketches/sf6K_7QzP) you will complete at the end of the [Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3) tutorial series! 
+このチュートリアルは[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最初のものです。[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最後に完成する[最終スケッチの例](https://editor.p5js.org/ruthikegah/sketches/sf6K_7QzP)をチェックしてみてください！
 
-At the end of this first tutorial, your sketch should look something like this:
+このチュートリアルの最後には、あなたのスケッチは以下のようになっているはずです：
 
-![A digital imitation of a handheld GameBoy console. The screen displays the text "Press play icon to Start" in red against a black background. Below the screen is the GameBoy logo, red directional arrows on the left, and two blue action buttons with play and pause icons on them. The GameBoy is gray and with a dark border and rounded edges.](../images/web-design/gameboy.png)
+![携帯型ゲームボーイコンソールのデジタル模倣。画面には黒い背景に赤い文字で「Press play icon to Start」と表示されています。画面の下にはゲームボーイのロゴ、左側に赤い方向ボタン、そして再生と一時停止アイコンが付いた2つの青いアクションボタンがあります。ゲームボーイは灰色で、暗い枠と丸みを帯びた端を持っています。](../images/web-design/gameboy.png)
 
-## Prerequisites:
+## 前提条件:
 
-Before you begin you should understand or have:
+始める前に、以下のことを理解しているか、持っているべきです：
 
-- The desire, curiosity and willingness to learn and experiment are the most important prerequisites!
-- How to use the [p5.js Web Editor](https://editor.p5js.org/) to create and save p5.js projects
-- The final project in this tutorial requires that you understand the basic concepts of p5.js included in the [Variables and Change](/tutorials/variables-and-change) tutorial from the Introduction to p5.js tutorials chapter
+- 学び、実験しようとする意欲、好奇心、そして意志が最も重要な前提条件です！
+- p5.jsプロジェクトを作成し保存するための[p5.js Web Editor](https://editor.p5js.org/)の使い方
+- このチュートリアルの最終プロジェクトでは、p5.js入門チュートリアルの章にある[変数と変化](/tutorials/variables-and-change)チュートリアルに含まれるp5.jsの基本概念を理解している必要があります
 
-This tutorial is designed for learners of all levels, so don’t worry if you’re new to coding – that’s what we’re here to guide you through!
+このチュートリアルは、すべてのレベルの学習者向けに設計されているので、コーディングが初めてでも心配いりません - それを指導するのが私たちの役目です！
 
 
-## Project setup
+## プロジェクトのセットアップ
 
-#### Step 1 – Open the [p5.js Web Editor](https://editor.p5js.org/) on your browser and sign into your account
+#### ステップ1 – ブラウザで[p5.js Web Editor](https://editor.p5js.org/)を開き、アカウントにサインインする
 
-![The p5.js web editor featuring a code editor window with some standard HTML5 code, a preview window that will display interactive graphics input, a sidebar with project files and a console window at the bottom.](../images/web-design/web-editor.png)
+![p5.js webエディタには、標準的なHTML5コードが表示されたコードエディタウィンドウ、インタラクティブなグラフィックス入力を表示するプレビューウィンドウ、プロジェクトファイルを含むサイドバー、そして下部にコンソールウィンドウがあります。](../images/web-design/web-editor.png)
 
-When you launch the p5.js Web Editor and click on the arrow on the text editor next to the file name `sketch.js`, you should see `index.html`, `sketch.js`, and `style.css` files like in the image above. Click the play icon in the upper left corner to see your result in the preview window. To see your changes in real-time, select Auto-refresh.
+p5.js Web Editorを起動し、ファイル名`sketch.js`の横にある矢印をクリックすると、上の画像のように`index.html`、`sketch.js`、`style.css`ファイルが表示されるはずです。左上隅の再生アイコンをクリックすると、プレビューウィンドウに結果が表示されます。リアルタイムで変更を確認するには、自動更新を選択してください。
 
-In order to save your progress, be sure to be logged into your p5.js Web Editor account. Rename  to “HTML and CSS practice” and save your sketch.
+進捗を保存するために、p5.js Web Editorアカウントにログインしていることを確認してください。スケッチの名前を"HTML and CSS practice"に変更して保存してください。
 
 
 ### HTML
 
-The preloaded `index.html` file has a standard HTML5 document with `tags` `and` `attributes`.
+プリロードされた`index.html`ファイルには、`タグ`と`属性`を持つ標準的なHTML5文書があります。
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
-  </body>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <main>
+    </main>
+    <script src="sketch.js"></script>
+  </body>
 </html>
 ```
 
-HTML, or [Hypertext Markup Language](https://developer.mozilla.org/en-US/docs/Glossary/HTML), uses [tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag) to create [elements](https://developer.mozilla.org/en-US/docs/Glossary/Element) that you can see on a web page.  [Tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag) can include two angle brackets (`< >`) for opening tags, or two angle brackets with a forward slash in the middle (`</ >`) for closing tags. Visit the [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics) and [HTML layout elements](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure#html_layout_elements_in_more_detail) articles to learn more about the nested structure of HTML tags.
+HTML、つまり[Hypertext Markup Language](https://developer.mozilla.org/en-US/docs/Glossary/HTML)は、[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)を使用してウェブページ上で見ることができる[要素](https://developer.mozilla.org/en-US/docs/Glossary/Element)を作成します。[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、開始タグ用の二つの山括弧(`< >`)、または終了タグ用の中央にフォワードスラッシュが入った二つの山括弧(`</ >`)を使用します。HTMLタグのネスト構造についてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)と[HTMLレイアウト要素](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure#html_layout_elements_in_more_detail)の記事をご覧ください。
 
-In the default `index.html` file above:
+上記のデフォルトの`index.html`ファイルでは：
 
-- The `<!DOCTYPE html>` tag specifies the document type and version, which is HTML5.
-- The `<html lang="en">` tag specifies the language of the document (in this case, `”en” `stands for English).
-- Between the opening `<head>`  and closing `</head> `tags, there is metadata about the HTML document (in this case, `<script>`, `<link>`, and `<meta>` tags). 
-  - The `<script>` tag loads [p5.js libraries](/libraries/) for creative coding and sound
-  - The `<link>` tag links your external CSS file, `style.css`,
-  - The `<meta>` tag sets the [character encoding](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding) of the document to [UTF-8](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8).
-- Between the opening `<body>`  and closing `</body> `tags, all the contents that appear on a web page such as text, images, sections, etc. It also contains a `<script>` tag that loads your external JavaScript file `sketch.js,` and allows for the canvas to appear on your web page preview window.
+- `<!DOCTYPE html>`タグは、文書のタイプとバージョンがHTML5であることを指定します。
+- `<html lang="en">`タグは、文書の言語を指定します（この場合、`"en"`は英語を表します）。
+- 開始`<head>`タグと終了`</head>`タグの間には、HTML文書に関するメタデータ（この場合、`<script>`、`<link>`、`<meta>`タグ）があります。
+  - `<script>`タグは、クリエイティブコーディングとサウンドのための[p5.jsライブラリ](https://p5js.org/libraries/)を読み込みます
+  - `<link>`タグは、外部CSSファイル`style.css`をリンクします
+  - `<meta>`タグは、文書の[文字エンコーディング](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)を[UTF-8](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8)に設定します。
+- 開始`<body>`タグと終了`</body>`タグの間には、テキスト、画像、セクションなど、ウェブページに表示されるすべてのコンテンツがあります。また、外部JavaScriptファイル`sketch.js`を読み込む`<script>`タグも含まれており、これによってキャンバスがウェブページのプレビューウィンドウに表示されます。
 
-[Tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag) can be encoded with labels that allow us to style [HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) using [CSS (Cascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS) in our `style.css` file. [HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) can be labeled by encoding [classes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#class_selectors) and [ids](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors) within the tags when they are created.
+[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、`style.css`ファイルで[CSS (Cascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS)を使用して[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をスタイリングできるようにするラベルをエンコードすることができます。[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)には、作成時にタグ内に[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#class_selectors)と[ID](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors)をエンコードすることでラベル付けができます。
 
-To demonstrate how the HTML and CSS are linked, you will create a `<div>` element with a unique id specified in the tag, and a `<p>` element within the `<div>` element. The [`<div>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) helps divide content into sections, and the` <p>` element generates paragraph text on a web page. When a tag is placed within another tag, it is called nesting with the outer tag referred to as the parent and inner tag referred to as the child. You can imagine that the nested structure of html can be illustrated with a tree diagram:
+HTMLとCSSがどのようにリンクしているかを示すために、タグ内で一意のIDを指定した`<div>`要素と、その`<div>`要素内に`<p>`要素を作成します。[`<div>`要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)はコンテンツをセクションに分割するのに役立ち、`<p>`要素はウェブページ上に段落テキストを生成します。タグが別のタグ内に配置される場合、これをネストと呼び、外側のタグを親、内側のタグを子と呼びます。HTMLのネスト構造は、ツリー図で表現できることを想像できます：
 
-![A tree diagram with bubbles illustrating the nested relationships between html elements. Bubbles head and body are connected to a bubble for html above them. The div bubble is connected to the body bubble and is labeled “parent element” with an arrow. The p bubble is connected to the div bubble and is labeled “child element: with an arrow. The corresponding HTML code is displayed next to the tree diagram with p tags nested in div tags, which are also nested in body tags. Both head and body tags are nested in html tags.](../images/web-design/html-tree.png)
+![HTMLの要素間のネスト関係を示すバブルのツリー図。htmlの上のバブルにheadとbodyのバブルが接続されています。divバブルはbodyバブルに接続され、「親要素」という矢印のラベルが付いています。pバブルはdivバブルに接続され、「子要素」という矢印のラベルが付いています。対応するHTMLコードがツリー図の横に表示され、pタグがdivタグ内にネストされ、それらがbodyタグ内にネストされ、headとbodyの両方がhtmlタグ内にネストされていることを示しています。](../images/web-design/html-tree.png)
 
-In this example the `<p>` element is a child of the `<div>` element. This means that it is nested within the `<div>` tags and creates a hierarchy in the Document Object Model (DOM) that link elements in a parent-child relationship. 
+この例では、`<p>`要素は`<div>`要素の子です。これは、`<div>`タグ内にネストされており、Document Object Model (DOM)内で要素を親子関係でリンクする階層を作成することを意味します。
 
-To learn more about HTML visit the [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics),  [Get started with HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started), [What’s in the head?](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)  And the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) MDN learning modules.
+HTMLについてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)、[HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)、[headの中身は？](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)、そして[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) MDN学習モジュールをご覧ください。
 
-For a list of HTML tags visit the [HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) MDN reference page.
+HTMLタグの一覧については、[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) MDNリファレンスページをご覧ください。
 
+#### ステップ2: HTML要素にIDを追加する
 
-#### Step 2: Adding ids to HTML elements
-
-Add this code to the `index.html file `under the `</main>` closing tag and before the `</html> `tag:
+以下のコードを`index.html`ファイルの`</main>`終了タグの下、`</html>`タグの前に追加してください：
 
 ```html
 <!-- html, head tags-->
 
 <body>
 
-  <main>
+  <main>
 
-  </main>
+  </main>
 
-  <!-- Text in console -->
-  <div id="Text">
-    <p>This is a console</p>
-  </div>
+  <!-- コンソールのテキスト -->
+  <div id="Text">
+    <p>This is a console</p>
+  </div>
 
-   <!-- Comment out the sketch.js file for now
+   <!-- 今はsketch.jsファイルをコメントアウトしておく
 
-   <script src="sketch.js"></script> 
+   <script src="sketch.js"></script> 
 
-    -->
+    -->
 
 </body>
 
 <!-- ... body, html closing -->
 ```
 
-In the code snippet above, we used comments to help us understand our HTML code. Comments in HTML begin with a right facing angle bracket, exclamation point and two m-dashes ( `<!-- `) and end with two m-dashes and a left facing angle bracket ( `-->`). Any text nested in between these will be skipped by your web browser and is a great way to organize and remind you of what code does! We used comments to comment out the `<script>` tag that incorporates the canvas for now so that it is skipped for this example. 
+上記のコードスニペットでは、HTMLコードを理解しやすくするためにコメントを使用しました。HTMLのコメントは右向きの山括弧、感嘆符、2つのm-ダッシュ（`<!--`）で始まり、2つのm-ダッシュと左向きの山括弧（`-->`）で終わります。これらの間にネストされたテキストはウェブブラウザによってスキップされ、コードを整理し、コードの機能を思い出すのに最適な方法です！この例では、コメントを使用して`<script>`タグをコメントアウトし、現時点ではキャンバスを組み込まないようにしています。
 
-The `<div>` element has an `id` called `“Text”` placed in its opening tag `<div>.` The syntax for encoding ids on html elements in the `index.html` file is:
+`<div>`要素には、開始タグ`<div>`内に`"Text"`という`id`が配置されています。`index.html`ファイル内のHTML要素にIDをエンコードする構文は以下の通りです：
 
 ```
-<-- gives Element an id -->
+<-- 要素にIDを付与する -->
 
 <Element id="id_label"></Element>
 ```
 
-Where `<Element>` can be any HTML element, `id =` assigns an id to the element, and `id_label` is the string with the name of the id for that element.
+ここで、`<Element>`は任意のHTML要素、`id =`は要素にIDを割り当て、`id_label`はその要素のIDの名前を含む文字列です。
 
-Read more about HTML elements, ids and comments in the [Getting started with HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started#html_comments) and the [id HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) MDN tutorial.
+HTML要素、ID、コメントについての詳細は、[HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started#html_comments)と[id HTML属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) MDNチュートリアルをご覧ください。
 
 
 <Callout>
-Create another `<div>` element that contains a header `<h1>` and a paragraph `<p>` as child elements.
+子要素としてヘッダー`<h1>`と段落`<p>`を含む別の`<div>`要素を作成してください。
 
-[Example](https://editor.p5js.org/ruthikegah/sketches/eLPDlM0Qv)
+[例](https://editor.p5js.org/ruthikegah/sketches/eLPDlM0Qv)
 </Callout>
 
 
 ### CSS
 
-To style an [HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) using [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS), you must select the element from your `index.html` file using a [selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors) in the `style.css` file. After the selector are a pair of curly braces where all the CSS style rules in the form of [property: value pairs](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values) are placed. To style each element you must specify a CSS property, a colon (`:`), and a value for that property with a semicolon (`;`) at the end. 
+[CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS)を使用して[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をスタイリングするには、`style.css`ファイル内で[セレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)を使用して`index.html`ファイルから要素を選択する必要があります。セレクタの後には、すべてのCSSスタイルルールが[プロパティ：値のペア](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values)の形式で配置される中括弧のペアがあります。各要素のスタイルを設定するには、CSSプロパティ、コロン（`:`）、そのプロパティの値を指定し、最後にセミコロン（`;`）を付ける必要があります。
 
-For example, you can select an element by its tag, class, or ID, and use CSS declarations to define its styles. 
+例えば、タグ、クラス、またはIDによって要素を選択し、CSSの宣言を使用してそのスタイルを定義することができます。
 
-Below is the syntax for selecting elements using [element selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors) in CSS:
+以下は、CSSで[要素セレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)を使用して要素を選択する構文です：
 
 ```css
 element {
-  property: value;
+  property: value;
 }
 ```
 
-Using element selectors selects ALL elements of that type in the html file.  
+要素セレクタを使用すると、htmlファイル内のその型のすべての要素が選択されます。
 
-Below is the syntax for selecting elements by [class](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors) in CSS:
+以下は、CSSで[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です：
 
 ```css
 .class {
-  property: value;
+  property: value;
 }
 ```
 
-Multiple elements, even different types of elements, can be part of the same class.
+複数の要素（異なる型の要素でも）が同じクラスに属することができます。
 
-Below is the syntax for selecting elements by [id](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors) in CSS:
+以下は、CSSで[id](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です：
 
 ```css
 #id_label {
-  property: value;
+  property: value;
 }
 ```
 
-Only one element can have a specific id. 
+特定のIDを持つことができるのは1つの要素だけです。
 
-Visit the MDN reference for [CSS Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax), [CSS Selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors), [How CSS is structured](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values) to learn more about selectors, properties and values. A list of CSS properties can be found on the [CSS MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
+[CSSの構文](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)、[CSSセレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)、[CSSの構造化方法](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values)についてさらに学ぶには、MDNリファレンスをご覧ください。CSSプロパティの一覧は[CSS MDNリファレンス](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)で見つけることができます。
 
+#### ステップ3 – CSSセレクタを使用してHTML要素をスタイリングする
 
-#### Step 3 – Style your HTML elements with CSS selectors
-
-Modify your `style.css` file so that it contains the following code:
+`style.css`ファイルを以下のコードのように修正してください：
 
 ```css
 html, body {
-  display: flex;
-  justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-/* Add this code to your styles.css file */
+/* このコードをstyles.cssファイルに追加してください */
 #Text {
-  background-color: black;
-  border-radius: 10px;
-  color: white;
-  padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 ```
 
-The `html `and` body` selectors are separated by a comma so that all the [CSS rules](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax) in the curly braces apply to both elements. The `display` property has a value of `flex`, which turns the element into a [flex container](https://developer.mozilla.org/en-US/docs/Web/CSS/flex). This allows you to use the `flex` value for the `display` property for its child elements. Setting the `justify-content` property’s value to `center` horizontally centers the child elements within the flex container. This is particularly useful for aligning content right in the middle of the page, ensuring it looks tidy and centered in the browser window.
+`html`と`body`セレクタはカンマで区切られているため、中括弧内のすべての[CSSルール](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)が両方の要素に適用されます。`display`プロパティに`flex`の値を設定すると、要素が[フレックスコンテナ](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)になります。これにより、子要素に対して`display`プロパティの`flex`値を使用できるようになります。`justify-content`プロパティの値を`center`に設定すると、フレックスコンテナ内の子要素が水平方向に中央揃えされます。これは特に、コンテンツをページの中央にきちんと配置し、ブラウザウィンドウ内で整然と中央揃えにするのに便利です。
 
-You can learn more about the [CSS Selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors), [CSS flexbox layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout), [Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox), [display](https://developer.mozilla.org/en-US/docs/Web/CSS/display), [flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex), [justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content) and [How to center items](https://developer.mozilla.org/en-US/docs/Learn/CSS/Howto/Center_an_item) on the MDN reference pages. 
+[CSSセレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)、[CSSフレックスボックスレイアウト](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout)、[フレックスボックス](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)、[display](https://developer.mozilla.org/en-US/docs/Web/CSS/display)、[flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)、[justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)、[アイテムを中央に配置する方法](https://developer.mozilla.org/en-US/docs/Learn/CSS/Howto/Center_an_item)についてさらに学ぶには、MDNリファレンスページをご覧ください。
 
-The `#` operator is used to specify a specific [id](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) for one element with the name of the id `Text`. `#Text` selects the specific `<div>` in the HTML file that is labeled with `id="Text"`. As a result, the `<div>` is given a black `background-color`, `border-radius` to curve the edges, white text color, and some for [padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding) for spacing.  
+`#`演算子は、`Text`という名前のIDを持つ1つの要素を指定するために使用されます。`#Text`は、HTMLファイル内で`id="Text"`とラベル付けされた特定の`<div>`を選択します。その結果、`<div>`には黒い`background-color`、エッジを曲げる`border-radius`、白いテキストカラー、そして間隔を取るための[padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)が設定されます。
 
-Visit the MDN reference pages for [CSS basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics), [margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin) and [padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding) to learn more.
+[CSS基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)、[margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)、[padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)についてさらに学ぶには、MDNリファレンスページをご覧ください。
 
-Run the sketch and you will see your styled `<div>` appear in the preview window:
+スケッチを実行すると、プレビューウィンドウにスタイリングされた`<div>`が表示されます：
 
-![The text “This is a console” in white, within a rectangular black background with curved corners.](../images/web-design/this-is-a-console.png)
+![黒い背景に白いテキストで「This is a console」と表示され、角が丸くなっている長方形。](../images/web-design/this-is-a-console.png)
 
 <Callout>
-Add more [HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) to the page, then style them with [CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference). 
+より多くの[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をページに追加し、[CSSプロパティ](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)でスタイリングしてください。
 </Callout>
 
 
-#### Step 4 – Create your canvas
+#### ステップ4 – キャンバスを作成する
 
-Open a new project in the p5.js Web Editor, rename it “GameBoy Emulator Part 1” and save it to your sketches library.
+p5.js Web Editorで新しいプロジェクトを開き、"GameBoy Emulator Part 1"という名前に変更してスケッチライブラリに保存してください。
 
-Add the following code to your `style.css` file:
+以下のコードを`style.css`ファイルに追加してください：
 
 ```css
 html, body {
-  display: flex;
-  justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 canvas {
-  display: block;
+  display: block;
 }
 ```
 
-Set up your canvas by navigating to your `sketch.js` file and add the following code:
+`sketch.js`ファイルに移動し、以下のコードを追加してキャンバスをセットアップしてください：
 
 ```js
 let winWidth = 400;
 let winHeight = 300;
 function setup() {
-  // Create the canvas (adjust width and height as needed)
-  let canvas = createCanvas(winWidth, winHeight);
+  // キャンバスを作成（必要に応じて幅と高さを調整してください）
+  let canvas = createCanvas(winWidth, winHeight);
 }
-
 function draw() {
-  background(51);
+  background(51);
 }
 ```
 
-Your canvas should look like this: 
+キャンバスは以下のように表示されるはずです：
 
-![A blank black canvas that is centered on a web page.](../images/web-design/empty-canvas.png)
+![ウェブページの中央に配置された、空の黒いキャンバス。](../images/web-design/empty-canvas.png)
 
-In the code above, you declared the variables `winWidth` and `winHeight`, and initialized them with 400 and 300, respectively. These variables represent the initial width and height of the canvas.
+上記のコードでは、変数`winWidth`と`winHeight`を宣言し、それぞれ400と300で初期化しています。これらの変数はキャンバスの初期の幅と高さを表します。
 
-The `setup()` function is called once at the beginning of a sketch, and is used to define the initial environment properties. This can include setting the screen size, background color, and loading the media you want to use in your project. The canvas [p5.Element](/reference/p5/p5.Element) object is stored in the variable `canvas`.
+`setup()`関数はスケッチの開始時に一度だけ呼び出され、初期環境プロパティを定義するために使用されます。これには画面サイズ、背景色の設定、プロジェクトで使用したいメディアの読み込みなどが含まれます。キャンバス[p5.Element](/reference/p5/p5.Element)オブジェクトは変数`canvas`に格納されます。
 
-The `draw()` function runs in a continuous loop after the `setup()` function. Within this loop, the background color of the canvas is set to a dark gray shade using the `background(51)`. This function clears the canvas before each frame is drawn, maintaining a consistent background for an ongoing animation.
+`draw()`関数は`setup()`関数の後に連続的なループで実行されます。このループ内で、`background(51)`を使用してキャンバスの背景色を暗い灰色の色調に設定しています。この関数は各フレームが描画される前にキャンバスをクリアし、継続的なアニメーションのために一貫した背景を維持します。
 
-To learn more, visit the p5.js reference for [`setup()`](/reference/p5/setup), [createCanvas()](/reference/p5/createCanvas) and [p5.Element](/reference/p5/p5.Element)
+詳しくは、p5.jsリファレンスの[`setup()`](/reference/p5/setup)、[createCanvas()](/reference/p5/createCanvas)、[p5.Element](/reference/p5/p5.Element)をご覧ください。
 
 <Callout>
-Add a shadow to your canvas using a CSS property.
+CSSプロパティを使用してキャンバスに影を追加してください。
 
-Hint: Search the web for "CSS box-shadow" and add styling to the canvas element in the` style.css` file.
+ヒント：「CSS box-shadow」をウェブで検索し、`style.css`ファイルのcanvas要素にスタイリングを追加してください。
 
-[Example](https://editor.p5js.org/ruthikegah/sketches/w7wAb4zL-)
+[例](https://editor.p5js.org/ruthikegah/sketches/w7wAb4zL-)
 </Callout>
 
 
-#### Step 5 – Add container `<div>` elements to the HTML with `createDiv()` 
+#### ステップ5 – `createDiv()`を使用してHTMLにコンテナ`<div>`要素を追加する
 
-Create `<div>` containers that will house the various components of your console (For example, the console, screen, logo, and buttons). Create a `<p>` element that will display the score for your game. Add ids to each element describing what they will be used for.
+コンソールの様々なコンポーネント（例えば、コンソール、画面、ロゴ、ボタン）を収容する`<div>`コンテナを作成します。ゲームのスコアを表示する`<p>`要素を作成します。各要素に、その用途を説明するIDを追加します。
 
-Add the following code to `setup()` under `createCanvas() `in the `sketch.js` file:
+以下のコードを`sketch.js`ファイルの`setup()`内の`createCanvas()`の下に追加してください：
 
 ```js
-// Inside setup():
+// setup()の中：
 
-// Create the Game Boy emulator container
+// ゲームボーイエミュレータのコンテナを作成
 let gameBoyEmulator = createDiv();
 gameBoyEmulator.id("game-boy-emulator");
-// Create the game container
+// ゲームコンテナを作成
 let gameContainer = createDiv();
 gameContainer.id("game-container");
-// Create the score container
+// スコアコンテナを作成
 let scoreContainer = createDiv("Score: ");
 scoreContainer.id("score-container");
 
-//Create the score element in paragraph
+//段落にスコア要素を作成
 let scoreSpan = createP("0");
 scoreSpan.id("score");
-// Create the Game Boy text
+// ゲームボーイのテキストを作成
 let gameBoyText = createDiv("GameBoy");
 gameBoyText.id("game-boy-text");
 
-// Create the button container
+// ボタンコンテナを作成
 let buttonContainer = createDiv();
 buttonContainer.id("button-container");
 
-// Create the arrow buttons container
+// 矢印ボタンコンテナを作成
 let arrowButtons = createDiv();
 arrowButtons.id("arrow-buttons");
-// Create the left and right buttons container
+// 左右ボタンコンテナを作成
 let leftRightButtons = createDiv();
 
 leftRightButtons.id("leftRightButton");
 
 
-// Create the action buttons container
+// アクションボタンコンテナを作成
 let actionButtons = createDiv();
 actionButtons.id("action-buttons");
 ```
 
-To make the text easier to read on the web, use a more distinct color. Pink works better with this background. Add the following in your `html, body` selector in the `style.css` file:
+ウェブ上でテキストを読みやすくするために、より目立つ色を使用します。ピンクがこの背景によく合います。`style.css`ファイルの`html, body`セレクタに以下を追加してください：
 
 ```css
 color: rgb(255,0,188);
 ```
 
-Your preview should look like this:
+プレビューは以下のように表示されるはずです：
 
-![A blank canvas with a black background and the text “Score: Gameboy”, colored pink, arranged horizontally next to the canvas at the top right, and a digit, 0, below them.](../images/web-design/preview-with-text.png)
+![黒い背景のブランクキャンバスと、右上に水平に並んだピンク色の「Score: Gameboy」というテキスト、その下に数字の0が表示されています。](../images/web-design/preview-with-text.png)
 
 
 ### `p5.Element`
 
-In this step, you use [`p5.Element`](/reference/p5/p5.Element) objects to create HTML elements. A `p5.Element` allows standard HTML elements to be added to the HTML in `sketch.js`. All HTML elements share the functions of the `p5.Element` class. Some of these elements include  [`createCanvas()`](/reference/p5/createCanvas), [`createDiv()`](/reference/p5/createDiv), [`createP()`](/reference/p5/createP) and [`createButton()`](/reference/p5/createButton). Some functions that can be used with `p5.Element` objects are [`.id()`](/reference/p5.Element/id),  [`.child()`](/reference/p5.Element/child), [`.style()`](/reference/p5.Element/style), [`.position()`](/reference/p5.Element/position) and [`.size()`](/reference/p5.Element/size).
+このステップでは、[`p5.Element`](/reference/p5/p5.Element)オブジェクトを使用してHTML要素を作成します。`p5.Element`を使用すると、標準的なHTML要素を`sketch.js`内のHTMLに追加することができます。すべてのHTML要素は`p5.Element`クラスの機能を共有します。これらの要素には[`createCanvas()`](/reference/p5/createCanvas)、[`createDiv()`](/reference/p5/createDiv)、[`createP()`](/reference/p5/createP)、[`createButton()`](/reference/p5/createButton)などが含まれます。`p5.Element`オブジェクトで使用できる機能には、[`.id()`](/reference/p5.Element/id)、[`.child()`](/reference/p5.Element/child)、[`.style()`](/reference/p5.Element/style)、[`.position()`](/reference/p5.Element/position)、[`.size()`](/reference/p5.Element/size)などがあります。
 
-In `setup()`, you declared a variable called `gameBoyEmulator` and assigned it to a new `<div>` `p5.Element` created with the [`createDiv()`](/reference/p5/createDiv) function. You then gave the `gameBoyEmulator` an id attribute `"game-boy-emulator"` by calling its `.id()` method.
+`setup()`内で、`gameBoyEmulator`という変数を宣言し、[`createDiv()`](/reference/p5/createDiv)関数で作成された新しい`<div>` `p5.Element`を割り当てました。その後、`.id()`メソッドを呼び出して、`gameBoyEmulator`にID属性`"game-boy-emulator"`を与えました。
 
-Here is the syntax for adding an id to a `p5.Element`:
+`p5.Element`にIDを追加する構文は以下の通りです：
 
 ```js
 variableName.id('idName');
 ```
 
-`variableName` is the name for the variable that stores the p5.Element and `'idName'` is the name of the idea assigned to that element.
+`variableName`はp5.Elementを格納する変数の名前で、`'idName'`はその要素に割り当てられるIDの名前です。
 
-Similarly, you created another `<div>` element called `gameContainer` with the id attribute `"game-container"`. This `<div>` will house the game screen. 
+同様に、ID属性`"game-container"`を持つ別の`<div>`要素`gameContainer`を作成しました。この`<div>`はゲーム画面を収容します。
 
-You also created another `<div>` named `scoreContainer `with the id `score-container` and text that reads “Score” to host the score display. To display actual scores, you created the `scoreSpan` paragraph element using [`createP()`](/reference/p5/createP) with displaying an initial value of 0.
+また、スコア表示を収容するために、ID`score-container`と「Score」というテキストを持つ別の`<div>`である`scoreContainer`も作成しました。実際のスコアを表示するために、[`createP()`](/reference/p5/createP)を使用して初期値0を表示する`scoreSpan`段落要素を作成しました。
 
-The `<div>` `gameBoyText` with the id `game-boy-text` was also created to contain the logo that reads `GameBoy`.
+ID`game-boy-text`を持つ`<div>` `gameBoyText`も作成され、`GameBoy`と表示するロゴを含みます。
 
-Finally, `<div>`s for the buttons were created using separate `<div>`s for arrow buttons and action buttons, that will be nested in button containers in the next step. Each `<div>` is given a unique id that describes each element: `button-container`, `arrow-buttons`, and `action-buttons`. 
+最後に、ボタン用の`<div>`が作成され、矢印ボタンとアクションボタンは別々の`<div>`に分けられ、次のステップでボタンコンテナにネストされます。各`<div>`には、各要素を説明する一意のID：`button-container`、`arrow-buttons`、`action-buttons`が与えられています。
 
-A `<div>` for the left and right directional buttons with an id `leftRight-button` was created to help you align the navigation buttons in a cross shape in the next chapter.
+次の章でナビゲーションボタンをクロス形状に配置するのを助けるために、ID`leftRight-button`を持つ左右方向ボタン用の`<div>`が作成されました。
 
 <Callout>
-Add a CSS rule set to change the text color.
+CSSルールセットを追加してテキストの色を変更してください。
 </Callout>
 
-#### Step 6 – Add p5.Elements to their respective containers
+#### ステップ6 – p5.Elementsをそれぞれのコンテナに追加する
 
-In `setup()`, add the following block of code under the action buttons container:
+`setup()`内のアクションボタンコンテナの下に、以下のコードブロックを追加してください：
 
 ```js
-// Select the page's body element and
-// Return it wrapped in a p5.Element
+// ページのbody要素を選択し、
+// p5.Elementでラップして返す
 let body = select('body');
-// Add the gameboyEmulator to the body element
+// gameboyEmulatorをbody要素に追加
 body.child(gameBoyEmulator);
-// Add containers to the main container
+// コンテナをメインコンテナに追加
 gameBoyEmulator.child(gameContainer);
 gameBoyEmulator.child(gameBoyText);
 gameBoyEmulator.child(buttonContainer);
 
-// Add elements to their respective containers
+// 要素をそれぞれのコンテナに追加
 scoreContainer.child(scoreSpan);
 gameContainer.child(scoreContainer);
 gameContainer.child(canvas);
@@ -378,124 +375,124 @@ buttonContainer.child(arrowButtons);
 buttonContainer.child(actionButtons);
 ```
 
-The [`.child()`](/reference/p5.Element/child) function adds a `p5.Element` as the child of another `p5.Element`.
+[`.child()`](/reference/p5.Element/child)関数は、`p5.Element`を別の`p5.Element`の子として追加します。
 
-Here is the syntax for adding an element as a child to another `p5.Element`:
+`p5.Element`を別の要素の子として追加する構文は以下の通りです：
 
 ```js
 childElement.child(parentElement);
 ```
 
-Where `childeElement` and `parentElement` are the names for variables that store each HTML element.
+ここで、`childeElement`と`parentElement`は各HTML要素を格納する変数の名前です。
 
-The code block above shows a hierarchy where the `scoreSpan` is a child of the `scoreContainer`. Both the `scoreContainer` and `canvas` are children to the `gameContainer`. The `buttonContainer` holds both button container `<div> `elements.
+上記のコードブロックは、`scoreSpan`が`scoreContainer`の子である階層を示しています。`scoreContainer`と`canvas`の両方が`gameContainer`の子です。`buttonContainer`は両方のボタンコンテナ`<div>`要素を保持します。
 
-The `gameContainer`, `gameBoyText`, and `gameBoyEmulator` are all nested in the `gameBoyEmulator` (the whole console container).
+`gameContainer`、`gameBoyText`、`gameBoyEmulator`はすべて`gameBoyEmulator`（コンソール全体のコンテナ）内にネストされています。
 
-Your preview should now look like this:
+プレビューは以下のように表示されるはずです：
 
-![A blank canvas with a  black background and the text that reads "Score: 0" on top of the canvas, and "GameBoy" under the canvas.](../images/web-design/canvas-with-logo.png)
+![黒い背景のブランクキャンバスと、キャンバスの上部に「Score: 0」というテキスト、キャンバスの下に「GameBoy」というテキストが表示されています。](../images/web-design/canvas-with-logo.png)
 
-The [`select()`](/reference/p5/select) function searches the DOM for elements and returns them. Use this to search for elements by element tag, class, and id. Calling `select('body')` returns the page’s `<body>` element. Now that we have access to the `<body>` element, we add `gameBoyEmulator` as a child.
+[`select()`](/reference/p5/select)関数はDOMから要素を検索して返します。これを使用して、要素タグ、クラス、IDで要素を検索します。`select('body')`を呼び出すと、ページの`<body>`要素が返されます。`<body>`要素にアクセスできるようになったので、`gameBoyEmulator`を子として追加します。
 
-To see how changes in your Javascript correspond to inline styling in HTML print out the `body` element in the console by typing this code in `setup( )`:
+JavaScriptでの変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、`setup()`内で以下のコードを入力して`body`要素をコンソールに出力してください：
 
 ```js
 console.log(body.elt);
 ```
 
-`body.elt` accesses the resulting HTML elements that are nested within the `<body>` tags in the html page that is rendered in the preview. `console.log()` prints the elements in the console. Notice how all the p5.Elements you created are listed in the console, even though they do not appear in the index.html file. This is the power of JavaScript! We can create elements for the html file, and styles for the css file, all from the sketch.js file.
+`body.elt`は、プレビューでレンダリングされるhtmlページの`<body>`タグ内にネストされた結果のHTML要素にアクセスします。`console.log()`は要素をコンソールに出力します。index.htmlファイルには表示されていなくても、作成したすべてのp5.Elementsがコンソールにリストされていることに注目してください。これがJavaScriptの力です！sketch.jsファイルから、htmlファイル用の要素とcssファイル用のスタイルを作成することができます。
 
-[Here is sample code](https://editor.p5js.org/Msqcoding/sketches/Eblr8BQLq) that prints nested elements from `<body>` in the console.
+[こちらのサンプルコード](https://editor.p5js.org/Msqcoding/sketches/Eblr8BQLq)は、`<body>`からネストされた要素をコンソールに出力します。
 
 <Callout>
-Read the p5.js reference pages for [`select()`](/reference/p5/select) and [`.child()`](/reference/p5.Element/child), then try to select all of your `<div>` containers.
+[`select()`](/reference/p5/select)と[`.child()`](/reference/p5.Element/child)のp5.jsリファレンスページを読み、すべての`<div>`コンテナを選択してみてください。
 
-[Example](https://editor.p5js.org/Msqcoding/sketches/xnssulBMz)
+[例](https://editor.p5js.org/Msqcoding/sketches/xnssulBMz)
 </Callout>
 
 
-#### Step 7 – Style the containers
+#### ステップ7 – コンテナをスタイリングする
 
-Set styles for the containers by adding the following in the `setup()` function:
+`setup()`関数内に以下のスタイルをコンテナに設定してください：
 
 ```js
-// Set styles for the Game Boy emulator container
+// ゲームボーイエミュレータコンテナのスタイルを設定
 gameBoyEmulator.style("background-color", "#8b8b8b");
 gameBoyEmulator.style("border", "10px solid #000");
 gameBoyEmulator.style("border-radius", "10px");
 gameBoyEmulator.style("padding", "20px");
 gameBoyEmulator.style("box-shadow", "0 0 20px rgba(0, 0, 0, 0.8)");
-// Set styles for the button container
+// ボタンコンテナのスタイルを設定
 buttonContainer.style("display", "flex");
 buttonContainer.style("align-items", "center");
 buttonContainer.style("justify-content", "space-between");
 buttonContainer.style("margin-top", "20px");
-// Set styles for the arrow buttons container
+// 矢印ボタンコンテナのスタイルを設定
 arrowButtons.style("display", "flex");
 arrowButtons.style("flex-direction", "column");
 arrowButtons.style("align-items", "center");
-// Set styles for the action buttons container
+// アクションボタンコンテナのスタイルを設定
 actionButtons.style("display", "flex");
 actionButtons.style("align-items", "center");
 ```
 
-You can style HTML elements with the [`.style()`](/reference/p5.Element/style) method. [`.style()`](/reference/p5.Element/style)  helps you set or retrieve the CSS style properties of a `p5.Element`. The arguments to [`.style()`](/reference/p5.Element/style) mirror a CSS declaration. 
+[`.style()`](/reference/p5.Element/style)メソッドを使用してHTML要素をスタイリングすることができます。[`.style()`](/reference/p5.Element/style)は、`p5.Element`のCSSスタイルプロパティを設定または取得するのに役立ちます。[`.style()`](/reference/p5.Element/style)の引数はCSS宣言を反映しています。
 
-The syntax for [`.style()`](/reference/p5.Element/style) is shown below:
+[`.style()`](/reference/p5.Element/style)の構文は以下の通りです：
 
 ```js
 elementName.style("property", "value");
 ```
 
-You can now remove the `color: rgb(255,0,188);` set in your CSS `html, body` selector since black is more visible on a light gray background.
+明るい灰色の背景に対して黒の方が見やすくなったので、CSSの`html, body`セレクタで設定した`color: rgb(255,0,188);`を削除できるようになりました。
 
-After styling all `p5.Element`s, you should see this in your preview window:
+すべての`p5.Element`のスタイリングが完了すると、プレビューウィンドウには以下のように表示されるはずです：
 
-![A classic handheld video game console imitating a GameBoy with a minimalist design, and a black and white color scheme. A dark gray screen is in the center of a light gray background with a black border. Above the screen, the text "Score” appears with the number “0” under it. A logo that reads "GameBoy" appears below the screen.](../images/web-design/gameboy-with-shadow.png)
+![クラシックな携帯型ゲーム機ゲームボーイを模した、ミニマルなデザインで、黒と白の配色のコンソール。明るい灰色の背景に黒い枠を持つ暗い灰色の画面が中央にあります。画面の上には「Score」というテキストが表示され、その下に数字の「0」があります。画面の下には「GameBoy」というロゴが表示されています。](../images/web-design/gameboy-with-shadow.png)
 
-The styling above gives the `gameBoyEmulator` container a gray background, a solid black border with rounded corners and padding for spacing and a shadow for a 3D effect. The `buttonContainer` is styled with flexbox, and  its children (buttons) are center-aligned and evenly spaced. A small margin is applied above the button container for even separation from other elements. The `arrowButtons` container is also a flex container. It is arranged in a column to stack the arrow buttons vertically and center-align them. Lastly, the `actionButtons` container is set to flex to align its children in a row. This creates a layout with a score in the top right. The "GameBoy" text is centered below the game screen canvas. Print the gameBoyEmulator.elt object in your console to see these changes to styles in Javascript correspond to the inline styling in HTML. 
+上記のスタイリングでは、`gameBoyEmulator`コンテナに灰色の背景、丸みを帯びた角を持つ黒い実線の枠、間隔を取るためのパディング、3D効果のための影を与えています。`buttonContainer`はフレックスボックスでスタイリングされ、その子要素（ボタン）は中央揃えで均等に配置されています。他の要素との適切な分離のために、ボタンコンテナの上に小さなマージンが適用されています。`arrowButtons`コンテナもフレックスコンテナです。矢印ボタンを垂直に積み重ね、中央揃えにするために列形式で配置されています。最後に、`actionButtons`コンテナはフレックスに設定され、その子要素を行に配置します。これにより、右上にスコアを配置するレイアウトが作成されます。ゲーム画面キャンバスの下に「GameBoy」テキストが中央揃えされています。JavaScriptでのこれらのスタイル変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、gameBoyEmulator.eltオブジェクトをコンソールに出力してください。
 
-Write the following code in `setup()` to view the nested hierarchy and styles you created:
+`setup()`に以下のコードを書いて、作成したネスト階層とスタイルを表示してください：
 
 ```js
 console.log(gameBoyEmulator.elt);
 ```
 
-Let's explore some of the style properties and concepts used in styling the containers:
+コンテナのスタイリングに使用されたスタイルプロパティと概念について詳しく見てみましょう：
 
-- [Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model): The CSS box model explains the structure of every web page element as a rectangular box, which includes [`padding`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php) (space inside the border), [`border`](https://www.phpforkids.com/css/css-inner-workings-border.php) (the edge around the element), [`margin`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php) (space outside the border), and the actual content area itself. This model helps in designing and laying out web pages.
+- [ボックスモデル](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)：CSSボックスモデルは、すべてのウェブページ要素の構造を、[`padding`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php)（枠線の内側のスペース）、[`border`](https://www.phpforkids.com/css/css-inner-workings-border.php)（要素の周りの端）、[`margin`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php)（枠線の外側のスペース）、そして実際のコンテンツ領域自体を含む長方形のボックスとして説明します。このモデルは、ウェブページのデザインとレイアウトに役立ちます。
 
-  ![A diagram of the CSS box model. A small box in the center is labeled "Content" is surrounded by a shaded box labeled “Padding”, which is surrounded by another shaded box labeled “Margin”. Arrows pointing from the edge of the content box to the edge of the padding box is labeled “20px”. Arrows pointing from the edge of the padding box to the edge of the margin box is labeled “8px”.](../images/web-design/box-model.png)
+  ![CSSボックスモデルの図。中央の小さなボックスには「Content」とラベル付けされ、「Padding」とラベル付けされた影付きボックスに囲まれ、さらに「Margin」とラベル付けされた影付きボックスに囲まれています。コンテンツボックスの端からパディングボックスの端までの矢印には「20px」とラベル付けされ、パディングボックスの端からマージンボックスの端までの矢印には「8px」とラベル付けされています。](../images/web-design/box-model.png)
 
-- [Dimension properties:](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension) CSS dimensions properties, like `width` and `height`, set the size of an element’s content area. You can also use max-width and min-width, and max-height and min-height, to control how an element sizes. This keeps it looking good on diverse screens and in various content. Check out the MDN reference for [dimension properties](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension) to learn more.
+- [寸法プロパティ：](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension) CSS寸法プロパティ（`width`や`height`など）は、要素のコンテンツ領域のサイズを設定します。また、max-widthとmin-width、max-heightとmin-heightを使用して、要素のサイズを制御することもできます。これにより、様々な画面や様々なコンテンツで見栄えよく表示されます。詳しくは[寸法プロパティ](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension)のMDNリファレンスをご覧ください。
 
-- [Alignment:](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align) The HTML alignment properties determine the positioning and alignment of content within an element or across the layout. They include `text-align` for horizontal text alignment, `vertical-align` for inline or table-cell content, and flexbox and grid properties like `justify-content` and `align-items` for advanced layout alignment within flexible and grid containers. Check out the MDN reference for [HTML Alignment properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align) to learn more.
+- [配置：](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align) HTML配置プロパティは、要素内またはレイアウト全体でのコンテンツの位置と配置を決定します。これには、水平テキスト配置のための`text-align`、インラインまたはテーブルセルコンテンツのための`vertical-align`、そしてフレキシブルコンテナやグリッドコンテナ内での高度なレイアウト配置のための`justify-content`や`align-items`などのフレックスボックスやグリッドプロパティが含まれます。詳しくは[HTML配置プロパティ](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align)のMDNリファレンスをご覧ください。
 
-<Callout title="Note">
-Your Gameboy appearance in the preview may vary, depending on the screen size. CSS left-justifies the canvas. It aligns to the left of its parent. If the emulator elements exceed the width of the screen or window, the canvas will not center. It will seem to shift more to the left. You may need to adjust the CSS for different screen sizes. This is to keep the canvas centered, if that's the layout you want. Check out the MDN reference for [responsive screen design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design) to learn more.
+<Callout title="注意">
+プレビューでのゲームボーイの外観は、画面サイズによって異なる場合があります。CSSはキャンバスを左揃えにします。親要素に対して左に配置されます。エミュレータ要素が画面やウィンドウの幅を超える場合、キャンバスは中央に配置されません。より左側にシフトしているように見えます。異なる画面サイズに対応するためにCSSを調整する必要があるかもしれません。これは、そのようなレイアウトを望む場合に、キャンバスを中央に保つためです。詳しくは[レスポンシブ画面デザイン](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)のMDNリファレンスをご覧ください。
 </Callout>
 
 <Callout>
-Change the color of your Game Boy text to whatever you’d like!
+ゲームボーイのテキストの色を好きな色に変更してみてください！
 
-[Example](https://editor.p5js.org/ruthikegah/sketches/EY6n18IRE)
+[例](https://editor.p5js.org/ruthikegah/sketches/EY6n18IRE)
 </Callout>
 
 
-#### Step 8 – Style the text
+#### ステップ8 – テキストをスタイリングする
 
-Finally, style and position text elements in the `setup()` function:
+最後に、`setup()`関数内でテキスト要素のスタイルと位置を設定します：
 
 ```js
-// Add styles
+// スタイルを追加
 scoreContainer.style("position", "absolute");
 scoreContainer.style("margin-left", "340px");
 scoreContainer.style("color", "#fff");
 scoreContainer.style("margin-top", "5px");
 
 
-// Add styles
+// スタイルを追加
 gameBoyText.style("margin", "10px 145px");
 gameBoyText.style("font-size", "25px");
 gameBoyText.style("color", "#fff");
@@ -504,56 +501,56 @@ gameBoyText.style("padding", "5px");
 gameBoyText.style("border-radius", "5px");
 ```
 
-In this step, the `scoreContainer` [`position`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) is set to `absolute`, which allows you to position it relative to its parent `div`, `gameContainer`. When adding margins, pixels are relative to the edge of the `gameContainer` `<div>` and will not be affected by other elements that are added later. 
+このステップでは、`scoreContainer`の[`position`](https://developer.mozilla.org/en-US/docs/Web/CSS/position)を`absolute`に設定し、親の`div`である`gameContainer`に対して相対的に配置できるようにしています。マージンを追加する際、ピクセル値は`gameContainer` `<div>`の端からの相対値となり、後から追加される他の要素の影響を受けません。
 
-The `scoreContainer` has a left margin of 340 pixels to the right and a top margin 5 pixels below the edges of the `gameContainer` element. The color of the text is set to `#fff` which corresponds to white. This positions the score on the top left of the Game Boy Screen.
+`scoreContainer`は右側に340ピクセルの左マージン、`gameContainer`要素の端から下に5ピクセルの上マージンを持ちます。テキストの色は`#fff`に設定され、これは白色に対応します。これによりスコアがゲームボーイ画面の左上に配置されます。
 
-The `gameText` element is positioned under the `gameContainer` element with 10 pixel top and bottom margins, and 145 pixel left and right margins. These margins are relative to the bottom edge of the `gameContainer` `<div>`, since it is also a child element to `gameBoyEmulator`, and left and right edges of the parent `<div>` `gameBoyEmulator`. You also style the text with a white font (`color: white`), a font size of 25 pixels, and a light blue background (`background-color: #0077b6`). Finally, you added a `padding` of `5px` to create space inside the element, and a `border-radius` of `5px` to round off the corners.
+`gameText`要素は、上下に10ピクセル、左右に145ピクセルのマージンを持つ`gameContainer`要素の下に配置されます。これらのマージンは、親の`<div>`である`gameBoyEmulator`の左右の端と、`gameContainer` `<div>`の下端からの相対値です。また、白色のフォント（`color: white`）、25ピクセルのフォントサイズ、薄い青色の背景（`background-color: #0077b6`）でテキストをスタイリングしています。最後に、要素の内側にスペースを作るために`padding`を`5px`に、角を丸くするために`border-radius`を`5px`に設定しています。
 
-Visit the [CSS property reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) for more ways to customize your GameBoy.
+ゲームボーイをカスタマイズする他の方法については、[CSSプロパティリファレンス](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)をご覧ください。
 
 <Callout>
-Search the web for other ways to style text using CSS, then apply those styles using `.style()`.
+CSSを使用してテキストをスタイリングする他の方法をウェブで検索し、`.style()`を使用してそれらのスタイルを適用してみてください。
 </Callout>
 
-Good job! You have successfully created and styled HTML with p5.js. At this point, you should have a sketch that looks like this:
+お疲れ様でした！p5.jsを使用してHTMLの作成とスタイリングに成功しました。この時点で、あなたのスケッチは以下のように見えるはずです：
 
-![A digital interface styled to resemble a GameBoy gaming console with a subtle shadow for a three dimensional effect. Its screen is dark gray, large and centered. In the top right corner of the screen, there is white text that reads "Score:" and the number "0" below it. Centered below the screen is a logo with a blue background and white font that reads  "GameBoy". A black border with rounded edges surrounds the GameBoy.](../images/web-design/final-gameboy.png)
+![3D効果のための微妙な影を持つゲームボーイゲーム機を模したデジタルインターフェース。画面は暗い灰色で、大きく中央に配置されています。画面の右上には白いテキストで「Score:」と表示され、その下に数字の「0」があります。画面の下には青い背景に白いフォントで「GameBoy」というロゴが中央揃えで表示されています。黒い枠と丸みを帯びた端がゲームボーイを囲んでいます。](../images/web-design/final-gameboy.png)
 
-## Conclusion
+## 結論
 
-Congratulations on completing the first part of this three part hands on tutorial series. Throughout this guide, you have learned how to manipulate HTML elements with p5.js by applying p5.Element functions and core programming concepts to create and style HTML elements. This tutorial not only bolstered your understanding of the p5.js architecture, but also walked you through the practical integration of HTML, CSS and Javascript to bring a sketch to life.
+3部構成のこの実践的なチュートリアルシリーズの第1部を完了したことをおめでとうございます。このガイドを通じて、p5.Element関数とコアプログラミングの概念を適用してHTML要素を作成およびスタイリングすることで、p5.jsを使用してHTML要素を操作する方法を学びました。このチュートリアルは、p5.jsのアーキテクチャの理解を深めただけでなく、HTML、CSS、JavaScriptを実践的に統合してスケッチに命を吹き込む方法も説明しました。
 
-[Check out complete code](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2) for this tutorial.
-
-
-## Next steps
-
-Move onto the next tutorial in this sequence: [Responding to Inputs](/tutorials/responding-to-inputs).
+このチュートリアルの[完全なコード](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2)をご確認ください。
 
 
-## References
+## 次のステップ
+
+このシリーズの次のチュートリアルに進みましょう：[入力への応答](/tutorials/responding-to-inputs)。
+
+
+## 参考文献
 
 - [HTML (Hypertext Markup Language)](https://developer.mozilla.org/en-US/docs/Glossary/HTML)
 - [CSS: Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS)
-- [Tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag)
-- [Elements](https://developer.mozilla.org/en-US/docs/Glossary/Element)
-  - [`<body>`: The Document Body element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body)
-  - [`<div>`: The Content Division Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)
-  - [`<p>`: The Paragraph element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p)
-- [Document and website structure](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
-- [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
-- [Get started with HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
-- [What’s in the head?](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML) 
+- [タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)
+- [要素](https://developer.mozilla.org/en-US/docs/Glossary/Element)
+  - [`<body>`: 文書本体要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body)
+  - [`<div>`: コンテンツ区分要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)
+  - [`<p>`: 段落要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p)
+- [文書とウェブサイトの構造](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
+- [HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
+- [HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
+- [headの中身は？](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML) 
 - [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
-- [Structuring the web with HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML)
-- [CSS Basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
-- [Learn to style HTML using CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS)
-- [Type, class and ID selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors)
-- [How CSS is structured](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values)
-- [CSS Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)
-- [CSS Selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
-- [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) 
+- [HTMLによるウェブの構造化](https://developer.mozilla.org/en-US/docs/Learn/HTML)
+- [CSS基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
+- [CSSを使用してHTMLのスタイリングを学ぶ](https://developer.mozilla.org/en-US/docs/Learn/CSS)
+- [タイプ、クラス、IDセレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors)
+- [CSSの構造化方法](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values)
+- [CSS構文](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)
+- [CSSセレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
+- [CSSリファレンス](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) 
   - [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
   - [`flex`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
   - [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
@@ -564,11 +561,11 @@ Move onto the next tutorial in this sequence: [Responding to Inputs](/tutorials/
   - [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
   - [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
 - [Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
-- [CSS flexbox layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout)
-- [How to center an item](https://developer.mozilla.org/en-US/docs/Learn/CSS/Howto/Center_an_item)
-- [Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
-- [CSS Dimensions](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension)
-- [Responsive Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
+- [CSSフレックスボックスレイアウト](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout)
+- [アイテムを中央に配置する方法](https://developer.mozilla.org/en-US/docs/Learn/CSS/Howto/Center_an_item)
+- [ボックスモデル](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
+- [CSS寸法](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension)
+- [レスポンシブデザイン](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [UTF-8](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8)
-- [Character encoding](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)
+- [文字エンコーディング](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)

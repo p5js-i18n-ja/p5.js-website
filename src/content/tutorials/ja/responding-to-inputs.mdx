@@ -1,9 +1,9 @@
 ---
-title: "Responding to Inputs"
-description: "Code nostalgia: Unleash your creativity and bring a vintage snake game to life with p5.js!"
+title: "入力への応答"
+description: "コードノスタルジー: p5.jsでヴィンテージなスネークゲームを作って創造性を解き放とう!"
 category: web-design
 featuredImage: ../images/featured/InputsA.png
-featuredImageAlt: A retro handheld gaming device, positioned at the center of the screen. It has a simple landscape on its screen. The device is set against a bright blue background with white motion arcs resembling a rainbow and stylized stars. Blocky brown platforms on either side and a checkered floor complete the nostalgic video game scene.
+featuredImageAlt: レトロなハンドヘルドゲーム機が画面の中央に配置されています。画面にはシンプルな風景が表示されています。デバイスは明るい青色の背景に配置され、虹のような白い動きのアークと様式化された星が描かれています。両側の茶色いブロック状のプラットフォームとチェック柄の床が、ノスタルジックなビデオゲームのシーンを完成させています。
 relatedContent:
   references:
     - en/p5/createbutton
@@ -19,50 +19,50 @@ authors:
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 
-In the [previous tutorial](/tutorials/creating-styling-html), you learned how to set up and style HTML elements and built a GameBoy emulator, which prepared the foundation for your snake game. In this tutorial, you will explore how to help users interact with the GameBoy during gameplay. Our primary focus will be user inputs and creating buttons to control a game.
+[前回のチュートリアル](/tutorials/creating-styling-html)では、HTMLの要素の設定とスタイリングを学び、ゲームボーイエミュレータを作成してスネークゲームの基礎を準備しました。このチュートリアルでは、ゲームプレイ中にユーザーがゲームボーイとどのように対話できるかを探ります。主な焦点は、ユーザー入力とゲームを制御するためのボタンの作成です。
 
-![A retro handheld gaming device, positioned at the center of the screen. It has a simple landscape on its screen. The device is set against a bright blue background with white motion arcs resembling a rainbow and stylized stars. Blocky brown platforms on either side and a checkered floor complete the nostalgic video game scene.](../images/web-design/gameboy2.png)
-
-
-## Prerequisites
-
-- [Creating and Styling HTML](/tutorials/creating-styling-html) and its prerequisites.
-- [GameBoy emulator starter code](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2)
+![レトロなハンドヘルドゲーム機が画面の中央に配置されています。画面にはシンプルな風景が表示されています。デバイスは明るい青色の背景に配置され、虹のような白い動きのアークと様式化された星が描かれています。両側の茶色いブロック状のプラットフォームとチェック柄の床が、ノスタルジックなビデオゲームのシーンを完成させています。](../images/web-design/gameboy2.png)
 
 
-### Step 1 – Create and style your buttons
+## 前提条件
 
-Start with a completed GameBoy emulator from the [Creating and Styling HTML](/tutorials/creating-styling-html) tutorial. You can duplicate [this example](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2) if needed. 
+- [HTMLの作成とスタイリング](/tutorials/creating-styling-html)とその前提条件
+- [ゲームボーイエミュレータのスターターコード](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2)
 
-To create buttons in p5.js, you will use [`createButton()`](/reference/p5/createButton), which creates an HTML button element. You can program buttons to respond to user input, such as mouse clicks, becomes easier. This function lets you easily add buttons to your project without writing complex code and allows users to interact with your program and see changes as a result.
 
-Syntax for creating a button element and storing it as a variable:
+### ステップ1 – ボタンの作成とスタイリング
+
+[HTMLの作成とスタイリング](/tutorials/creating-styling-html)チュートリアルで完成したゲームボーイエミュレータから始めましょう。必要な場合は[このサンプル](https://editor.p5js.org/ruthikegah/sketches/hRV_rPHC2)を複製できます。
+
+p5.jsでボタンを作成するには、HTMLのボタン要素を作成する[`createButton()`](/reference/p5/createButton)を使用します。これにより、マウスクリックなどのユーザー入力に応答するボタンのプログラミングが容易になります。この関数を使用すると、複雑なコードを書くことなくプロジェクトに簡単にボタンを追加でき、ユーザーがプログラムと対話して結果を確認できるようになります。
+
+ボタン要素を作成して変数として保存する構文:
 
 ```js
 createButton(label);
 ```
 
-Example of a simple button labeled “click me”:
+「click me」というラベルの付いた単純なボタンの例:
 
 ```js
 function setup() {
-  createCanvas(400, 300);
+  createCanvas(400, 300);
 
-  // Create a simple button
-  let button = createButton('click me');
+  // 単純なボタンを作成
+  let button = createButton('click me');
 }
 ```
 
-Add the following code in `setup()` under the arrow buttons container: 
+矢印ボタンコンテナの下に`setup()`に以下のコードを追加します：
 
 ```js
-// ... previous code
+// ... 前のコード
 
-// Create an up button
+// 上ボタンを作成
 let upButton = createButton('▲');
-// Set its ID
+// IDを設定
 upButton.id('up');
-// Set its styles
+// スタイルを設定
 upButton.style('color', 'white');
 upButton.style('background-color', 'red');
 upButton.style('width', '40px');
@@ -73,50 +73,50 @@ upButton.style('border-radius', '5px');
 arrowButtons.child(upButton);
 ```
 
-In this step, you create a button that will enable the user to interact with the GameBoy during gameplay. Each button is assigned a variable that is used to style the button, and is set as a child to the arrow button container div element in the HTML. `.id()` is used to assign the button the ID `up`, `.style()` is used to set properties like color, size, and spacing, and `.child()` is used to add the button as a child to the arrow buttons container.
+このステップでは、ゲームプレイ中にユーザーがゲームボーイと対話できるようにするボタンを作成します。各ボタンには変数が割り当てられ、それを使用してボタンのスタイルを設定し、HTMLの矢印ボタンコンテナdiv要素の子要素として設定します。`.id()`を使用してボタンにID `up`を割り当て、`.style()`を使用して色、サイズ、間隔などのプロパティを設定し、`.child()`を使用してボタンを矢印ボタンコンテナの子要素として追加します。
 
-The `upButton` variable refers to a button in the `p5.Element` class, similar to the `<div>` elements created in the previous tutorial. Here, you use the variable name to give the button an id using the `.id()` method, styling using the `.style()` method, and adding it as a child to another element using the `.child()` method. Here you styled the button by setting properties like `background-color`, `color`, `font-size`, and spacing. Refer to [the previous](/tutorials/creating-styling-html) tutorial for the syntax for each method. Similarly, add the left, right, and down buttons to their appropriate containers and style them by adding code to `setup()`. 
+`upButton`変数は、前回のチュートリアルで作成した`<div>`要素と同様に、`p5.Element`クラスのボタンを参照します。ここでは、変数名を使用して`.id()`メソッドでボタンにIDを付け、`.style()`メソッドでスタイリングを行い、`.child()`メソッドで他の要素の子要素として追加します。ここでは、`background-color`、`color`、`font-size`、間隔などのプロパティを設定してボタンをスタイリングしました。各メソッドの構文については[前回のチュートリアル](/tutorials/creating-styling-html)を参照してください。同様に、左、右、下ボタンを適切なコンテナに追加し、`setup()`にコードを追加してスタイリングします。
 
-Add the left, right, and down buttons to `setup()` under the code for the `leftRightContainer `using the following code:
+`leftRightContainer`のコードの下に左、右、下ボタンを`setup()`に追加するには、以下のコードを使用します：
 
 ```js
-//...previous code up to leftRightContainer
+//...leftRightContainerまでの前のコード
 arrowButtons.child(leftRightContainer);
 
-// Create the left button
+// 左ボタンを作成
 let leftButton = createButton('◀');
-// Set its ID
+// IDを設定
 leftButton.id('left');
-// Set its styles
+// スタイルを設定
 leftButton.style('color', 'white');
 leftButton.style('background-color', 'red');
 leftButton.style('width', '40px');
 leftButton.style('height', '40px');
 leftButton.style('margin-right', '30px');
 leftButton.style('border-radius', '5px');
-// Add it to the leftRightContainer
+// leftRightContainerに追加
 leftRightContainer.child(leftButton);
 
-// Create the right button
+// 右ボタンを作成
 let rightButton = createButton('▶');
-// Set its ID
+// IDを設定
 rightButton.id('right');
-// Set its styles
+// スタイルを設定
 rightButton.style('color', 'white');
 rightButton.style('background-color', 'red');
 rightButton.style('width', '40px');
 rightButton.style('height', '40px');
 rightButton.style('margin-left', '5px');
 rightButton.style('border-radius', '5px');
-// Add it to the leftRightContainer
+// leftRightContainerに追加
 leftRightContainer.child(rightButton);
 
-// Create the down button
+// 下ボタンを作成
 let downButton = createButton('▼');
 arrowButtons.child(downButton);
-// Set its ID
+// IDを設定
 downButton.id('down');
-// Set its styles
+// スタイルを設定
 downButton.style('color', 'white');
 downButton.style('background-color', 'red');
 downButton.style('width', '40px');
@@ -125,76 +125,76 @@ downButton.style('margin-top', '10px');
 downButton.style('border-radius', '5px');
 ```
 
-Above, you create the rest of the directional buttons. They interact with the GameBoy during gameplay. You use p5.js `createButton()` to make the button. Then, assign it an ID with `.id()`, give it style with `.style()`. For the styling, you give all the buttons a white color, a red background color, a height, a width of `40px` each, and a `border-radius` of `5px`.
+上記では、残りの方向ボタンを作成します。これらはゲームプレイ中にゲームボーイと対話するためのものです。p5.jsの`createButton()`を使用してボタンを作成します。次に、`.id()`でIDを割り当て、`.style()`でスタイルを設定します。スタイリングでは、すべてのボタンに白色、赤色の背景色、高さと幅それぞれ`40px`、`border-radius`は`5px`を設定します。
 
-<Callout title="Note">
-Adjust the margins to achieve good spacing between the buttons.
+<Callout title="注意">
+ボタン間の適切な間隔を得るためにマージンを調整してください。
 </Callout>
 
-Add the play and pause buttons to `setup()` under the code for the `actionButtons` using the following code:
+`actionButtons`のコードの下に再生ボタンと一時停止ボタンを`setup()`に追加するには、以下のコードを使用します：
 
 ```js
-//... code in setup up to actionButtons
+//... actionButtonsまでのsetup内のコード
 
-// Create the play button
+// 再生ボタンを作成
 let playButton = createButton('▶');
 actionButtons.child(playButton);
-// Set its ID
+// IDを設定
 playButton.id('play');
-// Set its styles
+// スタイルを設定
 playButton.style('background-color', 'blue');
 playButton.style('color', 'white');
 playButton.style('width', '60px');
 playButton.style('height', '60px');
 playButton.style('font-size', '24px');
-// Make it a circle
+// 円形にする
 playButton.style('border-radius', '50%');
-// Add spacing
+// 間隔を追加
 playButton.style('margin-right', '10px');
 
-// Create the pause button
+// 一時停止ボタンを作成
 let pauseButton = createButton('❚❚');
-// Set its ID
+// IDを設定
 pauseButton.id('pause');
-// Set its styles
+// スタイルを設定
 pauseButton.style('background-color', 'blue');
 pauseButton.style('color', 'white');
 pauseButton.style('width', '60px');
 pauseButton.style('height', '60px');
 pauseButton.style('font-size', '24px');
- // Make it a circle
+// 円形にする
 pauseButton.style('border-radius', '50%');
 actionButtons.child(pauseButton);
 ```
 
-Likewise, for the action buttons (play and pause buttons), you create buttons and give them an id. Then, you add the buttons to their parent container, `actionButtons`. For the styling, you give it the color white and a blue background. You also set the width and height to `60px`, set `font-size` to `24px`, and set `border-radius` to `50%` to make them circles.
+同様に、アクションボタン（再生ボタンと一時停止ボタン）についても、ボタンを作成してIDを付けます。そして、それらのボタンを親コンテナである`actionButtons`に追加します。スタイリングについては、白色と青色の背景色を設定します。また、幅と高さを`60px`に、`font-size`を`24px`に設定し、`border-radius`を`50%`に設定して円形にします。
 
-<Callout title="Note">
-Add a margin to one of the buttons to get the desired, appropriate spacing. 
+<Callout title="注意">
+適切な間隔を得るために、いずれかのボタンにマージンを追加してください。
 </Callout>
 
-![A graphical representation of a classic handheld gaming device, reminiscent of a GameBoy. The screen area is large and dark, indicating it's switched off or in a standby mode, with a score display reading "Score: 0" at the top right corner. Below the screen is the label "GameBoy." It is in bold, blue text over a gray background. The device has a set of red arrow-shaped buttons on the left. They form a directional pad. On the right are two blue round buttons. They have the play and pause symbols. All the buttons are on a dark gray body. The image has a simple and clean aesthetic, capturing the essence of retro gaming hardware.](../images/web-design/gameboy-buttons.png)
+![クラシックなハンドヘルドゲーム機のグラフィカルな表現で、ゲームボーイを思わせるデザインです。画面部分は大きく暗く、オフまたはスタンバイモードを示しており、右上隅に「Score: 0」というスコア表示があります。画面の下には「GameBoy」というラベルがあり、グレーの背景に太字の青色テキストで表示されています。デバイスには左側に赤い矢印型のボタンがあり、方向パッドを形成しています。右側には2つの青い丸いボタンがあり、再生と一時停止のシンボルが付いています。すべてのボタンは暗いグレーの本体に配置されています。画像はシンプルでクリーンな美しさを持ち、レトロなゲームハードウェアの本質を捉えています。](../images/web-design/gameboy-buttons.png)
 
 <Callout>
-Add more styles to your buttons to make them look how else you would like. Check out this [Resource](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) for more CSS properties.
+ボタンに好みのスタイルを追加してカスタマイズしてください。より多くのCSSプロパティについては、この[リソース](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)をチェックしてください。
 </Callout>
 
 
-### Step 2 – Implement logic for your snake game
+### ステップ2 – スネークゲームのロジックを実装する
 
-Time to create the logic for your snake game with the snake logic, food logic, and game behavior logic. To ensure your code is not bulky, create another file for this part. 
+スネークのロジック、餌のロジック、ゲームの動作ロジックを含むスネークゲームのロジックを作成する時が来ました。コードが大きくなりすぎないように、この部分のために新しいファイルを作成します。
 
-On the top left of the p5.js Web Editor, in Sketch Files, click on the + icon and select Create File. Name your file `snakeGame.js` and click Add file.
+p5.js Web Editorの左上にある、Sketch Filesの+アイコンをクリックし、Create Fileを選択します。ファイル名を`snakeGame.js`とし、Add fileをクリックします。
 
-![The process of uploading a file in p5.js web editor. On the top left corner of the p5.js Web Editor, the plus sign is  clicked then the option “Create file”, a small window opens where you input the name of your file and click Add file. ](../images/web-design/add-file.gif)
+![p5.js web editorでのファイルのアップロード過程。p5.js Web Editorの左上隅でプラス記号をクリックし、「Create file」オプションを選択すると、小さなウィンドウが開き、ファイル名を入力してAdd fileをクリックします。](../images/web-design/add-file.gif)
 
-Link your new JavaScript file by adding a new` <script>` tag in the `<head>` of the `index.html` file under the `<script>` tag for the `sketch.js` file:
+`index.html`ファイルの`<head>`内の`sketch.js`ファイルの`<script>`タグの下に新しい`<script>`タグを追加して、新しいJavaScriptファイルをリンクします：
 
 ```html
 <script src="snakeGame.js"></script>
 ```
 
-In the `snakeGame.js` file, begin by declaring the variables you will be using in your game logic. These variables will store essential information about the game state, player score, and user input. Declaring them at the beginning makes the code more organized and easier to break down and maintain. These variables will be used as parameters to define the game’s initial conditions. Add the following code to the `snakeGame.js` file:
+`snakeGame.js`ファイルで、ゲームロジックで使用する変数を宣言することから始めます。これらの変数は、ゲームの状態、プレイヤーのスコア、ユーザー入力に関する重要な情報を保存します。最初に変数を宣言することで、コードがより整理され、分解して保守しやすくなります。これらの変数は、ゲームの初期条件を定義するパラメータとして使用されます。以下のコードを`snakeGame.js`ファイルに追加します：
 
 ```js
 let cols = 20;
@@ -204,11 +204,11 @@ let winWidth = cols * gridSize;
 let winHeight = rows * gridSize;
 let food = { x: 0, y: 0 };
 let snake = {
-  x: 0,
-  y: 0,
-  xSpeed: 0,
-  ySpeed: 0,
-  body: [],
+  x: 0,
+  y: 0,
+  xSpeed: 0,
+  ySpeed: 0,
+  body: [],
 };
 let score = 0;
 let gamePaused = false;
@@ -217,432 +217,427 @@ let gameStarted = false;
 let fps = 5;
 ```
 
-- The `cols` and `rows` variables represent the columns and rows of a grid that will determine size and dimension of the game window.
-- The `gridSize` variable represents the size of each grid cell. It defines the width and height of each cell, influencing the overall layout and scale of the game.
-- The `winWidth` and `winHeight` variables calculate the total width and height of the game window based on the number of columns (`cols`), rows (`rows`), and the size of each grid cell (`gridSize`). They set the dimensions of the canvas or game window.
-- The food variable is stored as a JavaScript object that represents the current position of the food in the game. It has x and y properties to store the coordinates where the food should be placed. Refer to the [Data Structure Garden](/tutorials/data-structure-garden) tutorial to review JavaScript objects.
-- The snake variable is an object that contains information about the snake in the game. It includes the current position (`x` and `y`), the speed of movement in the x and y directions (`xSpeed` and `ySpeed`), and an array (`body`) to store the segments of the snake’s body. Refer to the [Data Structure Garden](/tutorials/data-structure-garden) tutorial to review arrays.
-- The `score` variable keeps track of the player’s score in the game. It is incremented each time the snake eats the food.
-- The `gamePaused`, `gameOver`, and `gameStarted` variables have boolean values representing the game’s state. They are initially set to `false`. Refer to the [Repeating with Loops](/tutorials/repeating-with-loops) tutorial to review state variables.
-- The `fps` variable defines the frames per second for the game loop. It determines the speed at which the game (drawing) updates and renders.
+- `cols`と`rows`変数は、ゲームウィンドウのサイズと寸法を決定するグリッドの列と行を表します。
+- `gridSize`変数は、各グリッドセルのサイズを表します。各セルの幅と高さを定義し、ゲームの全体的なレイアウトとスケールに影響を与えます。
+- `winWidth`と`winHeight`変数は、列数（`cols`）、行数（`rows`）、各グリッドセルのサイズ（`gridSize`）に基づいてゲームウィンドウの総幅と高さを計算します。これらはキャンバスまたはゲームウィンドウの寸法を設定します。
+- food変数は、ゲーム内の餌の現在位置を表すJavaScriptオブジェクトとして保存されます。餌を配置すべき座標を保存するxとyのプロパティを持っています。[データ構造ガーデン](/tutorials/data-structure-garden)チュートリアルを参照して、JavaScriptオブジェクトを復習してください。
+- snake変数は、ゲーム内のヘビに関する情報を含むオブジェクトです。現在の位置（`x`と`y`）、x方向とy方向の移動速度（`xSpeed`と`ySpeed`）、そしてヘビの体のセグメントを保存する配列（`body`）が含まれています。[データ構造ガーデン](/tutorials/data-structure-garden)チュートリアルを参照して、配列を復習してください。
+- `score`変数は、ゲーム内のプレイヤーのスコアを追跡します。ヘビが餌を食べるたびに増加します。
+- `gamePaused`、`gameOver`、`gameStarted`変数は、ゲームの状態を表すブール値を持ちます。初期値は`false`に設定されています。[ループによる繰り返し](/tutorials/repeating-with-loops)チュートリアルを参照して、状態変数を復習してください。
+- `fps`変数は、ゲームループのフレームレートを定義します。ゲーム（描画）が更新されレンダリングされる速度を決定します。
 
-Next, write functions that handle the food behavior in your game. Add the following code to your `snakeGame.js` file:
+次に、ゲーム内の餌の動作を処理する関数を書きます。以下のコードを`snakeGame.js`ファイルに追加します：
 
 ```js
-//...code from previous step
+//...前のステップのコード
 
-// Draw the food as
-// a red square.
+// 餌を赤い四角形として
+// 描画します。
 function drawFood() {
-  let x = food.x * gridSize;
-  let y = food.y * gridSize;
-  fill(255, 255, 0);
-  square(x, y, gridSize);
+  let x = food.x * gridSize;
+  let y = food.y * gridSize;
+  fill(255, 255, 0);
+  square(x, y, gridSize);
 }
 
-// Move the food to a
-// random location.
+// 餌をランダムな位置に
+// 移動させます。
 function moveFood() {
-  food.x = floor(random(cols));
-  food.y = floor(random(rows));
+  food.x = floor(random(cols));
+  food.y = floor(random(rows));
 }
 ```
 
-- The `drawFood()` function handles the pixel positions for the food:
-  - `let x = food.x * gridSize;` and `let y = food.y * gridSize;` statements convert the food’s grid position to pixel coordinates. 
-  - It sets the color to yellow and draws a square representing the food.
-- The `moveFood()` function generates random grid positions for the next food and updates its x and y coordinates. The [`floor()`](/reference/p5/floor) function ensures the random value is a whole number.
+- `drawFood()`関数は餌のピクセル位置を処理します：
+  - `let x = food.x * gridSize;`と`let y = food.y * gridSize;`文は、餌のグリッド位置をピクセル座標に変換します。
+  - 色を黄色に設定し、餌を表す四角形を描画します。
+- `moveFood()`関数は次の餌のためのランダムなグリッド位置を生成し、そのxとy座標を更新します。[`floor()`](/reference/p5/floor)関数は、ランダム値が整数になることを保証します。
 
-Refer to the [Organizing Code with Functions](/tutorials/organizing-code-with-functions) tutorial to review the syntax and use of custom functions. 
+[関数によるコードの整理](/tutorials/organizing-code-with-functions)チュートリアルを参照して、カスタム関数の構文と使用法を復習してください。
 
-Together, these functions handle the visual representation and movement of the food in the game. The grid-based approach ensures the food aligns with the game’s grid system on the screen.
+これらの関数は、ゲーム内での餌の視覚的な表現と移動を処理します。グリッドベースのアプローチにより、餌が画面上のゲームのグリッドシステムに確実に整列します。
 
-Finally, write functions that create and control the snake’s behavior. Add the following code in your `snakeGame.js` file:
+最後に、ヘビの動作を作成し制御する関数を書きます。以下のコードを`snakeGame.js`ファイルに追加します：
 
 ```js
-//...code from previous step
+//...前のステップのコード
 
-// Reset the snake's data.
+// ヘビのデータをリセットします。
 function resetSnake() {
-  // Start at the center.
-  snake.x = floor(cols / 2);
-  snake.y = floor(rows / 2);
+  // 中央からスタート。
+  snake.x = floor(cols / 2);
+  snake.y = floor(rows / 2);
 
-  // Move to the right.
-  snake.xSpeed = 1;
-  snake.ySpeed = 0;
+  // 右に移動。
+  snake.xSpeed = 1;
+  snake.ySpeed = 0;
 
-  // Add an array to manage
-  // the body.
-  snake.body = [];
- 
-  // Create a head segment.
-  let head = {
-    x: snake.x,
-    y: snake.y,
-  };
- 
-  // Add the head to the body.
-  snake.body.push(head);
+  // 体を管理する配列を
+  // 追加。
+  snake.body = [];
+ 
+  // 頭のセグメントを作成。
+  let head = {
+    x: snake.x,
+    y: snake.y,
+  };
+ 
+  // 頭を体に追加。
+  snake.body.push(head);
 }
 
-// End the game when the
-// snake collides with an edge.
+// ヘビが端に衝突したら
+// ゲームを終了。
 function checkEdges() {
-  // Right edge.
-  if (snake.x === cols) {
-    gameOver = true;
-    return;
-  }
-  // Left edge.
-  if (snake.x === -1) {
-    gameOver = true;
-    return;
-  }
-  // Top edge.
-  if (snake.y === -1) {
-    gameOver = true;
-    return;
-  }
-  // Bottom edge.
-  if (snake.y === rows) {
-    gameOver = true;
-    return;
-  }
+  // 右端。
+  if (snake.x === cols) {
+    gameOver = true;
+    return;
+  }
+  // 左端。
+  if (snake.x === -1) {
+    gameOver = true;
+    return;
+  }
+  // 上端。
+  if (snake.y === -1) {
+    gameOver = true;
+    return;
+  }
+  // 下端。
+  if (snake.y === rows) {
+    gameOver = true;
+    return;
+  }
 }
 
-// Move the snake forward.
+// ヘビを前に進める。
 function moveSnake() {
-  snake.x = + snake.xSpeed;
-  snake.y = + snake.ySpeed;
+  snake.x = + snake.xSpeed;
+  snake.y = + snake.ySpeed;
 }
 
-// Update the positions of the
-// snake's body segments.
+// ヘビの体のセグメントの
+// 位置を更新。
 function updateBody() {
-  // Update the end of the tail.
-  for (let i = snake.body.length - 1; i > 0; i -= 1) {
-    snake.body[i].x = snake.body[i - 1].x;
-    snake.body[i].y = snake.body[i - 1].y;
-  }
- 
-  // Update the head.
-  snake.body[0].x = snake.x;
-  snake.body[0].y = snake.y;
+  // 尾の端を更新。
+  for (let i = snake.body.length - 1; i > 0; i -= 1) {
+    snake.body[i].x = snake.body[i - 1].x;
+    snake.body[i].y = snake.body[i - 1].y;
+  }
+ 
+  // 頭を更新。
+  snake.body[0].x = snake.x;
+  snake.body[0].y = snake.y;
 }
 
-// Draw the snake.
+// ヘビを描画。
 function drawSnake() {
-  fill(0, 255, 0);
-  for (let segment of snake.body) {
-    let x = segment.x * gridSize;
-    let y = segment.y * gridSize;
-    square(x, y, gridSize);
-  }
+  fill(0, 255, 0);
+  for (let segment of snake.body) {
+    let x = segment.x * gridSize;
+    let y = segment.y * gridSize;
+    square(x, y, gridSize);
+  }
 }
 
-// Update the snake's movement.
+// ヘビの移動を更新。
 function changeDir(xSpeed, ySpeed) {
-  snake.xSpeed = xSpeed;
-  snake.ySpeed = ySpeed;
+  snake.xSpeed = xSpeed;
+  snake.ySpeed = ySpeed;
 }
 
-// Manage the snake's diet.
+// ヘビの食事を管理。
 function checkFood() {
-  if (snake.x === food.x && snake.y === food.y) {
-    // Add a new body segment.
-    let segment = { x: -1, y: -1 };
-    snake.body.push(segment);
-   
-    // Update the score.
-    score += 10;
-   
-    // Place the food in a
-    // random location.
-    moveFood();
-  }
+  if (snake.x === food.x && snake.y === food.y) {
+    // 新しい体のセグメントを追加。
+    let segment = { x: -1, y: -1 };
+    snake.body.push(segment);
+   
+    // スコアを更新。
+    score += 10;
+   
+    // 餌をランダムな位置に
+    // 配置。
+    moveFood();
+  }
 }
 
-// End the game if the snake
-// collides with its tail.
+// ヘビが自分の尾に衝突したら
+// ゲームを終了。
 function checkSelf() {
-  for (let i = 1; i < snake.body.length; i += 1) {
-    let segment = snake.body[i];
-    if (snake.x === segment.x && snake.y === segment.y) {
-      gameOver = true;
-      return;
-    }
-  }
+  for (let i = 1; i < snake.body.length; i += 1) {
+    let segment = snake.body[i];
+    if (snake.x === segment.x && snake.y === segment.y) {
+      gameOver = true;
+      return;
+    }
+  }
 }
 ```
 
-- The `resetSnake()` function resets the snake to its initial state at the center of the grid:
-  - The `snake.x = floor(cols/2);` and `snake.y = floor(rows/2);` statements calculate the x and y starting positions for the snake and find the center columns and row; `floor()` ensures it’s a whole number because the calculation doesn’t support a decimal value. 
-  - It sets the initial direction to the right  with `snake.xSpeed = 1` and `snake.ySpeed = 0`, 
-  - It creates an empty array to manage the snake’s body, creates a head segment with the current position, and adds it to the body array.
+- `resetSnake()`関数は、ヘビをグリッドの中央の初期状態にリセットします：
+  - `snake.x = floor(cols/2);`と`snake.y = floor(rows/2);`文は、ヘビのxとyの開始位置を計算し、中央の列と行を見つけます。`floor()`は、計算が小数点をサポートしないため、確実に整数になるようにします。
+  - `snake.xSpeed = 1`と`snake.ySpeed = 0`で初期の方向を右に設定し、
+  - ヘビの体を管理する空の配列を作成し、現在の位置で頭のセグメントを作成して、体の配列に追加します。
 
-The `checkEdges()` function uses [if-statements](/reference/p5/if) to check if the snake has reached the right edge (`cols`), if the snake has reached the left edge (`-1`), if the snake has reached the top edge (`-1`), and if the snake has reached the bottom edge (`rows`). Whenever any of the conditions are met, it sets `gameOver` to `true`. This creates the rule in the game where if the snake reaches any edge, the game is over. The `moveSnake()` function updates the snake’s position based on its current speed. It updates the x and y positions by adding its `xSpeed` and `ySpeed`, respectively. Refer to the [Conditions and Interactivity](/tutorials/conditionals-and-interactivity/) tutorial to review the syntax for if-statements and updating variables.
+`checkEdges()`関数は[if文](/reference/p5/if)を使用して、ヘビが右端（`cols`）に到達したか、左端（`-1`）に到達したか、上端（`-1`）に到達したか、下端（`rows`）に到達したかをチェックします。条件が満たされた場合は、`gameOver`を`true`に設定します。これにより、ヘビが端に到達した場合にゲームが終了するというルールが作成されます。`moveSnake()`関数は、現在の速度に基づいてヘビの位置を更新します。それぞれ`xSpeed`と`ySpeed`を加算することで、xとyの位置を更新します。if文と変数の更新については、[条件と対話性](/tutorials/conditionals-and-interactivity/)チュートリアルを参照してください。
 
-- The `updateBody()` function updates the positions of the snake’s body segments. It does this by iterating through the snake `body` array starting from the end, updating each body segment’s position to match the position of the segment in front of it. Then it updates the head’s position to the snake’s current position. Refer to the [Repeating with Loops](/tutorials/repeating-with-loops) tutorial to review the syntax for loops and iteration.
-- The `drawSnake()` function renders the snake on the canvas. It sets the color to green, iterates through each body segment, and draws a square on the canvas at its position.
-- The `changeDir(xSpeed, ySpeed)` function passes in two parameters, `xSpeed` and `ySpeed`. It sets the snake’s `xSpeed` (x-axis movement) to the `xSpeed` parameter and the snake’s `ySpeed` (y-axis movement) to the `ySpeed` parameter, which changes the snake’s movement. Refer to the [Organizing Code with Functions](/tutorials/organizing-code-with-functions) tutorial to review functions, arguments and parameters.
-- The `checkFood()` function checks for a match between the snake's and the food's positions, indicating the snake has eaten the food. Upon confirmation, it employs the `.push()` method to add a new segment with initial coordinates `{ x: -1, y: -1 }` to the snake's body array. This use of `.push()` adds to the array, making the snake longer. The segment `{ x: -1, y: -1 }` is a temporary off-grid placeholder. It stops the new segment from appearing in the play area at random before the game sets its position in the next snake body update (`updateBody()`). Additionally, the game increases the score by 10 and calls the `moveFood()` function to relocate the food.
-- The `checkSelf()` function checks if the snake has collided with its own body. It iterates through the snake’s body segments (excluding the head), checks if the head’s position matches any body segment’s position, and if it is true, it sets `gameOver` to `true`. This adds the rule in the game where if the user crashes the snake into its own body, the game will be over.
+- `updateBody()`関数は、ヘビの体のセグメントの位置を更新します。これは、末尾から始めてヘビの`body`配列を反復処理し、各体のセグメントの位置を前のセグメントの位置に更新することで行います。その後、頭の位置をヘビの現在の位置に更新します。ループと反復については、[ループによる繰り返し](/tutorials/repeating-with-loops)チュートリアルを参照してください。
+- `drawSnake()`関数は、キャンバス上にヘビを描画します。色を緑に設定し、各体のセグメントを反復処理して、その位置に四角形を描画します。
+- `changeDir(xSpeed, ySpeed)`関数は、2つのパラメータ`xSpeed`と`ySpeed`を受け取ります。ヘビの`xSpeed`（x軸の移動）をパラメータ`xSpeed`に、ヘビの`ySpeed`（y軸の移動）をパラメータ`ySpeed`に設定し、ヘビの移動を変更します。関数、引数、パラメータについては、[関数によるコードの整理](/tutorials/organizing-code-with-functions)チュートリアルを参照してください。
+- `checkFood()`関数は、ヘビと餌の位置が一致しているかをチェックし、ヘビが餌を食べたことを示します。確認後、`.push()`メソッドを使用して初期座標`{ x: -1, y: -1 }`を持つ新しいセグメントをヘビの体の配列に追加します。この`.push()`の使用は配列に追加し、ヘビを長くします。セグメント`{ x: -1, y: -1 }`は一時的なオフグリッドのプレースホルダーです。これにより、次のヘビの体の更新（`updateBody()`）でゲームが位置を設定する前に、新しいセグメントがプレイエリアにランダムに表示されることを防ぎます。さらに、ゲームはスコアを10増加させ、`moveFood()`関数を呼び出して餌を再配置します。
+- `checkSelf()`関数は、ヘビが自分の体に衝突したかをチェックします。ヘビの体のセグメント（頭を除く）を反復処理し、頭の位置が体のセグメントの位置と一致するかをチェックし、一致する場合は`gameOver`を`true`に設定します。これにより、ユーザーが自分の体にヘビを衝突させた場合にゲームが終了するというルールが追加されます。
 
-These functions collectively handle various aspects of the snake game, including resetting the snake, checking collisions, updating the snake’s body, rendering the snake, and managing its interactions with food and itself. Your project should look like [this](https://editor.p5js.org/Msqcoding/sketches/7Hj2OCHyz).
+これらの関数は、ヘビのリセット、衝突のチェック、ヘビの体の更新、ヘビの描画、餌との相互作用、自己衝突の管理など、スネークゲームのさまざまな側面を集合的に処理します。プロジェクトは[このような](https://editor.p5js.org/Msqcoding/sketches/7Hj2OCHyz)見た目になるはずです。
 
 <Callout>
-Add a function for bonus food after every 5 food eats. **Hint:** Create a new variable for bonus food, modify the `checkFood()` function to handle bonus food, and then create the function for the bonus food.
+5回餌を食べるごとにボーナス餌を追加する関数を作成してください。**ヒント：** ボーナス餌用の新しい変数を作成し、`checkFood()`関数を修正してボーナス餌を処理し、そしてボーナス餌用の関数を作成します。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/Di7cPimzs)
+[解答例](https://editor.p5js.org/ruthikegah/sketches/Di7cPimzs)
 </Callout>
 
 
-### Step 3 – Write functions for button controls
+### ステップ3 – ボタンコントロール用の関数を作成する
 
-You can also create functions for your game controls. In your `snakeGame.js` file, add the following code:
+ゲームコントロール用の関数も作成できます。`snakeGame.js`ファイルに以下のコードを追加します：
 
 ```js
-// Directions: up, down, left, right.
+// 方向：上、下、左、右
 function goUp() {
-  snake.xSpeed = 0;
-  snake.ySpeed = -1;
+  snake.xSpeed = 0;
+  snake.ySpeed = -1;
 }
-
 function goDown() {
-  snake.xSpeed = 0;
-  snake.ySpeed = 1;
+  snake.xSpeed = 0;
+  snake.ySpeed = 1;
 }
-
 function goLeft() {
-  snake.xSpeed = -1;
-  snake.ySpeed = 0;
+  snake.xSpeed = -1;
+  snake.ySpeed = 0;
 }
-
 function goRight() {
-  snake.xSpeed = 1;
-  snake.ySpeed = 0;
+  snake.xSpeed = 1;
+  snake.ySpeed = 0;
 }
 ```
 
-- The `goUp()` function sets the snake’s motion to move upward. It updates the `xSpeed` to 0 (no horizontal movement) and `ySpeed` to -1 (move upward on the y-axis).
-- Similarly, the `goDown()` function sets the snake’s motion to move downward. It updates the `xSpeed` to 0 (move downward on the x-axis) and `ySpeed` to 1.
-- The `goLeft()` function sets the snake’s motion to move to the left. It updates the `xSpeed` to -1 (move left on the x-axis) and `ySpeed` to 0.
-- Similarly, the `goRight()` function sets the snake’s motion to move to the right. It updates the `xSpeed` to 1 (move right on the x-axis) and `ySpeed` to 0.
+- `goUp()`関数は、ヘビを上向きに移動するように設定します。`xSpeed`を0（水平方向の移動なし）に、`ySpeed`を-1（y軸上で上向きに移動）に更新します。
+- 同様に、`goDown()`関数は、ヘビを下向きに移動するように設定します。`xSpeed`を0（x軸上で下向きに移動）に、`ySpeed`を1に更新します。
+- `goLeft()`関数は、ヘビを左向きに移動するように設定します。`xSpeed`を-1（x軸上で左向きに移動）に、`ySpeed`を0に更新します。
+- 同様に、`goRight()`関数は、ヘビを右向きに移動するように設定します。`xSpeed`を1（x軸上で右向きに移動）に、`ySpeed`を0に更新します。
 
-Next, write functions for arrow button clicks to enable you to control the direction actions with your keyboard arrow keys using the [`keyPressed()`](/reference/p5/keyPressed) function. Write the following code in your `snakeGame.js` file:
+次に、キーボードの矢印キーでも方向アクションを制御できるように、[`keyPressed()`](/reference/p5/keyPressed)関数を使用して矢印ボタンのクリック用の関数を作成します。`snakeGame.js`ファイルに以下のコードを書きます：
 
 ```js
 function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    goUp();
-  }
-  if (keyCode === DOWN_ARROW) {
-    goDown();
-  }
-  if (keyCode === LEFT_ARROW) {
-    goLeft();
-  }
-  if (keyCode === RIGHT_ARROW) {
-    goRight();
-  }
+  if (keyCode === UP_ARROW) {
+    goUp();
+  }
+  if (keyCode === DOWN_ARROW) {
+    goDown();
+  }
+  if (keyCode === LEFT_ARROW) {
+    goLeft();
+  }
+  if (keyCode === RIGHT_ARROW) {
+    goRight();
+  }
 }
 ```
 
-The `keyPressed()` function is a built-in p5.js function that gets called whenever a key is pressed. It checks the built in variable `keyCode`, which stores the value of the last key that was pressed on your keyboard, and calls the corresponding direction function (for example:  `goUp()`) based on the arrow key the user pressed.
+`keyPressed()`関数は、キーが押されるたびに呼び出されるp5.jsの組み込み関数です。キーボードで最後に押されたキーの値を保存する組み込み変数`keyCode`をチェックし、ユーザーが押した矢印キーに基づいて対応する方向関数（例：`goUp()`）を呼び出します。
 
-Here is a simple illustration of the `keyPressed()` function. Click into the preview and then try pressing keys:
+以下は`keyPressed()`関数の簡単な例です。プレビューをクリックしてからキーを押してみてください：
 
 <EditableSketch code={`
-//Variable for red, green and blue set to 0
+//赤、緑、青の変数を0に設定
 let r, g, b = 0;
 
 function setup(){
-  createCanvas(400,200);
+  createCanvas(400,200);
 }
 
 function draw(){
-  background(r,g,b);
+  background(r,g,b);
 }
 
 function keyPressed(){
-  // Change the background color to a random color when any key is pressed
-  r = random(255);
-  g = random(255);
-  b = random(255);
+  // キーが押されたときに背景色をランダムな色に変更
+  r = random(255);
+  g = random(255);
+  b = random(255);
 }
 `} />
 
-Next, define functions that handle the pause and play actions. Write the following code in your `snakeGame.js` file:
+次に、一時停止と再生のアクションを処理する関数を定義します。`snakeGame.js`ファイルに以下のコードを書きます：
 
 ```js
-//...code from previous step
+//...前のステップのコード
 function startGame() {
-  score = 0;
-  gameStarted = true;
-  gamePaused = false;
-  if (gameOver === true) {
-    resetSnake();
-    gameOver = false;
-  }
-  loop();
+  score = 0;
+  gameStarted = true;
+  gamePaused = false;
+  if (gameOver === true) {
+    resetSnake();
+    gameOver = false;
+  }
+  loop();
 }
 
-// Pause the game.
+// ゲームを一時停止
 function pauseGame() {
-  gamePaused = true;
+  gamePaused = true;
 }
 ```
 
-The `startGame()` function begins or restarts the game. It sets the score to 0, marks the game as started by updating `gameStarted` and `gamePaused`. It checks if the game is over, resets the snake, and updates `gameOver` to false so the game can begin again. `loop();` is called to restart the game loop.
-
-Finally, call these functions when the button elements are clicked using your buttons with `p5.Element`’s [`mouseClicked()`](/reference/p5.Element/mouseClicked) method for mouse clicks. For example, in your `sketch.js` file, under your `upButton`, add this block of code:
+最後に、ボタン要素がクリックされたときにこれらの関数を呼び出すために、`p5.Element`の[`mouseClicked()`](/reference/p5.Element/mouseClicked)メソッドを使用します。例えば、`sketch.js`ファイルの`upButton`の下に以下のコードブロックを追加します：
 
 ```js
 upButton.mouseClicked(goUp);
 ```
 
-The `.mouseClicked()` method sets a function to call when the mouse is clicked over a specific element (in this case, the `upButton`). Pass in your control functions as its argument. It works like the `keyPressed()` function but uses mouse clicks. When the button is clicked, it will execute the `goUp()` function. 
+`.mouseClicked()`メソッドは、特定の要素（この場合は`upButton`）の上でマウスがクリックされたときに呼び出す関数を設定します。コントロール関数を引数として渡します。`keyPressed()`関数のように動作しますが、マウスクリックを使用します。ボタンがクリックされると、`goUp()`関数が実行されます。
 
-Call the function under each button like this:
+以下のように、各ボタンの下に関数を呼び出します：
 
 ```js
 button.mouseClicked(buttonFunction)
 ```
 
 <Callout>
-Update your `keyPressed()` function to add WASD keys for direction, too. W for up, A for left, S for down, and D for right.
+`keyPressed()`関数を更新して、方向キーにWASDキーも追加してください。Wが上、Aが左、Sが下、Dが右です。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/YLUMrQGAc)
+[解答例](https://editor.p5js.org/ruthikegah/sketches/YLUMrQGAc)
 </Callout>
 
 
-### Step 4 – Write functions for message prompts
+### ステップ4 – メッセージプロンプト用の関数を作成する
 
-You will need message prompts for the user interface and feedback aspects of the game. In your `snakeGame.js` file, write the following code:
+ゲームのユーザーインターフェースとフィードバック面のためのメッセージプロンプトが必要です。`snakeGame.js`ファイルに以下のコードを書きます：
 
 ```js
-// Start message.
+// 開始メッセージ
 function displayStartMessage() {
-  textSize(16);
-  textAlign(CENTER);
-  fill(255, 0, 0);
-  text('Press ▶ to Start', width / 2, height / 2);
+  textSize(16);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  text('Press ▶ to Start', width / 2, height / 2);
 }
 
-// End message.
+// 終了メッセージ
 function displayEndMessage() {
-  background(0);
-  textSize(50);
-  textAlign(CENTER);
-  fill(255, 0, 0);
-  text('Game Over', width / 2, height / 2);
-  textSize(14);
-  text('Press ▶ to Start', width / 2, height / 2 + 50);
+  background(0);
+  textSize(50);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  text('Game Over', width / 2, height / 2);
+  textSize(14);
+  text('Press ▶ to Start', width / 2, height / 2 + 50);
 }
 ```
 
-The `displayStartMessage()` function is called when the game hasn’t started, prompting the player to press the play button, while the `displayEndMessage()` function is called when the game is over, displaying a “Game Over” message along with an instruction to restart the game.
+`displayStartMessage()`関数は、ゲームが開始されていないときに呼び出され、プレイヤーに再生ボタンを押すように促します。一方、`displayEndMessage()`関数は、ゲームが終了したときに呼び出され、「Game Over」メッセージとゲームを再開するための指示を表示します。
 
 <Callout>
-Update the `displayEndMessage()` function to add your score when you die.
+死亡時にスコアを表示するように`displayEndMessage()`関数を更新してください。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/7x_6PA_hX)
+[解答例](https://editor.p5js.org/ruthikegah/sketches/7x_6PA_hX)
 </Callout>
 
 
-### Step 5 – Implement your game logic in your sketch
+### ステップ5 – スケッチにゲームロジックを実装する
 
-Your game logic and functions are done, but the game is not complete until you add them to your sketch. First, start with actions crucial for setting up the game’s initial state before it starts running. These actions are the framerate, the initializing of the snake, and the initial position of the food. In your `sketch.js` file, at the bottom of your `setup()` function, write the following blocks of code:
+ゲームロジックと関数は完成しましたが、スケッチに追加するまでゲームは完成しません。まず、ゲームの初期状態を設定するために重要なアクションから始めます。これらのアクションには、画面のフレームレート、ヘビの初期化、餌の初期位置が含まれます。`sketch.js`ファイルの`setup()`関数の最後に、以下のコードブロックを書きます：
 
 ```js
-// Sets the framerate of the screen
+// 画面のフレームレートを設定
 frameRate(fps);
-// Move the food to a
-// random location.
+// 餌をランダムな位置に
+// 移動させます。
 moveFood();
 
-// Reset the snake.
+// ヘビをリセット。
 resetSnake();
 ```
 
-This action calls your `moveFood()` function, which randomly repositions the food on the canvas. It also calls your `resetSnake()` function, which resets the snake. 
+このアクションは`moveFood()`関数を呼び出し、キャンバス上でランダムに餌の位置を変更します。また、`resetSnake()`関数を呼び出してヘビをリセットします。
 
-The [`frameRate()`](/reference/p5/frameRate) function sets the number of frames to draw per second. Pass in your `fps` variable as its value.
+[`frameRate()`](/reference/p5/frameRate)関数は、1秒あたりに描画するフレーム数を設定します。その値として`fps`変数を渡します。
 
-Finally, implement the rest of your game logic in your draw function. In your `sketch.js` file, inside your `draw()` function, write the following code:
+最後に、draw関数に残りのゲームロジックを実装します。`sketch.js`ファイルの`draw()`関数内に、以下のコードを書きます：
 
 ```js
-// Skip the rest of the draw function
-// if the game hasn't started.
+// ゲームが開始されていない場合は
+// draw関数の残りをスキップ。
 if (gameStarted === false) {
-  displayStartMessage();
-  return;
+  displayStartMessage();
+  return;
 }
-// Update the game state.
+// ゲームの状態を更新。
 // print(`${snake.x}, ${snake.y}`);
 if (gamePaused === false) {
-  moveSnake();
-  checkEdges();
-  checkSelf();
-  checkFood();
-  updateBody();
+  moveSnake();
+  checkEdges();
+  checkSelf();
+  checkFood();
+  updateBody();
 }
 
-// Draw the snake and its food.
+// ヘビと餌を描画。
 drawFood();
 drawSnake();
 
-// Skip the rest of the draw function
-// if the game has ended.
+// ゲームが終了した場合は
+// draw関数の残りをスキップ。
 if (gameOver === true) {
-  displayEndMessage();
-  noLoop();
+  displayEndMessage();
+  noLoop();
 }
- 
-// Update the score.
+ 
+// スコアを更新。
 textAlign(RIGHT);
 fill(255);
 text(`Score: ${score}`, width - 10, 20);
 ```
 
-- The code checks if the game has not started (`gameStarted === false`). If the game hasn’t started, it calls the `displayStartMessage` function (presumably to show a start message) and then immediately exits the `draw()` function using return. This ensures that the rest of the `draw()` function is skipped if the game hasn’t started. 
-- It updates the game state if the game is not paused (`gamePaused === false`). The functions `moveSnake()`, `checkEdges()`, `checkSelf()`, `checkFood()`, and `updateBody()` are called to handle the different aspects of the game logic, such as moving the snake, checking for collisions, handling food consumption, and updating the snake’s body.
-- It calls functions `drawFood()` and `drawSnake()` to visually render the food and the snake on the canvas.
-- It checks if the game has ended (`gameOver === true`). If the game is over, it calls the `displayEndMessage();` function, then stops the draw loop using `noLoop()`, which ensures that after the game is over, no further updates or rendering occur.
-- Finally, it updates and displays the score on the canvas. The score is positioned at the top-right corner of the canvas using `textAlign(RIGHT)` and ``text(`Score: ${score}`, width - 10, 20)``.
+- コードは、ゲームが開始されていないか（`gameStarted === false`）をチェックします。ゲームが開始されていない場合、`displayStartMessage`関数を呼び出し（開始メッセージを表示するため）、その後すぐに`draw()`関数を`return`で終了します。これにより、ゲームが開始されていない場合は`draw()`関数の残りの部分がスキップされます。
+- ゲームが一時停止されていない場合（`gamePaused === false`）、ゲームの状態を更新します。`moveSnake()`、`checkEdges()`、`checkSelf()`、`checkFood()`、`updateBody()`関数が呼び出され、ヘビの移動、衝突のチェック、餌の消費の処理、ヘビの体の更新など、ゲームロジックのさまざまな側面を処理します。
+- `drawFood()`と`drawSnake()`関数を呼び出して、キャンバス上に餌とヘビを視覚的にレンダリングします。
+- ゲームが終了したか（`gameOver === true`）をチェックします。ゲームが終了した場合、`displayEndMessage();`関数を呼び出し、その後`noLoop()`を使用して描画ループを停止します。これにより、ゲーム終了後は更新やレンダリングが行われなくなります。
+- 最後に、キャンバス上でスコアを更新して表示します。スコアは`textAlign(RIGHT)`と``text(`Score: ${score}`, width - 10, 20)``を使用してキャンバスの右上隅に配置されます。
 
-This code structure handles different aspects of the game effectively. It ensures the start, update, draw, and end are managed based on the game state. The game state includes not started, not paused, and game over. The game’s logic is encapsulated in functions, promoting readability and maintainability. The `draw()` function is the main loop responsible for continuously updating and rendering the game based on its state.
+このコード構造は、ゲームのさまざまな側面を効果的に処理します。開始、更新、描画、終了が、ゲームの状態に基づいて管理されることを保証します。ゲームの状態には、未開始、一時停止されていない、ゲームオーバーが含まれます。ゲームのロジックは関数にカプセル化され、可読性とメンテナンス性を高めています。`draw()`関数は、その状態に基づいてゲームを継続的に更新しレンダリングする責任を持つメインループです。
 
-Here is how the gameplay should look:
+ゲームプレイは以下のようになるはずです：
 
-![A dynamic gif illustrating the final product of the design and gameplay logic implemented in this chapter. This includes button clicks and the screen showing the Start message, general gameplay and Game over Message.](../images/web-design/snake-example.gif)
+![この章で実装したデザインとゲームプレイロジックの最終的な製品を示すダイナミックなgif。これには、ボタンのクリック、開始メッセージを表示する画面、一般的なゲームプレイ、ゲームオーバーメッセージが含まれています。](../images/web-design/snake-example.gif)
 
-Good job, you have successfully created your very own snake game! You have accomplished something impressive. 
+お疲れ様でした。あなたは独自のスネークゲームを作成することに成功しました！素晴らしい成果を達成しました。
 
-Buttons are a useful type of input, but there are many more for you to explore. Check out the [DOM section](/reference#DOM) of the p5.js Reference to see how other inputs work. 
+ボタンは便利な入力タイプですが、探索すべき入力はまだたくさんあります。他の入力がどのように機能するかを確認するには、p5.jsリファレンスの[DOMセクション](/reference#DOM)をチェックしてください。
 
 <Callout>
-Using the `createButton(), `make a sketch with a button that changes the color of your canvas.
+`createButton()`を使用して、キャンバスの色を変更するボタンのあるスケッチを作成してください。
 
-[Solution.](https://editor.p5js.org/ruthikegah/sketches/3Hof7d-xE)
+[解答例](https://editor.p5js.org/ruthikegah/sketches/3Hof7d-xE)
 </Callout>
 
 
 
-### Conclusion
+### 結論
 
-Congratulations on finishing this tutorial. Mastering input responses in p5.js is a key step in adding interactivity to your web projects. In this tutorial, you have thoroughly explored how to make responsive buttons. You also bound them with functions before finally putting together the classic logic of a snake game. By integrating these elements, you not only enhanced our coding repertoire but also took a nostalgic concept and breathed new life into it with modern web technology. The skills you've honed here will serve as a robust foundation for developing even more intricate and engaging interactive applications. 
+このチュートリアルを完了したことを祝福します。p5.jsでの入力応答の習得は、Webプロジェクトにインタラクティビティを追加する重要なステップです。このチュートリアルでは、応答性のあるボタンの作成方法を徹底的に探索しました。また、それらを関数と結びつけてから、最後にクラシックなスネークゲームのロジックをまとめました。これらの要素を統合することで、コーディングのレパートリーを強化しただけでなく、懐かしいコンセプトを現代のWeb技術で新しい命を吹き込みました。ここで磨いたスキルは、さらに複雑で魅力的なインタラクティブアプリケーションを開発するための堅固な基盤となるでしょう。
 
-Here is the [complete Responding to Inputs code](https://editor.p5js.org/ruthikegah/sketches/TKoGPLJfe) for reference.
-
-
-### Next steps
-
-- [Loading and selecting fonts](/tutorials/loading-and-selecting-fonts)
+参考として、[完全な入力への応答コード](https://editor.p5js.org/ruthikegah/sketches/TKoGPLJfe)をご覧ください。
 
 
-### References
+### 次のステップ
 
-- [Functions on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
-- [Organizing Code with Functions Tutorial](/tutorials/organizing-code-with-functions)
+- [フォントの読み込みと選択](/tutorials/loading-and-selecting-fonts)
+
+
+### 参考文献
+
+- [MDNのFunctions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
+- [関数によるコードの整理チュートリアル](/tutorials/organizing-code-with-functions)
