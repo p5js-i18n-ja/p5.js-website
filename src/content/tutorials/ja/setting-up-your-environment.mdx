@@ -175,7 +175,8 @@ function draw() {
   - [`background()`](/reference/p5/background) 関数の下に以下のテキストを追加します：
 
     ```js
-    //circle in the center with a width of 100
+    // 中心に円を描画します
+    // 幅は100です。
     circle(200,200,100);
     ```
 
@@ -191,8 +192,8 @@ function setup() {
 function draw() {
   background(220);
 
-  // Draw a circle in the center with
-  // a width of 100.
+  // 中心に円を描画します
+  // 幅は100です。
   circle(200, 200, 100);
 }
 ```
@@ -211,14 +212,14 @@ p5.js には、キャンバスに静的要素とインタラクティブ要素�
 - 背景と円のコマンドを以下のテキストで置き換えます：
 
   ```js
-  //when mouse button is pressed, circles turn black
+  // マウスボタンが押されているとき、円が黒くなります
   if (mouseIsPressed === true) {
     fill(0);
   } else {
     fill(255);
   }
 
-  //white circles drawn at mouse position
+  //マウスの位置に白い円を描画します
   circle(mouseX, mouseY, 100);
   ```
 
@@ -230,14 +231,14 @@ function setup() {
 }
 
 function draw() {
-  //when mouse button is pressed, circles turn black
+  // マウスボタンが押されているとき、円が黒くなります
   if (mouseIsPressed === true) {
     fill(0);
   } else {
     fill(255);
   }
 
-  //white circles drawn at mouse position
+  //マウスの位置に白い円を描画します
   circle(mouseX, mouseY, 100);
 }
 `} />
