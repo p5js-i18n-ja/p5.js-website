@@ -1,7 +1,8 @@
 /*
- * @name Mouse Functions
- * @arialabel Fuschia background with a slightly opaque white square. The user can click on the square, which turns it white, and drag it around the background.
- * @description Click on the box and drag it across the screen.
+ * @name マウス機能
+ * @arialabel 赤紫色の背景に、半透明の白い四角形が描かれています。
+ * 四角形をクリックすると白くなり、背景の範囲でドラッグすることができます。
+ * @description ボックスをクリックし、画面内でドラッグしてください。
  */
 let bx;
 let by;
@@ -22,7 +23,7 @@ function setup() {
 function draw() {
   background(237, 34, 93);
 
-  // Test if the cursor is over the box
+  // カーソルがボックスの上にあるかどうかをテストします。
   if (
     mouseX > bx - boxSize &&
     mouseX < bx + boxSize &&
@@ -40,7 +41,7 @@ function draw() {
     overBox = false;
   }
 
-  // Draw the box
+  // ボックスを描きます。
   rect(bx, by, boxSize, boxSize);
 }
 

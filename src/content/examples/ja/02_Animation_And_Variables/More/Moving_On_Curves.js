@@ -1,22 +1,22 @@
 /*
- * @name Moving On Curves
- * @arialabel White circle travels across the grey screen on the curve y=x^4. It leaves behind an outline of its path
+ * @name カーブしながら移動
+ * @arialabel 白い円が y = x^4 の曲線上で灰色の画面を移動します。移動の跡が残ります。
  * @frame 720,400
- * @description In this example, the circles moves along the curve y = x^4.
- * Click the mouse to have it move to a new position.
+ * @description この例では、円は y = x^4 の曲線上を移動します。
+ * マウスをクリックすると、新しい位置に移動します。
  */
 
-let beginX = 20.0; // Initial x-coordinate
-let beginY = 10.0; // Initial y-coordinate
-let endX = 570.0; // Final x-coordinate
-let endY = 320.0; // Final y-coordinate
-let distX; // X-axis distance to move
-let distY; // Y-axis distance to move
-let exponent = 4; // Determines the curve
-let x = 0.0; // Current x-coordinate
-let y = 0.0; // Current y-coordinate
-let step = 0.01; // Size of each step along the path
-let pct = 0.0; // Percentage traveled (0.0 to 1.0)
+let beginX = 20.0; // 初期 x 座標
+let beginY = 10.0; // 初期 y 座標
+let endX = 570.0; // 終了 x 座標
+let endY = 320.0; // 終了 y 座標
+let distX; // x 軸方向の移動距離
+let distY; // y 軸方向の移動距離
+let exponent = 4; // 曲線を決定する指数
+let x = 0.0; // 現在の x 座標
+let y = 0.0; // 現在の y 座標
+let step = 0.01; // パス上の各ステップのサイズ
+let pct = 0.0; // 移動した割合（0.0から1.0まで）
 
 function setup() {
   createCanvas(720, 400);

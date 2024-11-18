@@ -1,28 +1,28 @@
 /*
- * @name Basic Shader
- * @arialabel Background with a cyan to purple gradient
- * @description This is a basic example showing how to load shaders in p5.js.
- * <br> To learn more about using shaders in p5.js: <a href="https://itp-xstory.github.io/p5js-shaders/">p5.js Shaders</a>
+ * @name 基本的なシェーダー
+ * @arialabel シアンから紫へのグラデーションの背景です。
+ * @description これは p5.js でシェーダーを読み込む方法の基本的な例です。
+ * <br>p5.js でシェーダーを使用する方法について、詳しくはこちらを参照してください: <a href="https://itp-xstory.github.io/p5js-shaders/">p5.js シェーダー</a>
  */
 
-// this variable will hold our shader object
+// この変数にシェーダーオブジェクトを保持します。
 let theShader;
 
-function preload(){
-  // load the shader
-  theShader = loadShader('/assets/basic.vert', '/assets/basic.frag');
+function preload() {
+  // シェーダーを読み込みます。
+  theShader = loadShader("assets/basic.vert", "assets/basic.frag");
 }
 
 function setup() {
-  // shaders require WEBGL mode to work
+  // シェーダーを使うためには WEBGL モードにする必要があります。
   createCanvas(710, 400, WEBGL);
   noStroke();
 }
 
 function draw() {
-  // shader() sets the active shader with our shader
+  // shader() 関数でアクティブなシェーダーを設定します。
   shader(theShader);
 
-  // rect gives us some geometry on the screen
-  rect(0,0,width, height);
+  // rect 関数は画面上にジオメトリ図形を描画します。
+  rect(0, 0, width, height);
 }

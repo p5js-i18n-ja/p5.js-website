@@ -1,16 +1,16 @@
 /*
- * @name Objects
- * @arialabel Small white circle on dark navy background that moves in small amounts in various directions by a small amount by itself like it is jittering 
- * @description Create a Jitter class, instantiate an object,
- * and move it around the screen. Adapted from Getting Started with
- * Processing by Casey Reas and Ben Fry.
+ * @name オブジェクト
+ * @arialabel 濃いネイビーの背景に小さな白い円が、ひとりでに様々な方向に少しずつそわそわと動きます。
+ * @description Jitterクラスを作成し、オブジェクトをインスタンス化し、
+ * スクリーン上で動かします。
+ * Casey Reas と Ben Fry の Processing 入門からの移植です。
  */
 
-let bug; // Declare object
+let bug; // オブジェクトの宣言
 
 function setup() {
   createCanvas(710, 400);
-  // Create object
+  // オブジェクトの作成
   bug = new Jitter();
 }
 
@@ -20,7 +20,7 @@ function draw() {
   bug.display();
 }
 
-// Jitter class
+// ジッターclass
 class Jitter {
   constructor() {
     this.x = random(width);

@@ -1,21 +1,21 @@
 /*
- * @name Conditionals 1
- * @arialabel Pattern of alternating long and short lines
- * @description Conditions are like questions.
- * They allow a program to decide to take one action if
- * the answer to a question is true or to do another action
- * if the answer to the question is false.
- * The questions asked within a program are always logical
- * or relational statements. For example, if the variable 'i' is
- * equal to zero then draw a line.
+ * @name 条件 1
+ * @arialabel 長短交互に線のパターンが表示されています。
+ * @description 条件は質問のようなものです。
+ * それらは、質問の答えが真(true)である場合には、あるアクションをとることをプログラムに許可し、
+ * 質問の答えが偽(false)である場合には、別のアクションをとることを可能にします。
+ * プログラム内で尋ねられる質問は
+ * 常に論理的または関係的な文となります。
+ * 例えば、
+ * 変数 'i' がゼロに等しいならば、線を描くなど。
  */
 function setup() {
   createCanvas(720, 360);
   background(0);
 
   for (let i = 10; i < width; i += 10) {
-    // If 'i' divides by 20 with no remainder draw the first line
-    // else draw the second line
+    // i 変数が 20 で割り切れる場合、ひとつ目のパターンの線を引きます。
+    // そうでなければ、２つ目のパターンの線を引きます。
     if (i % 20 === 0) {
       stroke(255);
       line(i, 80, i, height / 2);

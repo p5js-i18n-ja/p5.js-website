@@ -1,68 +1,65 @@
 /*
- * @name Particles
- * @arialabel Small light grey circles connected by thin lines floating around a black background
- * @description There is a light-weight JavaScript library named
- * particle.js which creates a very pleasing particle system.
- * This is an attempt to recreate that particle system using p5.js.
- * Inspired by Particle.js, contributed by Sagar Arora.
+ * @name パーティクル
+ * @arialabel 細い線で接続された小さな灰色の円が黒い背景のあちこちを浮遊しています。
+ * @description particle.js という軽量な JavaScript ライブラリがあり、
+ * とても美しいパーティクルシステムを作成します。
+ * これは、p5.js を使用してそのパーティクルシステムを再現しようとする試みです。
+ * Particle.js に触発され、Sagar Arora の貢献により作成されました。
  */
 
-
-// this class describes the properties of a single particle.
+// このクラスは単一のパーティクルのプロパティを構成します。
 class Particle {
-// setting the co-ordinates, radius and the
-// speed of a particle in both the co-ordinates axes.
-  constructor(){
-    this.x = random(0,width);
-    this.y = random(0,height);
-    this.r = random(1,8);
-    this.xSpeed = random(-2,2);
-    this.ySpeed = random(-1,1.5);
+  // パーティクルの座標、半径、
+  // および両座標軸での速度を設定します。
+  constructor() {
+    this.x = random(0, width);
+    this.y = random(0, height);
+    this.r = random(1, 8);
+    this.xSpeed = random(-2, 2);
+    this.ySpeed = random(-1, 1.5);
   }
 
-// creation of a particle.
+  // パーティクルを作成します。
   createParticle() {
     noStroke();
-    fill('rgba(200,169,169,0.5)');
-    circle(this.x,this.y,this.r);
+    fill("rgba(200,169,169,0.5)");
+    circle(this.x, this.y, this.r);
   }
 
-// setting the particle in motion.
+  // パーティクルを動かします。
   moveParticle() {
-    if(this.x < 0 || this.x > width)
-      this.xSpeed*=-1;
-    if(this.y < 0 || this.y > height)
-      this.ySpeed*=-1;
-    this.x+=this.xSpeed;
-    this.y+=this.ySpeed;
+    if (this.x < 0 || this.x > width) this.xSpeed *= -1;
+    if (this.y < 0 || this.y > height) this.ySpeed *= -1;
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
   }
 
-// this function creates the connections(lines)
-// between particles which are less than a certain distance apart
+  // ある距離未満にあるパーティクルの間に
+  // 接続（線）を作成します。
   joinParticles(particles) {
-    particles.forEach(element =>{
-      let dis = dist(this.x,this.y,element.x,element.y);
-      if(dis<85) {
-        stroke('rgba(255,255,255,0.04)');
-        line(this.x,this.y,element.x,element.y);
+    particles.forEach((element) => {
+      let dis = dist(this.x, this.y, element.x, element.y);
+      if (dis < 85) {
+        stroke("rgba(255,255,255,0.04)");
+        line(this.x, this.y, element.x, element.y);
       }
     });
   }
 }
 
-// an array to add multiple particles
+// 複数のパーティクルを追加するための配列
 let particles = [];
 
 function setup() {
   createCanvas(720, 400);
-  for(let i = 0;i<width/10;i++){
+  for (let i = 0; i < width / 10; i++) {
     particles.push(new Particle());
   }
 }
 
 function draw() {
-  background('#0f0f0f');
-  for(let i = 0;i<particles.length;i++) {
+  background("#0f0f0f");
+  for (let i = 0; i < particles.length; i++) {
     particles[i].createParticle();
     particles[i].moveParticle();
     particles[i].joinParticles(particles.slice(i));

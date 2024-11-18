@@ -1,8 +1,8 @@
 /*
- * @name Mouse Press
- * @arialabel User draws pink crosses on a grey background and can change the cross color to white by clicking the mouse. 
- * @description Move the mouse to position the shape.
- * Press the mouse button to invert the color.
+ * @name マウス押下
+ * @arialabel マウス操作で灰色の背景にピンクの十字が描かれます。マウスをクリックしていると十字の色が白に変更されます。
+ * @description マウスを動かしてシェイプを配置します。
+ * マウスボタンを押すと、色が反転します。
  */
 function setup() {
   createCanvas(720, 400);

@@ -1,10 +1,10 @@
 /*
- * @name Pulses
- * @arialabel Continuous black flowers with a white circle center draw on a dark grey background as you move your mouse. The circles get bigger as you move your mouse faster and smaller as you move your mouse slower. When you stop your mouse, the last flower rotates slightly.
- * @description Software drawing instruments can follow a rhythm or abide by
- * rules independent of drawn gestures. This is a form of collaborative drawing
- * in which the draftsperson controls some aspects of the image and the software
- * controls others.
+ * @name パルス
+ * @arialabel 暗い灰色の背景上でマウスを動かすと中央に白い円のある黒い花が連続して描かれます。円はマウスを速く動かすほど大きくなり、ゆっくり動かすほど小さくなります。マウスを止めると、最後の花が少し回転します。
+ * @description ソフトウェアの描画装置は、描画のジェスチャーとは無関係に、
+ * リズムやルールに従った描画が可能です。
+ * これは、作図者がイメージの一部をコントロールし、ソフトウェアが他の部分をコントロールする、
+ * コラボレーション・ドローイングの一形態です。
  */
 let angle = 0;
 
@@ -16,7 +16,7 @@ function setup() {
 }
 
 function draw() {
-  // Draw only when mouse is pressed
+  // マウスが押されている時だけ描画します。
   if (mouseIsPressed === true) {
     angle += 5;
     let val = cos(radians(angle)) * 12.0;

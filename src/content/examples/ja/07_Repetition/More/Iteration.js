@@ -1,7 +1,7 @@
 /*
- * @name Iteration
- * @arialabel White bars on the top half of the screen intersect with thin lines on the left and dark grey bars on the right
- * @description Iteration with a "for" structure to construct repetitive forms.
+ * @name 反復
+ * @arialabel 画面上半分の白いバーは、左側では細い線と交差し、右側では濃い灰色のバーと交差しています。
+ * @description "for" 構造による反復で、繰り返された造形を構築します。
  */
 let y;
 let num = 14;
@@ -11,7 +11,7 @@ function setup() {
   background(102);
   noStroke();
 
-  // Draw white bars
+  // 白いバーを描きます。
   fill(255);
   y = 60;
   for (let i = 0; i < num / 3; i++) {
@@ -19,7 +19,7 @@ function setup() {
     y += 20;
   }
 
-  // Gray bars
+  // 灰色のバーです。
   fill(51);
   y = 40;
   for (let i = 0; i < num; i++) {
@@ -32,7 +32,7 @@ function setup() {
     y += 20;
   }
 
-  // Thin lines
+  // 細い線です。
   y = 45;
   fill(0);
   for (let i = 0; i < num - 1; i++) {

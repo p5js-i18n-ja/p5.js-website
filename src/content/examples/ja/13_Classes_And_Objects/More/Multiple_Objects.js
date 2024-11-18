@@ -1,18 +1,18 @@
 /*
- * @name Multiple Objects
- * @arialabel Four small white circles places randomly on a dark navy background that move in small amounts in various directions by itself like they are jittering 
- * @description Create a Jitter class, instantiate multiple objects,
- * and move it around the screen.
+ * @name 複数のオブジェクト
+ * @arialabel 濃いネイビーの背景にランダムに配置された４つの小さな白い円が、ひとりでに様々な方向に少しずつそわそわと動きます。
+ * @description Jitterクラスを作成し、複数のオブジェクトをインスタンス化し、
+ * スクリーン上で動かします。
  */
 
-let bug1; // Declare objects
+let bug1; // オブジェクトの宣言
 let bug2;
 let bug3;
 let bug4;
 
 function setup() {
   createCanvas(710, 400);
-  // Create object
+  // オブジェクトの作成
   bug1 = new Jitter();
   bug2 = new Jitter();
   bug3 = new Jitter();
@@ -31,7 +31,7 @@ function draw() {
   bug4.display();
 }
 
-// Jitter class
+// ジッターclass
 class Jitter {
   constructor() {
     this.x = random(width);

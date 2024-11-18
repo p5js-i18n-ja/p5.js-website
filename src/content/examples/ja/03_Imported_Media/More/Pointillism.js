@@ -1,18 +1,14 @@
 /*
- * @name Pointillism
- * @arialabel Dots generate on the screen. As the user’s mouse moves left the dots become smaller and as the user’s mouse moves right, the dots become bigger. The colors of the dots are dependent on an image of choice
- * @description By Dan Shiffman. Mouse horizontal location controls size of
- * dots. Creates a simple pointillist effect using ellipses colored according
- * to pixels in an image.
- * <p><em><span class="small"> To run this example locally, you will need an
- * image file, and a running <a href="https://github.com/processing/p5.js/wiki/Local-server">
- * local server</a>.</span></em></p>
+ * @name 点描
+ * @arialabel 画面上にドットが生成されます。ユーザーのマウスが左に移動するとドットが小さくなり、右に移動すると大きくなります。ドットの色は選択した画像によって変化します。
+ * @description Dan Shiffman による作品です。マウスの水平位置によって点のサイズが制御されます。画像のピクセルに応じて色付けされた楕円を使用して、シンプルな点描を作成します。
+ * <p><em><span class="small"> この例をローカルで実行するには画像ファイルと実行中の <a href="https://github.com/processing/p5.js/wiki/Local-server">ローカルサーバー</a> が必要です。</span></em></p>
  */
 let img;
 let smallPoint, largePoint;
 
 function preload() {
-  img = loadImage('/assets/moonwalk.jpg');
+  img = loadImage("assets/moonwalk.jpg");
 }
 
 function setup() {

@@ -1,17 +1,17 @@
 /*
- * @name Video Pixels
- * @arialabel Video is turned into black circles to look like pixels. Pixel size increases as the user’s mouse is dragged to the right and decreases as the user’s mouse is dragged to the left 
+ * @name ビデオ・ピクセル
+ * @arialabel ビデオが黒い円に変えられ、ピクセルのように見えます。ユーザーのマウスが右にドラッグするとピクセルのサイズが大きくなり、左にドラッグすると小さくなります。
  * @frame 320,240
- * @description Load a video, manipulate its pixels and draw to canvas.
- * To run this example locally, you will need a running 
- * <a href="https://github.com/processing/p5.js/wiki/Local-server">local server</a>.
+ * @description ビデオを読み込み、そのピクセルを操作し、キャンバスに描画します。
+ * この例をローカルで実行するには、動作している
+ * <a href="https://github.com/processing/p5.js/wiki/Local-server">ローカルサーバー</a>が必要です。
  */
 let fingers;
 
 function setup() {
   createCanvas(320, 240);
-  // specify multiple formats for different browsers
-  fingers = createVideo(['/assets/fingers.mov', '/assets/fingers.webm']);
+  // 異なるブラウザ用に複数のフォーマットを指定します。
+  fingers = createVideo(["assets/fingers.mov", "assets/fingers.webm"]);
   fingers.loop();
   fingers.hide();
   noStroke();

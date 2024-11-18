@@ -1,9 +1,9 @@
 /*
- * @name Star
- * @arialabel Grey background with three white shapes rotating with black outlines. From left to right, a 3-pointed star, a 40-pointed shape, and a 5-pointed star
- * @description The star() function created for this example is capable of
- * drawing a wide range of different forms. Try placing different numbers
- * into the star() function calls within draw() to explore.
+ * @name 星
+ * @arialabel 灰色の背景に黒い輪郭線で回転する3つの白い図形があります。左から3芒星、40芒星、5芒星。
+ * @description この実例のために作成された star() 関数は、さまざまな形を
+ * 描くことができます。draw() 内の star() 関数呼び出しに異なる数値を入力して、
+ * 探索してみてください。
  */
 function setup() {
   createCanvas(720, 400);

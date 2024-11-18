@@ -1,28 +1,28 @@
 /*
- * @name Tickle
- * @arialabel The word “tickle” in black is on a light gray background. As the user hovers the word, the word shakes and moves as if being tickled
- * @description The word "tickle" jitters when the cursor hovers over.
- * Sometimes, it can be tickled off the screen.
+ * @name くすぐり
+ * @arialabel 薄い灰色の背景に黒字で「tickle(くすぐったい)」の文字があります。ユーザーがこの文字にカーソルを合わせると、くすぐられるように文字が揺れ動きます。
+ * @description カーソルを合わせると「tickle」の文字が揺れます。
+ * 時には、スクリーンからくすぐられることもあります。
  */
-let message = 'tickle',
+let message = "tickle",
   font,
-  bounds, // holds x, y, w, h of the text's bounding box
+  bounds, // テキスト領域の x, y, w, h を保持します。
   fontsize = 60,
   x,
-  y; // x and y coordinates of the text
+  y; // テキストの x 座標と y 座標です。
 
 function preload() {
-  font = loadFont('/assets/SourceSansPro-Regular.otf');
+  font = loadFont("assets/SourceSansPro-Regular.otf");
 }
 
 function setup() {
   createCanvas(710, 400);
 
-  // set up the font
+  // フォントを設定します。
   textFont(font);
   textSize(fontsize);
 
-  // get the width and height of the text so we can center it initially
+  // テキストの幅と高さを取得します。
   bounds = font.textBounds(message, 0, 0, fontsize);
   x = width / 2 - bounds.w / 2;
   y = height / 2 - bounds.h / 2;
@@ -31,12 +31,12 @@ function setup() {
 function draw() {
   background(204, 120);
 
-  // write the text in black and get its bounding box
+  // テキストを黒で書き、その領域を取得します。
   fill(0);
   text(message, x, y);
   bounds = font.textBounds(message, x, y, fontsize);
 
-  // check if the mouse is inside the bounding box and tickle if so
+  // マウスが領域内にあるかどうかをチェックし、ある場合はくすぐるように動かします。
   if (
     mouseX >= bounds.x &&
     mouseX <= bounds.x + bounds.w &&

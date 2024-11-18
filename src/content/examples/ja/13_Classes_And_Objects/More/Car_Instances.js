@@ -1,20 +1,20 @@
 /* 
- * @name Car Instances
- * @arialabel Vertical pale sage background with three rectangles--blue, yellow, and grey--moving across the screen horizontally at different speeds 
+ * @name 車のインスタンス
+ * @arialabel 垂直に淡いセージ色の背景に、ブルー、イエロー、灰色の3つの長方形が画面を横切って異なる速度で移動しています。
  * @frame 400,400
- * @description contributed by <a href="https://www.rit.edu/directory/wmhics-w-michelle-harris">
-   <b>Prof WM Harris,</b></a> <b>How </b>to create three instances of Car Class and
-invoke class methods.<br/>
-	A function is created for the canvas setup, and
-3 car instances are initialized with different colors and canvas
-positions. The speed of each car is set by passing value to the
-instance’s start method. A second function calls class methods to
-display and move the cars.
+ * @description <a href="https://www.rit.edu/directory/wmhics-w-michelle-harris">
+   <b>Prof WM Harris,</b></a> からの貢献です。<b>どのように</b> Car のクラスの３つのインスタンスを作成し、
+クラスメソッドを呼び出すのかを説明しています。<br/>
+キャンバスのセットアップのための関数が作成され、
+3つの Car インスタンスが異なる色とキャンバスの位置で初期化されます。
+各 Car の速度は、インスタンスの開始メソッドに値を渡すことで設定されます。
+2つ目の関数は、クラスのメソッドを呼び出して Car を表示し、
+移動させます。
 */
 class Car {
-  /* Constructor expects parameters for
-  fill color, x and y coordinates that
-  will be used to initialize class properties.
+  /* コンストラクタは、
+  クラスのプロパティを初期化に使用する
+  塗りつぶしの色、x および y 座標のパラメーターを期待します。
   */
   constructor(cColor, x, y) {
     this.color = cColor;
@@ -25,25 +25,28 @@ class Car {
     this.speed = 0;
   }
 
-  start(speed) { // method expects parameter!
+  start(speed) {
+    // メソッドはパラメーターを期待します！
     this.speed = speed;
   }
 
-  display() { // method!
+  display() {
+    // メソッドです！
     fill(this.color);
     rect(this.x, this.y, 20, 10);
   }
 
-  move() { // method!
+  move() {
+    // メソッドです！
     this.x += this.speed;
-    // Wrap x around boundaries
+    // x を境界線で囲みます。
     if (this.x < -20) {
       this.x = width;
     } else if (this.x > width) {
       this.x = -20;
     }
   }
-} //end class Car
+} // Car クラス の定義はここまで。
 
 let rav4;
 let charger;
@@ -51,19 +54,19 @@ let nova;
 
 function setup() {
   createCanvas(200, 400);
-  /* Construct the 3 Cars */
-  //constructor expects cColor, x, y
+  /* 3台の Car を作ります。 */
+  // コンストラクタは cColor, x, y を期待しています。
   rav4 = new Car("silver", 100, 300);
-  charger = new Car("gold", 0, 200);  
-  nova = new Car("blue", 200, 100); 
-  nova.doors = 2; //update nova's doors property
-  
+  charger = new Car("gold", 0, 200);
+  nova = new Car("blue", 200, 100);
+  nova.doors = 2; // "nova" の doors プロパティを更新します。
+
   console.log("rav4", rav4);
   console.log("charger", charger);
   console.log("nova", nova);
-  
-  //call start methods of Car instances
-  //the start method expects a number for speed
+
+  // Car インスタンスの start メソッドを呼び出します。
+  // start メソッドは、スピードの数値を期待します。
   rav4.start(2.3);
   charger.start(-4);
   nova.start(random(-1, 1));
@@ -71,12 +74,12 @@ function setup() {
 
 function draw() {
   background("beige");
-  
-  //display and move all 3 Cars
+
+  // 3台すべてを表示し、動かします。
   rav4.display();
   charger.display();
   nova.display();
-  
+
   rav4.move();
   charger.move();
   nova.move();

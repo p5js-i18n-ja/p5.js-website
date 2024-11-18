@@ -1,25 +1,25 @@
 /*
- * @name Bounce
- * @arialabel White circle moving on a grey background. When it hits the edge of the background window, it changes it’s direction 
+ * @name バウンス
+ * @arialabel 灰色の背景の上に、白い円が動いています。ウィンドウの端にぶつかると、方向が変わります。
  * @frame 720,400
- * @description When the shape hits the edge of the window, it reverses its direction.
+ * @description ウィンドウの端に図形がぶつかると、進行方向が反転します。
  */
 
-let rad = 60; // Width of the shape
-let xpos, ypos; // Starting position of shape
+let rad = 60; // 図形の幅
+let xpos, ypos; // 図形の開始位置
 
-let xspeed = 2.8; // Speed of the shape
-let yspeed = 2.2; // Speed of the shape
+let xspeed = 2.8; // 図形の速度
+let yspeed = 2.2; // 図形の速度
 
-let xdirection = 1; // Left or Right
-let ydirection = 1; // Top to Bottom
+let xdirection = 1; // 左または右
+let ydirection = 1; // 上から下へ
 
 function setup() {
   createCanvas(720, 400);
   noStroke();
   frameRate(30);
   ellipseMode(RADIUS);
-  // Set the starting position of the shape
+  // 図形の開始位置を設定します。
   xpos = width / 2;
   ypos = height / 2;
 }
@@ -27,12 +27,12 @@ function setup() {
 function draw() {
   background(102);
 
-  // Update the position of the shape
+  // 図形の位置を更新します。
   xpos = xpos + xspeed * xdirection;
   ypos = ypos + yspeed * ydirection;
 
-  // Test to see if the shape exceeds the boundaries of the screen
-  // If it does, reverse its direction by multiplying by -1
+  // 画面の境界を超えるかどうかをテストします。
+  // もし逆方向である場合、-1をかけて方向を反転します。
   if (xpos > width - rad || xpos < rad) {
     xdirection *= -1;
   }
@@ -40,6 +40,6 @@ function draw() {
     ydirection *= -1;
   }
 
-  // Draw the shape
+  // 図形を描きます。
   ellipse(xpos, ypos, rad, rad);
 }

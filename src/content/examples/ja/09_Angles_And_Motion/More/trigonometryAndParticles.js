@@ -1,8 +1,7 @@
 /*
- * @name Trigonometry and Particles
- * @arialabel multiple white dot moving in pattern following trigonometry function 
- * @description Creative particle movement using cos(), sin() and tan(). You can sort 
- * through the different functions.
+ * @name 三角法と粒子
+ * @arialabel 複数の白い点が三角関数に従ってパターンで動いている
+ * @description cos()、sin()、tan()を使用した創造的な粒子の動き。さまざまな関数をソートできます。
  */
 
 let f = 0;
@@ -30,17 +29,17 @@ function Super_Tornado() {
     }
     if (value == 3) {
       x = cos(theta) * i * tan(i);
-      y = sin(log(theta)) * i / tan(i);
+      y = (sin(log(theta)) * i) / tan(i);
     }
     if (value == 4) {
-      x = cos(theta) * i / 3 * sin(theta) * tan(f + 1);
-      y = sin(1 / theta) * i / 3 * log(i) * tan(i);
+      x = ((cos(theta) * i) / 3) * sin(theta) * tan(f + 1);
+      y = ((sin(1 / theta) * i) / 3) * log(i) * tan(i);
     }
     ellipse(x, y, 3, 3);
     points.push({
-      'x': x,
-      'y': y
-    })
+      x: x,
+      y: y,
+    });
   }
 }
 function setup() {

@@ -1,8 +1,8 @@
 /*
- * @name Patterns
- * @arialabel Continuous circles draw on a dark grey background as you move your mouse. The circles get bigger as you move your mouse faster and smaller as you move your mouse slower
- * @description Move the cursor over the image to draw with a software tool
- * which responds to the speed of the mouse.
+ * @name パターン
+ * @arialabel マウスの動きに応じて暗い灰色の背景に連続する円が描かれ、マウスを早く動かすほど円が大きく、遅く動かすほど小さくなります。
+ * @description 画像上でカーソルを移動させると、
+ * マウスの速度に応じてソフトウェアツールで描画します。
  */
 function setup() {
   createCanvas(710, 400);
@@ -10,16 +10,16 @@ function setup() {
 }
 
 function draw() {
-  // Call the variableEllipse() method and send it the
-  // parameters for the current mouse position
-  // and the previous mouse position
+  // variableEllipse() メソッドを呼び出し、
+  // 現在のマウス位置と
+  // 前回のマウス位置をパラメーターとして渡します。
   variableEllipse(mouseX, mouseY, pmouseX, pmouseY);
 }
 
-// The simple method variableEllipse() was created specifically
-// for this program. It calculates the speed of the mouse
-// and draws a small ellipse if the mouse is moving slowly
-// and draws a large ellipse if the mouse is moving quickly
+// このプログラム専用に作成された単純な variableEllipse() メソッドです。
+// マウスのスピードを計算し、
+// マウスが遅く動いている場合は小さな楕円を描き、
+// マウスが速く動いている場合は大きな楕円を描きます。
 
 function variableEllipse(x, y, px, py) {
   let speed = abs(x - px) + abs(y - py);

@@ -1,8 +1,8 @@
 /*
- * @name Radial Gradient
- * @arialabel Three circles on a black background. The middle circle is completely visible but the user can only see half of the other two. There is a gradiant from the center of the circle to the outer edge that changes every second
- * @description Draws a series of concentric circles to create a gradient
- * from one color to another.
+ * @name 放射状グラデーション
+ * @arialabel 黒い背景に3つの円があります。真ん中の円は完全な円見えるが、他の両端の2つは半分しか見えていません。円の中心から外側にかけて、色がグラデーションがしており、それは1秒ごとに変化します。
+ * @description ある色から別の色へのグラデーションを作成するために、
+ * 一連の同心円を描画します。
  */
 let dim;
 

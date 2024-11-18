@@ -1,10 +1,10 @@
 /*
- * @name Double Random
- * @arialabel Little white dots clump around the horizontal axis on the middle of the screen and change positions every second between being more condensed and scattered
+ * @name ２重のランダム
+ * @arialabel 画面中央の横軸に小さな白い点が集まり、凝縮されたり散らばったりと刻々と位置を変えています。
  * @frame 720,400 (optional)
- * @description Using two random() calls and the point()
- * function to create an irregular sawtooth line.
- * Original by by Ira Greenberg.
+ * @description 2つのrandom()関数とpoint()関数を使用して、
+ * 不規則な鋸歯状の線を作成します。
+ * オリジナルは Ira Greenberg のものです。
  */
 let totalPts = 300;
 let steps = totalPts + 1;

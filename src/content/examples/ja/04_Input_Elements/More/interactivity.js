@@ -1,18 +1,18 @@
 /*
- * @name Interactivity 2
- * @arialabel Dark grey background with a colored circle in the middle that changes color as the user drags a slider on the bottom
+ * @name インタラクティブ 2
+ * @arialabel 濃い灰色の背景の中央に色がついた円があり、ユーザーが下部のスライダーをドラッグすると色が変化します。
  * @frame 720,425
- * @description The circle changes color when you move the slider.
+ * @description スライダーを動かすと円の色が変化します。
  */
 
-// A HTML range slider
+// HTMLの範囲スライダー
 let slider;
 
 function setup() {
   createCanvas(720, 400);
-  // hue, saturation, and brightness
+  // 色相、彩度、明度
   colorMode(HSB, 255);
-  // slider has a range between 0 and 255 with a starting value of 127
+  // スライダーは0〜255の範囲で、開始値は127です。
   slider = createSlider(0, 255, 127);
 }
 
@@ -20,7 +20,7 @@ function draw() {
   background(127);
   strokeWeight(2);
 
-  // Set the hue according to the slider
+  // スライダーにしたがって色相を設定します。
   stroke(slider.value(), 255, 255);
   fill(slider.value(), 255, 255, 127);
   ellipse(360, 200, 200, 200);

@@ -1,10 +1,10 @@
 /*
- * @name Keyboard
- * @arialabel Each letter on the keyboard draws a different color rectangle on the grey screen when pressed
- * @description Click on the image to give it focus and
- * press the letter keys to create forms in time and space.
- * Each key has a unique identifying number. These numbers
- * can be used to position shapes in space.
+ * @name キーボード
+ * @arialabel キーボードの各文字を押すと、灰色の画面にさまざまな色の四角形が描かれます。
+ * @description 画面をクリックしてフォーカスをあて文字キーを押すと、そのキーと回数にもとづいて四角形を作り出します。
+ * 各キーには、固有の識別番号があります。
+ * これらの番号は、
+ * 空間の中で四角形を配置するために使用することができます。
  */
 let rectWidth;
 
@@ -16,19 +16,19 @@ function setup() {
 }
 
 function draw() {
-  // keep draw() here to continue looping while waiting for keys
+  // キーを待っている間、ループを続けるために draw() を書いておきます。
 }
 
 function keyPressed() {
   let keyIndex = -1;
-  if (key >= 'a' && key <= 'z') {
-    keyIndex = key.charCodeAt(0) - 'a'.charCodeAt(0);
+  if (key >= "a" && key <= "z") {
+    keyIndex = key.charCodeAt(0) - "a".charCodeAt(0);
   }
   if (keyIndex === -1) {
-    // If it's not a letter key, clear the screen
+    // 文字キーでない場合、画面をクリアします。
     background(230);
   } else {
-    // It's a letter key, fill a rectangle
+    // 文字キーの場合、長方形を塗りつぶします。
     randFill_r = Math.floor(Math.random() * 255 + 1);
     randFill_g = Math.floor(Math.random() * 255 + 1);
     randFill_b = Math.floor(Math.random() * 255 + 1);

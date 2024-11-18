@@ -1,18 +1,18 @@
 /*
- * @name Wolfram CA
- * @arialabel 1-dimensional cellular automata is depicted which is a pyramid shape with a design consisting of white squares that create a pixelated look
- * @description Simple demonstration of a Wolfram 1-dimensional cellular automata
+ * @name Wolfram のセルオートマトン
+ * @arialabel 1次元セルオートマトンは、白い正方形から構成されたデザインで、ピクセル化された外観をもつピラミッド形状が描かれています。
+ * @description Wolfram の1次元セルオートマトンのシンプルなデモンストレーション
  * (<a href="http://natureofcode.com">natureofcode.com</a>)
  */
 
 let w = 10;
-// An array of 0s and 1s
+// 0と1の配列
 let cells;
 
- // We arbitrarily start with just the middle cell having a state of "1"
+// 最初の世代は中央のセルだけが状態「1」であるとします。
 let generation = 0;
 
-// An array to store the ruleset, for example {0,1,1,0,1,1,0,1}
+// ルールセットを格納する配列、例: {0,1,1,0,1,1,0,1}
 let ruleset = [0, 1, 0, 1, 1, 0, 1, 0];
 
 function setup() {
@@ -21,8 +21,7 @@ function setup() {
   for (let i = 0; i < cells.length; i++) {
     cells[i] = 0;
   }
-  cells[cells.length/2] = 1;
-
+  cells[cells.length / 2] = 1;
 }
 
 function draw() {
@@ -31,35 +30,34 @@ function draw() {
       fill(200);
     } else {
       fill(51);
-      noStroke();
-      rect(i * w, generation * w, w, w);
     }
+    noStroke();
+    rect(i * w, generation * w, w, w);
   }
-  if (generation < height/w) {
+  if (generation < height / w) {
     generate();
   }
 }
 
-// The process of creating the new generation
+// 新しい世代を作るプロセス
 function generate() {
-  // First we create an empty array for the new values
+  // 最初に新しい値を格納するための空の配列を作成します。
   let nextgen = Array(cells.length);
-  // For every spot, determine new state by examing current state, and neighbor states
-  // Ignore edges that only have one neighor
-  for (let i = 1; i < cells.length-1; i++) {
-    let left   = cells[i-1];   // Left neighbor state
-    let me     = cells[i];     // Current state
-    let right  = cells[i+1];   // Right neighbor state
-    nextgen[i] = rules(left, me, right); // Compute next generation state based on ruleset
+  // 各セルについて、現在の状態と隣接するセルの状態を調べて、新しい状態を決定します。
+  // 隣接するセルがひとつしかない端のセルは無視します。
+  for (let i = 1; i < cells.length - 1; i++) {
+    let left = cells[i - 1]; // 左側のセルの状態
+    let me = cells[i]; // 現在のセルの状態
+    let right = cells[i + 1]; // 右側のセルの状態
+    nextgen[i] = rules(left, me, right); // ルールセットに基づいて新しい状態を決定します。
   }
-  // The current generation is the new generation
+  // 現在の世代を新しい世代に更新します。
   cells = nextgen;
   generation++;
 }
 
-
-// Implementing the Wolfram rules
-// Could be improved and made more concise, but here we can explicitly see what is going on for each case
+// Wolfram のルールの実装
+// もっと簡潔に改善できますが、ここではそれぞれのケースごとに起こっていることが、はっきりわかるように実装しています。
 function rules(a, b, c) {
   if (a == 1 && b == 1 && c == 1) return ruleset[0];
   if (a == 1 && b == 1 && c == 0) return ruleset[1];
@@ -71,4 +69,3 @@ function rules(a, b, c) {
   if (a == 0 && b == 0 && c == 0) return ruleset[7];
   return 0;
 }
-

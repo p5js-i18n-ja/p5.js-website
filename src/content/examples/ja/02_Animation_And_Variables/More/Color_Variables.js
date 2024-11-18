@@ -1,8 +1,8 @@
 /*
- * @name Color Variables
- * @arialabel Two squares on a brown background. Both squares are made up of two squares in a larger square. On the left, the outer square is burnt umber, the middle square is golden, and the center square is orange. On the right, the outer square is orange, the middle is burnt umber, and the middle is golden
- * @description (Homage to Albers.) This example creates variables for colors
- * that may be referred to in the program by a name, rather than a number.
+ * @name カラー変数
+ * @arialabel 茶色の背景に左右に2つの正方形があります。どちらの正方形も大きな正方形の中に2つの正方形が入っています。左は、外側の正方形が焦げた土のような茶色、中央の正方形が金色、中央の正方形がオレンジ色になっています。右は、外側の正方形がオレンジ色、真ん中の正方形が焦げた土のような茶色、真ん中の正方形が金色になっています。
+ * @description (Albers へのオマージュです。) この例では、数値ではなく、
+ * プログラム内で参照可能な色の名前で、色の変数を作成しています。（訳注: 実際には数値で色指定されています。）
  */
 function setup() {
   createCanvas(710, 400);
@@ -13,8 +13,8 @@ function setup() {
   let middle = color(204, 153, 0);
   let outside = color(153, 51, 0);
 
-  // These statements are equivalent to the statements above.
-  // Programmers may use the format they prefer.
+  // これらの宣言は、上記の宣言と同等の意味です。
+  // プログラマーは好きな形式を使うことができます。
   //let inside = color('#CC6600');
   //let middle = color('#CC9900');
   //let outside = color('#993300');

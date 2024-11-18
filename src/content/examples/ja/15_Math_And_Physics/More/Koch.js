@@ -1,38 +1,38 @@
 /*
- * @name Koch Curve
- * @arialabel Koch snowflake is created by a single horizontal white line on a black background that then morphs into a triangle in the middle, and then each side of the triangle also becomes two more triangles, and this repeats 5 times
- * @description Renders a simple fractal, the Koch snowflake. Each recursive level is drawn in sequence.
- * By Daniel Shiffman
+ * @name コッホ曲線
+ * @arialabel 一本の白い水平線が黒い背景上に描かれ、途中で三角形に変形し、三角形の各辺がまた二つの三角形になり、これが5回繰り返されることで雪の結晶を生成します。
+ * @description 簡単なフラクタル: コッホ曲線を描画します。再帰レベルが順番に描かれます。
+ * Daniel Shiffman による例です。
  */
 
 let k;
 
 function setup() {
   createCanvas(710, 400);
-  frameRate(1);  // Animate slowly
+  frameRate(1); // アニメーションをゆっくりに
   k = new KochFractal();
 }
 
 function draw() {
   background(0);
-  // Draws the snowflake!
+  // 雪片を描きます！
   k.render();
-  // Iterate
+  // 反復
   k.nextLevel();
-  // Let's not do it more than 5 times. . .
+  // 5回以上繰り返さないように...
   if (k.getCount() > 5) {
     k.restart();
   }
 }
 
-// A class to describe one line segment in the fractal
-// Includes methods to calculate midp5.Vectors along the line according to the Koch algorithm
+// フラクタルのひとつの線分を説明するクラス
+// コッホアルゴリズムにしたがって、線分に沿って中間 p5.Vector を計算するメソッドを含みます。
 
 class KochLine {
-  constructor(a,b) {
-    // Two p5.Vectors,
-    // start is the "left" p5.Vector and
-    // end is the "right p5.Vector
+  constructor(a, b) {
+    // 2つの p5.Vector、
+    // start は「左側」の p5.Vector
+    // end は「右側」の p5.Vector
     this.start = a.copy();
     this.end = b.copy();
   }
@@ -46,7 +46,7 @@ class KochLine {
     return this.start.copy();
   }
 
-  // This is easy, just 1/3 of the way
+  // 単純に3分の1の距離です。
   kochB() {
     let v = p5.Vector.sub(this.end, this.start);
     v.div(3);
@@ -54,21 +54,21 @@ class KochLine {
     return v;
   }
 
-  // More complicated, have to use a little trig to figure out where this p5.Vector is!
+  // さらに複雑なことに、この p5.Vector がどこにあるかを計算するために少し三角法を使う必要があります！
   kochC() {
-    let a = this.start.copy(); // Start at the beginning
+    let a = this.start.copy(); // 最初から始めます。
     let v = p5.Vector.sub(this.end, this.start);
     v.div(3);
-    a.add(v);  // Move to point B
-    v.rotate(-PI/3); // Rotate 60 degrees
-    a.add(v);  // Move to point C
+    a.add(v); // ポイント B に移動します。
+    v.rotate(-PI / 3); // 60度回転します。
+    a.add(v); // ポイント C に移動します。
     return a;
   }
 
-  // Easy, just 2/3 of the way
+  // 単純に3分の2の距離です。
   kochD() {
     let v = p5.Vector.sub(this.end, this.start);
-    v.mult(2/3.0);
+    v.mult(2 / 3.0);
     v.add(this.start);
     return v;
   }
@@ -78,64 +78,64 @@ class KochLine {
   }
 }
 
-// A class to manage the list of line segments in the snowflake pattern
+// 雪片パターンの線分リストを管理するクラス
 
 class KochFractal {
   constructor() {
-    this.start = createVector(0,height-20);   // A p5.Vector for the start
-    this.end = createVector(width,height-20); // A p5.Vector for the end
-    this.lines = [];                         // An array to keep track of all the lines
+    this.start = createVector(0, height - 20); // 開始用の p5.Vector
+    this.end = createVector(width, height - 20); // 終了用の p5.Vector
+    this.lines = []; // すべての線を追跡する配列
     this.count = 0;
     this.restart();
   }
 
   nextLevel() {
-    // For every line that is in the arraylist
-    // create 4 more lines in a new arraylist
+    // 配列リストにある各線について
+    // 新しい配列リストに4つの線を作成します。
     this.lines = this.iterate(this.lines);
     this.count++;
   }
 
   restart() {
-    this.count = 0;      // Reset count
-    this.lines = [];  // Empty the array list
-    this.lines.push(new KochLine(this.start,this.end));  // Add the initial line (from one end p5.Vector to the other)
+    this.count = 0; // カウントをリセットします。
+    this.lines = []; // 配列リストを空にします。
+    this.lines.push(new KochLine(this.start, this.end)); // 初期線（ひとつのエンド p5.Vector からもうひとつのエンド p5.Vector への線）を追加します。
   }
 
   getCount() {
     return this.count;
   }
 
-  // This is easy, just draw all the lines
+  // すべての線を描画するだけです。
   render() {
-    for(let i = 0; i < this.lines.length; i++) {
+    for (let i = 0; i < this.lines.length; i++) {
       this.lines[i].display();
     }
   }
 
-  // This is where the **MAGIC** happens
-  // Step 1: Create an empty arraylist
-  // Step 2: For every line currently in the arraylist
-  //   - calculate 4 line segments based on Koch algorithm
-  //   - add all 4 line segments into the new arraylist
-  // Step 3: Return the new arraylist and it becomes the list of line segments for the structure
+  // ここが **MAGIC**が起こる場所です。
+  // ステップ1: 空の配列リストを作成します。
+  // ステップ2: 現在の配列リストにあるすべての線について
+  //   - コッホアルゴリズムに基づいて4つの線分を計算します。
+  //   - すべての4つの線分を新しい配列リストに追加します。
+  // ステップ3: 新しい配列リストを返し、それが構造の線分リストになります。
 
-  // As we do this over and over again, each line gets broken into 4 lines, which gets broken into 4 lines, and so on. . .
+  // これを何度も繰り返すと、各線が4つの線に分かれ、4つの線に分かれ、、、と繰り返すようになります。
   iterate(before) {
-    let now = [];    // Create emtpy list
-    for(let i = 0; i < this.lines.length; i++) {
+    let now = []; // 空のリストを作成します。
+    for (let i = 0; i < this.lines.length; i++) {
       let l = this.lines[i];
-      // Calculate 5 koch p5.Vectors (done for us by the line object)
+      // コッホ p5.Vector を5つ計算します（線オブジェクトによって行われます）。
       let a = l.kochA();
       let b = l.kochB();
       let c = l.kochC();
       let d = l.kochD();
       let e = l.kochE();
-      // Make line segments between all the p5.Vectors and add them
-      now.push(new KochLine(a,b));
-      now.push(new KochLine(b,c));
-      now.push(new KochLine(c,d));
-      now.push(new KochLine(d,e));
+      // すべての p5.Vector 間に線分を作成して追加します。
+      now.push(new KochLine(a, b));
+      now.push(new KochLine(b, c));
+      now.push(new KochLine(c, d));
+      now.push(new KochLine(d, e));
     }
     return now;
   }

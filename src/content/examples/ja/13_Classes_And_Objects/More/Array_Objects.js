@@ -1,7 +1,7 @@
 /*
- * @name Array Objects
- * @arialabel Small white circles all over a black background that move side to side and sometimes collide and bounce off of each other 
- * @description Demonstrates the syntax for creating an array of custom objects.
+ * @name 配列オブジェクト
+ * @arialabel 黒い背景の上で小さな白い円が左右に動き、ときにはぶつかり合い跳ね返ります。
+ * @description この構文はカスタムオブジェクトの配列を生成するデモンストレーションです。
  */
 
 class Module {
@@ -16,7 +16,7 @@ class Module {
     this.yDir = 1;
   }
 
-  // Custom method for updating the variables
+  // 変数を更新するためのカスタムメソッド
   update() {
     this.x = this.x + this.speed * this.xDir;
     if (this.x >= this.unit || this.x <= 0) {
@@ -30,7 +30,7 @@ class Module {
     }
   }
 
-  // Custom method for drawing the object
+  // オブジェクトを描画するためのカスタムメソッド
   draw() {
     fill(255);
     ellipse(this.xOff + this.x, this.yOff + this.y, 6, 6);
@@ -57,7 +57,7 @@ function setup() {
         unit / 2,
         unit / 2,
         random(0.05, 0.8),
-        unit
+        unit,
       );
     }
   }

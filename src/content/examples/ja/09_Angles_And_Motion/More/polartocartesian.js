@@ -1,13 +1,13 @@
 /*
- * @name PolarToCartesian
- * @arialabel Grey circle travels faster and faster in a circle path on a black background
- * @description Convert a polar coordinate (r,θ)
- * to cartesian (x,y): x = r cos(θ), y = r sin(θ)
- * Original by Daniel Shiffman.
+ * @name 極座標からデカルト座標へ
+ * @arialabel 黒い背景の上を灰色の円が円を描くようにどんどん進んでいきます。
+ * @description 極座標(r,θ)を、デカルト座標(x,y)に変換:
+ * x = r cos(θ), y = r sin(θ)
+ * オリジナルは Daniel Shiffman のものです。
  */
 let r;
 
-// Angle and angular velocity, accleration
+// 角度、角速度、加速度
 let theta;
 let theta_vel;
 let theta_acc;
@@ -15,7 +15,7 @@ let theta_acc;
 function setup() {
   createCanvas(710, 400);
 
-  // Initialize all values
+  // すべての値を初期化します。
   r = height * 0.45;
   theta = 0;
   theta_vel = 0;
@@ -25,21 +25,21 @@ function setup() {
 function draw() {
   background(0);
 
-  // Translate the origin point to the center of the screen
+  // 原点を画面の中心に移動させます。
   translate(width / 2, height / 2);
 
-  // Convert polar to cartesian
+  // 曲座標からデカルト座標への変換
   let x = r * cos(theta);
   let y = r * sin(theta);
 
-  // Draw the ellipse at the cartesian coordinate
+  // デカルト座標で楕円を描きます。
   ellipseMode(CENTER);
   noStroke();
   fill(200);
   ellipse(x, y, 32, 32);
 
-  // Apply acceleration and velocity to angle
-  // (r remains static in this example)
+  // 角度に加速度と速度を適用します。
+  // (この例では r は変えていません。）
   theta_vel += theta_acc;
   theta += theta_vel;
 }

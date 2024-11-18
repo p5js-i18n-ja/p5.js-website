@@ -1,7 +1,7 @@
 /*
- * @name Sine Cosine in 3D
- * @arialabel Geometric spheres moving in different spiral shapes in a 3D space
- * @description Sine, cosine and push / pop could be applied in 3D as well.
+ * @name 3D での正弦・余弦
+ * @arialabel 3D 空間で、幾何学的な球体が異なる螺旋形状を描きながら動きます。
+ * @description 3D 空間でも正弦（サイン、Sine）、余弦（コサイン、Cosine）、push / pop が使えます。
  */
 function setup() {
   createCanvas(710, 400, WEBGL);
@@ -17,7 +17,7 @@ function draw() {
       translate(
         sin(frameCount * 0.001 + j) * 100,
         sin(frameCount * 0.001 + j) * 100,
-        i * 0.1
+        i * 0.1,
       );
       rotateZ(frameCount * 0.002);
       push();

@@ -1,43 +1,43 @@
 /*
- * @name Noise3D
- * @arialabel Gradient noise 
+ * @name ノイズ 3D
+ * @arialabel ノイズのグラデーションです。
  * @frame 710,400 (optional)
- * @description Using 3D noise to create simple animated texture.
+ * @description 3D ノイズを使用してシンプルなアニメーションテクスチャを作成します。
  */
 
 let noiseVal;
-//Increment x by 0.01
+// x増分を 0.01 にセットします。
 let x_increment = 0.01;
-//Increment z by 0.02 every draw() cycle
+// draw() が呼ばれる各サイクルでの z増分を 0.02 にセットします。
 let z_increment = 0.02;
 
-//Offset values
+// オフセット値
 let z_off, y_off, x_off;
 
 function setup() {
-  //Create the Canvas
+  // キャンバスを作成します。
   createCanvas(640, 360);
-  //Define frame rate
+  // フレームレートを設定します。
   frameRate(20);
-  //Initial value of z_off
+  // z_offの初期値
   z_off = 0;
 }
 
 function draw() {
   x_off = 0;
   y_off = 0;
-  //Make the background black
+  // 背景を黒にします。
   background(0);
-  //Adjust the noice detail
+  // ノイズのディテールを調整します。
   noiseDetail(8, 0.65);
 
-  //For each x,y calculate noice value
+  // x、y 毎でノイズ値を計算します。
   for (let y = 0; y < height; y++) {
     x_off += x_increment;
     y_off = 0;
 
     for (let x = 0; x < width; x++) {
-      //Calculate and Draw each pixel
+      //それぞれのピクセルを計算し、描画します。
       noiseVal = noise(x_off, y_off, z_off);
       stroke(noiseVal * 255);
       y_off += x_increment;

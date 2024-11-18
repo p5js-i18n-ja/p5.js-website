@@ -1,8 +1,8 @@
 /*
- * @name Chain
- * @arialabel Two slightly opaque white circles connected by a white line. The user’s mouse moves the top of the string and the circles follow but are also affected by gravity.
- * @description One mass is attached to the mouse position and the other is attached the position of the other mass. The gravity in the environment pulls down on both.
- * <br><br><small><em>This example is ported from the <a href="https://processing.org/examples/">Processing website</a></em></small>
+ * @name チェーン
+ * @arialabel 白いやや不透明な2つの円が白い線で繋がれています。ユーザーのマウスに合わせて弦の上部が動き、円もマウスに合わせて動きますが重力の影響も受けます。
+ * @description ひとつめの円はマウスの位置に、ふたつめの円はひとつめの円の位置に結び付けられます。環境の重力は両方に対して下向きに働きます。
+ * <br><br><small><em>この例は <a href="https://processing.org/examples/">Processing のウェブサイト</a> から移植されました。</em></small>
  */
 let s1, s2;
 let gravity = 9.0;
@@ -11,7 +11,7 @@ let mass = 2.0;
 function setup() {
   createCanvas(720, 400);
   fill(255, 126);
-  // Inputs: x, y, mass, gravity
+  // 入力: x、y、mass、gravity
   s1 = new Spring2D(0.0, width / 2, mass, gravity);
   s2 = new Spring2D(0.0, width / 2, mass, gravity);
 }
@@ -25,9 +25,9 @@ function draw() {
 }
 
 function Spring2D(xpos, ypos, m, g) {
-  this.x = xpos;// The x- and y-coordinates
+  this.x = xpos; // x 座標と y 座標
   this.y = ypos;
-  this.vx = 0; // The x- and y-axis velocities
+  this.vx = 0; // x 軸と y 軸の速度
   this.vy = 0;
   this.mass = m;
   this.gravity = g;
@@ -35,7 +35,7 @@ function Spring2D(xpos, ypos, m, g) {
   this.stiffness = 0.2;
   this.damping = 0.7;
 
-  this.update = function(targetX, targetY) {
+  this.update = function (targetX, targetY) {
     let forceX = (targetX - this.x) * this.stiffness;
     let ax = forceX / this.mass;
     this.vx = this.damping * (this.vx + ax);
@@ -45,12 +45,12 @@ function Spring2D(xpos, ypos, m, g) {
     let ay = forceY / this.mass;
     this.vy = this.damping * (this.vy + ay);
     this.y += this.vy;
-  }
+  };
 
-  this.display = function(nx, ny) {
+  this.display = function (nx, ny) {
     noStroke();
     ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
     stroke(255);
     line(this.x, this.y, nx, ny);
-  }
+  };
 }

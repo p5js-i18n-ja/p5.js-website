@@ -1,7 +1,7 @@
 /*
- * @name Sine
- * @arialabel Three yellow circles grow larger and smaller on a black background 
- * @description Smoothly scaling size with the sin() function.
+ * @name サイン
+ * @arialabel 黒い背景に3つの黄色い円が大きくなったり小さくなったりしています。
+ * @description sin() 関数でサイズを滑らかに拡大縮小します。
  */
 let diameter;
 let angle = 0;

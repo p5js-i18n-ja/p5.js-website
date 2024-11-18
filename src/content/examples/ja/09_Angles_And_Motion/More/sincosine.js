@@ -1,10 +1,10 @@
 /*
- * @name Sine Cosine
- * @arialabel Two blue and two yellow circles move side to side on each side of a white square
- * @description Linear movement with sin() and cos().
- * Numbers between 0 and 2π (2π which angles roughly 6.28)
- * are put into these functions and numbers between -1 and 1 are returned.
- * These values are then scaled to produce larger movements.
+ * @name サイン・コサイン
+ * @arialabel 2つの青い円と2つの黄色い円が、白い正方形の各辺を行ったり来たりします。
+ * @description 線形移動は sin(）と cos(）を使用しています。
+ * 0 と 2π の範囲の数値（2π は大体 6.28 の角度）が
+ * 関数に入力され、-1 から 1 までの値が返されます。
+ * これらの値は、大きな動きを生み出すためにスケーリングされます。
  */
 let angle1 = 0;
 let angle2 = 0;

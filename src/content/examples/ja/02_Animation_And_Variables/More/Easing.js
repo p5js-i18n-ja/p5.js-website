@@ -1,12 +1,12 @@
 /*
- * @name Easing
- * @arialabel Pink background with a white circle that the user can move around by hovering over the circle
- * @description Move the mouse across the screen and the symbol
- * will follow. Between drawing each frame of the animation, the
- * program calculates the difference between the position of the
- * symbol and the cursor. If the distance is larger than 1 pixel,
- * the symbol moves part of the distance (0.05) from its current
- * position toward the cursor.
+ * @name イージング
+ * @arialabel ピンクの背景に白い円があり、ユーザーがマウス移動するとホバリングしながら円がついてきます。
+ * @description マウスを画面全体に動かすと、シンボルが追従します。
+ * アニメーションの各フレームを描画する間に、
+ * プログラムはシンボルの位置とカーソルの位置の差を計算します。
+ * もしその差が 1 ピクセルより大きければ、
+ * シンボルは現在の位置からカーソルに向かって
+ * 距離の一部（ 0.05 ）だけ移動します。
  */
 let x = 1;
 let y = 1;

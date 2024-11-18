@@ -1,10 +1,10 @@
 /*
- * @name Linear
- * @arialabel Horizontal white line on a black background traveling from the bottom to the top of the screen parallel to the x axis
+ * @name 線型
+ * @arialabel 黒い背景に、画面の下から上に向かって x 軸に水平な白い線が移動しています。
  * @frame 720,400
- * @description Changing a variable to create a moving line.
- * When the line moves off the edge of the window,
- * the variable is set to 0, which places the line back at the bottom of the screen.
+ * @description 変数を変更して移動する線を作成します。
+ * 線がウィンドウの端から出ると、
+ * 変数は0に設定され、線が画面の下部に戻ります。
  */
 
 let a;

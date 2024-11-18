@@ -1,25 +1,25 @@
 /*
- * @name Operator Precedence
- * @arialabel Grey background with two rectangles outlined in white on the left, and white vertical lines on the top and bottom 
- * @description If you don't explicitly state the order in which an
- * expression is evaluated, they are evaluated based on the operator
- * precedence. For example, in the statement "4+2*8", the 2 will
- * first be multiplied by 8 and then the result will be added to 4.
- * This is because the "*" has a higher precedence than the "+". To avoid
- * ambiguity in reading the program, it is recommended that is statement
- * is written as "4+(2*8)". The order of evaluation can be controlled
- * through placement of parenthesis in the code. A table of operator
- * precedence follows below.
+ * @name 演算子の優先順位
+ * @arialabel 灰色の背景に、左側に白で輪郭を描いた2つの長方形、上下に白の縦線があります。
+ * @description 式の評価順序を明示的に指定しない場合、
+ * 評価は演算子の優先順位に基づいて行われます。
+ * たとえば、文 "4+2*8" では、2が最初に8に掛けられ、
+ * その結果が4に加算されます。
+ * これは、 "*" が "+" よりも高い優先順位を持っているからです。
+ * プログラムの読解において曖昧さを避けるために、
+ * この文は "4+(2*8)" と書くことを推奨します。
+ * 評価の順序はコード内の括弧の配置を通じて制御することができます。
+ * 以下に演算子の優先順位の表を挙げます。
  */
-// The highest precedence is at the top of the list and
-// the lowest is at the bottom.
-// Multiplicative: * / %
-// Additive: + -
-// Relational: < > <= >=
-// Equality: == !=
-// Logical AND: &&
-// Logical OR: ||
-// Assignment: = += -= *= /= %=
+// 最高の優先度はリストの一番上にあり、
+// 最低の優先度は一番下にあります。
+// 乗算: * / %
+// 加算: + -
+// 関係: < > <= >=
+// 等価性: == !=
+// 論理積: &&
+// 論理和: ||
+// 代入: = += -= *= /= %=
 function setup() {
   createCanvas(710, 400);
   background(51);
@@ -28,26 +28,26 @@ function setup() {
 
   stroke(204);
   for (let i = 0; i < width - 20; i += 4) {
-    // The 30 is added to 70 and then evaluated
-    // if it is greater than the current value of "i"
-    // For clarity, write as "if (i > (30 + 70)) {"
+    // まず 30 が 70 に加えられ、
+    // それが "i" の現在の値よりも大きい場合という評価が行われます。
+    // 明確にするために、 "if (i > (30 + 70)) {" と書いてください。
     if (i > 30 + 70) {
       line(i, 0, i, 50);
     }
   }
 
   stroke(255);
-  // The 2 is multiplied by the 8 and the result is added to the 4
-  // For clarity, write as "rect(5 + (2 * 8), 0, 90, 20);"
+  // 2 が 8 と掛けられ、その結果が 4 に加えられます
+  // 明確にするために、 "rect(5 + (2 * 8), 0, 90, 20);" のように書いてください。
   rect(4 + 2 * 8, 52, 290, 48);
   rect((4 + 2) * 8, 100, 290, 49);
 
   stroke(153);
   for (let i = 0; i < width; i += 2) {
-    // The relational statements are evaluated
-    // first, and then the logical AND statements and
-    // finally the logical OR. For clarity, write as:
+    // 関係文が先に評価され、次に論理積(AND)が実行され、
+    // 最後に論理積(OR)が行われます。明確にするために、
     // "if(((i > 20) && (i < 50)) || ((i > 100) && (i < width-20))) {"
+    // のように書いてください。
     if ((i > 20 && i < 50) || (i > 100 && i < width - 20)) {
       line(i, 151, i, height - 1);
     }

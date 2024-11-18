@@ -1,8 +1,8 @@
 /*
- * @name Bouncy Bubbles
- * @arialabel Grey circles of varying sizes bounce off the sides of the canvas and each other, eventually settling on the bottom of the screen
+ * @name はねかえる泡
+ * @arialabel 大きさが異なる灰色の円がキャンバスの周りや互いに跳ね返りながら、画面下部に落ち着いていきます。
  * @frame 720,400
- * @description  based on code from Keith Peters. Multiple-object collision..
+ * @description Keith Peters の、たくさんのオブジェクトの衝突判定のコードがベースになっています。
  */
 
 let numBalls = 13;
@@ -19,7 +19,7 @@ function setup() {
       random(height),
       random(30, 70),
       i,
-      balls
+      balls,
     );
   }
   noStroke();
@@ -28,7 +28,7 @@ function setup() {
 
 function draw() {
   background(0);
-  balls.forEach(ball => {
+  balls.forEach((ball) => {
     ball.collide();
     ball.move();
     ball.display();

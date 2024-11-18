@@ -1,8 +1,9 @@
 /*
- * @name Noise2D
- * @arialabel Two gradient, perlin noises, one on the left and one on the right
+ * @name ノイズ 2D
+ * @arialabel パーリンノイズによる２つのグラデーションが左右に１つずつあります。
  * @frame 710,400 (optional)
- * @description Create a 2D noise with different parameters.
+ * @description 異なるパラメーターで2Dノイズを作成します。
+ *
  */
 
 let noiseScale = 0.02;
@@ -15,11 +16,12 @@ function drawNoise(x, y, w, h) {
   for (let pixelY = y; pixelY < y + h; pixelY++) {
     for (let pixelX = x; pixelX < x + w; pixelX++) {
       let noiseVal =
-        noise((mouseX + pixelX) * noiseScale, (mouseY + pixelY) * noiseScale) * 255;
+        noise((mouseX + pixelX) * noiseScale, (mouseY + pixelY) * noiseScale) *
+        255;
 
       let index = 4 * (pixelY * width + pixelX);
 
-      pixels[index]     = noiseVal;
+      pixels[index] = noiseVal;
       pixels[index + 1] = noiseVal;
       pixels[index + 2] = noiseVal;
       pixels[index + 3] = 255;
@@ -32,7 +34,7 @@ function draw() {
 
   loadPixels();
 
-  // Draw the left half of image
+  // /// Draw the left half of image
   noiseDetail(2, 0.2);
   drawNoise(0, 0, width / 2, height - 30);
 

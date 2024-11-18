@@ -1,34 +1,33 @@
 /*
- * @name Animation
- * @arialabel Light grey background with a dark grey circle that is traveling up from the middle of the bottom of the screen as it moves slightly side-to-side
- * @description The circle moves.
+ * @name アニメーション
+ * @arialabel 薄い灰色の背景に、濃い灰色の円が画面下部の中央から登場し、左右に少し動きながら上に移動しています。
+ * @description 円が動きます。
  */
-// Where is the circle
+// 円がどこにあるのか
 let x, y;
 
 function setup() {
   createCanvas(720, 400);
-  // Starts in the middle
+  // 真ん中からスタートします。
   x = width / 2;
   y = height;
 }
 
 function draw() {
   background(200);
-  
-  // Draw a circle
+
+  // 円を描きます。
   stroke(50);
   fill(100);
   ellipse(x, y, 24, 24);
-  
-  // Jiggling randomly on the horizontal axis
+
+  // 横軸にランダムにジグザグに動きます。
   x = x + random(-1, 1);
-  // Moving up at a constant speed
+  // 一定速度で上昇します。
   y = y - 1;
-  
-  // Reset to the bottom
+
+  // 画面下部にリセットします。
   if (y < 0) {
     y = height;
   }
 }
-

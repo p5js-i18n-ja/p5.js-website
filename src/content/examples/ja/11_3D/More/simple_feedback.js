@@ -3,7 +3,7 @@
  * @arialabel An example of a simple feedback effect using two buffers.
  * @description A simple feedback effect that is achieved by using two WebGL graphics buffers.
  *              This effect works by drawing the previous frame to a second
- *              createGraphics() buffer, which can be blended with the current frame. This 
+ *              createGraphics() buffer, which can be blended with the current frame. This
  *              takes advantage of texture mapping in WebGL.
  */
 
@@ -18,7 +18,7 @@ function setup() {
   swap = createGraphics(710, 400, WEBGL);
 
   describe(
-    'a slowly oscillating, radiating white sphere that fades into a dark gray background through a feedback visual effect'
+    "a slowly oscillating, radiating white sphere that fades into a dark gray background through a feedback visual effect",
   );
 }
 

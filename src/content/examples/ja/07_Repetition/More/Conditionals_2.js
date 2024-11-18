@@ -1,26 +1,26 @@
 /*
- * @name Conditionals 2
- * @arialabel The top half of the window has spaced out vertical lines. The bottom half of the window has more condensed vertical lines
- * @description We extend the language of conditionals from the previous
- * example by adding the keyword "else". This allows conditionals
- * to ask two or more sequential questions, each with a different
- * action.
+ * @name 条件 2
+ * @arialabel 画面の上半分は縦線が間隔をあけて表示されています。画面の下半分には、狭い間隔で縦線が配置されています。
+ * @description 前の例から条件文の使い方をを拡張し、
+ * キーワード「else」を追加します。
+ * これにより、条件文は2つ以上の連続した質問を行い、
+ * それぞれに異なるアクションを実行することが可能になります。
  */
 function setup() {
   createCanvas(720, 360);
   background(0);
 
   for (let i = 2; i < width - 2; i += 4) {
-    // If 'i' divides by 20 with no remainder
+    // i 変数が 20 で割り切れる場合
     if (i % 20 === 0) {
       stroke(255);
       line(i, 80, i, height / 2);
-      // If 'i' divides by 10 with no remainder
+      // i 変数が 10 で割り切れる場合
     } else if (i % 10 === 0) {
       stroke(153);
       line(i, 20, i, 180);
-      // If neither of the above two conditions are met
-      // then draw this line
+      // 上記の2つの条件のどちらも満たさない場合は、
+      // 次の線を引きます。
     } else {
       stroke(102);
       line(i, height / 2, i, height - 20);

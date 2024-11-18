@@ -1,9 +1,9 @@
 /*
- * @name Points and Lines
- * @arialabel White outline of a square on a black background
- * @description Points and lines can be used to draw basic geometry.
- * Change the value of the variable 'd' to scale the form. The four
- * variables set the positions based on the value of 'd'.
+ * @name 点と線
+ * @arialabel 黒い背景に白い正方形の輪郭線の描画します。
+ * @description 点や線を使って基本的な形を描くことができます。
+ * 変数「d」の値を変えることで形のスケールを調整できます。
+ * 4つの変数は「d」の値に基づいて位置を設定します。
  */
 function setup() {
   let d = 70;
@@ -12,21 +12,21 @@ function setup() {
   let p3 = p2 + d;
   let p4 = p3 + d;
 
-  // Sets the screen to be 720 pixels wide and 400 pixels high
+  // 画面の幅を720ピクセル、高さを400ピクセルに設定します。
   createCanvas(720, 400);
   background(0);
   noSmooth();
 
   translate(140, 0);
 
-  // Draw gray box
+  // 灰色の箱を描画します。
   stroke(153);
   line(p3, p3, p2, p3);
   line(p2, p3, p2, p2);
   line(p2, p2, p3, p2);
   line(p3, p2, p3, p3);
 
-  // Draw white points
+  // 白い点を描画します。
   stroke(255);
   point(p1, p1);
   point(p1, p3);

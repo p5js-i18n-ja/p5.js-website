@@ -1,68 +1,67 @@
 /*
- * @name Bubble Sort
- * @arialabel Dark grey bars of different heights on a light grey background are sorted from tallest to shortest from the right to the left side of the screen
- * @description Sorts the randomly distributed bars 
- * according to their height in ascending order
- * while simulating the whole sorting process.
- * Took references from Coding Challenge by The Coding Train.
+ * @name バブルソート
+ * @arialabel ライト灰色の背景に、高さが異なる濃い灰色のバーが並び、画面の右側から左側に向かって、高いバーから低いバーの順に並び替えられます。
+ * @description ランダムに配置されたバーを
+ * 高さが昇順になるようにソートして、
+ * 並べ替えのプロセス全体をシミュレーションします。
+ * The Coding Train による Coding Challenge を参考にしました。
  */
 
 let values = [];
 let i = 0;
 let j = 0;
 
-// The statements in the setup() function
-// execute once when the program begins
-// The array is filled with random values in setup() function.
+// setup() 関数内の文はプログラムが開始されたときに
+// 一度実行されます。
+// 配列は setup() 関数内でランダムな値で埋められます。
 function setup() {
   createCanvas(720, 400);
-  for(let i = 0;i<width/8;i++){
+  for (let i = 0; i < width / 8; i++) {
     values.push(random(height));
   }
 }
 
-// The statements in draw() function are executed until the
-// program is stopped. Each statement is executed in
-// sequence and after the last line is read, the first
-// line is executed again.
+// draw() 関数内の文はプログラムが停止するまで
+// 繰り返し実行されます。
+// 各文は順次実行され、最後の行が読み込まれた後に、
+// 最初の行が再度実行されます。
 function draw() {
   background(220);
   bubbleSort();
   simulateSorting();
 }
 
-// The bubbleSort() function sorts taking 8 elements of the array
-// per frame. The algorithm behind this function is 
-// bubble sort.
+// bubbleSort() 関数は、配列の8つの要素を
+// 1フレームごとに取り出してソートします。
+// この関数の背後にあるアルゴリズムはバブルソートです。
 function bubbleSort() {
-  for(let k = 0;k<8;k++){
-    if(i<values.length){
+  for (let k = 0; k < 8; k++) {
+    if (i < values.length) {
       let temp = values[j];
-      if(values[j] > values[j+1]){
-        values[j] = values[j+1];
-        values[j+1] = temp;
+      if (values[j] > values[j + 1]) {
+        values[j] = values[j + 1];
+        values[j + 1] = temp;
       }
       j++;
-      
-      if(j>=values.length-i-1){
+
+      if (j >= values.length - i - 1) {
         j = 0;
         i++;
       }
-    }
-    else{
+    } else {
       noLoop();
     }
   }
 }
 
-// The simulateSorting() function helps in animating
-// the whole bubble sort algorithm
-// by drawing the rectangles using values
-// in the array as the length of the rectangle.
-function simulateSorting(){
-  for(let i = 0;i<values.length;i++){
+// simulateSorting() 関数は、
+// 配列の値を長方形の高さとして使用して、
+// 整列プロセス全体を
+// アニメーション化するのに役立ちます。
+function simulateSorting() {
+  for (let i = 0; i < values.length; i++) {
     stroke(100, 143, 143);
-     fill(50);
-     rect(i*8 , height, 8, -values[i],20);
-   }
+    fill(50);
+    rect(i * 8, height, 8, -values[i], 20);
+  }
 }

@@ -1,11 +1,11 @@
 /*
- *@name Recursion
- *@arialabel Grey circle with two grey circles across its middle. Each of these two grey circles have more grey circles across its middle. This pattern continues until no more can be drawn within them.
- *@description A demonstration of recursion, which means functions call themselves.
- * A recursive function must have a terminating condition, without which it will
- * go into an infinite loop. Notice how the drawCircle() function calls itself 
- * at the end of its block. It continues to do this until the variable "level" is 
- * equal to 1.
+ *@name 再帰
+ *@arialabel 灰色の円の真ん中を横切って2つの灰色の円が描画されています。この2つの灰色の円は、それぞれの真ん中にさらに2つの灰色の円が描画されており、このパターンは、その中にこれ以上描けなくなるまで続きます。
+ *@description 関数が自分自身を呼び出すことを意味する再帰のデモです。
+ * 再帰的な関数には終了条件が必要で、
+ * それがないと無限ループに陥ってしまいます。drawCircle() 関数が
+ * ブロックの最後で自分自身を呼び出していることに注目してください。
+ * これは、変数「level」が1になるまで続けられます。
  */
 
 function setup() {
@@ -19,17 +19,17 @@ function draw() {
 }
 
 function drawCircle(x, radius, level) {
-  // 'level' is the variable that terminates the recursion once it reaches 
-  // a certain value (here, 1). If a terminating condition is not 
-  // specified, a recursive function keeps calling itself again and again
-  // until it runs out of stack space - not a favourable outcome! 
+  // 「level」はある値（ここでは1）に達すると
+  // 再帰を終了させる変数です。終了条件が指定されていない場合、
+  // 再帰的関数はスタック容量がなくなるまで何度も繰り返し呼び出されますが、
+  // これは好ましい結果とは言えません！
   const tt = (126 * level) / 4.0;
   fill(tt);
   ellipse(x, height / 2, radius * 2, radius * 2);
-  if (level > 1) {  
-    // 'level' decreases by 1 at every step and thus makes the terminating condition
-    // attainable
-    level = level - 1;  
+  if (level > 1) {
+    // 「level」がステップごとに1ずつ減っていくので、終了条件を
+    // 達成することができます。
+    level = level - 1;
     drawCircle(x - radius / 2, radius / 2, level);
     drawCircle(x + radius / 2, radius / 2, level);
   }

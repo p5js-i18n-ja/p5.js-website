@@ -1,9 +1,9 @@
 /*
- * @name Distance 2D
- * @arialabel The user’s mouse creates a gradient of circles that decrease in size the closer they are to the mouse as it moves across the screen
- * @description Move the mouse across the image to obscure
- * and reveal the matrix. Measures the distance from the mouse
- * to each circle and sets the size proportionally.
+ * @name 距離 2D
+ * @arialabel マウスが画面上を移動すると、マウスに近いほど小さくなる円のグラデーションができます。
+ * @description マウスを画像上で移動して、マトリクスを隠したり表示したりします。
+ * マウスから各円までの距離を測定し、
+ * それに比例したサイズを設定します。
  */
 let max_distance;
 

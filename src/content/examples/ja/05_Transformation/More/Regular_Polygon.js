@@ -1,10 +1,10 @@
 /*
- * @name Regular Polygon
- * @arialabel Three white shapes with black outlines on a grey background rotating. From left to right, a triangle, icosagon, and a heptagon
- * @description What is your favorite? Pentagon? Hexagon? Heptagon? No?
- * What about the icosagon? The polygon() function created for this example is
- * capable of drawing any regular polygon. Try placing different numbers into
- * the polygon() function calls within draw() to explore.
+ * @name 正多角形
+ * @arialabel 灰色の背景に黒い輪郭の3つの白い図形が回転している。左から三角形、二十角形、七角形。
+ * @description あなたのお気に入りは何ですか？ ペンタゴン？ ヘキサゴン？ ヘプタゴン？ それ以外ですか？
+ * 二十角形はどうでしょうか？ この例で作られた polygon() 関数は、あらゆる正多角形を描画することが可能です。
+ * draw() 内の polygon() 関数呼び出しに異なる数値を入力して、
+ * 探索してみてください。
  */
 function setup() {
   createCanvas(720, 400);

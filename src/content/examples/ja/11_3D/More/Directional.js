@@ -1,11 +1,10 @@
 /*
- * @name Directional
- * @arialabel Two spheres on both sides of a black screen that is lit by the mouse which acts as a light source. You can move this light source by moving your mouse to shine on different parts of the sphere and create different shadows
+ * @name 指向性
+ * @arialabel マウスが光源となって黒い画面の両側にある2つの球体を照らします。光源をマウスで動かして球体をさまざまな方向から照らし、それに応じた影を作ることができます。
  * @frame 710,400
- * @description Move the mouse to change the direction of the light.
- * Directional light comes from one direction and is stronger when hitting a
- * surface squarely and weaker if it hits at a a gentle angle. After hitting a
- * surface, a directional light scatters in all directions.
+ * @description マウスを動かして光の方向を変えます。
+ * 指向性ライトは、ある方向から照射され、表面に正対すると強くなり、なだらかな角度で当たると弱くなります。
+ * 指向性ライトは表面に当たった後、あらゆる方向に拡散します。
  */
 const radius = 200;
 

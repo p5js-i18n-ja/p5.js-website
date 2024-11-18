@@ -1,9 +1,9 @@
 /*
- * @name Pixel Array
- * @description Click and drag the mouse up and down to control the signal 
- * and press and hold any key to see the current pixel being read. 
- * This program sequentially reads the color of every pixel of an image 
- * and displays this color to fill the window.
+ * @name ピクセル配列
+ * @description マウスを上下にクリック＆ドラッグして信号を制御し、
+ * 任意のキーを押し続けると現在読み取っているピクセルを見ることができます。
+ * このプログラムは、画像のすべてのピクセルの色を順番に読み取り、
+ * この色をウィンドウを埋めるために表示します。
  */
 
 let img;
@@ -15,7 +15,7 @@ function setup() {
   noFill();
   stroke(255);
   frameRate(30);
-  img = loadImage('/assets/sea.jpg');
+  img = loadImage("/assets/sea.jpg");
 }
 
 function draw() {
@@ -34,7 +34,7 @@ function draw() {
   let sx = int(signal) % img.width;
   let sy = int(signal) / img.width;
   if (keyIsPressed) {
-    set(0, 0, img); // fast way to draw an image
+    set(0, 0, img); // 画像を描画するための高速な方法
     point(sx, sy);
     rect(sx - 5, sy - 5, 10, 10);
   } else {

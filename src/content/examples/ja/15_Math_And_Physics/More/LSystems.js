@@ -1,107 +1,105 @@
 /*
- * @name L-Systems
- * @arialabel Circles of various colors and patterns connected to each other by perpendicular black lines are drawn on the screen to form a grid formation
- * @description This sketch creates an automated drawing based on a Lindenmayer
- * or (L-) system. L-systems are often used in procedural graphics to make
- * natural, geometric, or interesting "fractal-style" patterns.<br>
- * Example created by <a href='http://lukedubois.com/' target='_blank'>R. Luke DuBois</a>.<br>
+ * @name L システム
+ * @arialabel さまざまな色とパターンの円が、直角に曲がる黒い線でつながれてグリッド状に整列した形で画面に描かれます。
+ * @description このスケッチは、Lindenmayer システム（L システムとも呼ばれます）に基づいた自動描画を作成します。
+ * L システムは、手続き型グラフィックスで
+ * 自然、幾何学的、または興味深い「フラクタル風」のパターンを作成するためによく使用されます。<br>
+ * 例の作成者: <a href='http://lukedubois.com/' target='_blank'>R. Luke DuBois</a><br>
  * <a href='https://en.wikipedia.org/wiki/L-system'>https://en.wikipedia.org/wiki/L-system</a>
  */
-// TURTLE STUFF:
-let x, y; // the current position of the turtle
-let currentangle = 0; // which way the turtle is pointing
-let step = 20; // how much the turtle moves with each 'F'
-let angle = 90; // how much the turtle turns with a '-' or '+'
+// タートル関連の変数:
+let x, y; // タートルの現在位置
+let currentangle = 0; // タートルが向いている方向
+let step = 20; // タートルが「F」で動く量
+let angle = 90; // タートルが「-」または「+」で回転する角度
 
-// LINDENMAYER STUFF (L-SYSTEMS)
-let thestring = 'A'; // "axiom" or start of the string
-let numloops = 5; // how many iterations to pre-compute
-let therules = []; // array for rules
-therules[0] = ['A', '-BF+AFA+FB-']; // first rule
-therules[1] = ['B', '+AF-BFB-FA+']; // second rule
+// Lindenmayer 関連の変数（L システム）
+let thestring = "A"; // 文字列の開始点（「原則」）
+let numloops = 5; // 事前に計算する反復回数
+let therules = []; // ルールの配列
+therules[0] = ["A", "-BF+AFA+FB-"]; // 最初のルール
+therules[1] = ["B", "+AF-BFB-FA+"]; // 二番目のルール
 
-let whereinstring = 0; // where in the L-system are we?
+let whereinstring = 0; // L システム内のどこにいるか
 
 function setup() {
   createCanvas(710, 400);
   background(255);
   stroke(0, 0, 0, 255);
 
-  // start the x and y position at lower-left corner
+  // x と y の位置を左下隅に設定します。
   x = 0;
-  y = height-1;
+  y = height - 1;
 
-  // COMPUTE THE L-SYSTEM
+  // L システムを計算します。
   for (let i = 0; i < numloops; i++) {
     thestring = lindenmayer(thestring);
   }
 }
 
 function draw() {
-
-  // draw the current character in the string:
+  // 文字列の現在の文字を描画します:
   drawIt(thestring[whereinstring]);
 
-  // increment the point for where we're reading the string.
-  // wrap around at the end.
+  // 文字列を読み取るポイントをインクリメントします。
+  // 終わりに達したらループします。
   whereinstring++;
-  if (whereinstring > thestring.length-1) whereinstring = 0;
-
+  if (whereinstring > thestring.length - 1) whereinstring = 0;
 }
 
-// interpret an L-system
+// L システムを解釈します。
 function lindenmayer(s) {
-  let outputstring = ''; // start a blank output string
+  let outputstring = ""; // 空の出力文字列を開始します。
 
-  // iterate through 'therules' looking for symbol matches:
+  // 「therules」を反復処理してシンボルの一致を探します:
   for (let i = 0; i < s.length; i++) {
-    let ismatch = 0; // by default, no match
+    let ismatch = 0; // 一致しない場合をデフォルトに設定します。
     for (let j = 0; j < therules.length; j++) {
-      if (s[i] == therules[j][0])  {
-        outputstring += therules[j][1]; // write substitution
-        ismatch = 1; // we have a match, so don't copy over symbol
-        break; // get outta this for() loop
+      if (s[i] == therules[j][0]) {
+        outputstring += therules[j][1]; // 置換文字列を書き込みます。
+        ismatch = 1; // 一致したので、シンボルはコピーしません。
+        break; // この for() ループを抜けます。
       }
     }
-    // if nothing matches, just copy the symbol over.
-    if (ismatch == 0) outputstring+= s[i];
+    // 一致しなかった場合、シンボルをコピーします。
+    if (ismatch == 0) outputstring += s[i];
   }
 
-  return outputstring; // send out the modified string
+  return outputstring; // 修正された文字列を返します。
 }
 
-// this is a custom function that draws turtle commands
+// これはタートルのコマンドを描画するカスタム関数です。
 function drawIt(k) {
+  if (k == "F") {
+    // 前進します。
+    // step と currentangle に基づいて極座標から直交座標に変換します:
+    let x1 = x + step * cos(radians(currentangle));
+    let y1 = y + step * sin(radians(currentangle));
+    line(x, y, x1, y1); // 古い座標と新しい座標を接続します。
 
-  if (k=='F') { // draw forward
-    // polar to cartesian based on step and currentangle:
-    let x1 = x + step*cos(radians(currentangle));
-    let y1 = y + step*sin(radians(currentangle));
-    line(x, y, x1, y1); // connect the old and the new
-
-    // update the turtle's position:
+    // タートルの位置を更新します:
     x = x1;
     y = y1;
-  } else if (k == '+') {
-    currentangle += angle; // turn left
-  } else if (k == '-') {
-    currentangle -= angle; // turn right
+  } else if (k == "+") {
+    currentangle += angle; // 左に曲がります。
+  } else if (k == "-") {
+    currentangle -= angle; // 右に曲がります。
   }
 
-  // give me some random color values:
+  // ランダムな色の値を生成します:
   let r = random(128, 255);
   let g = random(0, 192);
   let b = random(0, 50);
   let a = random(50, 100);
 
-  // pick a gaussian (D&D) distribution for the radius:
+  // 半径のガウス（D&D）分布を選びます:
   let radius = 0;
   radius += random(0, 15);
   radius += random(0, 15);
   radius += random(0, 15);
   radius = radius / 3;
 
-  // draw the stuff:
+  // 円を描画します:
   fill(r, g, b, a);
   ellipse(x, y, radius, radius);
 }

@@ -1,16 +1,16 @@
 /*
  * @norender
- * @name Instance Container
- * @description Optionally, you can specify a default container for the canvas
- * and any other elements to append to with a second argument. You can give the
- * ID of an element in your html, or an html node itself.
+ * @name インスタンスコンテナ
+ * @description オプションとして、第2引数で canvas と
+ * 他の要素を追加するためのデフォルトのコンテナを指定することができます。
+ * html内の要素のIDや、html ノードそのものを指定することができます。
  *
- * Here are three different options for selecting a container
- * DOM element. All DOM elements (canvas, buttons, divs, etc) created by p5
- * will be attached to the DOM element specified as the second argument to the
- * p5() call.
+ * ここでは、コンテナとなる DOM 要素を選択するための3種の異なる選択肢を紹介します。
+ * p5 が作成するすべての DOM 要素（canvas、button、div など）は、
+ * p5() 呼び出しの第2引数として指定された 
+ * DOM 要素に追加されます。
  */
-<!-- pass in the ID of the container element -->
+<!-- コンテナ要素の ID を渡す方法 -->
 <!DOCTYPE html>
 <head>
   <script src='p5.js'></script>
@@ -30,7 +30,7 @@
 </html>
 
 
-<!-- pass in a pointer to the container element -->
+<!-- コンテナ要素へのポインタを渡す方法 -->
 <!DOCTYPE html>
 <head>
   <script src='p5.js'></script>
@@ -50,8 +50,8 @@
 </html>
 
 
-<!-- create an element, attach it to the body,
-and pass in a pointer -->
+<!-- 要素を作成し、body に追加、
+そして、そのポインタを渡す方法  -->
 <!DOCTYPE html>
 <head>
   <script src='p5.js'></script>
@@ -72,8 +72,8 @@ and pass in a pointer -->
 </html>
 
 
-<!-- create an element, pass in a pointer,
-and attach it to the body -->
+<!-- 要素を作成、先にそのポインタを渡し、
+あとで body に追加する方法 -->
 <!DOCTYPE html>
 <head>
   <script src='p5.js'></script>

@@ -1,51 +1,50 @@
 /*
- * @name Morph
- * @arialabel On a dark grey background, white outline of a square changes into a circle as the sides of the square curve into a circle shape
+ * @name モーフィング
+ * @arialabel 暗い灰色の背景の前で、正方形の辺が円形にカーブするにつれて、白い正方形の輪郭線が円に変わります。
  * @frame 720,400
- * @description Changing one shape into another by interpolating vertices from one to another.
+ * @description ある頂点から別の頂点に補間することで、ある形状を別の形状に変化させます。
  */
 
-// Two ArrayLists to store the vertices for two shapes
-// This example assumes that each shape will have the same
-// number of vertices, i.e. the size of each ArrayList will be the same
+// 2つの ArrayList を用意して、それぞれの形状の頂点を保存します。
+// この例では、各形状が同じ数の頂点をもつことを前提としているため、
+// 各 ArrayList のサイズは同じになることが期待されています。
 let circle = [];
 let square = [];
 
-// An ArrayList for a third set of vertices, the ones we will be drawing
-// in the window
+// ウィンドウに描画する第3の頂点セットのための ArrayList
 let morph = [];
 
-// This boolean variable will control if we are morphing to a circle or square
+// このブール変数は、円形に変形するか四角形に変形するかを制御します。
 let state = false;
 
 function setup() {
   createCanvas(720, 400);
 
-  // Create a circle using vectors pointing from center
+  // 中心から向かうベクトルを使って円を作成します。
   for (let angle = 0; angle < 360; angle += 9) {
-    // Note we are not starting from 0 in order to match the
-    // path of a circle.
+    // 注意: 円のパスに合わせるため、
+    // 0から開始していません。
     let v = p5.Vector.fromAngle(radians(angle - 135));
     v.mult(100);
     circle.push(v);
-    // Let's fill out morph ArrayList with blank PVectors while we are at it
+    // この機会に、morph ArrayList を空の p5.Vector で埋めましょう。
     morph.push(createVector());
   }
 
-  // A square is a bunch of vertices along straight lines
-  // Top of square
+  // 直線に沿った頂点の集合が正方形です。
+  // 正方形の上部
   for (let x = -50; x < 50; x += 10) {
     square.push(createVector(x, -50));
   }
-  // Right side
+  // 右側
   for (let y = -50; y < 50; y += 10) {
     square.push(createVector(50, y));
   }
-  // Bottom
+  // 下部
   for (let x = 50; x > -50; x -= 10) {
     square.push(createVector(x, 50));
   }
-  // Left side
+  // 左側
   for (let y = 50; y > -50; y -= 10) {
     square.push(createVector(-50, y));
   }
@@ -54,40 +53,40 @@ function setup() {
 function draw() {
   background(51);
 
-  // We will keep how far the vertices are from their target
+  // 頂点が目標からどのくらい離れているかを保持します。
   let totalDistance = 0;
 
-  // Look at each vertex
+  // 各頂点を処理します。
   for (let i = 0; i < circle.length; i++) {
     let v1;
-    // Are we lerping to the circle or square?
+    // 円形か正方形のどちらに補完していくのかを決定します。
     if (state) {
       v1 = circle[i];
     } else {
       v1 = square[i];
     }
-    // Get the vertex we will draw
+    // 描画する頂点を取得します。
     let v2 = morph[i];
-    // Lerp to the target
+    // ターゲットに向けて補間します。
     v2.lerp(v1, 0.1);
-    // Check how far we are from target
+    // ターゲットからどれくらい離れているかをチェックします。
     totalDistance += p5.Vector.dist(v1, v2);
   }
 
-  // If all the vertices are close, switch shape
+  // もしすべての頂点が密になっていたら、形状を変更します。
   if (totalDistance < 0.1) {
     state = !state;
   }
 
-  // Draw relative to center
+  // 中心を基準に描画します。
   translate(width / 2, height / 2);
   strokeWeight(4);
-  // Draw a polygon that makes up all the vertices
+  // すべての頂点で構成されるポリゴンを描画します。
   beginShape();
   noFill();
   stroke(255);
 
-  morph.forEach(v => {
+  morph.forEach((v) => {
     vertex(v.x, v.y);
   });
   endShape(CLOSE);

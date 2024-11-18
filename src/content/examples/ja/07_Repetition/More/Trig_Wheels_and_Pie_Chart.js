@@ -1,17 +1,17 @@
 /* 
- * @name Trig Wheels and Pie Chart
- * @arialabel Two circles on a white background. One circle has slices of various colors. One circle is comprised of rectangles spiraled into a circle shape in a rainbow gradient
+ * @name 三角ホイールと円グラフ
+ * @arialabel 白地に2つの円があります。1つの円はさまざまな色のスライス。1つの円は、虹色のグラデーションで円形に螺旋状に巻かれた長方形で構成されています。
  * @frame 400,400
- * @description contributed by <a href="https://www.rit.edu/directory/wmhics-w-michelle-harris">
-   <b>Prof WM Harris,</b></a> <b>How</b> to create
-a trig color wheel and a visualization of a population age data as a
-pie chart.<br/>
-	Functions are
-created for the canvas setup, trig color wheel, drawslice, and pie
-chart. The size of the slices are determined as well as their color
-range. The pie chart is separated by definitive color per value
-whereas the trig color wheel has a fixed slice amount with a range
-color fill.
+ * @description <a href="https://www.rit.edu/directory/wmhics-w-michelle-harris">
+   <b>Prof WM Harris</b></a>による投稿です。
+   <b>どのようにして</b> 三角カラーホイールと、人口年齢データのビジュアライゼーションとしての
+   円グラフを作成するのかを示しています。<br/>
+キャンバスのセットアップ、三角カラーホイール、スライスの描画、円グラフの
+各関数が作成されています。
+スライスの大きさとそれらの色の範囲が決定されます。
+円グラフは値ごとに明確な色で区切られていますが、
+三角カラーホイールは固定された数でスライスされ、
+それらの範囲内が色塗りされます。
 */
 
 function setup() {
@@ -19,71 +19,69 @@ function setup() {
   colorMode(HSB);
   angleMode(DEGREES);
 
-  //vars for color wheel center point
+  // カラーホイールの中心点を表す変数群
   let x = width / 2;
   let y = height / 2 + 100;
-  colorWheel(x, y, 100); //slide 11
+  colorWheel(x, y, 100); // スライド 11
 
   noStroke();
-  pieChartPop(200, 100); //slide 12
+  pieChartPop(200, 100); // スライド 12
 }
 
-//**** slide 12 pie chart trig demo 
+//**** スライド 12 円グラフ デモ
 function pieChartPop(x, y) {
-  let [total, child, young, adult, senior, elder] = [577, 103, 69,
-    122, 170, 113
+  let [total, child, young, adult, senior, elder] = [
+    577, 103, 69, 122, 170, 113,
   ];
   let startValue = 0;
   let range = 0;
 
-  //child slice
+  // チャイルド スライス
   range = child / total;
   drawSlice("blue", x, y, 200, startValue, startValue + range);
   startValue += range;
-  //young slice
+  // ヤング スライス
   range = young / total;
   drawSlice("orange", x, y, 200, startValue, startValue + range);
   startValue += range;
-  //adult slice
+  // アダルト スライス
   range = adult / total;
   drawSlice("green", x, y, 200, startValue, startValue + range);
   startValue += range;
-  //senior slice
+  // シニア スライス
   range = senior / total;
   drawSlice("tan", x, y, 200, startValue, startValue + range);
   startValue += range;
-  //elder slice
+  // エルダー スライス
   range = elder / total;
   drawSlice("pink", x, y, 200, startValue, startValue + range);
   startValue += range;
-
 }
 
 /**
- * drawSlice - draw colored arc based on angle percentages. slide 13
- * Adjust angles so that 0% starts at top (actually -90).
- * @param {color} fColor - fill color
- * @param {number} x - center x
- * @param {number} y - center y
- * @param {number} d - diameter
- * @param {float} percent1 - starting percentage
- * @param {float} percent2 - ending percentage
+ * drawSlice - 角度のパーセンテージに基づいて色付きの円弧を描画します。 スライド 13
+ * 0％ が一番上（実際には -90 ）から始まるように角度を調整します。
+ * @param {color} fColor - 塗りつぶし色
+ * @param {number} x - 中心 x
+ * @param {number} y - 中心 y
+ * @param {number} d - 直径
+ * @param {float} percent1 - 開始パーセント
+ * @param {float} percent2 - 終了パーセント
  */
 function drawSlice(fColor, x, y, d, percent1, percent2) {
   fill(fColor);
   arc(x, y, d, d, -90 + percent1 * 360, -90 + percent2 * 360);
 }
 
-//**** slide 11 trig demo 
+//**** スライド 11 三角カラーホイール デモ
 function colorWheel(x, y, rad) {
   strokeWeight(10);
   strokeCap(SQUARE);
 
-  //Iterate 360 degrees of lines, +10deg per turn
+  // 360度、1回転につき ＋10度の反復処理です。
   for (let a = 0; a < 360; a += 10) {
-    stroke(a, 150, 200); //hue based on a
-    //radius is 100, angle is a degrees
-    line(x, y, x + rad * cos(a),
-      y + rad * sin(a));
+    stroke(a, 150, 200); // 半径を100、角度を度として
+    // 色相を計算します。
+    line(x, y, x + rad * cos(a), y + rad * sin(a));
   }
 }

@@ -1,7 +1,7 @@
 /*
- * @name Embedded Iteration
- * @arialabel Rays emerge from the center of the screen to the edges. There is also a square grid of white circles over the window
- * @description Embedding "for" structures allows repetition in two dimensions.
+ * @name 組み込まれた反復
+ * @arialabel 光線が画面の中央から端に向かって出ています。画面上には正方形の格子状に白い正方形も描かれています。
+ * @description "for" 構造を組み込むことで、二次元的な反復が可能になります。
  */
 function setup() {
   createCanvas(720, 360);

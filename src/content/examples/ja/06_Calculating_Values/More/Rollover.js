@@ -1,14 +1,14 @@
 /*
- * @name Rollover
- * @arialabel Black square and white circle on grey background. The background turns black as the user’s mouth hovers over the black square and the background turns white as the user’s mouth hovers over the white square.
- * @description Roll over the colored squares in the center of the image to change the color of the outside rectangle.
- * <br><br><span class="small"><em>This example is ported from the <a href="https://processing.org/examples/rollover.html"> Rollover example</a>
- * on the Processing website</em></span>
+ * @name ロールオーバー
+ * @arialabel 灰色の背景に黒い四角形と白い円があります。
+ * マウスカーソルが黒い四角形にかかると背景は黒くなり、マウスカーソルが白い円にかかると背景は白くなります。
+ * @description 画像中央の色のついた図形の上にかかると、外側の四角の色が変化します。
+ * <br><br><span class="small"><em> この例は、Processing ウェブサイトの <a href="https://processing.org/examples/rollover.html"> ロールオーバーの例</a> から移植されています</em></span>。
  */
-let squareX, squareY;  // Position of square button
-let circleX, circleY;  // Position of circle button
-let squareSize = 90;   // Width/height of square
-let circleSize = 93;   // Diameter of circle
+let squareX, squareY; // Position of square button
+let circleX, circleY; // Position of circle button
+let squareSize = 90; // Width/height of square
+let circleSize = 93; // Diameter of circle
 
 let squareColor;
 let circleColor;
@@ -22,10 +22,10 @@ function setup() {
   squareColor = color(0);
   circleColor = color(255);
   baseColor = color(102);
-  circleX = width/2+circleSize/2+10;
-  circleY = height/2;
-  squareX = width/2-squareSize-10;
-  squareY = height/2-squareSize/2;
+  circleX = width / 2 + circleSize / 2 + 10;
+  circleY = height / 2;
+  squareX = width / 2 - squareSize - 10;
+  squareY = height / 2 - squareSize / 2;
 }
 
 function draw() {
@@ -49,10 +49,10 @@ function draw() {
 }
 
 function update(x, y) {
-  if( overCircle(circleX, circleY, circleSize) ) {
+  if (overCircle(circleX, circleY, circleSize)) {
     circleOver = true;
     squareOver = false;
-  } else if ( overSquare(squareX, squareY, squareSize) ) {
+  } else if (overSquare(squareX, squareY, squareSize)) {
     squareOver = true;
     circleOver = false;
   } else {
@@ -61,8 +61,7 @@ function update(x, y) {
 }
 
 function overSquare(x, y, size) {
-  if (mouseX >= x && mouseX <= x+size && 
-      mouseY >= y && mouseY <= y+size) {
+  if (mouseX >= x && mouseX <= x + size && mouseY >= y && mouseY <= y + size) {
     return true;
   } else {
     return false;
@@ -72,7 +71,7 @@ function overSquare(x, y, size) {
 function overCircle(x, y, diameter) {
   const disX = x - mouseX;
   const disY = y - mouseY;
-  if(sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
+  if (sqrt(sq(disX) + sq(disY)) < diameter / 2) {
     return true;
   } else {
     return false;

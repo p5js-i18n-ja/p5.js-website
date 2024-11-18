@@ -1,17 +1,17 @@
 /*
- * @name Sine Wave
- * @arialabel White circles line up to form a sine wave that moves across the black screen
- * @description Render a simple sine wave.
- * Original by Daniel Shiffman.
+ * @name 正弦波
+ * @arialabel 白い円が並び、正弦波(サイン波)となって黒い画面を横切っています。
+ * @description シンプルな正弦波を表示します。
+ * オリジナルは Daniel Shiffman のものです。
  */
 
-let xspacing = 16; // Distance between each horizontal location
-let w; // Width of entire wave
-let theta = 0.0; // Start angle at 0
-let amplitude = 75.0; // Height of wave
-let period = 500.0; // How many pixels before the wave repeats
-let dx; // Value for incrementing x
-let yvalues; // Using an array to store height values for the wave
+let xspacing = 16; // 各水平位置間の距離
+let w; // 波全体の幅
+let theta = 0.0; // 開始角度は0
+let amplitude = 75.0; // 波の高さ
+let period = 500.0; // 波が繰り返されるまでのピクセル数
+let dx; // xをインクリメントする値
+let yvalues; // 配列を使って波の高さの値を格納します。
 
 function setup() {
   createCanvas(710, 400);
@@ -27,11 +27,11 @@ function draw() {
 }
 
 function calcWave() {
-  // Increment theta (try different values for
-  // 'angular velocity' here)
+  // θをインクリメントします。
+  //（この「角速度」の値を変えてみてください.）
   theta += 0.02;
 
-  // For every x value, calculate a y value with sine function
+  // すべての x 値に対して、sin() 関数を使って y 値を計算します。
   let x = theta;
   for (let i = 0; i < yvalues.length; i++) {
     yvalues[i] = sin(x) * amplitude;
