@@ -1,17 +1,10 @@
 ---
 featuredImage: "../../../images/featured/12_Advanced_Canvas_Rendering-01_Multiple_Canvases-thumbnail.png"
-featuredImageAlt: Two curving lines made of repeating white circles and squares with black outlines, on a black and white background.
-title: Multiple Canvases
-oneLineDescription: Use Instance Mode to put multiple canvases on the page.
+featuredImageAlt: 黒と白の背景に、繰り返される白い円と黒い輪郭の四角形で作られた2つの曲線。
+title: 複数のキャンバス
+oneLineDescription: インスタンスモードを使用して、ページに複数のキャンバスを配置します。
 ---
 
-By default, p5 runs in Global Mode, which means that
-all p5 functions are in the global scope, and all canvas-related functions
-apply to a single canvas. p5 can also run in Instance Mode, in which those
-same functions are methods of an instance of the p5 class. Each instance of
-p5 may have its own canvas.
+デフォルトでは、p5はグローバルモードで実行されます。これは、すべてのp5関数がグローバルスコープにあり、すべてのキャンバス関連の関数が単一のキャンバスに適用されることを意味します。p5はインスタンスモードでも実行でき、このモードでは同じ関数がp5クラスのインスタンスのメソッドになります。各p5のインスタンスは独自のキャンバスを持つことができます。
 
-To use instance mode, a function must be defined with a parameter representing
-the p5 instance (labeled p in this example). All the p5 functions and variables
-that are typically global will belong to this parameter within this function's
-scope. Passing the function into the p5 constructor, runs it.
+インスタンスモードを使用するには、p5インスタンスを表すパラメータ（この例ではpとラベル付けされています）を持つ関数を定義する必要があります。通常はグローバルであるすべてのp5関数と変数は、この関数のスコープ内でこのパラメータに属します。関数をp5コンストラクタに渡すことで、それが実行されます。

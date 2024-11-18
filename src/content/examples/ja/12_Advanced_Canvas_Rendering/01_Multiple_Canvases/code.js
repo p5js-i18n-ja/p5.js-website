@@ -1,4 +1,4 @@
-// Function for first canvas
+// 最初のキャンバスのための関数
 function sketch1(p) {
   p.setup = function () {
     p.createCanvas(720, 200);
@@ -9,10 +9,10 @@ function sketch1(p) {
   };
 }
 
-// Run first p5 instance
+// 最初のp5インスタンスを実行
 new p5(sketch1);
 
-// Function for second canvas
+// 2番目のキャンバスのための関数
 function sketch2(p) {
   p.setup = function () {
     p.createCanvas(720, 200);
@@ -25,5 +25,5 @@ function sketch2(p) {
   };
 }
 
-// Run second p5 instance
+// 2番目のp5インスタンスを実行
 new p5(sketch2);

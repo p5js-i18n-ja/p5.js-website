@@ -4,37 +4,36 @@ let graphic;
 
 function setup() {
   describe(
-    'Black canvas with a very dark grey rectangle in the middle. When the cursor is hovered over the canvas, a white circle follows the cursor in the black areas of the canvas, but not over the dark grey rectangle.'
+    "黒いキャンバスの中央に非常に暗い灰色の矩形があります。カーソルがキャンバスの上にあるとき、白い円がキャンバスの黒い部分を追いかけますが、暗い灰色の矩形の上では追いかけません。",
   );
   createCanvas(720, 400);
 
-  // Create the graphic that will be placed within the canvas.
+  // キャンバス内に配置されるグラフィックを作成します。
   graphic = createGraphics(405, 250);
 }
 
 function draw() {
-  // Create a black rectangle to cover the canvas.
-  // Make the rectangle black with an alpha value of 12 so that
-  // the white circle following the cursor slowly fades into the background.
+  // キャンバスを覆う黒い矩形を作成します。
+  // 矩形を黒にし、アルファ値を12に設定して
+  // カーソルを追いかける白い円が徐々に背景にフェードします。
   background(0, 12);
 
-  // Create the circle that will follow the cursor as it hovers
-  // over the canvas.
+  // カーソルがキャンバスの上にあるときに追いかける円を作成します。
   fill(255);
   noStroke();
   ellipse(mouseX, mouseY, 60, 60);
 
-  // Give the buffer a dark grey background.
-  // Any shapes within the buffer will have no fill.
+  // バッファに暗い灰色の背景を与えます。
+  // バッファ内の形状には塗りつぶしがありません。
   graphic.background(51);
   graphic.noFill();
 
-  // When the cursor hovers over the offscreen buffer, replicate the
-  // circle that is drawn when the cursor is hovering over the
-  // canvas. Within the buffer area, only show the outline of the circle.
+  // カーソルがオフスクリーンバッファの上にあるとき、
+  // キャンバスの上にカーソルがあるときに描かれる円を複製します。
+  // バッファ領域内では、円のアウトラインのみを表示します。
   graphic.stroke(255);
   graphic.ellipse(mouseX - 150, mouseY - 75, 60, 60);
 
-  // Draw the buffer to the screen with image().
+  // バッファを画面に描画します。
   image(graphic, 150, 75);
 }

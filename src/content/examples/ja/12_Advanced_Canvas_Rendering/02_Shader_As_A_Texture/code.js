@@ -12,17 +12,17 @@ uniform mat4 uProjectionMatrix;
 varying vec2 vTexCoord;
 
 void main() {
-  // Apply the camera transform
+  // カメラ変換を適用
   vec4 viewModelPosition =
     uModelViewMatrix *
     vec4(aPosition, 1.0);
 
-  // Tell WebGL where the vertex goes
+  // WebGLに頂点の位置を伝える
   gl_Position =
     uProjectionMatrix *
     viewModelPosition;  
 
-  // Pass along data to the fragment shader
+  // フラグメントシェーダーにデータを渡す
   vTexCoord = aTexCoord;
 }
  `;
@@ -31,8 +31,8 @@ void main() {
 let fragmentShader = `
 // casey conchinha - @kcconch ( https://github.com/kcconch )
 // louise lessel - @louiselessel ( https://github.com/louiselessel )
-// more p5.js + shader examples: https://itp-xstory.github.io/p5js-shaders/
-// rotate/tile functions from example by patricio gonzalez vivo
+// さらに多くのp5.js + シェーダーの例: https://itp-xstory.github.io/p5js-shaders/
+// rotate/tile関数はpatricio gonzalez vivoによる例から
 // @patriciogv ( patriciogonzalezvivo.com )
 
 #ifdef GL_ES
@@ -61,11 +61,10 @@ vec2 tile (vec2 _st, float _zoom) {
 
 vec2 rotateTilePattern(vec2 _st){
     
-    //  Scale the coordinate system by 2x2
+    //  座標系を2x2にスケール
     _st *= 2.0;
     
-    //  Give each cell an index number
-    //  according to its position
+    //  各セルに位置に応じたインデックス番号を付与
     float index = 0.0;
     index += step(1., mod(_st.x,2.0));
     index += step(1., mod(_st.y,2.0))*2.0;
@@ -78,18 +77,18 @@ vec2 rotateTilePattern(vec2 _st){
     //  0   |   1
     //      |
     
-    // Make each cell between 0.0 - 1.0
+    // 各セルを0.0 - 1.0の範囲にする
     _st = fract(_st);
     
-    // Rotate each cell according to the index
+    // インデックスに応じて各セルを回転
     if(index == 1.0){
-        //  Rotate cell 1 by 90 degrees
+        //  セル1を90度回転
         _st = rotate2D(_st,PI*0.5);
     } else if(index == 2.0){
-        //  Rotate cell 2 by -90 degrees
+        //  セル2を-90度回転
         _st = rotate2D(_st,PI*-0.5);
     } else if(index == 3.0){
-        //  Rotate cell 3 by 180 degrees
+        //  セル3を180度回転
         _st = rotate2D(_st,PI);
     }
     
@@ -116,35 +115,35 @@ void main (void) {
 }
 `;
 
-// this variable will hold our shader object
+// この変数はシェーダーオブジェクトを保持します
 let theShader;
 
-// this variable will hold our createGraphics layer
+// この変数はcreateGraphicsレイヤーを保持します
 let shaderTexture;
 
 function setup() {
-  // shaders require WEBGL mode to work
+  // シェーダーはWEBGLモードで動作する必要があります
   createCanvas(710, 400, WEBGL);
 
   noStroke();
   angleMode(DEGREES);
 
-  // create a shader object using the vertex shader and fragment shader strings
+  // 頂点シェーダーとフラグメントシェーダーの文字列を使用してシェーダーオブジェクトを作成
   theShader = createShader(vertexShader, fragmentShader);
 
-  describe('Sphere broken up into a square grid with a gradient in each grid.');
+  describe("グラデーションのある正方形グリッドに分割された球体。");
 }
 
 function draw() {
   background(255);
 
-  // send uniform values to the shader
-  theShader.setUniform('resolution', [width, height]);
-  theShader.setUniform('time', millis() / 1000.0);
-  theShader.setUniform('mouse', [mouseX, map(mouseY, 0, height, height, 0)]);
+  // シェーダーにユニフォーム値を送信
+  theShader.setUniform("resolution", [width, height]);
+  theShader.setUniform("time", millis() / 1000.0);
+  theShader.setUniform("mouse", [mouseX, map(mouseY, 0, height, height, 0)]);
 
   shader(theShader);
-  // add a sphere using the texture
+  // テクスチャを使用して球体を追加
   translate(-150, 0, 0);
   push();
   rotateX(-mouseY);
@@ -152,7 +151,7 @@ function draw() {
   sphere(125);
   pop();
 
-  // add an ellipse using the texture
-  // passing a fifth parameter to ellipse for smooth edges in 3D
+  // テクスチャを使用して楕円を追加
+  // 3Dで滑らかなエッジのために楕円に5番目のパラメータを渡す
   ellipse(260, 0, 200, 200, 100);
 }
