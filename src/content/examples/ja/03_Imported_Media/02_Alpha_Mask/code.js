@@ -1,47 +1,44 @@
-// Preload the image assets from the canvas
-// assets directory.
+// 画像アセットをキャンバスからプリロードします
+// assets ディレクトリ。
 function preload() {
   // Photo by Sergey Shmidt, https://unsplash.com/photos/koy6FlCCy5s
-  img = loadImage('/assets/image.jpg');
+  img = loadImage("/assets/image.jpg");
 
   // Photo by Mockup Graphics, https://unsplash.com/photos/_mUVHhvBYZ0
-  imgMask = loadImage('/assets/mask.png');
+  imgMask = loadImage("/assets/mask.png");
 }
 
 function setup() {
   describe(
-    'Two photos, the one on the left labeled with "Masked Image" and the one on the right labeled with "Mask."'
+    "左側に「マスクされた画像」とラベル付けされた2つの写真、右側に「マスク」とラベル付けされた写真。",
   );
   createCanvas(710, 400);
 
-  // Use the mask() method to apply imgMask photo as a
-  // mask for img.
+  // mask() メソッドを使用して imgMask 写真を
+  // img のマスクとして適用します。
   img.mask(imgMask);
 
-  // Set the alignment of the text labels.
+  // テキストラベルの配置を設定します。
   textAlign(LEFT, TOP);
 }
 
 function draw() {
   background(255);
 
-  // Draw the masked image on the left, then
-  // the photo used to mask on the right.
-  describeElement(
-    'Masked Image',
-    'A photo of yellow flowers masked by a photo of two leaves.'
-  );
+  // 左側にマスクされた画像を描画し、次に
+  // 右側にマスクに使用された写真を描画します。
+  describeElement("マスクされた画像", "2枚の葉でマスクされた黄色い花の写真。");
   image(img, 0, 0, 350, 350);
 
   describeElement(
-    'Mask',
-    'The photo of two leaves used to mask the previous photo.'
+    "マスク",
+    "前の写真をマスクするために使用された2枚の葉の写真。",
   );
   image(imgMask, 350, 0, 350, 350);
 
-  // Add labels to explain the images shown.
+  // 表示されている画像を説明するラベルを追加します。
   textSize(24);
   fill(0);
-  text('Masked Image', 10, 10);
-  text('Mask', 360, 10);
+  text("マスクされた画像", 10, 10);
+  text("マスク", 360, 10);
 }

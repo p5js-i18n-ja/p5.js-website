@@ -1,27 +1,27 @@
-// Declare variable to store audio player
+// オーディオプレーヤーを格納するための変数を宣言します
 let audioPlayer;
 
 function setup() {
-  // Remove canvas
+  // キャンバスを削除します
   noCanvas();
 
-  // Create audio player using path to audio file
-  // This can also be a URL for a public file
-  // On the p5 Editor, a file may be uploaded to Sketch Files
-  // by clicking the > button on the upper left, followed by the + button
-  audioPlayer = createAudio('/assets/piano-loop.mp3');
+  // オーディオファイルへのパスを使用してオーディオプレーヤーを作成します
+  // これは公開ファイルのURLでも可能です
+  // p5エディタでは、左上の>ボタンをクリックし、次に+ボタンをクリックすることで
+  // スケッチファイルにファイルをアップロードできます
+  audioPlayer = createAudio("/assets/piano-loop.mp3");
 
-  // Add description for assistive technologies to explain playback speed
+  // アシスティブテクノロジー用に再生速度を説明するための説明を追加します
   audioPlayer.attribute(
-    'aria-description',
-    'The playback speed of this audio player is controlled by the position of the mouse. The further to the right the mouse is, the faster the audio will play.'
+    "aria-description",
+    "このオーディオプレーヤーの再生速度はマウスの位置によって制御されます。マウスが右に行くほど、オーディオは速く再生されます。",
   );
 
-  // Display player controls
+  // プレーヤーコントロールを表示します
   audioPlayer.showControls();
 }
 
 function draw() {
-  // Set playback speed to 1-2x normal based on mouse position
+  // マウスの位置に基づいて再生速度を1-2倍に設定します
   audioPlayer.speed(1 + mouseX / windowWidth);
 }

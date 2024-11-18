@@ -1,26 +1,25 @@
 /*
  * @name Brightness
- * @arialabel Horizontal bars that step through brightness(high to low) of a color, controlled using a loop
- * @description Lightness is the amount of black or white that’s been mixed with a hue.
- * Adding white makes the color lighter and adding black makes it darker.
+ * @arialabel 明るさ（高から低）を段階的に示す水平バー、ループを使用して制御
+ * @description 明るさは、色相に混ぜられた黒または白の量です。
+ * 白を加えると色が明るくなり、黒を加えると暗くなります。
  */
 function setup() {
-  createCanvas(400, 400) ;
+  createCanvas(400, 400);
   colorMode(HSB);
 }
 
 function draw() {
-  background (220)
+  background(220);
   noStroke();
 
-  for (let i = 0;i<6;i++){
-    
-    //with each iteration of the loop 
-    //the brightness steps down by 20
-    
-    //fill(hue,saturation,brightness)
-    fill (28,100,100-i*20) ;
+  for (let i = 0; i < 6; i++) {
+    // ループの各反復で
+    // 明るさが20ずつ減少します
 
-    rect (0,i*height/6,width,height/6) ;
+    // fill(hue,saturation,brightness)
+    fill(28, 100, 100 - i * 20);
+
+    rect(0, (i * height) / 6, width, height / 6);
   }
 }

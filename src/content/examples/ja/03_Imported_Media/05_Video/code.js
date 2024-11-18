@@ -1,43 +1,41 @@
-// Create the global variables: playing, video, and button.
-// Set playing to false so the video loads in as paused.
+// グローバル変数を作成します: playing, video, および button。
+// playingをfalseに設定して、動画が一時停止の状態で読み込まれるようにします。
 let playing = false;
 let video;
 let button;
 
 function setup() {
-  // Use the noCanvas() function to remove the canvas.
+  // noCanvas()関数を使用してキャンバスを削除します。
   noCanvas();
 
-  // Upload the video in the canvas's assets directory, and
-  // use the createVideo() function to load in the video to the code.
-  // This createVideo() function will build a p5.MediaElement class.
-  // It's best to upload multiple video formats so the video
-  // is visible within different browsers.
-  video = createVideo(['/assets/fingers.mov', '/assets/fingers.webm']);
+  // キャンバスのアセットディレクトリに動画をアップロードし、
+  // createVideo()関数を使用して動画をコードに読み込みます。
+  // このcreateVideo()関数はp5.MediaElementクラスを構築します。
+  // 動画が異なるブラウザで表示されるように、複数の動画フォーマットをアップロードするのが最良です。
+  video = createVideo(["/assets/fingers.mov", "/assets/fingers.webm"]);
 
-  // Create a button next to the video that says 'play.'
-  button = createButton('play');
+  // 動画の隣に「play」と書かれたボタンを作成します。
+  button = createButton("play");
 
-  // The button will call the toggleVid() function
-  // whenever it is pressed.
+  // ボタンが押されるとtoggleVid()関数が呼び出されます。
   button.mousePressed(toggleVid);
 }
 
 function toggleVid() {
-  // If the video is playing, pause the video with
-  // the pause() method and make the button's text say 'play.'
+  // 動画が再生中の場合、pause()メソッドで動画を一時停止し、
+  // ボタンのテキストを「play」にします。
   if (playing == true) {
     video.pause();
-    button.html('play');
+    button.html("play");
 
-    // If the video is paused, play the video with
-    // the loop() method and make the button's text say 'pause.'
+    // 動画が一時停止中の場合、loop()メソッドで動画を再生し、
+    // ボタンのテキストを「pause」にします。
   } else {
     video.loop();
-    button.html('pause');
+    button.html("pause");
   }
 
-  // Once the video playing status has been toggled,
-  // switch playing to the opposite boolean value.
+  // 動画の再生状態が切り替わったら、
+  // playingを反対のブール値に切り替えます。
   playing = !playing;
 }

@@ -1,29 +1,29 @@
-// Set the video capture as a global variable.
+// デバイスのウェブカメラからのビデオキャプチャを説明します。
 let capture;
 
 function setup() {
-  describe('Video capture from the device webcam.');
+  describe("デバイスのウェブカメラからのビデオキャプチャ。");
   createCanvas(720, 400);
 
-  // Use the createCapture() function to access the device's
-  // camera and start capturing video.
+  // createCapture() 関数を使用してデバイスの
+  // カメラにアクセスし、ビデオのキャプチャを開始します。
   capture = createCapture(VIDEO);
 
-  // Make the capture frame half of the canvas.
+  // キャプチャフレームをキャンバスの半分の大きさにします。
   capture.size(360, 200);
 
-  // Use capture.hide() to remove the p5.Element object made
-  // using createCapture(). The video will instead be rendered as
-  // an image in draw().
+  // capture.hide() を使用して createCapture() で作成された
+  // p5.Element オブジェクトを削除します。ビデオは代わりに
+  // draw() で画像として描画されます。
   capture.hide();
 }
 
 function draw() {
-  // Set the background to gray.
+  // 背景をグレーに設定します。
   background(51);
 
-  // Draw the resulting video capture on the canvas
-  // with the invert filter applied.
+  // 逆フィルターを適用したキャンバス上に
+  // 結果のビデオキャプチャを描画します。
   image(capture, 0, 0, 360, 400);
   filter(INVERT);
 }

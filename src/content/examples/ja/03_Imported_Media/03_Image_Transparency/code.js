@@ -1,35 +1,34 @@
-// Define the global variables: img, offset, and easing.
-// Set offset to 0 and easing to 0.05 for moving the
-// transparent image with the cursor position.
+// グローバル変数を定義します: img, offset, および easing。
+// 透明な画像をカーソル位置に合わせて移動させるために、
+// offsetを0に、easingを0.05に設定します。
 let img;
 let offset = 0;
 let easing = 0.05;
 
 function preload() {
-  // Load the bottom image from the canvas's assets directory.
-  img = loadImage('/assets/moonwalk.jpg');
+  // キャンバスのアセットディレクトリから下の画像を読み込みます。
+  img = loadImage("/assets/moonwalk.jpg");
 }
 
 function setup() {
   describe(
-    "An astronaut on a planet as the background with a slightly transparent version of this image on top that moves with the horizontal direction of the user's mouse."
+    "背景に惑星上の宇宙飛行士がいて、その上にユーザーのマウスの水平方向に動く、やや透明なこの画像があります。",
   );
 
   createCanvas(720, 400);
 }
 
 function draw() {
-  // Display the bottom image at full opacity.
+  // 下の画像を完全な不透明度で表示します。
   tint(255, 255);
   image(img, 0, 0);
 
-  // Define dx as the rate at which the top image
-  // moves with the cursor. The offset variable
-  // delays the movement of the image.
+  // dxを、上の画像がカーソルとともに動く速度として定義します。
+  // offset変数は画像の動きを遅らせます。
   let dx = mouseX - img.width / 2 - offset;
   offset += dx * easing;
 
-  // Display the top image at half opacity.
+  // 上の画像を半分の不透明度で表示します。
   tint(255, 127);
   image(img, offset, 0);
 }

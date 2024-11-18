@@ -1,27 +1,24 @@
 /*
  * @name Hue
- * @arialabel Horizontal bars that step through different hues, controlled using a loop
- * @description Hue is that attribute of a color by the virtue of
- * which it is perceptible as red, green, blue etc. It is independent
- * of saturation(intensity) and brightness.
+ * @arialabel 異なる色相を段階的に示す水平バー、ループを使用して制御
+ * @description 色相は、色が赤、緑、青などとして知覚される属性です。これは、彩度（強度）や明るさとは独立しています。
  */
 function setup() {
-  createCanvas(400, 400) ;
+  createCanvas(400, 400);
   colorMode(HSB);
 }
 
 function draw() {
-  background (220)
+  background(220);
   noStroke();
 
-  for (let i = 0;i<12;i++){
-    
-    //with each iteration of the loop 
-    //the hue steps down by 25
-    
-    //fill(hue,saturation,brightness)
-    fill (360-i*25,100,100) ;
+  for (let i = 0; i < 12; i++) {
+    // ループの各反復で
+    // 色相が25ずつ減少します
 
-    rect (0,i*height/12,width,height/12) ;
+    // fill(hue,saturation,brightness)
+    fill(360 - i * 25, 100, 100);
+
+    rect(0, (i * height) / 12, width, height / 12);
   }
 }
