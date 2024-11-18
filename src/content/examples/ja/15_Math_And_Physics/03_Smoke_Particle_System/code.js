@@ -1,47 +1,47 @@
-// Declare variables for the particle system and texture
+// パーティクルシステムとテクスチャのための変数を宣言
 let particleTexture;
 let particleSystem;
 
 function preload() {
-  particleTexture = loadImage('/assets/particle_texture.png');
+  particleTexture = loadImage("/assets/particle_texture.png");
 }
 
 function setup() {
-  // Set the canvas size
+  // キャンバスのサイズを設定
   createCanvas(720, 400);
   colorMode(HSB);
 
-  // Initialize the particle system
+  // パーティクルシステムを初期化
   particleSystem = new ParticleSystem(
     0,
     createVector(width / 2, height - 60),
-    particleTexture
+    particleTexture,
   );
 
   describe(
-    'White circle gives off smoke in the middle of the canvas, with wind force determined by the cursor position.'
+    "白い円がキャンバスの中央で煙を出し、風の力はカーソルの位置によって決まります。",
   );
 }
 
 function draw() {
   background(20);
 
-  // Calculate the wind force based on the mouse x position
+  // マウスのx位置に基づいて風の力を計算
   let dx = map(mouseX, 0, width, -0.2, 0.2);
   let wind = createVector(dx, 0);
 
-  // Apply the wind and run the particle system
+  // 風を適用し、パーティクルシステムを実行
   particleSystem.applyForce(wind);
   particleSystem.run();
   for (let i = 0; i < 2; i += 1) {
     particleSystem.addParticle();
   }
 
-  // Draw an arrow representing the wind force
+  // 風の力を示す矢印を描画
   drawVector(wind, createVector(width / 2, 50, 0), 500);
 }
 
-// Display an arrow to show a vector magnitude and direction
+// ベクトルの大きさと方向を示す矢印を表示
 function drawVector(v, loc, scale) {
   push();
   let arrowSize = 4;
@@ -61,7 +61,7 @@ class ParticleSystem {
   constructor(particleCount, origin, textureImage) {
     this.particles = [];
 
-    // Make a copy of the input vector
+    // 入力ベクトルのコピーを作成
     this.origin = origin.copy();
     this.img = textureImage;
     for (let i = 0; i < particleCount; ++i) {
@@ -70,19 +70,19 @@ class ParticleSystem {
   }
 
   run() {
-    // Loop through and run each particle
+    // 各パーティクルをループして実行
     for (let i = this.particles.length - 1; i >= 0; i -= 1) {
       let particle = this.particles[i];
       particle.run();
 
-      // Remove dead particles
+      // 死んだパーティクルを削除
       if (particle.isDead()) {
         this.particles.splice(i, 1);
       }
     }
   }
 
-  // Apply force to each particle
+  // 各パーティクルに力を適用
   applyForce(dir) {
     for (let particle of this.particles) {
       particle.applyForce(dir);
@@ -108,13 +108,13 @@ class Particle {
     this.color = color(frameCount % 256, 255, 255);
   }
 
-  // Update and draw the particle
+  // パーティクルを更新して描画
   run() {
     this.update();
     this.render();
   }
 
-  // Draw the particle
+  // パーティクルを描画
   render() {
     imageMode(CENTER);
     tint(this.color, this.lifespan);
@@ -122,7 +122,7 @@ class Particle {
   }
 
   applyForce(f) {
-    // Add the force vector to the current acceleration vector
+    // 力ベクトルを現在の加速度ベクトルに加える
     this.acceleration.add(f);
   }
 
@@ -130,13 +130,13 @@ class Particle {
     return this.lifespan <= 0.0;
   }
 
-  // Update the particle's position, velocity, lifespan
+  // パーティクルの位置、速度、寿命を更新
   update() {
     this.velocity.add(this.acceleration);
     this.loc.add(this.velocity);
     this.lifespan -= 2.5;
 
-    // Set the acceleration to zero
+    // 加速度をゼロに設定
     this.acceleration.mult(0);
   }
 } // class Particle

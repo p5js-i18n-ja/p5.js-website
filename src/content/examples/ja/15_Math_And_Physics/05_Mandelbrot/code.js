@@ -1,41 +1,41 @@
 function setup() {
   createCanvas(710, 400);
   pixelDensity(1);
-  describe('Colorful rendering of the Mandelbrot set.');
+  describe("マンデルブロ集合のカラフルな描画。");
   background(0);
 
-  // Establish a range of values on the complex plane
-  // Different width values change the zoom level
+  // 複素平面上の値の範囲を設定
+  // 幅の値を変えることでズームレベルが変わる
   let w = 4;
   let h = (w * height) / width;
 
-  // Start at negative half the width and height
+  // 負の半幅と半高さから開始
   let xMin = -w / 2;
   let yMin = -h / 2;
 
-  // Access the pixels[] array
+  // pixels[] 配列にアクセス
   loadPixels();
 
-  // Set the maximum number of iterations for each point on the complex plane
+  // 複素平面上の各点の最大反復回数を設定
   let maxIterations = 100;
 
-  // x goes from xMin to xMax
+  // xは xMin から xMax まで
   let xMax = xMin + w;
 
-  // y goes from yMin to yMax
+  // yは yMin から yMax まで
   let yMax = yMin + h;
 
-  // Calculate amount we increment x,y for each pixel
+  // 各ピクセルのために x,y を増加させる量を計算
   let dx = (xMax - xMin) / width;
   let dy = (yMax - yMin) / height;
 
-  // Start y
+  // yの開始
   let y = yMin;
   for (let j = 0; j < height; j += 1) {
-    // Start x
+    // xの開始
     let x = xMin;
     for (let i = 0; i < width; i += 1) {
-      // Test whether iteration of z = z^2 + cm diverges
+      // z = z^2 + cm の反復が発散するかどうかをテスト
       let a = x;
       let b = y;
       let iterations = 0;
@@ -46,38 +46,38 @@ function setup() {
         a = aSquared - bSquared + x;
         b = twoAB + y;
 
-        // If the values are too big, stop iteration
+        // 値が大きすぎる場合、反復を停止
         if (dist(aSquared, bSquared, 0, 0) > 16) {
           break;
         }
         iterations += 1;
       }
 
-      // Color each pixel based on how long it takes to get to infinity
+      // 無限大に達するまでの時間に基づいて各ピクセルに色を付ける
 
       let index = (i + j * width) * 4;
 
-      // Convert number of iterations to range of 0-1
+      // 反復回数を0-1の範囲に変換
       let normalized = map(iterations, 0, maxIterations, 0, 1);
 
-      // Use square root of normalized value for color interpolation
+      // 色の補間のために正規化された値の平方根を使用
       let lerpAmount = sqrt(normalized);
 
-      // Set default color to black
+      // デフォルトの色を黒に設定
       let pixelColor = color(0);
 
-      // Blue
+      // 青
       let startColor = color(47, 68, 159);
 
-      // Light yellow
+      // 明るい黄色
       let endColor = color(255, 255, 128);
 
-      // If iteration is under the maximum, interpolate a color
+      // 反復回数が最大未満の場合、色を補間
       if (iterations < maxIterations) {
         pixelColor = lerpColor(startColor, endColor, lerpAmount);
       }
 
-      // Copy the RGBA values from the color to the pixel
+      // 色からピクセルにRGBA値をコピー
       for (let i = 0; i < 4; i += 1) {
         pixels[index + i] = pixelColor.levels[i];
       }

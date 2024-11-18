@@ -1,7 +1,7 @@
-// Declare array to store the moving bodies
+// 移動する物体を格納するための配列を宣言
 let movers = [];
 
-// Declare variable for the Liquid object
+// Liquidオブジェクトのための変数を宣言
 let liquid;
 
 function setup() {
@@ -9,37 +9,37 @@ function setup() {
   colorMode(HSB, 9, 100, 100);
   initializeMovers();
 
-  // Create Liquid object
+  // Liquidオブジェクトを作成
   liquid = new Liquid(0, height / 2, width, height / 2, 0.1);
 
   describe(
-    'Nine grey balls drop from the top of the canvas and slow down as they reach the bottom half of the canvas.'
+    "九つの灰色のボールがキャンバスの上から落下し、キャンバスの下半分に達するにつれて減速します。",
   );
 }
 
 function draw() {
   background(20);
 
-  // Draw water
+  // 水を描画
   liquid.display();
 
   for (let mover of movers) {
-    // Check whether the mover is in the liquid
+    // 移動体が液体の中にいるか確認
     if (liquid.contains(mover)) {
-      // Calculate drag force
+      // 抵抗力を計算
       let dragForce = liquid.calculateDrag(mover);
 
-      // Apply drag force to Mover
+      // 抵抗力をMoverに適用
       mover.applyForce(dragForce);
     }
 
-    // Gravitational force is proportional to the mass
+    // 重力は質量に比例
     let gravity = createVector(0, 0.1 * mover.mass);
 
-    // Apply gravitational force
+    // 重力を適用
     mover.applyForce(gravity);
 
-    // Update and display
+    // 更新して表示
     mover.update();
     mover.display();
     mover.checkEdges();
@@ -51,10 +51,10 @@ function mousePressed() {
 }
 
 function initializeMovers() {
-  // Calculate the spacing based on the width of the canvas
+  // キャンバスの幅に基づいて間隔を計算
   let xSpacing = width / 9;
 
-  // Fill the movers array with 9 Mover objects with random masses
+  // 9つのMoverオブジェクトをランダムな質量で movers 配列に格納
   for (let i = 0; i < 9; i += 1) {
     let mass = random(0.5, 3);
     let xPosition = xSpacing * i + xSpacing / 2;
@@ -71,7 +71,7 @@ class Liquid {
     this.c = c;
   }
 
-  // Check whether the Mover in the Liquid
+  // Moverが液体の中にいるか確認
   contains(m) {
     let l = m.position;
     return (
@@ -82,17 +82,17 @@ class Liquid {
     );
   }
 
-  // Calculate drag force
+  // 抵抗力を計算
   calculateDrag(m) {
-    // The drag force magnitude is coefficient * speed squared
+    // 抵抗力の大きさは係数 * 速度の二乗
     let speed = m.velocity.mag();
     let dragMagnitude = this.c * speed * speed;
 
-    // Create the drag force vector (opposite direction of velocity)
+    // 抵抗力ベクトルを作成（速度の逆方向）
     let dragForce = m.velocity.copy();
     dragForce.mult(-1);
 
-    // Scale the drag force vector to the magnitude calculated above
+    // 抵抗力ベクトルを上記で計算した大きさにスケール
     dragForce.setMag(dragMagnitude);
 
     return dragForce;
@@ -114,21 +114,21 @@ class Mover {
     this.color = c;
   }
 
-  // Apply force according to Newton's 2nd law: F = M * A
-  // or A = F / M
+  // ニュートンの第2法則に従って力を適用: F = M * A
+  // または A = F / M
   applyForce(force) {
     let f = p5.Vector.div(force, this.mass);
     this.acceleration.add(f);
   }
 
   update() {
-    // Change the velocity by the acceleration
+    // 加速度によって速度を変更
     this.velocity.add(this.acceleration);
 
-    // Change the position by the velocity
+    // 速度によって位置を変更
     this.position.add(this.velocity);
 
-    // Clear the acceleration each frame
+    // 各フレームで加速度をクリア
     this.acceleration.mult(0);
   }
 
@@ -139,10 +139,10 @@ class Mover {
     ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16);
   }
 
-  // Make the balls bounce at the bottom
+  // ボールが底で跳ね返るようにする
   checkEdges() {
     if (this.position.y > height - this.mass * 8) {
-      // A little dampening when hitting the bottom
+      // 底に当たったときの少しの減衰
       this.velocity.y *= -0.9;
       this.position.y = height - this.mass * 8;
     }

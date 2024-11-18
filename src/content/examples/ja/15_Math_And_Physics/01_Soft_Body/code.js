@@ -1,4 +1,4 @@
-// Declare variables for the physics calculations
+// 物理計算のための変数を宣言
 let centerX = 0.0;
 let centerY = 0.0;
 let radius = 45;
@@ -10,7 +10,7 @@ let deltaY = 0.0;
 let springing = 0.0009;
 let damping = 0.98;
 
-// Declare variables for specifying vertex locations
+// 頂点の位置を指定するための変数を宣言
 let nodes = 5;
 let nodeStartX = [];
 let nodeStartY = [];
@@ -19,17 +19,17 @@ let nodeY = [];
 let angle = [];
 let frequency = [];
 
-// Declare the variable for the curve tightness
+// 曲線の緊張度を指定するための変数を宣言
 let organicConstant = 1.0;
 
 function setup() {
   createCanvas(710, 400);
 
-  // Start in the center of the canvas
+  // キャンバスの中央から開始
   centerX = width / 2;
   centerY = height / 2;
 
-  // Initialize arrays to 0
+  // 配列を0で初期化
   for (let i = 0; i < nodes; i++) {
     nodeStartX[i] = 0;
     nodeStartY[i] = 0;
@@ -38,7 +38,7 @@ function setup() {
     angle[i] = 0;
   }
 
-  // Initialize frequencies for corner nodes
+  // 角のノードの周波数を初期化
   for (let i = 0; i < nodes; i++) {
     frequency[i] = random(5, 12);
   }
@@ -48,26 +48,25 @@ function setup() {
 }
 
 function draw() {
-  // Use alpha blending for fade effect
+  // フェード効果のためにアルファブレンディングを使用
   background(0, 50);
 
-  // Draw and move the shape
+  // 形状を描画し、移動させる
   drawShape();
   moveShape();
 }
 
 function drawShape() {
-  // Calculate node starting locations
+  // ノードの開始位置を計算
   for (let i = 0; i < nodes; i++) {
     nodeStartX[i] = centerX + cos(rotAngle) * radius;
     nodeStartY[i] = centerY + sin(rotAngle) * radius;
     rotAngle += 360.0 / nodes;
   }
 
-  // Draw the polygon
-
+  // 多角形を描画
   curveTightness(organicConstant);
-  let shapeColor = lerpColor(color('red'), color('yellow'), organicConstant);
+  let shapeColor = lerpColor(color("red"), color("yellow"), organicConstant);
   fill(shapeColor);
 
   beginShape();
@@ -78,29 +77,29 @@ function drawShape() {
 }
 
 function moveShape() {
-  // Move center point
+  // 中心点を移動
   deltaX = mouseX - centerX;
   deltaY = mouseY - centerY;
 
-  // Create springing effect
+  // バネ効果を作成
   deltaX *= springing;
   deltaY *= springing;
   accelX += deltaX;
   accelY += deltaY;
 
-  // Move center
+  // 中心を移動
   centerX += accelX;
   centerY += accelY;
 
-  // Slow down springing
+  // バネの動きを遅くする
   accelX *= damping;
   accelY *= damping;
 
-  // Change curve tightness based on the overall acceleration;
-  // use abs() to avoid dependence on direction of acceleration
+  // 全体の加速度に基づいて曲線の緊張度を変更;
+  // abs()を使用して加速度の方向に依存しないようにする
   organicConstant = 1 - (abs(accelX) + abs(accelY)) * 0.1;
 
-  // Move nodes
+  // ノードを移動
   for (let i = 0; i < nodes; i++) {
     nodeX[i] = nodeStartX[i] + sin(angle[i]) * (accelX * 2);
     nodeY[i] = nodeStartY[i] + sin(angle[i]) * (accelY * 2);
