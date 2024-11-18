@@ -2,21 +2,21 @@ function setup() {
   createCanvas(400, 400);
   colorMode(HSB);
 
-  // Set angle mode so that atan2() returns angles in degrees
+  // atan2()が度数法で角度を返すように角度モードを設定します
   angleMode(DEGREES);
 
-  describe('Two eyes that follow the cursor.');
+  describe("カーソルを追う二つの目。");
 }
 
 function draw() {
   background(0);
 
-  // Draw left eye
+  // 左目を描画します
 
   let leftX = 150;
   let leftY = 200;
 
-  // Calculate angle between left eye and mouse
+  // 左目とマウスの間の角度を計算します
   let leftAngle = atan2(mouseY - leftY, mouseX - leftX);
 
   push();
@@ -28,12 +28,12 @@ function draw() {
   ellipse(12.5, 0, 25, 25);
   pop();
 
-  // Draw right eye
+  // 右目を描画します
 
   let rightX = 250;
   let rightY = 200;
 
-  // Calculate angle between right eye and angle
+  // 右目とマウスの間の角度を計算します
   let rightAngle = atan2(mouseY - rightY, mouseX - rightX);
 
   push();
