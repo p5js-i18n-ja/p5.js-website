@@ -2,52 +2,52 @@ function setup() {
   createCanvas(400, 400);
   background(255);
 
-  // Use Hue Saturation Brightness colors without stroke
+  // ストロークなしで色相、彩度、明度の色を使用
   colorMode(HSB);
   noStroke();
 
-  // Set angle mode to use degrees
+  // 角度モードを度数法に設定
   angleMode(DEGREES);
   describe(
-    'Small circles, each with a different color, arranged in a circular path, displaying hues across the color spectrum.'
+    "小さな円がそれぞれ異なる色で、円形のパスに配置され、色のスペクトル全体の色相を表示します。",
   );
 
-  // Center align text
+  // テキストを中央揃えにする
   textAlign(CENTER, CENTER);
 
-  // Repeat for angles 0-360 at increments of 30 degrees
-  // Changing the 30 value will change
-  // how many circles are drawn and how close together
+  // 0から360までの角度を30度刻みで繰り返す
+  // 30の値を変更すると
+  // 描画される円の数とその間隔が変わる
   for (let angle = 0; angle < 360; angle += 30) {
-    // Save current transformation
+    // 現在の変換を保存
     push();
 
-    // Move origin to center of canvas
+    // 原点をキャンバスの中心に移動
     translate(width / 2, height / 2);
 
-    // Rotate using current angle
+    // 現在の角度で回転
     rotate(angle);
 
-    // Move 150 pixels out from center
+    // 中心から150ピクセル外に移動
     translate(150, 0);
 
-    // Set fill using current angle as hue
+    // 現在の角度を色相として塗りつぶし
     fill(angle, 85, 90);
 
-    // Draw a circle at current origin (150 pixels from center)
+    // 現在の原点に円を描画（中心から150ピクセル）
     circle(0, 0, 50);
 
-    // Move 50 pixels toward center
+    // 中心に向かって50ピクセル移動
     translate(-50, 0);
 
-    // Reverse rotation to keep text upright
+    // テキストを直立させるために回転を逆にする
     rotate(-angle);
 
-    // Label the current angle
+    // 現在の角度をラベル付け
     fill(0);
     text(`${angle}°`, 0, 0);
 
-    // Restore canvas transformation
+    // キャンバスの変換を復元
     pop();
   }
 }

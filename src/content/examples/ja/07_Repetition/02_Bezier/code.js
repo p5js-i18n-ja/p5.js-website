@@ -1,12 +1,12 @@
-// Define strokeHue as a global variable. This variable
-// will be used to color each line.
+// strokeHueをグローバル変数として定義します。この変数は
+// 各線の色を設定するために使用されます。
 let strokeHue = 20;
 
 function setup() {
   createCanvas(720, 400);
 
-  // Remove the bezier stroke fills and establish a new
-  // stroke weight. Change the color mode to HSB.
+  // bezierのストロークフィルを削除し、新しい
+  // ストロークの太さを設定します。色モードをHSBに変更します。
   noFill();
   strokeWeight(2);
   colorMode(HSB);
@@ -14,16 +14,15 @@ function setup() {
 
 function draw() {
   describe(
-    'Ten rainbow-colored lines in a bezier curve formation. The top anchors of the curves move with the cursor as it hovers over the black canvas.'
+    "十本の虹色の線がベジェ曲線の形で描かれます。曲線の上部のアンカーは、黒いキャンバスの上をカーソルが移動するにつれて動きます。",
   );
 
   background(5);
 
-  // Create 10 bezier lines with anchor points moving
-  // with the X coordinate of the cursor.
+  // カーソルのX座標に合わせて動くアンカーポイントを持つ
+  // 10本のベジェ線を作成します。
   for (let i = 0; i < 200; i += 20) {
-    // Add 10 to the line's hue value during
-    // each iteration.
+    // 各反復で線の色相値に10を加えます。
     strokeColor = i + 10;
 
     stroke(strokeColor, 50, 60);
