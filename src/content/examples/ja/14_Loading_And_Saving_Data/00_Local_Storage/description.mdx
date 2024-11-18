@@ -1,22 +1,17 @@
 ---
 featuredImage: "../../../images/featured/14_Loading_And_Saving_Data-00_Local_Storage-thumbnail.png"
-featuredImageAlt: Black outlines of circles on a white background. Text below the circles reads "Click and drag to add bubbles."
-title: Local Storage
-oneLineDescription: Save data from the browser on the device.
+featuredImageAlt: 白い背景に黒い円の輪郭。円の下には「クリックしてドラッグしてバブルを追加します。」と書かれています。
+title: ローカルストレージ
+oneLineDescription: デバイス上のブラウザからデータを保存します。
 ---
 
-Browsers allow websites to store data on the visitor's
-device. This is called
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">local storage</a>.
-The <a href="/reference/p5/getItem" target="_blank">getItem()</a>,
-<a href="/reference/p5/storeItem" target="_blank">storeItem()</a>,
-<a href="/reference/p5/clearStorage" target="_blank">clearStorage()</a>,
-and <a href="/reference/p5/removeItem" target="_blank">removeItem()</a>
-functions control it.
+ブラウザは、ウェブサイトが訪問者のデバイスにデータを保存することを許可します。これを
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">ローカルストレージ</a>と呼びます。
+<a href="/reference/p5/getItem" target="_blank">getItem()</a>、
+<a href="/reference/p5/storeItem" target="_blank">storeItem()</a>、
+<a href="/reference/p5/clearStorage" target="_blank">clearStorage()</a>、
+および<a href="/reference/p5/removeItem" target="_blank">removeItem()</a>
+関数がこれを制御します。
 
-This example is inspired by Daniel Shiffman's Loading JSON Data and Loading 
-Tabular Data examples for Processing written in Java. It uses a
-<a href="/reference/p5/class" target="_blank">class</a>
-to organize data for a bubble. The visitor can add new bubbles, and their data 
-will be saved in local storage. If the visitor revisits the sketch, it will
-reload the same bubbles.
+この例は、Daniel ShiffmanのLoading JSON DataおよびProcessingで書かれたLoading Tabular Dataの例に触発されています。バブルのデータを整理するために
+<a href="/reference/p5/class" target="_blank">クラス</a>を使用しています。訪問者は新しいバブルを追加でき、そのデータはローカルストレージに保存されます。訪問者がスケッチを再訪問すると、同じバブルが再読み込みされます。
