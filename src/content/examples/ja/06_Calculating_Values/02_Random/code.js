@@ -1,4 +1,4 @@
-// Declare variables for the position and color of the circle
+// 円の位置と色のための変数を宣言します
 
 let circleX;
 let circleY;
@@ -7,32 +7,32 @@ let circleColor;
 function setup() {
   createCanvas(710, 400);
 
-  // Set the initial position and color of the circle
+  // 円の初期位置と色を設定します
   setPositionAndColor();
 
   describe(
-    'A circle whose position and color change randomly when the user clicks the canvas.'
+    "ユーザーがキャンバスをクリックすると、位置と色がランダムに変わる円。",
   );
 }
 
 function setPositionAndColor() {
-  // Set the position to a random value (within the canvas)
+  // 位置をランダムな値に設定します（キャンバス内）
   circleX = random(0, width);
   circleY = random(0, height);
 
-  // Set R, G, and B to random values in the range (100, 256)
+  // R、G、Bを範囲(100, 256)のランダムな値に設定します
   circleColor = color(random(100, 256), random(100, 256), random(100, 256));
 }
 
 function draw() {
   background(10);
 
-  // Draw a circle at (x,y) with color c
+  // (x,y)の位置に色cで円を描画します
   fill(circleColor);
   circle(circleX, circleY, 100);
 }
 
 function mousePressed() {
-  // On mouse press (re)set the position and color
+  // マウスが押されたときに（再）設定します
   setPositionAndColor();
 }

@@ -8,10 +8,10 @@ function setup() {
 function draw() {
   background(0);
 
-  // Scale the mouseX value from 0 to 720 to a range between 0 and 360
+  // mouseXの値を0から720の範囲から0から360の範囲にスケーリングします
   let circleHue = map(mouseX, 0, width, 0, 360);
 
-  // Scale the mouseY value from 0 to 400 to a range between 20 and 300
+  // mouseYの値を0から400の範囲から20から300の範囲にスケーリングします
   let diameter = map(mouseY, 0, height, 20, 300);
 
   fill(circleHue, 80, 90);

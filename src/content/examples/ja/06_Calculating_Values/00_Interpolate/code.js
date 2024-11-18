@@ -10,12 +10,12 @@ function setup() {
 function draw() {
   background(51);
 
-  // lerp() calculates a number between two numbers at a specific increment.
-  // The amt parameter is the amount to interpolate between the two values
-  // where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5
-  // is halfway in between, etc.
+  // lerp() は、特定の増分で2つの数値の間の数値を計算します。
+  // amt パラメータは、2つの値の間で補間する量を示し、
+  // 0.0 は最初の点と等しく、0.1 は最初の点に非常に近く、0.5
+  // はその中間点に相当します。
 
-  // Move 5% of the way to the mouse location each frame
+  // 毎フレーム、マウスの位置に向かって5%移動します
   x = lerp(x, mouseX, 0.05);
   y = lerp(y, mouseY, 0.05);
 
