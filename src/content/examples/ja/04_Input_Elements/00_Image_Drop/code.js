@@ -1,12 +1,11 @@
-// Define canvasText as a global variable.
-let canvasText = 'Drag an image file onto the canvas.';
+// グローバル変数としてcanvasTextを定義します。
+let canvasText = "キャンバスに画像ファイルをドラッグしてください。";
 
 function setup() {
-  // Assign the dropArea variable to the canvas.
+  // dropArea変数をキャンバスに割り当てます。
   let dropArea = createCanvas(710, 400);
 
-  // Add the drop() method to the canvas. Call the gotFile
-  // function when a file is dropped into the canvas.
+  // drop()メソッドをキャンバスに追加します。ファイルがキャンバスにドロップされたときにgotFile関数を呼び出します。
   dropArea.drop(gotFile);
   noLoop();
 }
@@ -14,30 +13,30 @@ function setup() {
 function draw() {
   background(100);
 
-  // Add instructions for dropping an image file in the canvas.
+  // キャンバスに画像ファイルをドロップするための指示を追加します。
   fill(255);
   noStroke();
   textSize(24);
   textAlign(CENTER);
   text(canvasText, width / 2, height / 2);
 
-  describe(`Grey canvas with the text "${canvasText}" in the center.`);
+  describe(
+    `灰色のキャンバスの中央に「${canvasText}」というテキストがあります。`,
+  );
 }
 
 function gotFile(file) {
-  // If the file dropped into the canvas is an image,
-  // create a variable called img to contain the image.
-  // Remove this image file from the DOM and only
-  // draw the image within the canvas.
-  if (file.type === 'image') {
-    // Pass in an empty string for the alt text. This should only be done with
-    // decorative photos.
-    let img = createImg(file.data, '').hide();
+  // キャンバスにドロップされたファイルが画像である場合、
+  // 画像を含むimgという変数を作成します。
+  // この画像ファイルをDOMから削除し、キャンバス内でのみ画像を描画します。
+  if (file.type === "image") {
+    // 装飾的な写真の場合のみ、altテキストに空の文字列を渡します。
+    let img = createImg(file.data, "").hide();
     image(img, 0, 0, width, height);
   } else {
-    // If the file dropped into the canvas is not an image,
-    // change the instructions to 'Not an image file!'
-    canvasText = 'Not an image file!';
+    // キャンバスにドロップされたファイルが画像でない場合、
+    // 指示を「画像ファイルではありません！」に変更します。
+    canvasText = "画像ファイルではありません！";
     redraw();
   }
 }

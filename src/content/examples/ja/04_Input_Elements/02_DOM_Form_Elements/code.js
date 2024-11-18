@@ -1,4 +1,4 @@
-// Define the inputs for this form as global variables.
+// このフォームの入力をグローバル変数として定義します。
 let nameInput;
 let fontSelect;
 let foodRadio;
@@ -6,58 +6,55 @@ let foodRadio;
 function setup() {
   createCanvas(720, 400);
 
-  // Assign an input box to nameInput.
+  // nameInputに入力ボックスを割り当てます。
   nameInput = createInput();
   nameInput.position(25, 115);
 
-  // Assign radio buttons to foodRadio.
+  // foodRadioにラジオボタンを割り当てます。
   foodRadio = createRadio();
   foodRadio.position(25, 215);
 
-  // List the radio options for foodRadio, along
-  // with the background color associated with each selection.
-  foodRadio.option('#F7F5BC', 'Cranberries');
-  foodRadio.option('#B8E3FF', 'Almonds');
-  foodRadio.option('#C79A9A', 'Gouda');
+  // foodRadioのラジオオプションをリストし、
+  // 各選択に関連付けられた背景色を設定します。
+  foodRadio.option("#F7F5BC", "クランベリー");
+  foodRadio.option("#B8E3FF", "アーモンド");
+  foodRadio.option("#C79A9A", "ゴーダ");
 
-  // Assign a select dropdown to fontSelect.
+  // fontSelectにセレクトドロップダウンを割り当てます。
   fontSelect = createSelect();
   fontSelect.position(25, 300);
 
-  // List out the dropdown options for fontSelect.
-  fontSelect.option('Sans-serif');
-  fontSelect.option('Serif');
-  fontSelect.option('Cursive');
+  // fontSelectのドロップダウンオプションをリストします。
+  fontSelect.option("サンセリフ");
+  fontSelect.option("セリフ");
+  fontSelect.option("カースィブ");
 
-  // If the fontSelect selection is changed, call the
-  // fontChanged function.
+  // fontSelectの選択が変更された場合、fontChanged関数を呼び出します。
   fontSelect.changed(fontChanged);
 }
 
 function draw() {
   describe(
-    'A form with "Welcome to p5.js!" for a header, a text input with the label "What is your name?", and a set of radio buttons with the label "What is your favorite food?", with the options of "Cranberries," "Almonds," or "Gouda." The text submitted through the input appears next to its label. The radio button selection changes the canvas background color. The select element changes the form font.'
+    "ヘッダーに「Welcome to p5.js!」、ラベルに「What is your name?」のテキスト入力、ラベルに「What is your favorite food?」のラジオボタンセットがあり、「クランベリー」、「アーモンド」、「ゴーダ」のオプションがあります。入力を通じて送信されたテキストは、そのラベルの横に表示されます。ラジオボタンの選択はキャンバスの背景色を変更します。セレクト要素はフォームのフォントを変更します。",
   );
 
-  // Set the background color to the current foodRadio value.
+  // 背景色を現在のfoodRadioの値に設定します。
   let backgroundColor = foodRadio.value();
   background(backgroundColor);
 
-  // Create the header for the form.
+  // フォームのヘッダーを作成します。
   textSize(25);
-  text('Welcome to p5.js!', 25, 50);
+  text("Welcome to p5.js!", 25, 50);
 
-  // Create the text inputs that will update with the
-  // new user inputs.
+  // 新しいユーザー入力で更新されるテキスト入力を作成します。
   textSize(20);
   text(`What is your name? ${nameInput.value()}`, 25, 100);
-  text('What is your favorite food?', 25, 200);
+  text("What is your favorite food?", 25, 200);
 }
 
 function fontChanged() {
-  // When the fontSelect value is changed,
-  // update the canvas's font selection to the
-  // new value.
+  // fontSelectの値が変更されたとき、
+  // キャンバスのフォント選択を新しい値に更新します。
   let fontSelection = fontSelect.value();
   textFont(fontSelection);
 }
