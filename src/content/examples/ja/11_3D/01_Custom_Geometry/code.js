@@ -4,12 +4,12 @@ function setup() {
   createCanvas(700, 400, WEBGL);
   angleMode(DEGREES);
   buildSnake();
-  describe('A tiled plane of snake models');
+  describe("A tiled plane of snake models");
 }
 
 function buildSnake() {
-  // If there was a previous snake, we're going to replace it
-  // so we can free its resources to save memory
+  // 以前のスネークがあった場合、それを置き換えます
+  // そうすることで、メモリを節約するためにリソースを解放できます
   if (snake) {
     freeGeometry(snake);
   }
@@ -18,24 +18,24 @@ function buildSnake() {
     colorMode(HSB, 100);
     fill(random(100), 50, 100);
 
-    // Draw the head
+    // 頭を描画します
     push();
     scale(1, 0.5, 1.4);
     sphere(50);
     pop();
 
-    // Draw eyes
+    // 目を描画します
     for (let mirrorX of [-1, 1]) {
       push();
       scale(mirrorX, 1, 1);
-      fill('black');
+      fill("black");
       translate(20, -20, 10);
       sphere(10);
       pop();
     }
     translate(0, 0, 50);
 
-    // Draw body
+    // 体を描画します
     let numSegments = ceil(random(10, 30));
     for (let segment = 0; segment < numSegments; segment++) {
       rotateY(random(-60, 60));
@@ -50,7 +50,7 @@ function buildSnake() {
     }
   });
 
-  // Recenter the model and scale it to a common size
+  // モデルを再中心化し、共通のサイズにスケールします
   snake.normalize();
 }
 
@@ -59,16 +59,16 @@ function draw() {
   noStroke();
   scale(1.5);
 
-  // Slowly orbit around the plane of snakes
+  // スネークの平面の周りをゆっくりと回転します
   rotateX(-45);
   rotateY(frameCount * 0.25);
 
-  // Set up the material and shininess
+  // マテリアルと光沢を設定します
   lights();
-  specularMaterial('white');
+  specularMaterial("white");
   shininess(100);
 
-  // Tile the snake model a number of times along the ground
+  // 地面に沿ってスネークモデルを複数回タイルします
   for (let x = -4; x <= 4; x += 1) {
     for (let z = -4; z <= 4; z += 1) {
       push();
@@ -79,7 +79,7 @@ function draw() {
   }
 }
 
-// When mouse is pressed, generate a new snake
+// マウスが押されたとき、新しいスネークを生成します
 function mousePressed() {
   buildSnake();
 }

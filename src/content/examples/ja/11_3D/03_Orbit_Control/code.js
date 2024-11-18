@@ -5,27 +5,27 @@ function setup() {
   noFill();
   stroke(32, 8, 64);
   describe(
-    'Users can click on the screen and drag to adjust their perspective in 3D space. The space contains a sphere of dark purple cubes on a light pink background.'
+    "ユーザーは画面をクリックしてドラッグすることで、3D空間での視点を調整できます。空間には、薄いピンクの背景に暗い紫色の立方体の球体があります。",
   );
 }
 
 function draw() {
   background(250, 180, 200);
 
-  // Call every frame to adjust camera based on mouse/touch
+  // マウス/タッチに基づいてカメラを調整するために毎フレーム呼び出します
   orbitControl();
 
-  // Rotate rings in a half circle to create a sphere of cubes
+  // 立方体の球体を作成するためにリングを半円で回転させます
   for (let zAngle = 0; zAngle < 180; zAngle += 30) {
-    // Rotate cubes in a full circle to create a ring of cubes
+    // 立方体のリングを作成するために立方体を全円で回転させます
     for (let xAngle = 0; xAngle < 360; xAngle += 30) {
       push();
 
-      // Rotate from center of sphere
+      // 球の中心から回転します
       rotateZ(zAngle);
       rotateX(xAngle);
 
-      // Then translate down 400 units
+      // その後、400ユニット下に移動します
       translate(0, 400, 0);
       box();
       pop();

@@ -1,15 +1,11 @@
 ---
 featuredImage: "../../../images/featured/11_3D-06_Framebuffer_Blur-thumbnail.png"
-featuredImageAlt: A row of five orange spheres. The closest and farthest spheres from the camera appear blurred.
-title: Framebuffer Blur
-oneLineDescription: Simulate a camera's depth of field.
+featuredImageAlt: カメラから最も近い球体と最も遠い球体がぼやけて見える5つのオレンジ色の球体の列。
+title: フレームバッファぼかし
+oneLineDescription: カメラの被写界深度をシミュレートします。
 ---
 
-The
-<a href="https://www.khronos.org/opengl/wiki/Shader" target="_blank">shader</a>
-in this example uses depth information from a
-<a href="/reference/p5/p5.Framebuffer" target="_blank">p5.Framebuffer</a>
-to apply a blur. On a real camera, objects appear blurred if they
-are closer or farther than the lens's focus. This simulates that
-effect. First, the sketch renders five spheres to the framebuffer.
-Then, it renders the framebuffer to the canvas using the blur shader.
+この例の
+<a href="https://www.khronos.org/opengl/wiki/Shader" target="_blank">シェーダー</a>
+は、<a href="/reference/p5/p5.Framebuffer" target="_blank">p5.Framebuffer</a>
+からの深度情報を使用してぼかしを適用します。実際のカメラでは、オブジェクトはレンズの焦点よりも近いか遠い場合にぼやけて見えます。これをシミュレートしています。まず、スケッチは5つの球体をフレームバッファに描画します。次に、ぼかしシェーダーを使用してフレームバッファをキャンバスに描画します。

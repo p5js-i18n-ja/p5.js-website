@@ -4,16 +4,16 @@ uniform mat4 uModelViewMatrix;
 uniform mat4 uProjectionMatrix;
 
 attribute vec3 aPosition;
-// texcoords only come from p5 to vertex shader
-// so pass texcoords on to the fragment shader in a varying variable
+// テクスチャ座標はp5から頂点シェーダーにのみ来るため
+// フラグメントシェーダーに渡すためにvarying変数でテクスチャ座標を渡します
 attribute vec2 aTexCoord;
 varying vec2 vTexCoord;
 
 void main() {
-  // transferring texcoords for the frag shader
+  // フラグメントシェーダー用にテクスチャ座標を転送
   vTexCoord = aTexCoord;
 
-  // copy position with a fourth coordinate for projection (1.0 is normal)
+  // 投影のための4番目の座標を持つ位置をコピー（1.0は通常）
   vec4 positionVec4 = vec4(aPosition, 1.0);
 
   gl_Position = uProjectionMatrix * uModelViewMatrix * positionVec4;
@@ -26,8 +26,7 @@ varying vec2 vTexCoord;
 uniform sampler2D img;
 uniform sampler2D depth;
 float getBlurriness(float d) {
-  // Blur more the farther away we go from the
-  // focal point at depth=0.9
+  // 焦点深度=0.9から遠ざかるほどぼかしが増します
   return abs(d - 0.9) * 40.;
 }
 float maxBlurDistance(float blurriness) {
@@ -39,22 +38,19 @@ void main() {
   float centerDepth = texture2D(depth, vTexCoord).r;
   float blurriness = getBlurriness(centerDepth);
   for (int sample = 0; sample < 20; sample++) {
-    // Sample nearby pixels in a spiral going out from the
-    // current pixel
+    // 現在のピクセルから外側に向かってスパイラル状に近くのピクセルをサンプリング
     float angle = float(sample);
-    float distance = float(sample)/20.
-      * maxBlurDistance(blurriness);
+    float distance = float(sample) / 20. * maxBlurDistance(blurriness);
     vec2 offset = vec2(cos(angle), sin(angle)) * distance;
 
-    // How close is the object at the nearby pixel?
+    // 近くのピクセルでのオブジェクトの距離はどれくらいか？
     float sampleDepth = texture2D(depth, vTexCoord + offset).r;
 
-    // How far should its blur reach?
-    float sampleBlurDistance =
-      maxBlurDistance(getBlurriness(sampleDepth));
+    // そのぼかしがどれくらい届くべきか？
+    float sampleBlurDistance = maxBlurDistance(getBlurriness(sampleDepth));
 
-    // If it's in front of the current pixel, or its blur overlaps
-    // with the current pixel, add its color to the average
+    // もしそれが現在のピクセルの前にあるか、またはそのぼかしが
+    // 現在のピクセルと重なる場合、その色を平均に加えます
     if (
       sampleDepth >= centerDepth ||
       sampleBlurDistance >= distance
@@ -75,17 +71,17 @@ function setup() {
   angleMode(DEGREES);
   noStroke();
 
-  // Create framebuffer and shader objects
+  // フレームバッファとシェーダーオブジェクトを作成
   layer = createFramebuffer();
   blur = createShader(vertexShader, fragmentShader);
 
   describe(
-    'A row of five spheres rotating in front of the camera. The closest and farthest spheres from the camera appear blurred.'
+    "カメラの前で回転する5つの球体の列。カメラから最も近い球体と最も遠い球体がぼやけて見えます。",
   );
 }
 
 function draw() {
-  // Start drawing to framebuffer
+  // フレームバッファへの描画を開始
   layer.begin();
   background(255);
   ambientLight(100);
@@ -95,10 +91,10 @@ function draw() {
   specularMaterial(255);
   shininess(150);
 
-  // Rotate 1° per frame
+  // フレームごとに1°回転
   rotateY(frameCount);
 
-  // Place 5 spheres across canvas at equal distance
+  // キャンバスに5つの球体を等間隔で配置
   let sphereDistance = width / 4;
   for (let x = -width / 2; x <= width / 2; x += sphereDistance) {
     push();
@@ -107,15 +103,14 @@ function draw() {
     pop();
   }
 
-  // Stop drawing to framebuffer
+  // フレームバッファへの描画を停止
   layer.end();
 
-  // Pass color and depth information from the framebuffer
-  // to the shader's uniforms
-  blur.setUniform('img', layer.color);
-  blur.setUniform('depth', layer.depth);
+  // フレームバッファからシェーダーのuniformsに色と深度情報を渡す
+  blur.setUniform("img", layer.color);
+  blur.setUniform("depth", layer.depth);
 
-  // Render the scene captured by framebuffer with depth of field blur
+  // 深度ぼかしを使ってフレームバッファでキャプチャしたシーンを描画
   shader(blur);
   plane(width, height);
 }
