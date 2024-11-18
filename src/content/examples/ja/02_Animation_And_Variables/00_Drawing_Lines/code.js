@@ -1,23 +1,23 @@
 function setup() {
-  // Create the canvas
+  // キャンバスを作成
   createCanvas(710, 400);
 
-  // Set background to black
+  // 背景を黒に設定
   background(0);
 
-  // Set width of the lines
+  // 線の幅を設定
   strokeWeight(10);
 
-  // Set color mode to hue-saturation-brightness (HSB)
+  // 色モードを色相-彩度-明度（HSB）に設定
   colorMode(HSB);
 
-  // Set screen reader accessible description
-  describe('A blank canvas where the user draws by dragging the mouse');
+  // スクリーンリーダー用の説明を設定
+  describe('ユーザーがマウスをドラッグすることで描画する空白のキャンバス');
 }
 
 function mouseDragged() {
-  // Set the color based on the mouse position, and draw a line
-  // from the previous position to the current position
+  // マウスの位置に基づいて色を設定し、
+  // 前の位置から現在の位置まで線を描画
   let lineHue = mouseX - mouseY;
   stroke(lineHue, 90, 90);
   line(pmouseX, pmouseY, mouseX, mouseY);

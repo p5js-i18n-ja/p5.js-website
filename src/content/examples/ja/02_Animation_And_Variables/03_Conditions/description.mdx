@@ -1,32 +1,21 @@
 ---
 featuredImage: "../../../images/featured/02_Animation_And_Variables-03_Conditions-thumbnail.png"
-featuredImageAlt: A small black circle on a rainbow, lattice-shaped path, on top of a grey and white striped background.
-title: Conditions
-oneLineDescription: Use if and else statements to make decisions while your sketch runs.
+featuredImageAlt: 小さな黒い円が虹のような格子状の軌道を描き、灰色と白のストライプの背景の上にあります。
+title: 条件
+oneLineDescription: スケッチが実行されている間に、if文とelse文を使用して決定を行います。
 ---
 
-If and else statements allow a
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block" target="_blank">block of code</a>
-to run only when a certain condition is true. This example only
-animates when the mouse is held down. This is because of the if
-statement on line 59. You can read more about if and else statements
-<a href="/reference/p5/if">in the p5 reference</a>
-or <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals" target="_blank">on MDN</a>.
+if文とelse文を使用すると、特定の条件が真であるときにのみ
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block" target="_blank">コードのブロック</a>
+を実行できます。この例では、マウスが押されているときのみアニメーションが実行されます。これは、59行目のif文によるものです。if文とelse文についての詳細は
+<a href="/reference/p5/if">p5リファレンス</a>
+や<a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals" target="_blank">MDN</a>で読むことができます。
 
-Comparison operators help to form conditions by comparing two
-values. In this example, the hue of the circle resets to zero when
-the hue is at least 360 because of the if statement on line 69.
-You can read more about comparison operators
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators" target="_blank">on MDN</a>.
+比較演算子は、2つの値を比較することによって条件を形成するのに役立ちます。この例では、円の色相が360以上になると色相がゼロにリセットされます。これは69行目のif文によるものです。比較演算子についての詳細は
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators" target="_blank">MDN</a>で読むことができます。
 
-Logical operators allow conditions to be combined.
+論理演算子を使用すると、条件を組み合わせることができます。
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND" target="_blank">&amp;&amp;</a>
-checks that both conditions are true. The circle in this example
-has a black fill when it is toward the horizontal center of the canvas, and it
-has a white fill when it is not. This is because of the if statement on line
-45, which checks that the circle's x position is at least 100 and also
-no more than 300.
+は、両方の条件が真であることを確認します。この例では、円はキャンバスの水平中心に近いときに黒で塗りつぶされ、そうでないときは白で塗りつぶされます。これは、45行目のif文によるもので、円のx位置が100以上であり、かつ300以下であることを確認します。
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR" target="_blank">||</a>
-checks that at least one of the conditions is true. The circle reverses horizontal
-speed when it reaches the left or right edge of the canvas because of the if statement
-on line 75.
+は、少なくとも1つの条件が真であることを確認します。円はキャンバスの左端または右端に達すると水平速度が反転します。これは75行目のif文によるものです。

@@ -1,41 +1,41 @@
-// Declare variable for the horizontal position of the circle
+// 円の水平方向の位置を表す変数を宣言
 let x = 25;
 
 function setup() {
-  // Create the canvas
+  // キャンバスを作成
   createCanvas(720, 400);
 
-  // Set the color mode to hue-saturation-brightness (HSB)
+  // 色モードを色相-彩度-明度（HSB）に設定
   colorMode(HSB);
 
-  // Set the text size
+  // テキストサイズを設定
   textSize(20);
 
-  // No animation to start
+  // アニメーションは開始しない
   noLoop();
 }
 
 function draw() {
-  // Clear the background
+  // 背景をクリア
   background(0);
 
-  // Draw a circle, with hue determined by frameCount
+  // フレームカウントによって決まる色相で円を描画
   fill(x / 3, 90, 90);
   circle(x, height / 2, 50);
 
-  // Increase the x variable by 5
+  // x変数を5増加させる
   x += 5;
 
-  // Reset the circle position after it moves off the right side
+  // 円が右側から外れたら位置をリセット
   if (x > width + 25) {
     x = -25;
   }
 
-  describe('circle moving to the right');
+  describe("右に移動する円");
 }
 
 function mousePressed() {
-  // Start/stop the animation loop
+  // アニメーションループを開始/停止
   if (isLooping()) {
     noLoop();
   } else {
@@ -44,6 +44,6 @@ function mousePressed() {
 }
 
 function keyPressed() {
-  // Draw one frame
+  // 1フレーム描画
   redraw();
 }
