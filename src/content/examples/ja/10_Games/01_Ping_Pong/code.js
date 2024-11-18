@@ -20,103 +20,102 @@ let ballSize = 10;
 function setup() {
   createCanvas(400, 400);
 
-  // Draw rectangles from their center
-  // This makes it easier to check whether the ball is above or below the
-  // center of a paddle
+  // 中心から矩形を描画します
+  // これにより、ボールがパドルの中心の上または下にあるかを確認しやすくなります
   rectMode(CENTER);
   fill(255);
   noStroke();
   textSize(40);
   textAlign(CENTER);
 
-  // Start paused
+  // 一時停止で開始します
   noLoop();
   describe(
-    'Two narrow white rectangles and a white square representing the paddles and ball in a game of ping pong. The player scores are displayed in the upper corners, and initially text reads "Click to start"'
+    "二つの狭い白い矩形と、ピンポンゲームのパドルとボールを表す白い正方形。プレイヤーのスコアは上隅に表示され、最初は「クリックして開始」と表示されます。",
   );
 }
 
 function draw() {
   background(0);
 
-  // Draw the paddles
+  // パドルを描画します
   rect(paddleLeftX, paddleLeftY, paddleWidth, paddleHeight);
   rect(paddleRightX, paddleRightY, paddleWidth, paddleHeight);
 
-  // Draw the ball
+  // ボールを描画します
   square(ballPosX, ballPosY, ballSize);
 
-  // Draw the score
+  // スコアを描画します
   text(leftScore, width * 0.25, height * 0.1);
   text(rightScore, width * 0.75, height * 0.1);
 
-  // Move the ball using its current speed
+  // ボールを現在の速度で移動させます
   ballPosX += ballSpeedX;
   ballPosY += ballSpeedY;
 
-  // Store coordinates of the left paddle's collision area edges
+  // 左パドルの衝突エリアの座標を保存します
   let leftCollisionLeft = paddleLeftX - paddleWidth / 2 - ballSize / 2;
   let leftCollisionRight = paddleLeftX + paddleWidth / 2 + ballSize / 2;
   let leftCollisionTop = paddleLeftY - paddleHeight / 2 - ballSize / 2;
   let leftCollisionBottom = paddleLeftY + paddleHeight / 2 + ballSize / 2;
 
-  // If the ball is colliding with the left paddle
+  // ボールが左パドルと衝突している場合
   if (
     ballPosX >= leftCollisionLeft &&
     ballPosX <= leftCollisionRight &&
     ballPosY >= leftCollisionTop &&
     ballPosY <= leftCollisionBottom
   ) {
-    // Reverse the ball's horizontal speed
+    // ボールの水平方向の速度を反転させます
     ballSpeedX = -ballSpeedX;
 
-    // Change the ball's vertical speed so it appears to bounce off the paddle
+    // ボールの垂直速度を変更して、パドルから跳ね返るように見せます
     ballSpeedY = (ballPosY - paddleLeftY) / 20;
   }
 
-  // Store coordinates of the right paddle's collision area edges
+  // 右パドルの衝突エリアの座標を保存します
   let rightCollisionLeft = paddleRightX - paddleWidth / 2 - ballSize / 2;
   let rightCollisionRight = paddleRightX + paddleWidth / 2 + ballSize / 2;
   let rightCollisionTop = paddleRightY - paddleHeight / 2 - ballSize / 2;
   let rightCollisionBottom = paddleRightY + paddleHeight / 2 + ballSize / 2;
 
-  // If the ball is colliding with the right paddle
+  // ボールが右パドルと衝突している場合
   if (
     ballPosX >= rightCollisionLeft &&
     ballPosX <= rightCollisionRight &&
     ballPosY >= rightCollisionTop &&
     ballPosY <= rightCollisionBottom
   ) {
-    // Reverse the ball's horizontal speed
+    // ボールの水平方向の速度を反転させます
     ballSpeedX = -ballSpeedX;
 
-    // Change the ball's vertical speed so it appears to bounce off the paddle
+    // ボールの垂直速度を変更して、パドルから跳ね返るように見せます
     ballSpeedY = (ballPosY - paddleRightY) / 20;
   }
 
-  // If the ball is beyond the left edge
+  // ボールが左端を越えた場合
   if (ballPosX < 0) {
-    // Give the right player a point
+    // 右プレイヤーにポイントを与えます
     rightScore += 1;
     resetBall();
 
-    // Otherwise if the ball is beyond the right edge
+    // そうでなければ、ボールが右端を越えた場合
   } else if (ballPosX > width) {
-    // Give the left player a point
+    // 左プレイヤーにポイントを与えます
     leftScore += 1;
     resetBall();
 
-    // Otherwise if the ball is hitting the top or bottom edge
+    // そうでなければ、ボールが上端または下端に当たった場合
   } else if (ballPosY < 0 || ballPosY > height) {
-    // Reverse its vertical speed
+    // 垂直速度を反転させます
     ballSpeedY = -ballSpeedY;
   }
 
-  // Store whether W and S keys are pressed
+  // WおよびSキーが押されているかどうかを保存します
   let leftDownPressed = keyIsDown(83);
   let leftUpPressed = keyIsDown(87);
 
-  // Store how much the left paddle will move
+  // 左パドルがどれだけ動くかを保存します
   let leftMove = 0;
 
   if (leftDownPressed === true) {
@@ -126,18 +125,18 @@ function draw() {
     leftMove -= paddleSpeed;
   }
 
-  // Prevent the paddle from moving off screen
+  // パドルが画面外に出ないようにします
   paddleLeftY = constrain(
     paddleLeftY + leftMove,
     paddleHeight / 2,
-    height - paddleHeight / 2
+    height - paddleHeight / 2,
   );
 
-  // Store whether up and down arrow keys are pressed
+  // 上矢印および下矢印キーが押されているかどうかを保存します
   let rightDownPressed = keyIsDown(DOWN_ARROW);
   let rightUpPressed = keyIsDown(UP_ARROW);
 
-  // Store how much the right paddle will move
+  // 右パドルがどれだけ動くかを保存します
   let rightMove = 0;
 
   if (rightDownPressed === true) {
@@ -147,20 +146,20 @@ function draw() {
     rightMove -= paddleSpeed;
   }
 
-  // Prevent the paddle from moving off screen
+  // パドルが画面外に出ないようにします
   paddleRightY = constrain(
     paddleRightY + rightMove,
     paddleHeight / 2,
-    height - paddleHeight / 2
+    height - paddleHeight / 2,
   );
 
-  // Show 'Click to start' if game is paused
+  // ゲームが一時停止している場合は「クリックして開始」と表示します
   if (isLooping() === false) {
-    text('Click to start', width / 2, height / 2 - 20);
+    text("クリックして開始", width / 2, height / 2 - 20);
   }
 }
 
-// Reset ball to center of canvas with random speed
+// ボールをキャンバスの中心にリセットし、ランダムな速度を設定します
 function resetBall() {
   ballPosX = width / 2;
   ballPosY = height / 2;

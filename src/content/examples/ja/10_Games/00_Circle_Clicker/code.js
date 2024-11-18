@@ -13,10 +13,10 @@ function setup() {
   ellipseMode(RADIUS);
   textSize(36);
 
-  // Get the last saved high score
-  highScore = getItem('high score');
+  // 最後に保存されたハイスコアを取得します
+  highScore = getItem("high score");
 
-  // If no score was saved, start with a value of 0
+  // スコアが保存されていない場合、0から始めます
   if (highScore === null) {
     highScore = 0;
   }
@@ -25,57 +25,57 @@ function setup() {
 function draw() {
   background(20);
 
-  // If the circle had not shrunk completely
+  // 円が完全に縮んでいない場合
   if (circleRadius > 0) {
-    // Draw the circle
+    // 円を描画します
     fill(circleColor);
     circle(circleX, circleY, circleRadius);
-    describeElement('Circle', 'Randomly colored shrinking circle');
+    describeElement("Circle", "ランダムな色の縮む円");
 
-    // Shrink it
+    // 縮めます
     circleRadius -= 1;
 
-    // Show the score
+    // スコアを表示します
     textAlign(RIGHT, TOP);
     fill(220);
     text(score, width - 20, 20);
-    describeElement('Score', `Text with current score: ${score}`);
+    describeElement("Score", `現在のスコア: ${score} のテキスト`);
   } else {
-    // Otherwise show the start/end screen
+    // そうでなければ、開始/終了画面を表示します
     endGame();
   }
 }
 
 function startGame() {
-  // Reset the score to 0
+  // スコアを0にリセットします
   score = 0;
 
-  // Start with the circle's radius maximum at half the minimum canvas dimension
+  // 円の半径の最大値をキャンバスの最小寸法の半分に設定します
   circleMaximumRadius = min(height / 2, width / 2);
   resetCircle();
 }
 
 function endGame() {
-  // Pause the sketch
+  // スケッチを一時停止します
   noLoop();
 
-  // Store the new high score
+  // 新しいハイスコアを保存します
   highScore = max(highScore, score);
-  storeItem('high score', highScore);
+  storeItem("high score", highScore);
 
   textAlign(CENTER, CENTER);
   fill(220);
-  let startText = `Circle Clicker
-  Click the circle before it gets too small
-  Score: ${score}
-  High score: ${highScore}
-  Click to play`;
+  let startText = `サークル クリッカー
+  円が小さくなる前にクリックしてください
+  スコア: ${score}
+  ハイスコア: ${highScore}
+  クリックしてプレイ`;
   text(startText, 0, 0, width, height);
-  describeElement('Start text', `Text reading, "${startText}"`);
+  describeElement("Start text", `テキスト: "${startText}"`);
 }
 
 function resetCircle() {
-  // Start with the circle's radius at its maximum value
+  // 円の半径を最大値に設定します
   circleRadius = circleMaximumRadius;
   circleX = random(circleRadius, width - circleRadius);
   circleY = random(circleRadius, height - circleRadius);
@@ -83,24 +83,24 @@ function resetCircle() {
 }
 
 function mousePressed() {
-  // If the game is unpaused
+  // ゲームが一時停止していない場合
   if (isLooping() === true) {
-    // Check how far the mouse is from the circle
+    // マウスが円からどれだけ離れているかをチェックします
     let distanceToCircle = dist(mouseX, mouseY, circleX, circleY);
 
-    // If the mouse is closer to the circle's center than the circle's radius,
-    // that means the player clicked on it
+    // マウスが円の半径よりも円の中心に近い場合、
+    // プレイヤーがクリックしたことを意味します
     if (distanceToCircle < circleRadius) {
-      // Decrease the maximum radius, but don't go below 15
+      // 最大半径を減少させますが、15未満にはなりません
       circleMaximumRadius = max(circleMaximumRadius - 1, 15);
       resetCircle();
 
-      // Give the player a point
+      // プレイヤーに1ポイントを与えます
       score += 1;
     }
-    // If the game is paused
+    // ゲームが一時停止している場合
   } else {
-    // Start and unpause it
+    // ゲームを開始し、一時停止を解除します
     startGame();
     loop();
   }

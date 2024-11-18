@@ -1,63 +1,61 @@
-// The snake moves along a grid, one space at a time
-// The grid is smaller than the canvas, and its dimensions
-//  are stored in these variables
+// スネークはグリッドに沿って、一度に1スペース移動します
+// グリッドはキャンバスより小さく、その寸法は
+// これらの変数に保存されています
 let gridWidth = 30;
 let gridHeight = 30;
 
 let gameStarted = false;
 
-// How many segments snake starts with
+// スネークが開始するセグメントの数
 let startingSegments = 10;
 
-// Starting coordinates for first segment
+// 最初のセグメントの開始座標
 let xStart = 0;
 let yStart = 15;
 
-// Starting direction of motion
-let startDirection = 'right';
+// 動きの開始方向
+let startDirection = "right";
 
-// Current direction of motion
+// 現在の動きの方向
 let direction = startDirection;
 
-// The snake is divided into small segments,
-// stored as vectors in this array
+// スネークは小さなセグメントに分かれており、
+// この配列にベクトルとして保存されています
 let segments = [];
 
 let score = 0;
 let highScore;
 
-// The fruit's position is stored as a vector
-// in this variable
+// フルーツの位置はこの変数にベクトルとして保存されています
 let fruit;
 
 function setup() {
   createCanvas(500, 500);
 
-  // Adjust frame rate to set movement speed
+  // フレームレートを調整して移動速度を設定します
   frameRate(10);
 
   textAlign(CENTER, CENTER);
   textSize(2);
 
-  // Check for saved high score in local browser storage
-  // If no score has been stored, this will be undefined
-  highScore = getItem('high score');
+  // ローカルブラウザストレージに保存されたハイスコアを確認します
+  // スコアが保存されていない場合、これは未定義になります
+  highScore = getItem("high score");
 
   describe(
-    'A reproduction of the arcade game Snake, in which a snake, represented by a green line on a black background, is controlled by the arrow keys. Users move the snake toward a fruit, represented by a red dot, but the snake must not hit the sides of the window or itself.'
+    "アーケードゲーム「スネーク」の再現で、黒い背景に緑の線で表されたスネークが矢印キーで操作されます。ユーザーは赤い点で表されたフルーツに向かってスネークを移動させますが、スネークはウィンドウの端や自分自身にぶつかってはいけません。",
   );
 }
 
 function draw() {
   background(0);
 
-  // Set scale so that the game grid fills canvas
+  // ゲームグリッドがキャンバスを埋めるようにスケールを設定します
   scale(width / gridWidth, height / gridHeight);
   if (gameStarted === false) {
     showStartScreen();
   } else {
-    // Shift over so that snake and fruit are still on screen
-    // when their coordinates are 0
+    // スネークとフルーツが座標が0のときに画面に表示されるようにシフトします
     translate(0.5, 0.5);
     showFruit();
     showSegments();
@@ -72,11 +70,7 @@ function showStartScreen() {
   fill(32);
   rect(2, gridHeight / 2 - 5, gridWidth - 4, 10, 2);
   fill(255);
-  text(
-    'Click to play.\nUse arrow keys to move.',
-    gridWidth / 2,
-    gridHeight / 2
-  );
+  text("クリックしてプレイ。\n矢印キーで移動。", gridWidth / 2, gridHeight / 2);
   noLoop();
 }
 
@@ -87,19 +81,19 @@ function mousePressed() {
 }
 
 function startGame() {
-  // Put the fruit in a random place
+  // フルーツをランダムな場所に置きます
   updateFruitCoordinates();
 
-  // Start with an empty array for segments
+  // セグメント用の空の配列で開始します
   segments = [];
 
-  // Start with x at the starting position and repeat until specified
-  // number of segments have been created, increasing x by 1 each time
+  // xを開始位置に設定し、指定された数のセグメントが作成されるまで繰り返し、
+  // 毎回xを1増やします
   for (let x = xStart; x < xStart + startingSegments; x += 1) {
-    // Create a new vector at the current position
+    // 現在の位置に新しいベクトルを作成します
     let segmentPosition = createVector(x, yStart);
 
-    // Add it to the beginning of the array
+    // 配列の先頭に追加します
     segments.unshift(segmentPosition);
   }
 
@@ -125,50 +119,50 @@ function showSegments() {
 }
 
 function updateSegments() {
-  // Remove last segment
+  // 最後のセグメントを削除します
   segments.pop();
 
-  // Copy current head of snake
+  // スネークの現在の頭をコピーします
   let head = segments[0].copy();
 
-  // Insert the new snake head at the beginning of the array
+  // 新しいスネークの頭を配列の先頭に挿入します
   segments.unshift(head);
 
-  // Adjust the head's position based on the current direction
+  // 現在の方向に基づいて頭の位置を調整します
   switch (direction) {
-    case 'right':
+    case "right":
       head.x = head.x + 1;
       break;
-    case 'up':
+    case "up":
       head.y = head.y - 1;
       break;
-    case 'left':
+    case "left":
       head.x = head.x - 1;
       break;
-    case 'down':
+    case "down":
       head.y = head.y + 1;
       break;
   }
 }
 
 function checkForCollision() {
-  // Store first segment in array as head
+  // 配列の最初のセグメントを頭として保存します
   let head = segments[0];
 
-  // If snake's head...
+  // スネークの頭が...
   if (
-    // hit right edge or
+    // 右端にぶつかった場合や
     head.x >= gridWidth ||
-    // hit left edge or
+    // 左端にぶつかった場合や
     head.x < 0 ||
-    // hit bottom edge or
+    // 下端にぶつかった場合や
     head.y >= gridHeight ||
-    // hit top edge or
+    // 上端にぶつかった場合や
     head.y < 0 ||
-    // collided with itself
+    // 自分自身にぶつかった場合
     selfColliding() === true
   ) {
-    // show game over screen
+    // ゲームオーバー画面を表示します
     gameOver();
   }
 }
@@ -179,35 +173,34 @@ function gameOver() {
   rect(2, gridHeight / 2 - 5, gridWidth - 4, 12, 2);
   fill(255);
 
-  // Set high score to whichever is larger: current score or previous
-  // high score
+  // ハイスコアを現在のスコアまたは以前のハイスコアの大きい方に設定します
   highScore = max(score, highScore);
 
-  // Put high score in local storage. This will be be stored in browser
-  // data, even after the user reloads the page.
-  storeItem('high score', highScore);
+  // ハイスコアをローカルストレージに保存します。これはブラウザデータに保存され、
+  // ユーザーがページをリロードしても保持されます。
+  storeItem("high score", highScore);
   text(
-    `Game over!
-Your score: ${score}
-High score: ${highScore}
-Click to play again.`,
+    `ゲームオーバー！
+あなたのスコア: ${score}
+ハイスコア: ${highScore}
+クリックして再プレイ。`,
     gridWidth / 2,
-    gridHeight / 2
+    gridHeight / 2,
   );
   gameStarted = false;
   noLoop();
 }
 
 function selfColliding() {
-  // Store the last segment as head
+  // 最初のセグメントを頭として保存します
   let head = segments[0];
 
-  // Store every segment except the first
+  // 最初のセグメントを除くすべてのセグメントを保存します
   let segmentsAfterHead = segments.slice(1);
 
-  // Check each of the other segments
+  // 他のセグメントをチェックします
   for (let segment of segmentsAfterHead) {
-    // If segment is in the same place as head
+    // セグメントが頭と同じ位置にある場合
     if (segment.equals(head) === true) {
       return true;
     }
@@ -216,61 +209,60 @@ function selfColliding() {
 }
 
 function checkForFruit() {
-  // Store first segment as head
+  // 最初のセグメントを頭として保存します
   let head = segments[0];
 
-  // If the head segment is in the same place as the fruit
+  // 頭のセグメントがフルーツと同じ位置にある場合
   if (head.equals(fruit) === true) {
-    // Give player a point
+    // プレイヤーにポイントを与えます
     score = score + 1;
 
-    // Duplicate the tail segment
+    // 尾のセグメントを複製します
     let tail = segments[segments.length - 1];
     let newSegment = tail.copy();
 
-    // Put the duplicate in the beginning of the array
+    // 複製を配列の先頭に追加します
     segments.push(newSegment);
 
-    // Reset fruit to a new location
+    // フルーツを新しい位置にリセットします
     updateFruitCoordinates();
   }
 }
 
 function updateFruitCoordinates() {
-  // Pick a random new coordinate for the fruit
-  // and round it down using floor().
-  // Because the segments move in increments of 1,
-  // in order for the snake to hit the same position
-  // as the fruit, the fruit's coordinates must be
-  // integers, but random() returns a float
+  // フルーツの新しい座標をランダムに選びます
+  // そしてfloor()を使って切り捨てます。
+  // セグメントが1の増分で移動するため、
+  // スネークがフルーツと同じ位置に当たるためには
+  // フルーツの座標は整数でなければなりませんが、
+  // random()は浮動小数点数を返します
   let x = floor(random(gridWidth));
   let y = floor(random(gridHeight));
   fruit = createVector(x, y);
 }
 
-// When an arrow key is pressed, switch the snake's direction of movement,
-// but if the snake is already moving in the opposite direction,
-// do nothing.
+// 矢印キーが押されたとき、スネークの移動方向を切り替えます。
+// ただし、スネークがすでに反対方向に移動している場合は何もしません。
 function keyPressed() {
   switch (keyCode) {
     case LEFT_ARROW:
-      if (direction !== 'right') {
-        direction = 'left';
+      if (direction !== "right") {
+        direction = "left";
       }
       break;
     case RIGHT_ARROW:
-      if (direction !== 'left') {
-        direction = 'right';
+      if (direction !== "left") {
+        direction = "right";
       }
       break;
     case UP_ARROW:
-      if (direction !== 'down') {
-        direction = 'up';
+      if (direction !== "down") {
+        direction = "up";
       }
       break;
     case DOWN_ARROW:
-      if (direction !== 'up') {
-        direction = 'down';
+      if (direction !== "up") {
+        direction = "down";
       }
       break;
   }
