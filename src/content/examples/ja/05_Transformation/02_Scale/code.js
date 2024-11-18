@@ -1,51 +1,51 @@
 function setup() {
-  // Create the canvas
+  // キャンバスを作成します
   createCanvas(720, 400);
 
-  // Create screen reader accessible description
+  // スクリーンリーダー用の説明を作成します
   textOutput();
 }
 
 function draw() {
-  // Clear the background
+  // 背景をクリアします
   background(0);
 
-  // Draw blue square
-  // Save current coordinate system
+  // 青い四角形を描画します
+  // 現在の座標系を保存します
   push();
 
-  // Scale by 2
+  // 2倍にスケーリングします
   scale(2);
 
-  // Set color to blue
+  // 色を青に設定します
   fill(33, 89, 194);
 
-  // Draw square at origin, size 200
+  // 原点に四角形を描画します（サイズ200）
   square(0, 0, 200);
 
-  // Restore coordinate system
+  // 座標系を復元します
   pop();
 
-  // Draw white square
-  // Set color to white
+  // 白い四角形を描画します
+  // 色を白に設定します
   fill(255);
 
-  // Draw square at origin, size 200
+  // 原点に四角形を描画します（サイズ200）
   square(0, 0, 200);
 
-  // Draw green square
-  // Save current coordinate system
+  // 緑の四角形を描画します
+  // 現在の座標系を保存します
   push();
 
-  // Scale by .5 in x and .75 in y
+  // x方向に0.5倍、y方向に0.75倍にスケーリングします
   scale(0.5, 0.75);
 
-  // Set color to green
+  // 色を緑に設定します
   fill(42, 150, 60);
 
-  // Draw square at origin, size 200
+  // 原点に四角形を描画します（サイズ200）
   square(0, 0, 200);
 
-  // Restore coordinate system
+  // 座標系を復元します
   pop();
 }

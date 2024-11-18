@@ -1,51 +1,50 @@
 function setup() {
-  // Create the canvas
+  // キャンバスを作成します
   createCanvas(720, 400);
 
-  // Set angle mode to degrees
+  // 角度モードを度に設定します
   angleMode(DEGREES);
 
-  // Set text color, size, and alignment
+  // テキストの色、サイズ、配置を設定します
   fill(255);
   textSize(20);
   textAlign(CENTER, CENTER);
 
-  // Set the color mode to hue-saturation-brightness (HSB)
+  // 色モードを色相-彩度-明度（HSB）に設定します
   colorMode(HSB);
 
-  // Create screen reader accessible description
-  describe('line segments rotated around center of canvas');
+  // スクリーンリーダー用の説明を作成します
+  describe("キャンバスの中心を回転する線分");
 }
 
-
 function draw() {
-  // Clear the background
+  // 背景をクリアします
   background(0);
 
-  // Loop through angles 0, 30, 60, 90 degrees
-  for (let angle=0; angle <= 90; angle += 30) {
-      // Save current coordinate system
-      push();                       
+  // 角度0、30、60、90度をループします
+  for (let angle = 0; angle <= 90; angle += 30) {
+    // 現在の座標系を保存します
+    push();
 
-      // Translate to center of canvas and rotate by angle
-      translate(width/2, height/2);
-      rotate(angle);
+    // キャンバスの中心に移動し、角度で回転します
+    translate(width / 2, height / 2);
+    rotate(angle);
 
-      // Set color based on angle and draw line along x-axis
-      stroke(angle+100, 100, 100);
-      strokeWeight(5);
-      line(0, 0, 150, 0);
+    // 角度に基づいて色を設定し、x軸に沿って線を描画します
+    stroke(angle + 100, 100, 100);
+    strokeWeight(5);
+    line(0, 0, 150, 0);
 
-      // Display the angle
-      strokeWeight(1);              
-      text(angle, 170, 0);
+    // 角度を表示します
+    strokeWeight(1);
+    text(angle, 170, 0);
 
-      // Restore coordinate system
-      pop();                        
+    // 座標系を復元します
+    pop();
   }
 
-  // Draw the animated line
-  translate(width/2, height/2);
+  // アニメーションされた線を描画します
+  translate(width / 2, height / 2);
   rotate(frameCount);
   stroke(255);
   strokeWeight(5);

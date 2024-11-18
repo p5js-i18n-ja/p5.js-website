@@ -1,40 +1,40 @@
 function setup() {
-  // Create the canvas
+  // キャンバスを作成します
   createCanvas(720, 400);
 
-  // Create screen reader accessible description
+  // スクリーンリーダー用の説明を作成します
   textOutput();
 }
 
 function draw() {
-  // Clear the background
+  // 背景をクリアします
   background(0);
 
-  // Draw shapes (rectangle and circle) in the upper left corner
-  // Set fill color to green
+  // 左上隅に図形（長方形と円）を描画します
+  // 塗りつぶしの色を緑に設定します
   fill(90, 189, 60);
   rect(0, 0, 200, 50);
   circle(225, 25, 50);
 
-  // Draw shapes in the middle of the canvas
+  // キャンバスの中央に図形を描画します
 
-  // Save current coordinate system and color
+  // 現在の座標系と色を保存します
   push();
 
-  // Translate origin to middle of canvas
+  // 原点をキャンバスの中央に移動します
   translate(width / 2, height / 2);
 
-  // Set fill color to blue
+  // 塗りつぶしの色を青に設定します
   fill(57, 102, 191);
 
-  // Draw at (0,0) in new coordinate system
+  // 新しい座標系の(0,0)に描画します
   rect(0, 0, 200, 50);
   circle(225, 25, 50);
 
-  // Restore coordinate system and color
+  // 座標系と色を復元します
   pop();
 
-  // Draw shapes at the mouse position
+  // マウスの位置に図形を描画します
   push();
   translate(mouseX, mouseY);
   rect(0, 0, 200, 50);
