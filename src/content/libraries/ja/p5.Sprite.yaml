@@ -1,0 +1,10 @@
+name: p5.Sprite
+description: p5.jsのためのアニメーションスプライトと静的スプライトの両方をサポートする基本的なスプライトライブラリ
+category: drawing
+sourceUrl: https://github.com/RandomGamingDev/p5.Sprite/
+featuredImage: "../images/p5.Sprite.png"
+featuredImageAlt: \"p5.Sprite\"という名前が上部に傾いて表示され、その下にキャラクターの歩行サイクルが表示されたスプライトシートがあります
+author:
+  name: RandomGamingDev
+  url: https://randomgamingdev.github.io/index.html
+license: MIT

@@ -1,0 +1,10 @@
+name: Zoomp5js
+description: p5.jsプロジェクトにズーム機能を追加するためのシンプルなライブラリです。
+category: drawing
+sourceUrl: https://github.com/RandomGamingDev/Zoomp5js/
+featuredImage: ../images/Zoomp5js.png
+featuredImageAlt: ライブラリの名前「Zoomp5js」と、単語「Zoom」を拡大する虫眼鏡の画像
+author:
+  name: RandomGamingDev
+  url: https://randomgamingdev.github.io/index.html
+license: MIT

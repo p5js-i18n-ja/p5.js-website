@@ -1,0 +1,10 @@
+name: AnimatorJs
+description: p5.jsを主に対象としたカスタムアニメーションAPIに基づくJavaScriptアニメーションビューワーで、コードによって完全に制御される動的で軽量なリアルタイムレンダリングのブラウザアニメーションを可能にします。
+category: drawing
+sourceUrl: https://github.com/RandomGamingDev/AnimatorJs/
+featuredImage: "../images/AnimatorJs.png"
+featuredImageAlt: \"AnimatorJs\"という名前の上にポーズマネキンとアヒルのアニメーションの絵があり、どのように動くかを示す矢印が描かれています
+author:
+  name: RandomGamingDev
+  url: https://randomgamingdev.github.io/index.html
+license: MIT

@@ -1,0 +1,10 @@
+name: Pixyp5js
+description: 実行時に画像のピクセルを簡単に扱うためのライブラリ
+category: drawing
+sourceUrl: https://github.com/RandomGamingDev/Pixyp5js/
+featuredImage: "../images/Pixyp5js.png"
+featuredImageAlt: \"Pixyp5js\"という名前が上部に書かれた、画面に笑顔のピクセルアートコンピュータの画像と、その顔を示すプロジェクションがあり、このライブラリが実行時にピクセルを簡単に変更するためのものであることを示しています
+author:
+  name: RandomGamingDev
+  url: https://randomgamingdev.github.io/index.html
+license: MIT
