@@ -1,0 +1,10 @@
+name: p5.Modbuttons
+description: p5.jsのためのシンプルで組み立て可能なボタンシステム
+category: ui
+sourceUrl: https://github.com/yetyeeter1337/p5.Modbuttons
+featuredImage: "../images/p5ModbuttonsImage.png"
+author:
+  name: 7vector
+  url: https://github.com/yetyeeter1337
+license: GNU General Public License v3.0
+featuredImageAlt: 黒い背景に緑のアウトラインで囲まれた長方形の中に「p5.Modbuttons」というテキストがあり、その周りに複数のダイヤルとスライダーがある画像

@@ -1,38 +1,50 @@
 title: p5.js
 heroImages:
   - image: ./images/hero.webp
+    linkTarget: "https://archive.org/details/processing-community-catalog-2021"
     altText: Lauren Lee McCarthy さんが Processing コミュニティカタログを読んでいます.
     caption: "Lauren Lee McCarthy さんが Processing コミュニティカタログを読んでいます. 写真: Maximo Xtravaganza."
   - image: ./images/p5for50plus.webp
+    linkTarget: ""
     altText: 50歳以上の人々にp5.jsを教える Inhwa Yeom さん.
     caption: "Inhwa Yeom さんが主宰する、韓国の50歳以上を対象としたコーディング・クラブ."
   - image: ./images/salon-2.webp
+    linkTarget: ""
     altText: p5.jsのコントリビューターの写真がグリッド状に映し出された大きなテレビの横でマイクを持つ Qianqian Ye さん.
     caption: "p5.jsコミュニティサロンで600人以上のp5.jsコントリビューターを紹介する Qianqian Ye さん."
   - image: ./images/ccfest2018.webp
+    linkTarget: ""
     altText: p5.jsワークショップの参加者が、自分のプロジェクトをスクリーンに映しながらコーディングしています.
     caption: "2018年11月にITP-NYUで開催されたCC Fest NYCでのp5.jsワークショップ."
   - image: ./images/tunapanda.webp
+    linkTarget: ""
     altText: p5.jsの本をチェックしながらコーディングを学ぶ生徒たち.
     caption: "ナイロビのTunapanda Instituteでのp5.jsワークショップ"
   - image: ./images/contributor-conf-2019_10.webp
+    linkTarget: ""
     altText: 「p5.jsはアクセスを増やす以外の新機能は追加しません」と書かれたテキストの前で、マイクを持った人が参加者に向かって話しています.
     caption: "p5.jsは、アクセスを増やす以外の新しい機能は追加しません."
   - image: ./images/contributor-conf-2015.webp
+    linkTarget: ""
     altText: 参加者は緑の芝生の上でジャンプし、微笑み、手を上げています.
     caption: "p5.js コントリビューター カンファレンス 2015."
   - image: ./images/contributor-conf-2019-17.webp
+    linkTarget: ""
     altText: 参加者はラップトップを持ってテーブルを囲み、スクリーン上のコードを見ています.
     caption: "p5.js コントリビューター カンファレンス 2019."
+  - image: ./images/hello-p5-2024.png
+    linkTarget: "https://hello.p5js.org" 
+    altText: Eight portrait photos of p5 contributors overlaid by the text "Hello, p5.js"
+    caption: "Find out how to get started with animation, audio, WebGL, accessibility, and contribution to p5.js in this interactive video:"
 heroText: >
   p5.jsは、コーディングやアート制作を学ぶための親しみやすいツールです。p5.jsは、包括的で教育的なコミュニティによって作られた、無料でオープンソースのJavaScriptライブラリです。p5.jsは、アーティスト、デザイナー、初心者、教育者、そしてその他の人々を歓迎します！  
 referenceHeaderText: p5.js ライブラリのリファレンスを探索
 examplesHeaderText: 実例で p5.js を学ぶ
 communityHeaderText: p5.js コミュニティの活動を見る
 sketchIds:
-  - 967807
-  - 2
-  - 3
-  - 5
-  - 8
-  - 11
+  - 2219842
+  - 2213463
+  - 1957050
+  - 2225777
+  - 2036000
+  - 2215583

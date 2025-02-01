@@ -18,11 +18,16 @@ const yuidocOutputPath = path.join(__dirname, "out")
  */
 export const parseLibraryReference =
   async (): Promise<ParsedLibraryReference | null> => {
+    let latestRelease = p5Version;
+    if (/^\d+\.\d+\.\d+$/.exec(latestRelease)) {
+      latestRelease = 'v' + latestRelease;
+    }
+
     // Clone p5.js
     await cloneLibraryRepo(
       localPath,
       process.env.P5_REPO_URL || p5RepoUrl,
-      process.env.P5_BRANCH || p5Version,
+      process.env.P5_BRANCH || latestRelease,
       { shouldFixAbsolutePathInPreprocessor: false },
     );
 
@@ -31,8 +36,8 @@ export const parseLibraryReference =
 
     // If we're using a custom build of p5 instead of a public release, create
     // a build and copy it to the specified path
-    if (process.env.P5_LIBRARY_PATH) {
-      await createP5Build('p5.js', '../../../public' + process.env.P5_LIBRARY_PATH)
+    if (process.env.PUBLIC_P5_LIBRARY_PATH) {
+      await createP5Build('p5.js', '../../../public' + process.env.PUBLIC_P5_LIBRARY_PATH)
     }
 
     // Copy the reference output so we can process it

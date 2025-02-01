@@ -1,0 +1,10 @@
+name: p5.5
+description: p5.jsにUIを追加し、その他の便利な機能も提供します
+category: ui
+sourceUrl: https://github.com/eltapir/p5.5
+featuredImage: ../images/p5.5.jpg
+featuredImageAlt: p5.5.jsのスクリーンショット
+author:
+  name: Kris HEYSE
+license: MIT
+featured: true
