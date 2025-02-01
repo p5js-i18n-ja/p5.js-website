@@ -107,6 +107,7 @@ tutorialCategories:
   drawing: "描画"
   "web-design": "Webデザイン"
   accessibility: "アクセシビリティ"
+  criticalAI: "クリティカルAI"
   webgl: "WebGL"
   "advanced": "上級トピック"
 tutorialsPage:
