@@ -6,17 +6,45 @@ file: src/webgl/light.js
 description: >
   <p>一方向に光を放つライトを作成します。</p>
 
-  <p>指向性ライトは特定の点から光を放つわけではありません。画面外のどこかから照らす太陽のようなものです。ライトの方向は、-1から1の間の3つの<code>(x, y, z)</code>値を使って設定されます。例えば、ライトの方向を<code>(1, 0, 0)</code>に設定すると、ライトが右方向を向いているため、<a href="/reference/p5/p5.Geometry">p5.Geometry</a>オブジェクトは左側から照らされます。</p>
+  <p>指向性ライトは特定の点から光を放つわけではありません。画面外のどこかにある太陽のように
+  振る舞います。ライトの方向は-1から1の間の3つの値<code>(x, y, z)</code>で設定されます。
+  例えば、ライトの方向を<code>(1, 0, 0)</code>に設定すると、ライトが右方向を直接向いているため、
+  <a href="/reference/p5/p5.Geometry">p5.Geometry</a>オブジェクトは左側から照らされます。
+  一度に最大5つの指向性ライトを有効にできます。</p>
 
-  <p><code>directionalLight()</code>を呼び出す際、ライトの色と方向を設定するパラメータには4つの方法があります。</p>
+  <p>ライトの色と方向を設定するパラメータを使用して、<code>directionalLight()</code>を
+  呼び出す方法は4つあります。</p>
 
-  <p><code>directionalLight()</code>を呼び出す最初の方法は6つのパラメータを使用します。最初の3つのパラメータ、<code>v1</code>、<code>v2</code>、<code>v3</code>は、現在の<a href="/reference/p5/colorMode/">colorMode()</a>を使用してライトの色を設定します。残りの3つのパラメータ、<code>x</code>、<code>y</code>、<code>z</code>は、ライトの方向を設定します。例えば、<code>directionalLight(255, 0, 0, 1, 0, 0)</code>は、赤色<code>(255, 0, 0)</code>で右方向<code>(1, 0, 0)</code>に光を放つライトを作成します。</p>
+  <p>最初の方法では、<code>directionalLight()</code>に6つのパラメータを使用します。
+  最初の3つのパラメータ<code>v1</code>、<code>v2</code>、<code>v3</code>は、
+  現在の<a href="/reference/p5/colorMode/">colorMode()</a>を使用してライトの色を設定します。
+  残りの3つのパラメータ<code>x</code>、<code>y</code>、<code>z</code>は、ライトの方向を
+  設定します。例えば、<code>directionalLight(255, 0, 0, 1, 0, 0)</code>は、
+  赤色<code>(255, 0, 0)</code>で右方向<code>(1, 0, 0)</code>に光を放つライトを作成します。</p>
 
-  <p><code>directionalLight()</code>を呼び出す2つ目の方法は4つのパラメータを使用します。最初の3つのパラメータ、<code>v1</code>、<code>v2</code>、<code>v3</code>は、現在の<a href="/reference/p5/colorMode/">colorMode()</a>を使用してライトの色を設定します。最後のパラメータ、<code>direction</code>は、<a href="/reference/p5/p5.Geometry">p5.Geometry</a>オブジェクトを使用してライトの方向を設定します。例えば、<code>directionalLight(255, 0, 0, lightDir)</code>は、赤色<code>(255, 0, 0)</code>で<code>lightDir</code>ベクトルが指す方向に光を放つライトを作成します。</p>
+  <p>2番目の方法では、<code>directionalLight()</code>に4つのパラメータを使用します。
+  最初の3つのパラメータ<code>v1</code>、<code>v2</code>、<code>v3</code>は、
+  現在の<a href="/reference/p5/colorMode/">colorMode()</a>を使用してライトの色を設定します。
+  最後のパラメータ<code>direction</code>は、<a href="/reference/p5/p5.Geometry">p5.Geometry</a>
+  オブジェクトを使用してライトの方向を設定します。例えば、
+  <code>directionalLight(255, 0, 0, lightDir)</code>は、<code>lightDir</code>ベクトルが
+  指す方向に光を放つ赤色<code>(255, 0, 0)</code>のライトを作成します。</p>
 
-  <p><code>directionalLight()</code>を呼び出す3つ目の方法は4つのパラメータを使用します。最初のパラメータ、<code>color</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>オブジェクトまたは色の値の配列を使用してライトの色を設定します。残りの3つのパラメータ、<code>x</code>、<code>y</code>、<code>z</code>は、ライトの方向を設定します。例えば、<code>directionalLight(myColor, 1, 0, 0)</code>は、<code>myColor</code>の色値で右方向<code>(1, 0, 0)</code>に光を放つライトを作成します。</p>
+  <p>3番目の方法では、<code>directionalLight()</code>に4つのパラメータを使用します。
+  最初のパラメータ<code>color</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>
+  オブジェクトまたは色値の配列を使用してライトの色を設定します。残りの3つのパラメータ
+  <code>x</code>、<code>y</code>、<code>z</code>は、ライトの方向を設定します。
+  例えば、<code>directionalLight(myColor, 1, 0, 0)</code>は、<code>myColor</code>の
+  色値で右方向<code>(1, 0, 0)</code>に光を放つライトを作成します。</p>
 
-  <p><code>directionalLight()</code>を呼び出す4つ目の方法は2つのパラメータを使用します。最初のパラメータ、<code>color</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>オブジェクトまたは色の値の配列を使用してライトの色を設定します。2つ目のパラメータ、<code>direction</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>オブジェクトを使用してライトの方向を設定します。例えば、<code>directionalLight(myColor, lightDir)</code>は、<code>myColor</code>の色値で<code>lightDir</code>ベクトルが指す方向に光を放つライトを作成します。</p>
+  <p>4番目の方法では、<code>directionalLight()</code>に2つのパラメータを使用します。
+  最初のパラメータ<code>color</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>
+  オブジェクトまたは色値の配列を使用してライトの色を設定します。2番目のパラメータ
+  <code>direction</code>は、<a href="/reference/p5/p5.Color">p5.Color</a>オブジェクトを
+  使用してライトの方向を設定します。例えば、<code>directionalLight(myColor, lightDir)</code>は、
+  <code>lightDir</code>ベクトルが指す方向に<code>myColor</code>の色値で光を放つライトを
+  作成します。</p>
+
 line: 461
 isConstructor: false
 itemtype: method
@@ -25,8 +53,8 @@ example:
 
     <div>
     <code>
-    // クリックしてドラッグすると、異なる角度からシーンを見ることができます。
-    // ダブルクリックすると指向性ライトがオンになります。
+    // マウスをクリック＆ドラッグして、異なる角度からシーンを見ることができます。
+    // ダブルクリックで指向性ライトをオンにします。
 
     let isLit = false;
 
@@ -39,20 +67,20 @@ example:
     function draw() {
       background(200);
 
-      // マウスでの軌道制御を有効にします。
+      // マウスで軌道制御を有効にする
       orbitControl();
 
-      // ライトを制御します。
+      // ライトの制御
       if (isLit === true) {
-        // 上から赤い指向性ライトを追加します。
-        // RGB値とXYZ方向を使用します。
+        // 上から赤い指向性ライトを追加
+        // RGBの値とXYZの方向を使用
         directionalLight(255, 0, 0, 0, 1, 0);
       }
 
-      // 球体のスタイルを設定します。
+      // 球体のスタイル
       noStroke();
 
-      // 球体を描画します。
+      // 球体を描画
       sphere(30);
     }
     </code>
@@ -60,29 +88,29 @@ example:
 
     <div>
     <code>
-    // クリックしてドラッグすると、異なる角度からシーンを見ることができます。
+    // マウスをクリック＆ドラッグして、異なる角度からシーンを見ることができます。
 
     function setup() {
       createCanvas(100, 100, WEBGL);
 
-      describe('グレーの背景に描かれた球体。球体の上部は明るい赤色に見えます。色は底部に向かって暗くなります。');
+      describe('グレーの背景に描かれた球体。球体の上部は明るい赤色で、下に向かって色が暗くなっています。');
     }
 
     function draw() {
       background(200);
 
-      // マウスでの軌道制御を有効にします。
+      // マウスで軌道制御を有効にする
       orbitControl();
 
-      // 上から赤い指向性ライトを追加します。
-      // p5.ColorオブジェクトとXYZ方向を使用します。
+      // 上から赤い指向性ライトを追加
+      // p5.Colorオブジェクトとxyz方向を使用
       let c = color(255, 0, 0);
       directionalLight(c, 0, 1, 0);
 
-      // 球体のスタイルを設定します。
+      // 球体のスタイル
       noStroke();
 
-      // 球体を描画します。
+      // 球体を描画
       sphere(30);
     }
     </code>
@@ -90,30 +118,30 @@ example:
 
     <div>
     <code>
-    // クリックしてドラッグすると、異なる角度からシーンを見ることができます。
+    // マウスをクリック＆ドラッグして、異なる角度からシーンを見ることができます。
 
     function setup() {
       createCanvas(100, 100, WEBGL);
 
-      describe('グレーの背景に描かれた球体。球体の上部は明るい赤色に見えます。色は底部に向かって暗くなります。');
+      describe('グレーの背景に描かれた球体。球体の上部は明るい赤色で、下に向かって色が暗くなっています。');
     }
 
     function draw() {
       background(200);
 
-      // マウスでの軌道制御を有効にします。
+      // マウスで軌道制御を有効にする
       orbitControl();
 
-      // 上から赤い指向性ライトを追加します。
-      // p5.Colorオブジェクトとp5.Vectorオブジェクトを使用します。
+      // 上から赤い指向性ライトを追加
+      // p5.Colorオブジェクトとp5.Vectorオブジェクトを使用
       let c = color(255, 0, 0);
       let lightDir = createVector(0, 1, 0);
       directionalLight(c, lightDir);
 
-      // 球体のスタイルを設定します。
+      // 球体のスタイル
       noStroke();
 
-      // 球体を描画します。
+      // 球体を描画
       sphere(30);
     }
     </code>
@@ -124,15 +152,18 @@ overloads:
     params:
       - name: v1
         description: |
-          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での赤または色相の値。</p>
+          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での
+          赤または色相の値。</p>
         type: Number
       - name: v2
         description: |
-          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での緑または彩度の値。</p>
+          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での
+          緑または彩度の値。</p>
         type: Number
       - name: v3
         description: |
-          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での青、明度、または輝度の値。</p>
+          <p>現在の<a href="#/p5/colorMode">colorMode()</a>での
+          青、明度、または輝度の値。</p>
         type: Number
       - name: x
         description: |
@@ -147,7 +178,7 @@ overloads:
           <p>ライトの方向のz成分（-1から1の間）。</p>
         type: Number
     chainable: 1
-  - line: 613
+  - line: 614
     params:
       - name: v1
         description: ''
@@ -160,14 +191,16 @@ overloads:
         type: Number
       - name: direction
         description: |
-          <p><a href="#/p5.Vector">p5.Vector</a>オブジェクトとしてのライトの方向。</p>
+          <p><a href="#/p5.Vector">p5.Vector</a>オブジェクトとしての
+          ライトの方向。</p>
         type: p5.Vector
     chainable: 1
-  - line: 623
+  - line: 624
     params:
       - name: color
         description: |
-          <p><a href="#/p5.Color">p5.Color</a>オブジェクト、色の値の配列、またはCSS文字列としての色。</p>
+          <p><a href="#/p5.Color">p5.Color</a>オブジェクト、
+          色値の配列、またはCSSの文字列としての色。</p>
         type: 'p5.Color|Number[]|String'
       - name: x
         description: ''
@@ -179,7 +212,7 @@ overloads:
         description: ''
         type: Number
     chainable: 1
-  - line: 633
+  - line: 634
     params:
       - name: color
         description: ''
@@ -193,4 +226,3 @@ chainable: true
 
 
 # directionalLight
-

@@ -6,29 +6,31 @@ file: src/dom/dom.js
 description: >
   <p>ラジオボタン要素を作成します。</p>
 
-  <p>パラメータはオプションです。文字列が渡された場合、例えば
+  <p>パラメータはオプションです。文字列を渡した場合、例えば
 
   <code>let myRadio = createSelect('food')</code>のように、各ラジオオプションは
 
   <code>"food"</code>を<code>name</code>パラメータとして持ちます：<code><input
-  name="food"></input></code>。
+  name="food"></code>。
 
   既存の<code><div></div></code>または<code><span></span></code>
 
-  要素が渡された場合、例えば<code>let myRadio = createSelect(container)</code>のように、それが
+  要素を渡した場合、例えば<code>let myRadio = createSelect(container)</code>のように、
+  その要素が
 
-  ラジオボタンの親要素になります。</p>
+  ラジオボタンの親要素となります。</p>
 
   <p>ラジオボタンは<a href="/reference/p5/p5.Element">p5.Element</a>クラスを拡張し、
 
-  オプションを管理するためのいくつかの便利なメソッドを提供します：</p>
+  オプションを管理するための便利なメソッドをいくつか提供します：</p>
 
   <ul>
 
   <li><code>myRadio.option(value, [label])</code>はメニューにオプションを追加します。
-  最初のパラメータ<code>value</code>は、オプションの値とラベルを設定する文字列です。2番目のパラメータ<code>label</code>はオプションです。
-  提供された場合、<code>value</code>に対して表示されるラベルを設定します。
-  <code>value</code>を持つオプションが既に存在する場合、そのラベルが変更され、その値が返されます。</li>
+  最初のパラメータ<code>value</code>は、オプションの値とラベルを設定する文字列です。
+  2番目のパラメータ<code>label</code>はオプションです。提供された場合、<code>value</code>
+  に対して表示されるラベルを設定します。<code>value</code>を持つオプションが既に存在する場合、
+  そのラベルが変更され、その値が返されます。</li>
 
   <li><code>myRadio.value()</code>は現在選択されているオプションの値を返します。</li>
 
@@ -38,7 +40,8 @@ description: >
   <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/"
   target="_blank"><code>HTMLInputElement</code></a>として返します。</li>
 
-  <li><code>myRadio.disable(shouldDisable)</code>は<code>true</code>が渡された場合にラジオボタン全体を有効にし、<code>false</code>が渡された場合に無効にします。</li>
+  <li><code>myRadio.disable(shouldDisable)</code>は<code>true</code>が渡された場合
+  ラジオボタンを無効化し、<code>false</code>が渡された場合は有効化します。</li>
 
   </ul>
 line: 1440
@@ -49,6 +52,18 @@ example:
 
     <div>
     <code>
+    let style = document.createElement('style');
+    style.innerHTML = `
+    .p5-radio label {
+       display: flex;
+       align-items: center;
+     }
+     .p5-radio input {
+       margin-right: 5px;
+     }
+     `;
+    document.head.appendChild(style);
+
     let myRadio;
 
     function setup() {
@@ -58,6 +73,7 @@ example:
       // 左上隅に配置します。
       myRadio = createRadio();
       myRadio.position(0, 0);
+      myRadio.class('p5-radio');
       myRadio.size(60);
 
       // いくつかの色オプションを追加します。
@@ -68,7 +84,7 @@ example:
       // デフォルトのオプションを選択します。
       myRadio.selected('yellow');
 
-      describe('黄色の正方形と3つの色オプション "red"、"yellow"、"blue" が表示されています。ユーザーが新しいオプションを選択すると、正方形の色が変わります。');
+      describe('黄色の四角形と3つの色オプション「red」、「yellow」、「blue」が表示されています。ユーザーが新しいオプションを選択すると四角形の色が変わります。');
     }
 
     function draw() {
@@ -94,7 +110,7 @@ example:
 
       // いくつかの色オプションを追加します。
       // 色の値には、それらが喚起する
-      // 感情でラベルを付けています。
+      // 感情でラベル付けされています。
       myRadio.option('red', 'love');
       myRadio.option('yellow', 'joy');
       myRadio.option('blue', 'trust');
@@ -102,7 +118,7 @@ example:
       // デフォルトのオプションを選択します。
       myRadio.selected('yellow');
 
-      describe('黄色の正方形と3つのオプション "love"、"joy"、"trust" が表示されています。ユーザーが新しいオプションを選択すると、正方形の色が変わります。');
+      describe('黄色の四角形と3つのオプション「love」、「joy」、「trust」が表示されています。ユーザーが新しいオプションを選択すると四角形の色が変わります。');
     }
 
     function draw() {
@@ -124,6 +140,7 @@ example:
       // 左上隅に配置します。
       myRadio = createRadio();
       myRadio.position(0, 0);
+      myRadio.class('p5-radio');
       myRadio.size(50);
 
       // いくつかの色オプションを追加します。
@@ -141,7 +158,7 @@ example:
       // btnが押されたときにdisableRadio()を呼び出します。
       btn.mousePressed(disableRadio);
 
-      describe('黄色の正方形と3つのオプション "red"、"yellow"、"blue" が表示されています。ユーザーが新しいオプションを選択すると、正方形の色が変わります。キャンバスの下にある "disable" ボタンを押すと、色オプションが無効になります。');
+      describe('黄色の四角形と3つのオプション「red」、「yellow」、「blue」が表示されています。ユーザーが新しいオプションを選択すると四角形の色が変わります。キャンバスの下にある「disable」ボタンを押すと、色オプションが無効になります。');
     }
 
     function draw() {
@@ -150,7 +167,7 @@ example:
       background(c);
     }
 
-    // myRadioを無効にします。
+    // myRadioを無効化します。
     function disableRadio() {
       myRadio.disable(true);
     }
@@ -158,7 +175,7 @@ example:
     </div>
 class: p5
 return:
-  description: 新しい<a href="#/p5.Element">p5.Element</a>オブジェクト。
+  description: 新しい<a href="/reference/p5/p5.Element/">p5.Element</a>オブジェクト。
   type: p5.Element
 overloads:
   - line: 1440
@@ -171,9 +188,9 @@ overloads:
         type: Object
         optional: true
     return:
-      description: 新しい<a href="#/p5.Element">p5.Element</a>オブジェクト。
+      description: 新しい<a href="/reference/p5/p5.Element/">p5.Element</a>オブジェクト。
       type: p5.Element
-  - line: 1574
+  - line: 1588
     params:
       - name: name
         description: >
@@ -182,16 +199,15 @@ overloads:
         type: String
         optional: true
     return:
-      description: 新しい<a href="#/p5.Element">p5.Element</a>オブジェクト。
+      description: 新しい<a href="/reference/p5/p5.Element/">p5.Element</a>オブジェクト。
       type: p5.Element
-  - line: 1579
+  - line: 1593
     params: []
     return:
-      description: 新しい<a href="#/p5.Element">p5.Element</a>オブジェクト。
+      description: 新しい<a href="/reference/p5/p5.Element/">p5.Element</a>オブジェクト。
       type: p5.Element
 chainable: false
 ---
 
 
 # createRadio
-

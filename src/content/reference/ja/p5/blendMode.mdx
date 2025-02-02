@@ -4,76 +4,69 @@ module: Rendering
 submodule: Rendering
 file: src/core/rendering.js
 description: >
-  <p>キャンバスに色を追加する際の混合方法を設定します。</p>
+  <p>キャンバスに追加されたときの色のブレンド方法を設定します。</p>
 
-  <p>デフォルトでは、単色で描画すると、キャンバス上の現在のピクセル値の上に
+  <p>デフォルトでは、ソリッドカラーで描画すると、キャンバス上の現在のピクセル値が上書きされます。
 
-  塗り重ねられます。<code>blendMode()</code>は色を混合するための多くのオプションを提供します。</p>
+  <code>blendMode()</code>は、色をブレンドするための多くのオプションを提供します。</p>
 
-  <p>形状、画像、テキストをキャンバスに描画するためのソースとして使用できます。
+  <p>形状、画像、テキストは、キャンバスに描画するためのソースとして使用できます。
 
-  ソースピクセルは、描画される場所のキャンバスピクセルの色を変更します。
+  ソースピクセルは、描画される場所のキャンバスピクセルの色を変更します。最終的な色は、
 
-  最終的な色は、ソースピクセルの色とキャンバスピクセルの色を
+  ソースピクセルの色とキャンバスピクセルの色をブレンドすることによって得られます。ソースとキャンバスの
 
-  ブレンドした結果です。ソースとキャンバスのピクセルのRGB色値が
+  ピクセルのRGBカラー値は、比較、加算、減算、乗算、除算されて、さまざまな効果を生み出します。赤の値は赤の値と、緑は緑と、青は青と比較されます。</p>
 
-  比較され、加算、減算、乗算、除算されて異なる効果を
+  <p>パラメータ<code>mode</code>は、ブレンドモードを設定します。たとえば、<code>blendMode(ADD)</code>を呼び出すと、ブレンドモードが<code>ADD</code>に設定されます。次のブレンドモードは、
 
-  生み出します。赤の値と赤の値、緑と緑、青と青が
-
-  それぞれ処理されます。</p>
-
-  <p>パラメータ<code>mode</code>はブレンドモードを設定します。例えば、
-
-  <code>blendMode(ADD)</code>を呼び出すとブレンドモードを<code>ADD</code>に設定します。
-  以下のブレンドモードは2DモードとWebGLモードの両方で利用可能です：</p>
+  2DおよびWebGLモードの両方で利用可能です：</p>
 
   <ul>
 
-  <li><code>BLEND</code>: ソースの色値がキャンバスの値を上書きします。これがデフォルトモードです。</li>
+  <li><code>BLEND</code>: ソースからの色値がキャンバスを上書きします。これがデフォルトモードです。</li>
 
-  <li><code>ADD</code>: ソースの色値がキャンバスの値に加算されます。</li>
+  <li><code>ADD</code>: ソースからの色値がキャンバスからの値に加算されます。</li>
 
   <li><code>DARKEST</code>: 最も暗い色値を保持します。</li>
 
   <li><code>LIGHTEST</code>: 最も明るい色値を保持します。</li>
 
-  <li><code>EXCLUSION</code>: <code>DIFFERENCE</code>に似ていますが、コントラストが低くなります。</li>
+  <li><code>EXCLUSION</code>: <code>DIFFERENCE</code>に似ていますが、コントラストが少なくなります。</li>
 
-  <li><code>MULTIPLY</code>: ソースの色値がキャンバスの値と乗算されます。結果は常に暗くなります。</li>
+  <li><code>MULTIPLY</code>: ソースからの色値がキャンバスからの値と乗算されます。結果は常に暗くなります。</li>
 
-  <li><code>SCREEN</code>: すべての色値が反転され、乗算され、再び反転されます。結果は常に明るくなります。（<code>MULTIPLY</code>の反対）</li>
+  <li><code>SCREEN</code>: すべての色値が反転され、次に乗算され、再び反転されます。結果は常に明るくなります。（<code>MULTIPLY</code>の反対）</li>
 
-  <li><code>REPLACE</code>: 最後に描画されたソースがキャンバスの残りの部分を完全に置き換えます。</li>
+  <li><code>REPLACE</code>: 最後に描画されたソースがキャンバスの残りを完全に置き換えます。</li>
 
-  <li><code>REMOVE</code>: 重なり合うピクセルが完全に透明になることで削除されます。</li>
-
-  </ul>
-
-  <p>以下のブレンドモードは2Dモードでのみ利用可能です：</p>
-
-  <ul>
-
-  <li><code>DIFFERENCE</code>: ソースの色値がキャンバスの値から減算されます。差が負の数になる場合は正の数に変換されます。</li>
-
-  <li><code>OVERLAY</code>: <code>MULTIPLY</code>と<code>SCREEN</code>を組み合わせます。キャンバスの暗い値はより暗くなり、明るい値はより明るくなります。</li>
-
-  <li><code>HARD_LIGHT</code>: <code>MULTIPLY</code>と<code>SCREEN</code>を組み合わせます。ソースの暗い値はより暗くなり、明るい値はより明るくなります。</li>
-
-  <li><code>SOFT_LIGHT</code>: <code>HARD_LIGHT</code>のよりソフトなバージョンです。</li>
-
-  <li><code>DODGE</code>: 明るい色調を明るくし、コントラストを増加させます。キャンバスの色値をソースの反転した色値で除算します。</li>
-
-  <li><code>BURN</code>: 暗い色調を暗くし、コントラストを増加させます。ソースの色値をキャンバスの反転した色値で除算し、結果を反転します。</li>
+  <li><code>REMOVE</code>: 重なり合うピクセルは、完全に透明にすることによって削除されます。</li>
 
   </ul>
 
-  <p>以下のブレンドモードはWebGLモードでのみ利用可能です：</p>
+  <p>次のブレンドモードは、2Dモードでのみ利用可能です：</p>
 
   <ul>
 
-  <li><code>SUBTRACT</code>: ソースのRGB値がキャンバスの値から減算されます。差が負の数になる場合は正の数に変換されます。ソースとキャンバスのアルファ（透明度）値は加算されます。</li>
+  <li><code>DIFFERENCE</code>: ソースからの色値がキャンバスからの値から引かれます。差が負の数の場合は、正の数に変換されます。</li>
+
+  <li><code>OVERLAY</code>: <code>MULTIPLY</code>と<code>SCREEN</code>を組み合わせます。キャンバスの暗い値は暗くなり、明るい値は明るくなります。</li>
+
+  <li><code>HARD_LIGHT</code>: <code>MULTIPLY</code>と<code>SCREEN</code>を組み合わせます。ソースの暗い値は暗くなり、明るい値は明るくなります。</li>
+
+  <li><code>SOFT_LIGHT</code>: <code>HARD_LIGHT</code>の柔らかいバージョンです。</li>
+
+  <li><code>DODGE</code>: 明るいトーンを明るくし、コントラストを増加させます。ソースからの反転色値でキャンバスの色値を割ります。</li>
+
+  <li><code>BURN</code>: 暗いトーンを暗くし、コントラストを増加させます。ソースの色値をキャンバスの反転色値で割り、その結果を反転させます。</li>
+
+  </ul>
+
+  <p>次のブレンドモードは、WebGLモードでのみ利用可能です：</p>
+
+  <ul>
+
+  <li><code>SUBTRACT</code>: ソースからのRGB値がキャンバスからの値から引かれます。差が負の数の場合は、正の数に変換されます。ソースとキャンバスからのアルファ（透明度）値は加算されます。</li>
 
   </ul>
 line: 720
@@ -87,7 +80,7 @@ example:
     function setup() {
       createCanvas(100, 100);
 
-      background(200);
+      background(180);
 
       // デフォルトのブレンドモードを使用します。
       blendMode(BLEND);
@@ -95,15 +88,15 @@ example:
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
+      // 最初の線を描きます。
+      stroke('#1a85ff');
       line(25, 25, 75, 75);
 
-      // 赤い線を描画します。
-      stroke('red');
+      // 2番目の線を描きます。
+      stroke('#d41159');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に青い線と赤い線がXを形成しています。');
+      describe('空色の線と深いバラ色の線が灰色の背景にXを形成します。');
     }
     </code>
     </div>
@@ -113,267 +106,7 @@ example:
     function setup() {
       createCanvas(100, 100);
 
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(ADD);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(DARKEST);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に青い線と赤い線がXを形成しています。重なる部分は黒くなっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(LIGHTEST);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(EXCLUSION);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(MULTIPLY);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に青い線と赤い線がXを形成しています。重なる部分は黒くなっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(SCREEN);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は薄いマゼンタ色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(REPLACE);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('対角線上の赤い線。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(REMOVE);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景からXの形のシルエットが欠けています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(DIFFERENCE);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
-
-      // ブレンドモードを設定します。
-      blendMode(OVERLAY);
-
-      // 線のスタイルを設定します。
-      strokeWeight(30);
-
-      // 青い線を描画します。
-      stroke('blue');
-      line(25, 25, 75, 75);
-
-      // 赤い線を描画します。
-      stroke('red');
-      line(75, 25, 25, 75);
-
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は明るいマゼンタ色になっています。');
-    }
-    </code>
-    </div>
-
-    <div>
-    <code>
-    function setup() {
-      createCanvas(100, 100);
-
-      background(200);
+      background(180);
 
       // ブレンドモードを設定します。
       blendMode(HARD_LIGHT);
@@ -381,15 +114,15 @@ example:
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
+      // 最初の線を描きます。
+      stroke('#1a85ff');
       line(25, 25, 75, 75);
 
-      // 赤い線を描画します。
-      stroke('red');
+      // 2番目の線を描きます。
+      stroke('#d41159');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に青い線と赤い線がXを形成しています。');
+      describe('海の青い線とホットピンクの線が灰色の背景にXを形成します。重なった部分はマゼンタ紫です。');
     }
     </code>
     </div>
@@ -399,23 +132,23 @@ example:
     function setup() {
       createCanvas(100, 100);
 
-      background(200);
+      background(180);
 
       // ブレンドモードを設定します。
-      blendMode(SOFT_LIGHT);
+      blendMode(ADD);
 
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
+      // 最初の線を描きます。
+      stroke('#1a85ff');
       line(25, 25, 75, 75);
 
-      // 赤い線を描画します。
-      stroke('red');
+      // 2番目の線を描きます。
+      stroke('#d41159');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に薄い青い線と薄い赤い線がXを形成しています。重なる部分は紫色になっています。');
+      describe('氷のような青い線と薄いラベンダーの線が灰色の背景にXを形成します。重なった部分は白です。');
     }
     </code>
     </div>
@@ -425,23 +158,23 @@ example:
     function setup() {
       createCanvas(100, 100);
 
-      background(200);
+      background(180);
 
       // ブレンドモードを設定します。
-      blendMode(DODGE);
+      blendMode(DARKEST);
 
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
+      // 最初の線を描きます。
+      stroke('#1a85ff');
       line(25, 25, 75, 75);
 
-      // 赤い線を描画します。
-      stroke('red');
+      // 2番目の線を描きます。
+      stroke('#d41159');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に明るい青い線と明るい赤い線がXを形成しています。重なる部分は白くなっています。');
+      describe('スチールブルーの線とクランベリーの線が灰色の背景にXを形成します。重なった部分は深い紫です。');
     }
     </code>
     </div>
@@ -451,7 +184,7 @@ example:
     function setup() {
       createCanvas(100, 100);
 
-      background(200);
+      background(180);
 
       // ブレンドモードを設定します。
       blendMode(BURN);
@@ -459,15 +192,15 @@ example:
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
+      // 最初の線を描きます。
+      stroke('#1a85ff');
       line(25, 25, 75, 75);
 
-      // 赤い線を描画します。
-      stroke('red');
+      // 2番目の線を描きます。
+      stroke('#d41159');
       line(75, 25, 25, 75);
 
-      describe('灰色の背景に暗い青い線と暗い赤い線がXを形成しています。重なる部分は黒くなっています。');
+      describe('コバルトブルーの線とバーガンディの線が灰色の背景にXを形成します。重なった部分は黒です。');
     }
     </code>
     </div>
@@ -475,25 +208,287 @@ example:
     <div>
     <code>
     function setup() {
-      createCanvas(100, 100, WEBGL);
+      createCanvas(100, 100);
 
-      background(200);
+      background(180);
 
       // ブレンドモードを設定します。
+      blendMode(LIGHTEST);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('薄いラベンダーの線と柔らかいベージュの線が灰色の背景にXを形成します。重なった部分は薄いライラックです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(EXCLUSION);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('アーシーなブラウンの線と muted sage の線が灰色の背景にXを形成します。重なった部分はセージグリーンです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(MULTIPLY);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('スレートブルーの線とプラムの線が灰色の背景にXを形成します。重なった部分はダークインディゴです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(SCREEN);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('ベビーブルーの線とピーチピンクの線が灰色の背景にXを形成します。重なった部分はミスティライラックです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(REPLACE);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('対角線の深いバラ色の線。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(REMOVE);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('灰色の背景からXのシルエットが消えています。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(DIFFERENCE);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('薄いバーガンディの線とフォレストグリーンの線が灰色の背景にXを形成します。重なった部分はダークココアです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(OVERLAY);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('コーンフラワーブルーの線とライトローズの線が灰色の背景にXを形成します。重なった部分はバイオレットです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(SOFT_LIGHT);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('薄い空の線とローズブラッシュの線が灰色の背景にXを形成します。重なった部分はラベンダーです。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(180);
+
+      // ブレンドモードを設定します。
+      blendMode(DODGE);
+
+      // 線のスタイルを設定します。
+      strokeWeight(30);
+
+      // 最初の線を描きます。
+      stroke('#1a85ff');
+      line(25, 25, 75, 75);
+
+      // 2番目の線を描きます。
+      stroke('#d41159');
+      line(75, 25, 25, 75);
+
+      describe('アクアブルーの線とライトピンクの線が灰色の背景にXを形成します。重なった部分は白です。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      // WEBGLモードでキャンバスを作成します。
+      createCanvas(100, 100, WEBGL);
+
+      // 背景色を設定します。
+      background(180);
+
+      // ブレンドモードをSUBTRACTに設定します。
       blendMode(SUBTRACT);
 
       // 線のスタイルを設定します。
       strokeWeight(30);
 
-      // 青い線を描画します。
-      stroke('blue');
-      line(-50, -50, 50, 50);
+      // 青い線を描きます。
+      stroke('#1a85ff');
+      line(-25, -25, 25, 25);
 
-      // 赤い線を描画します。
-      stroke('red');
-      line(50, -50, -50, 50);
+      // 赤い線を描きます。
+      stroke('#d41159');
+      line(25, -25, -25, 25);
 
-      describe('灰色の背景に黄色い線とシアン色の線がXを形成しています。重なる部分は緑色になっています。');
+      describe('焦げたオレンジと海の緑の線が灰色の背景にXを形成します。重なった部分はフォレストグリーンです。');
     }
     </code>
     </div>
@@ -501,12 +496,13 @@ class: p5
 params:
   - name: mode
     description: |
-      <p>設定するブレンドモード。
-                     BLEND, DARKEST, LIGHTEST, DIFFERENCE, MULTIPLY,
-                     EXCLUSION, SCREEN, REPLACE, OVERLAY, HARD_LIGHT,
-                     SOFT_LIGHT, DODGE, BURN, ADD, REMOVE, SUBTRACT のいずれか</p>
+      <p>ブレンドモードを設定します。
+                     BLEND、DARKEST、LIGHTEST、DIFFERENCE、MULTIPLY、
+                     EXCLUSION、SCREEN、REPLACE、OVERLAY、HARD_LIGHT、
+                     SOFT_LIGHT、DODGE、BURN、ADD、REMOVE、SUBTRACT のいずれかを指定します。</p>
     type: Constant
 chainable: false
 ---
+
 
 # blendMode

@@ -4,32 +4,23 @@ module: Color
 submodule: Setting
 file: src/color/setting.js
 description: >
-  <p>図形の塗りつぶし色を設定します。</p>
+  <p>図形を塗りつぶすために使用する色を設定します。</p>
 
-  <p><code>fill()</code>は、その後に描画されるすべての図形の内部を
+  <p><code>fill(255, 165, 0)</code>や<code>fill('orange')</code>を呼び出すと、
+  fill命令の後に描画される全ての図形がオレンジ色で塗りつぶされます。</p>
 
-  指定された色、グラデーション、またはパターンで塗りつぶします。</p>
+  <p>1つのパラメータを持つ<code>fill()</code>のバージョンは、その値を
+  3つの方法のいずれかで解釈します。パラメータが<code>Number</code>の場合、
+  グレースケール値として解釈されます。パラメータが<code>String</code>の場合、
+  CSS色文字列として解釈されます。<a href="/reference/p5/p5.Color">p5.Color</a>
+  オブジェクトを提供して塗りつぶし色を設定することもできます。</p>
 
-  <p>このメソッドは、さまざまな方法で呼び出すことができます：</p>
+  <p>3つのパラメータを持つ<code>fill()</code>のバージョンは、現在の
+  <a href="/reference/p5/colorMode/">colorMode()</a>に応じて、RGB、HSB、
+  またはHSLカラーとして解釈されます。デフォルトのカラースペースはRGBで、
+  各値の範囲は0から255です。</p>
 
-  <ul>
-
-  <li><code>fill(color)</code>：グレースケール値、カラーオブジェクト、または文字列で色を指定</li>
-
-  <li><code>fill(colorArray)</code>：色の値を含む配列で色を指定</li>
-
-  <li><code>fill(v1, v2, v3)</code>：RGB値またはHSB値で色を指定</li>
-
-  <li><code>fill(v1, v2, v3, alpha)</code>：RGB値またはHSB値とアルファ値で色を指定</li>
-
-  <li><code>fill(gray, [alpha])</code>：グレースケール値とオプションのアルファ値で色を指定</li>
-
-  </ul>
-
-  <p>色の解釈方法は、現在の<a href="/reference/p5/colorMode">colorMode()</a>に依存します。</p>
-
-  <p><code>fill()</code>を呼び出さない場合、図形はデフォルトで白で塗りつぶされます。</p>
-line: '1437'
+line: 982
 isConstructor: false
 itemtype: method
 example:
@@ -39,13 +30,14 @@ example:
     <code>
     function setup() {
       createCanvas(100, 100);
+
       background(200);
 
-      // 赤で塗りつぶし
-      fill(255, 0, 0);
-      rect(20, 20, 60, 60);
+      // グレースケール値
+      fill(51);
+      square(20, 20, 60);
 
-      describe('赤い正方形');
+      describe('黒い輪郭線を持つ暗い炭色の正方形。');
     }
     </code>
     </div>
@@ -54,13 +46,14 @@ example:
     <code>
     function setup() {
       createCanvas(100, 100);
+
       background(200);
 
-      // 半透明の青で塗りつぶし
-      fill(0, 0, 255, 127);
-      rect(20, 20, 60, 60);
+      // R, G & B値
+      fill(255, 204, 0);
+      square(20, 20, 60);
 
-      describe('半透明の青い正方形');
+      describe('黒い輪郭線を持つ黄色い正方形。');
     }
     </code>
     </div>
@@ -69,67 +62,206 @@ example:
     <code>
     function setup() {
       createCanvas(100, 100);
-      background(200);
-      colorMode(HSB, 360, 100, 100);
 
-      // HSBカラーモードで塗りつぶし
-      fill(180, 100, 100);
-      rect(20, 20, 60, 60);
+      background(100);
 
-      describe('シアン色の正方形');
+      // HSBカラーを使用
+      colorMode(HSB);
+
+      // H, S & B値
+      fill(255, 204, 100);
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つロイヤルブルーの正方形。');
     }
     </code>
     </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // CSS名前付きカラー
+      fill('red');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ赤い正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // 3桁の16進RGB表記
+      fill('#fae');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つピンクの正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // 6桁の16進RGB表記
+      fill('#A251FA');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ紫の正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // 整数RGB表記
+      fill('rgb(0, 255, 0)');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ明るい緑の正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // 整数RGBA表記
+      fill('rgba(0, 255, 0, 0.25)');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ薄い緑の長方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // パーセンテージRGB表記
+      fill('rgb(100%, 0%, 10%)');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ赤い正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // パーセンテージRGBA表記
+      fill('rgba(100%, 0%, 100%, 0.5)');
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ暗いフクシア色の正方形。');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // p5.Colorオブジェクト
+      let c = color(0, 0, 255);
+      fill(c);
+      square(20, 20, 60);
+
+      describe('黒い輪郭線を持つ青い正方形。');
+    }
+    </code>
+    </div>
+
 class: p5
 overloads:
-  - line: '1437'
+  - line: 982
     params:
       - name: v1
-        description: |
-          <p>グレー値、赤または色相の値（カラーモードに依存）、
-          または色文字列</p>
-        type: 'Number|String'
+        description: >
+          <p>カラーモードがRGBの場合は赤の値、HSBの場合は色相値。</p>
+        type: Number
       - name: v2
-        description: |
-          <p>緑または彩度の値（カラーモードに依存）</p>
+        description: >
+          <p>カラーモードがRGBの場合は緑の値、HSBの場合は彩度値。</p>
         type: Number
-        optional: true
       - name: v3
-        description: |
-          <p>青または明度の値（カラーモードに依存）</p>
+        description: >
+          <p>カラーモードがRGBの場合は青の値、HSBの場合は明度値。</p>
         type: Number
-        optional: true
       - name: alpha
-        description: |
-          <p>アルファ値</p>
+        description: >
+          <p>オプションのアルファ値。透明度を制御します（0 - 透明、255 - 不透明）。</p>
         type: Number
         optional: true
     chainable: 1
-  - line: '1501'
+  - line: 1187
     params:
       - name: value
         description: |
-          <p>グレー値、赤または色相の値（カラーモードに依存）、
-          色文字列、p5.Colorオブジェクト、
-          または色の値を含む配列</p>
-        type: 'Number|String|p5.Color|Number[]'
+          <p>色を表す文字列。</p>
+        type: String
     chainable: 1
-  - line: '1509'
+  - line: 1193
+    params:
+      - name: gray
+        description: |
+          <p>グレースケール値。</p>
+        type: Number
+      - name: alpha
+        description: ''
+        type: Number
+        optional: true
+    chainable: 1
+  - line: 1200
     params:
       - name: values
         description: |
-          <p>色の赤、緑、青、
-          およびアルファコンポーネントを含む配列</p>
+          <p>色の赤、緑、青、アルファコンポーネントを含む配列。</p>
         type: 'Number[]'
     chainable: 1
-  - line: '1516'
+  - line: 1207
     params:
       - name: color
         description: |
-          <p>任意の色の値</p>
+          <p>塗りつぶし色。</p>
         type: p5.Color
     chainable: 1
 chainable: true
 ---
+
 
 # fill

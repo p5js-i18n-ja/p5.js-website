@@ -6,26 +6,30 @@ file: src/utilities/string_functions.js
 description: >
   <p><code>Number</code>を指定された桁数の<code>String</code>に変換します。</p>
 
-  <p><code>nf()</code>は<code>123.45</code>のような数値を<code>'123.4500'</code>のように
-  指定された桁数の文字列に変換します。</p>
+  <p><code>nf()</code>は<code>123.45</code>のような数値を、<code>'123.4500'</code>のように
+  指定された桁数で書式化された文字列に変換します。</p>
 
   <p>最初のパラメータ<code>num</code>は、文字列に変換する数値です。
   例えば、<code>nf(123.45)</code>を呼び出すと、文字列<code>'123.45'</code>が返されます。
   <code>nf([123.45, 67.89])</code>のように数値の配列が渡された場合、
-  フォーマットされた文字列の配列が返されます。</p>
+  書式化された文字列の配列が返されます。</p>
 
-  <p>2番目のパラメータ<code>left</code>はオプションです。数値が渡された場合、
-  例えば<code>nf(123.45, 4)</code>のように、小数点の左側に含める最小桁数を設定します。
-  <code>left</code>が<code>num</code>の桁数より大きい場合、未使用の桁は0で埋められます。
-  例えば、<code>nf(123.45, 4)</code>を呼び出すと、文字列<code>'0123.45'</code>が返されます。</p>
+  <p>2番目のパラメータ<code>left</code>はオプションです。<code>nf(123.45, 4)</code>のように
+  数値が渡された場合、小数点の左側に含める最小桁数を設定します。<code>left</code>が
+  <code>num</code>の桁数より大きい場合、未使用の桁は0で埋められます。例えば、
+  <code>nf(123.45, 4)</code>を呼び出すと、文字列<code>'0123.45'</code>が返されます。</p>
 
-  <p>3番目のパラメータ<code>right</code>もオプションです。数値が渡された場合、
-  例えば<code>nf(123.45, 4, 1)</code>のように、小数点の右側に含める最小桁数を設定します。
-  <code>right</code>が<code>num</code>の小数点以下の桁数より小さい場合、<code>num</code>は
-  指定された小数点以下の桁数に丸められます。例えば、<code>nf(123.45, 4, 1)</code>を
-  呼び出すと、文字列<code>'0123.5'</code>が返されます。<code>right</code>が<code>num</code>の
-  小数点以下の桁数より大きい場合、未使用の小数点以下の桁は0で埋められます。例えば、
+  <p>3番目のパラメータ<code>right</code>もオプションです。<code>nf(123.45, 4, 1)</code>のように
+  数値が渡された場合、小数点の右側に含める最小桁数を設定します。<code>right</code>が
+  <code>num</code>の小数点以下の桁数より小さい場合、<code>num</code>は指定された小数点以下の
+  桁数に丸められます。例えば、<code>nf(123.45, 4, 1)</code>を呼び出すと、文字列
+  <code>'0123.5'</code>が返されます。rightが<code>num</code>の小数点以下の桁数より
+  大きい場合、未使用の小数点以下の桁は0で埋められます。例えば、
   <code>nf(123.45, 4, 3)</code>を呼び出すと、文字列<code>'0123.450'</code>が返されます。</p>
+
+  <p>数値が負の場合、例えば<code>nf(-123.45, 5, 2)</code>を呼び出すと、
+  文字列<code>'-00123.45'</code>が返されます。</p>
+
 line: 199
 isConstructor: false
 itemtype: method
@@ -39,43 +43,46 @@ example:
 
       background(200);
 
-      // テキストのスタイルを設定します。
+      // テキストのスタイルを設定
       textAlign(LEFT, CENTER);
       textSize(16);
 
-      // 数値変数を作成します。
+      // 数値変数を作成
       let number = 123.45;
 
-      // 数値を文字列として表示します。
+      // 数値を文字列として表示
       let formatted = nf(number);
-      text(formatted, 20, 25);
+      text(formatted, 20, 20);
 
-      // 小数点の左側に4桁の数字を
-      // 表示します。
+      let negative = nf(-number, 4, 2);
+      text(negative, 20, 40);
+
+      // 小数点の左側に4桁の数値を
+      // 表示
       let left = nf(number, 4);
-      text(left, 20, 50);
+      text(left, 20, 60);
 
-      // 小数点の左側に4桁、右側に1桁の
-      // 数字を表示します。
+      // 小数点の左側に4桁、
+      // 右側に1桁の数値を表示
       let right = nf(number, 4, 1);
-      text(right, 20, 75);
+      text(right, 20, 80);
 
       describe(
-        '3つの別々の行に書かれた数字 "123.45"、"0123.45"、"0123.5"。テキストは灰色の背景に黒で書かれています。'
+        'グレーの背景に黒字で"123.45"、"-0123.45"、"0123.45"、"0123.5"の4つの数値が別々の行に書かれています。'
       );
     }
     </code>
     </div>
 class: p5
 return:
-  description: フォーマットされた文字列。
+  description: 書式化された文字列
   type: String
 overloads:
   - line: 199
     params:
       - name: num
         description: |
-          <p>フォーマットする数値。</p>
+          <p>書式化する数値。</p>
         type: Number|String
       - name: left
         description: |
@@ -88,13 +95,13 @@ overloads:
         type: Integer|String
         optional: true
     return:
-      description: フォーマットされた文字列。
+      description: 書式化された文字列
       type: String
-  - line: 270
+  - line: 276
     params:
       - name: nums
         description: |
-          <p>フォーマットする数値の配列。</p>
+          <p>書式化する数値の配列。</p>
         type: 'Number[]'
       - name: left
         description: ''
@@ -105,11 +112,9 @@ overloads:
         type: Integer|String
         optional: true
     return:
-      description: フォーマットされた文字列の配列。
+      description: 書式化された文字列の配列
       type: 'String[]'
 chainable: false
 ---
 
-
 # nf
-

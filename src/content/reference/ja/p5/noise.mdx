@@ -155,7 +155,7 @@ example:
       let noiseScale = 0.002;
 
       // 左から右へ繰り返します。
-      for (let x = 0; x < 100; x += 1) {
+      for (let x = 0; x < width; x += 1) {
         // 入力座標をスケーリングします。
         let nx = noiseScale * x;
         let nt = noiseScale * frameCount;
@@ -182,9 +182,9 @@ example:
       let noiseScale = 0.01;
 
       // 上から下へ繰り返します。
-      for (let y = 0; y < 100; y += 1) {
+      for (let y = 0; y < height; y += 1) {
         // 左から右へ繰り返します。
-        for (let x = 0; x < 100; x += 1) {
+        for (let x = 0; x < width; x += 1) {
           // 入力座標をスケーリングします。
           let nx = noiseScale * x;
           let ny = noiseScale * y;
@@ -217,7 +217,7 @@ example:
       let noiseScale = 0.009;
 
       // 上から下へ繰り返します。
-      for (let y = 0; y < 100; y += 1) {
+      for (let y = 0; y < height; y += 1) {
         // 左から右へ繰り返します。
         for (let x = 0; x < width; x += 1) {
           // 入力座標をスケーリングします。

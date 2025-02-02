@@ -6,37 +6,19 @@ file: src/color/p5.Color.js
 description: >
   <p>色を<code>String</code>としてフォーマットして返します。</p>
 
-  <p><code>myColor.toString()</code>を呼び出すことは、
-  <code>print(myColor.toString())</code>のようにデバッグに役立ちます。
-  また、p5.jsを他のライブラリと一緒に使用する際にも便利です。</p>
+  <p><code>print(myColor.toString())</code>のように、<code>myColor.toString()</code>を呼び出すことは
+  デバッグに便利です。また、p5.jsを他のライブラリと一緒に使用する際にも
+  役立ちます。</p>
 
-  <p>パラメータ<code>format</code>はオプションです。フォーマット文字列が渡された場合
-  （<code>myColor.toString('#rrggbb')</code>のように）、
-  色文字列のフォーマット方法が決定されます。デフォルトでは、色文字列は
-  <code>'rgba(r, g, b, a)'</code>としてフォーマットされます。</p>
+  <p>パラメータ<code>format</code>はオプションです。<code>myColor.toString('#rrggbb')</code>のように
+  フォーマット文字列を渡すと、色文字列のフォーマット方法を決定します。
+  デフォルトでは、色文字列は<code>'rgba(r, g, b, a)'</code>としてフォーマットされます。</p>
+
 line: 362
 isConstructor: false
 itemtype: method
-class: p5.Color
-params:
-  - name: format
-    description: >
-      <p>色文字列のフォーマット方法。
-
-      空のままにすると、文字列はrgba(r, g, b, a)としてフォーマットされます。
-
-      '#rgb' '#rgba' '#rrggbb' '#rrggbbaa'は16進数のカラーコードとしてフォーマットします。
-
-      'rgb' 'hsb' 'hsl'は指定された色モードでフォーマットされた色を返します。
-
-      'rgba' 'hsba' 'hsla'は上記と同じですが、アルファチャンネルが含まれます。
-
-      'rgb%' 'hsb%' 'hsl%' 'rgba%' 'hsba%' 'hsla%'はパーセンテージとしてフォーマットします。</p>
-    type: String
-    optional: true
-return:
-  description: |-
-    フォーマットされた文字列。
+example:
+  - |-
 
     <div>
     <code>
@@ -45,20 +27,34 @@ return:
 
       background(200);
 
-      // p5.Colorオブジェクトを作成します。
+      // p5.Colorオブジェクトを作成
       let myColor = color('darkorchid');
 
-      // テキストのスタイルを設定します。
+      // テキストのスタイルを設定
       textAlign(CENTER);
       textSize(16);
 
-      // テキストを表示します。
+      // テキストを表示
       text(myColor.toString('#rrggbb'), 50, 50);
 
-      describe('灰色の背景に紫色で書かれた "#9932cc" というテキスト。');
+      describe('灰色の背景に紫色で"#9932cc"というテキストが書かれています。');
     }
     </code>
     </div>
+class: p5.Color
+params:
+  - name: format
+    description: >
+      <p>色文字列のフォーマット方法。
+      空のままにすると、文字列はrgba(r, g, b, a)としてフォーマットされます。
+      '#rgb' '#rgba' '#rrggbb' '#rrggbbaa'は16進数カラーコードとしてフォーマットします。
+      'rgb' 'hsb' 'hsl'は指定された色モードでフォーマットされた色を返します。
+      'rgba' 'hsba' 'hsla'は上記と同じですがアルファチャンネルが含まれます。
+      'rgb%' 'hsb%' 'hsl%' 'rgba%' 'hsba%' 'hsla%'はパーセンテージとしてフォーマットします。</p>
+    type: String
+    optional: true
+return:
+  description: フォーマットされた文字列。
   type: String
 chainable: false
 ---
