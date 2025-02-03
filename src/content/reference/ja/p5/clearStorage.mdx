@@ -6,17 +6,20 @@ file: src/data/local_storage.js
 description: >
   <p>ウェブブラウザのローカルストレージにある全てのアイテムを削除します。</p>
 
-  <p>ウェブブラウザは、組み込みの
-  <a
+  <p>ウェブブラウザは組み込みの<a
   href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage/"
-  target="_blank">localStorage オブジェクト</a>
-  を使用して少量のデータを保存できます。
-  <code>localStorage</code>に保存されたデータは、ページの更新やブラウザの再起動後でも
-  いつでも取得できます。データはキーと値のペアとして保存されます。
-  <code>clearStorage()</code>を呼び出すと、<code>localStorage</code>から
-  全てのデータが削除されます。</p>
+  target="_blank">localStorage オブジェクト</a>を使用して少量のデータを保存できます。
+
+  <code>localStorage</code>に保存されたデータは、ページの更新やブラウザの再起動後でも、
+
+  いつでも取り出すことができます。データはキーと値のペアとして保存されます。
+
+  <code>clearStorage()</code>を呼び出すと、<code>localStorage</code>から全てのデータが
+
+  削除されます。</p>
 
   <p>注意：パスワードや個人情報などの機密データは<code>localStorage</code>に
+
   保存すべきではありません。</p>
 line: 313
 isConstructor: false
@@ -38,4 +41,36 @@ example:
       storeItem('score', 1234);
 
       describe(
-        'グレーの背景に黒で "Feist: 
+        'グレーの背景に黒で"Feist: 1234"というテキストが書かれています。ユーザーがダブルクリックすると"null: null"というテキストが表示されます。'
+      );
+    }
+
+    function draw() {
+      background(200);
+
+      // テキストのスタイルを設定します。
+      textAlign(CENTER, CENTER);
+      textSize(14);
+
+      // 名前を取得します。
+      let name = getItem('name');
+
+      // スコアを取得します。
+      let score = getItem('score');
+
+      // スコアを表示します。
+      text(`${name}: ${score}`, 50, 50);
+    }
+
+    // ユーザーがダブルクリックしたときにlocalStorageをクリアします。
+    function doubleClicked() {
+      clearStorage();
+    }
+    </code>
+    </div>
+class: p5
+chainable: false
+---
+
+
+# clearStorage

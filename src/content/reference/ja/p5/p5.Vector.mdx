@@ -279,4 +279,223 @@ methods:
     description: |
       <p>ベクトルの大きさ（長さ）の二乗を計算します。</p>
     path: p5.Vector/magSq
-  
+  dot:
+    description: >
+      <p>2つのベクトルの内積を計算します。</p>
+
+      <p>内積は2つのベクトル間の重なりを表す数値です。視覚的には、内積は
+      一方のベクトルがもう一方のベクトルに投影する「影」と考えることができます。
+      内積の大きさは、2つのベクトルが同じ方向または反対方向を指しているときに最大になります。
+      2つのベクトルが直角をなすとき、その大きさは0になります。</p>
+
+      <p>1つのパラメータを持つ<code>dot()</code>のバージョンは、それを別の
+      <a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトとして解釈します。</p>
+
+      <p>複数のパラメータを持つ<code>dot()</code>のバージョンは、それらを別のベクトルの
+      <code>x</code>、<code>y</code>、<code>z</code>成分として解釈します。</p>
+
+      <p><code>dot()</code>の静的バージョン（<code>p5.Vector.dot(v1, v2)</code>のように）は、
+      <code>v1.dot(v2)</code>を呼び出すのと同じです。</p>
+    path: p5.Vector/dot
+  cross:
+    description: >
+      <p>2つのベクトルの外積を計算します。</p>
+
+      <p>外積は、2つのベクトルが作る平面から真っ直ぐに出るベクトルです。
+      外積の大きさは、元の2つのベクトルで形成される平行四辺形の面積です。</p>
+
+      <p><code>cross()</code>の静的バージョン（<code>p5.Vector.cross(v1, v2)</code>のように）は、
+      <code>v1.cross(v2)</code>を呼び出すのと同じです。</p>
+    path: p5.Vector/cross
+  dist:
+    description: >
+      <p>ベクトルで表される2点間の距離を計算します。</p>
+
+      <p>点の座標は、原点からその点まで伸びるベクトルの成分として表すことができます。</p>
+
+      <p><code>dist()</code>の静的バージョン（<code>p5.Vector.dist(v1, v2)</code>のように）は、
+      <code>v1.dist(v2)</code>を呼び出すのと同じです。</p>
+
+      <p><a href="/reference/p5/dist/">dist()</a>を使用して、<code>dist(x1, y1, x2, y2)</code>のように
+      座標を使用して点間の距離を計算します。</p>
+    path: p5.Vector/dist
+  normalize:
+    description: >
+      <p><a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトの成分を
+      スケーリングして、その大きさを1にします。</p>
+
+      <p><code>normalize()</code>の静的バージョン（<code>p5.Vector.normalize(v)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/normalize
+  limit:
+    description: >
+      <p>ベクトルの大きさを最大値に制限します。</p>
+
+      <p><code>limit()</code>の静的バージョン（<code>p5.Vector.limit(v, 5)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/limit
+  setMag:
+    description: >
+      <p>ベクトルの大きさを指定された値に設定します。</p>
+
+      <p><code>setMag()</code>の静的バージョン（<code>p5.Vector.setMag(v, 10)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/setMag
+  heading:
+    description: >
+      <p>2Dベクトルが正のx軸となす角度を計算します。</p>
+
+      <p>慣例により、正のx軸は角度0を持ちます。角度は時計回りの方向に増加します。</p>
+
+      <p>ベクトルが<a href="/reference/p5/createVector/">createVector()</a>で作成された場合、
+      <code>heading()</code>は現在の<a href="/reference/p5/angleMode/">angleMode()</a>の
+      単位で角度を返します。</p>
+
+      <p><code>heading()</code>の静的バージョン（<code>p5.Vector.heading(v)</code>のように）は、
+      同じように動作します。</p>
+    path: p5.Vector/heading
+  setHeading:
+    description: >
+      <p>2Dベクトルを、大きさを変えずに特定の角度に回転させます。</p>
+
+      <p>慣例により、正のx軸は角度0を持ちます。角度は時計回りの方向に増加します。</p>
+
+      <p>ベクトルが<a href="/reference/p5/createVector/">createVector()</a>で作成された場合、
+      <code>setHeading()</code>は現在の<a href="/reference/p5/angleMode/">angleMode()</a>の
+      単位を使用します。</p>
+    path: p5.Vector/setHeading
+  rotate:
+    description: >
+      <p>2Dベクトルを、大きさを変えずに指定された角度だけ回転させます。</p>
+
+      <p>慣例により、正のx軸は角度0を持ちます。角度は時計回りの方向に増加します。</p>
+
+      <p>ベクトルが<a href="/reference/p5/createVector/">createVector()</a>で作成された場合、
+      <code>rotate()</code>は現在の<a href="/reference/p5/angleMode/">angleMode()</a>の
+      単位を使用します。</p>
+
+      <p><code>rotate()</code>の静的バージョン（<code>p5.Vector.rotate(v, PI)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/rotate
+  angleBetween:
+    description: >
+      <p>2つのベクトル間の角度を計算します。</p>
+
+      <p>返される角度は符号付きで、つまり<code>v1.angleBetween(v2) === -v2.angleBetween(v1)</code>
+      となります。</p>
+
+      <p>ベクトルが<a href="/reference/p5/createVector/">createVector()</a>で作成された場合、
+      <code>angleBetween()</code>は現在の<a href="/reference/p5/angleMode/">angleMode()</a>の
+      単位で角度を返します。</p>
+    path: p5.Vector/angleBetween
+  lerp:
+    description: >
+      <p>2つのベクトル間で比例的に同じ距離にある新しい<code>x</code>、<code>y</code>、<code>z</code>成分を
+      計算します。</p>
+
+      <p><code>amt</code>パラメータは、古いベクトルと新しいベクトルの間を補間する量です。
+      0.0は全ての成分を古いベクトルの値のままにし、0.5は中間点、1.0は全ての成分を
+      新しいベクトルの値に設定します。</p>
+
+      <p><code>lerp()</code>の静的バージョン（<code>p5.Vector.lerp(v0, v1, 0.5)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/lerp
+  slerp:
+    description: >
+      <p>2つのベクトル間の新しい方向と大きさを計算します。</p>
+
+      <p><code>amt</code>パラメータは、古いベクトルと新しいベクトルの間を補間する量です。
+      0.0は方向と大きさを古いベクトルの値のままにし、0.5は中間点、1.0は方向と
+      大きさを新しいベクトルの値に設定します。</p>
+
+      <p><code>slerp()</code>は<a href="/reference/p5.Vector/lerp/">lerp()</a>と異なり、
+      大きさを補間します。<code>v0.slerp(v1, 0.5)</code>を呼び出すと、<code>v0</code>の
+      大きさはその元の大きさと<code>v1</code>の大きさの中間の値に設定されます。
+      <code>v0.lerp(v1, 0.5)</code>を呼び出してもそのような保証はありません。</p>
+
+      <p><code>slerp()</code>の静的バージョン（<code>p5.Vector.slerp(v0, v1, 0.5)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/slerp
+  reflect:
+    description: >
+      <p>2Dでは線について、3Dでは平面についてベクトルを反射させます。</p>
+
+      <p>線または平面の向きは、形状から離れる方向を指す法線ベクトルによって記述されます。</p>
+
+      <p><code>reflect()</code>の静的バージョン（<code>p5.Vector.reflect(v, n)</code>のように）は、
+      新しい<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトを返し、
+      元のオブジェクトは変更しません。</p>
+    path: p5.Vector/reflect
+  array:
+    description: |
+      <p>ベクトルの成分を数値の配列として返します。</p>
+    path: p5.Vector/array
+  equals:
+    description: >
+      <p>ベクトルのすべての成分が別のベクトルの成分と等しいかどうかをチェックします。</p>
+
+      <p><code>equals()</code>は、ベクトルの成分がすべて別のベクトルの成分と同じ場合は
+      <code>true</code>を返し、そうでない場合は<code>false</code>を返します。</p>
+
+      <p>1つのパラメータを持つ<code>equals()</code>のバージョンは、それを別の
+      <a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトとして解釈します。</p>
+
+      <p>複数のパラメータを持つ<code>equals()</code>のバージョンは、それらを別のベクトルの
+      成分として解釈します。不足しているパラメータには値0が割り当てられます。</p>
+
+      <p><code>equals()</code>の静的バージョン（<code>p5.Vector.equals(v0, v1)</code>のように）は、
+      両方のパラメータを<a href="/reference/p5/p5.Vector">p5.Vector</a>オブジェクトとして
+      解釈します。</p>
+    path: p5.Vector/equals
+  fromAngle:
+    description: |
+      <p>角度から新しい2Dベクトルを作成します。</p>
+    path: p5.Vector/fromAngle
+  fromAngles:
+    description: |
+      <p>ISO球面角のペアから新しい3Dベクトルを作成します。</p>
+    path: p5.Vector/fromAngles
+  random2D:
+    description: |
+      <p>ランダムな方向を持つ新しい2D単位ベクトルを作成します。</p>
+    path: p5.Vector/random2D
+  random3D:
+    description: |
+      <p>ランダムな方向を持つ新しい3D単位ベクトルを作成します。</p>
+    path: p5.Vector/random3D
+  clampToZero:
+    description: >
+      <p><a href="/reference/p5/p5.Vector">p5.Vector</a>の0に非常に近い成分を0で置き換えます。</p>
+
+      <p>コンピュータでは、小数を含む数値の処理は、それらの数値の表現方法により、
+      わずかに不正確な結果を生む可能性があります。これにより、数値が0かどうかの
+      チェックが難しくなることがあります。なぜなら、その数値は0に近いものの、
+      正確に0ではないかもしれないからです。このメソッドは、そのようなチェックを
+      容易にするために、非常に0に近い数値を0に丸めます。</p>
+
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON/">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON/</a></p>
+    path: p5.Vector/clampToZero
+properties:
+  x:
+    description: |
+      <p>ベクトルのx成分</p>
+    path: p5.Vector/x
+  'y':
+    description: |
+      <p>ベクトルのy成分</p>
+    path: p5.Vector/y
+  z:
+    description: |
+      <p>ベクトルのz成分</p>
+    path: p5.Vector/z
+chainable: false
+---
+
+
+# p5.Vector

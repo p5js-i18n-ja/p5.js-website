@@ -141,7 +141,23 @@ example:
     }
 
     function createShape() {
-      // 頂点の位置を決めるp5.Vectorオブジェクトを作成します。
+      // 頂点の位置を指定するためのp5.Vectorオブジェクトを作成します。
       let v0 = createVector(-40, 0, 0);
       let v1 = createVector(0, -40, 0);
-      let v2 = create
+      let v2 = createVector(0, 40, 0);
+      let v3 = createVector(40, 0, 0);
+
+      // p5.Geometryオブジェクトのvertices配列に頂点を追加します。
+      this.vertices.push(v0, v1, v2, v3);
+
+      // faces配列を計算します。
+      this.computeFaces();
+    }
+    </code>
+    </div>
+class: p5.Geometry
+chainable: true
+---
+
+
+# computeFaces
