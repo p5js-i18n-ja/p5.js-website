@@ -22,5 +22,6 @@
   },
   "[mdx]": {
     "editor.defaultFormatter": "unifiedjs.vscode-mdx"
-  }
+  },
+  "textlint.languages": ["mdx", "markdown", "plaintext", "html"]
 }
