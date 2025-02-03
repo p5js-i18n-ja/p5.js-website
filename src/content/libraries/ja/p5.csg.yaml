@@ -1,5 +1,5 @@
 name: p5.csg
-description: 構成的立体幾何学のためのライブラリ。p5.Geometryにブーリアン演算を行って新しい形状を作成します！
+description: 構成的立体幾何学のためのライブラリ。p5.Geometryにブーリアン演算を行って新しい形状を作成します!
 category: 3d
 sourceUrl: https://github.com/davepagurek/p5.csg
 featuredImage: ../images/p5.csg.png

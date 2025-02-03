@@ -22,13 +22,13 @@ function drawCircle(x, radius, level) {
   // 「level」はある値（ここでは1）に達すると
   // 再帰を終了させる変数です。終了条件が指定されていない場合、
   // 再帰的関数はスタック容量がなくなるまで何度も繰り返し呼び出されますが、
-  // これは好ましい結果とは言えません！
+  // これは好ましい結果とは言えません!
   const tt = (126 * level) / 4.0;
   fill(tt);
   ellipse(x, height / 2, radius * 2, radius * 2);
   if (level > 1) {
     // 「level」がステップごとに1ずつ減っていくので、終了条件を
-    // 達成することができます。
+    // 達成できます。
     level = level - 1;
     drawCircle(x - radius / 2, radius / 2, level);
     drawCircle(x + radius / 2, radius / 2, level);

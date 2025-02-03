@@ -3,7 +3,7 @@ description: MIDIメッセージを簡単に送受信するためのユーザー
 category: sound
 sourceUrl: https://github.com/djipco/webmidi
 featuredImage: ../images/webmidi.js.png
-featuredImageAlt: JavaScriptのMIDIプロジェクトを始めよう！
+featuredImageAlt: JavaScriptのMIDIプロジェクトを始めよう!
 author:
   name: Jean-Philippe Côté
   url: https://djip.co

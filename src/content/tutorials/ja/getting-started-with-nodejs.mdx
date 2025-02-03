@@ -14,15 +14,15 @@ authors:
   - Nick McIntyre
 ---
 
-このガイドでは、p5.jsと[Node.js](http://node.js)を組み合わせて、ユーザーが生成した描画、アニメーション、サウンドプロジェクトを保存および取得できる動的なアプリケーションを作成する方法を探ります！例えば、キャンバスとインタラクションすることで作成したメロディーをファイルに保存できる[シンプルなメロディーアプリ](/tutorials/simple-melody-app/)を作ることができます！Node.jsを使用すると、ブラウザから直接これらのファイルを簡単に保存、再生、編集することができます！
+このガイドでは、p5.jsと[Node.js](http://node.js)を組み合わせて、ユーザーが生成した描画、アニメーション、サウンドプロジェクトを保存および取得できる動的なアプリを作成する方法を探ります! 例えば、キャンバスとインタラクションすることで作成したメロディーをファイルに保存できる[シンプルなメロディーアプリ](/tutorials/simple-melody-app/)を作ることができます! Node.jsを使用すると、ブラウザから直接これらのファイルを簡単に保存、再生、編集できます! 
 
 ![p5.jsのロゴの上に音符があり、HTTPメソッドでラベル付けされた矢印が「インターネット」とラベル付けされたクラウドを指しています。クラウドの上には「http://」と書かれたアイコンがあります。矢印はクラウドからNode.jsロゴが付いた「Webサーバー」とラベル付けされたピンクのキューブを指しています。](../images/advanced/node.png)
 
 このチュートリアルは、メロディーアプリの異なるバージョンを作成する3部構成のシリーズの第2部です。
 
-- パート1：ユーザーが音階からメロディーを作曲し、再生できる[シンプルなメロディーアプリ](https://editor.p5js.org/Msqcoding/sketches/w_4t5bFYe)を開発します。
-- パート2：このチュートリアルでは、[Node.js](https://nodejs.org/en/about)と[Express.js](https://expressjs.com/)を使用して、コンピュータに保存されたメロディーを取得して再生する[HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)リクエストをルーティングする方法を学びます。
-- パート3：Node.jsを使用したメロディーアプリ（近日公開！）では、[シンプルなメロディーアプリ](https://editor.p5js.org/Msqcoding/sketches/w_4t5bFYe)を[Node.js](https://nodejs.org/en/about)と[Express.js](https://expressjs.com/)と統合する方法を学びます。ユーザーがメロディーをコンピュータに保存し、後で再生のために取得できるより複雑なメロディーアプリを開発します。
+- パート1: ユーザーが音階からメロディーを作曲し、再生できる[シンプルなメロディーアプリ](https://editor.p5js.org/Msqcoding/sketches/w_4t5bFYe)を開発します。
+- パート2:  このチュートリアルでは、[Node.js](https://nodejs.org/en/about)と[Express.js](https://expressjs.com/)を使用して、コンピュータに保存されたメロディーを取得して再生する[HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)リクエストをルーティングする方法を学びます。
+- パート3:  Node.jsを使用したメロディーアプリ（近日公開!）では、[シンプルなメロディーアプリ](https://editor.p5js.org/Msqcoding/sketches/w_4t5bFYe)を[Node.js](https://nodejs.org/en/about)と[Express.js](https://expressjs.com/)と統合する方法を学びます。ユーザーがメロディーをコンピュータに保存し、後で再生のために取得できるより複雑なメロディーアプリを開発します。
 
 
 ## 前提条件
@@ -32,45 +32,45 @@ authors:
 
 ## ハイパーテキスト転送プロトコル（HTTP）の紹介
 
-多くのウェブサイトのURLが`https://...`で始まることに疑問を持ったことはありませんか？インターネットに接続されたコンピュータは[クライアントとサーバー](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works)と呼ばれます。クライアントはインターネットにアクセスするために使用するコンピュータで、サーバーはウェブページやアプリケーションなどの情報を保存するコンピュータです。Webブラウザを使用して[インターネット](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/How_does_the_Internet_work)にアクセスする場合、WebブラウザはHTMLドキュメント、画像、スタイルシート、スクリプトなどのリソースが存在するサーバーと通信するために[HTTP（ハイパーテキスト転送プロトコル）](https://developer.mozilla.org/en-US/docs/Web/HTTP)を使用します。Webブラウザで任意のページを表示する際、表示するWebページを取得するためにWebサーバーと通信する必要があります！
+多くのウェブサイトのURLが`https://...`で始まることに疑問を持ったことはありませんか?インターネットに接続されたコンピュータは[クライアントとサーバー](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works)と呼ばれます。クライアントはインターネットへアクセスするために使用するコンピュータで、サーバーはウェブページやアプリなどの情報を保存するコンピュータです。Webブラウザを使用して[インターネット](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/How_does_the_Internet_work)にアクセスする場合、WebブラウザはHTMLドキュメント、画像、スタイルシート、スクリプトなどのリソースが存在するサーバーと通信するために[HTTP（ハイパーテキスト転送プロトコル）](https://developer.mozilla.org/en-US/docs/Web/HTTP)を使用します。Webブラウザで任意のページを表示する際、表示するWebページを取得するためにWebサーバーと通信する必要があります! 
 
-[p5.js Webエディタ](https://editor.p5js.org/)を使用する場合、コードはWebブラウザ内で実行されます。したがって、[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)を使用してプロジェクトの取得、保存、変更、削除が行われます。ユーザーがアプリやプロジェクトとやり取りしてファイルを読み書きするようなものを構築する場合、[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)を使用してこのプロセスを安全かつ簡単にします！
+[p5.js Webエディタ](https://editor.p5js.org/)を使用する場合、コードはWebブラウザ内で実行されます。したがって、[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)を使用してプロジェクトの取得、保存、変更、削除が行われます。ユーザーがアプリやプロジェクトとやり取りしてファイルを読み書きするようなものを構築する場合、[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)を使用してこのプロセスを安全かつ簡単にします! 
 
 ![p5.js WebエディタがGET HTTPメソッドを使用してindex.html、sketch.js、style.cssファイルをWebサーバーから取得してスケッチをレンダリングする方法を示す図。矢印はWebブラウザのエディタから始まり、「インターネット」とラベル付けされたクラウドを通過し、「Webサーバー」とラベル付けされたピンクのボックスを指しています。](../images/advanced/client-server-diagram.svg)
 
-p5.jsプロジェクトにHTTPリクエストを統合する際によく使用される[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)は以下の通りです：
+p5.jsプロジェクトにHTTPリクエストを統合する際によく使用される[HTTPメソッド](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)は以下の通りです: 
 
 - [GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET)：特定のサーバーからファイルを取得する必要があるプロジェクトを開発する場合、GETメソッドが使用されます。GETは、通常URLで識別される要求されたリソースを取得するためのリクエストをサーバーに送信します。
 - [POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)：サーバーに新しいファイルを保存する場合、POSTメソッドはサーバーに変更を送信するリクエストを送ります。
-- [PUT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT)：サーバー上の既存のファイルを更新または置換する場合、PUTメソッドは既に存在するリソースを更新または置換するようサーバーに要求します。
-- [DELETE](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE)：サーバー上の既存のファイルを削除する場合、DELETEメソッドは既に存在するリソースを削除するようサーバーに要求します。
+- [PUT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT)：サーバー上の既存のファイルを更新または置換する場合、PUTメソッドはすでに存在するリソースを更新または置換するようサーバーに要求します。
+- [DELETE](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE)：サーバー上の既存のファイルを削除する場合、DELETEメソッドはすでに存在するリソースを削除するようサーバーに要求します。
 
 
-### ステップ1：外部エディタでのコードのセットアップ
+### ステップ1: 外部エディタでのコードのセットアップ
 
-[このプロジェクトフォルダ](https://github.com/MsQCompSci/melody_app_starter)をダウンロードしてエディタで開きます。Githubを使用したことがない場合は、次のように行います：「&lt;&gt; Code」ボタンを押して「Download Zip」を選択します。自動的にコンピュータにダウンロードされるzipフォルダには、p5.jsプログラムを実行するために必要なすべてのp5.jsファイルを含む「public」フォルダ、Node.jsを有効にする「server.js」ファイル、そしてプロジェクトに読み込むファイルを含む「songs」フォルダが含まれています。
+[このプロジェクトフォルダ](https://github.com/MsQCompSci/melody_app_starter)をダウンロードしてエディタで開きます。Githubを使用したことがない場合は、次のように行います:「&lt;&gt; Code」ボタンを押して「Download Zip」を選択します。自動的にコンピュータにダウンロードされるzipフォルダには、p5.jsプログラムを実行するために必要なすべてのp5.jsファイルを含む「public」フォルダ、Node.jsを有効にする「server.js」ファイル、そしてプロジェクトに読み込むファイルを含む「songs」フォルダが含まれています。
 
 ![Githubリポジトリのウェブページで緑色の「&lt;&gt; Code」ボタンを押したときに表示されるドロップダウンウィンドウのスナップショット。緑色のコードボタンと、ドロップダウンウィンドウの「Download Zip」というオプションが赤い丸で強調表示されています。](../images/advanced/download-zip-github.png)
 
-### ステップ2：Node.jsとExpress.jsのインストール
+### ステップ2:  Node.jsとExpress.jsのインストール
 
-[Node.js](https://nodejs.org/)は、Webブラウザ外でJavaScriptコードを実行するための高速で効率的な実行環境を提供します。[Express.js](https://expressjs.com/)は、[Node.js](https://nodejs.org/)のルーチンやメソッドを簡素化し、強力なWebアプリケーションを作りやすくするフレームワークです。[Express.js](https://expressjs.com/)は[Node.js](https://nodejs.org/)のモジュールと機能に依存しているため、まず[Node.js](https://nodejs.org/)をインストールします。
+[Node.js](https://nodejs.org/)は、Webブラウザ外でJavaScriptコードを実行するための高速で効率的な実行環境を提供します。[Express.js](https://expressjs.com/)は、[Node.js](https://nodejs.org/)のルーチンやメソッドを簡素化し、強力なWebアプリを作りやすくするフレームワークです。[Express.js](https://expressjs.com/)は[Node.js](https://nodejs.org/)のモジュールと機能に依存しているため、まず[Node.js](https://nodejs.org/)をインストールします。
 
-[Node.js](https://nodejs.org/)と[Express.js](https://expressjs.com/)についての詳細は、以下のリソースをご覧ください：
+[Node.js](https://nodejs.org/)と[Express.js](https://expressjs.com/)についての詳細は、以下のリソースをご覧ください:
 
 - [Nodeの紹介](https://www.youtube.com/watch?v=bjULmG8fqc8) - ビデオチュートリアル
-- [Node.jsとは？](https://www.youtube.com/watch?v=yEHCfRWz-EI) - ビデオ
+- [Node.jsとは?](https://www.youtube.com/watch?v=yEHCfRWz-EI) - ビデオ
 - [Node.js vs Express.js](https://www.youtube.com/watch?v=HFF4NQEGG-Y) - ビデオ
 - [Node.jsドキュメント](https://nodejs.org/docs/latest/api/)
 - [Express.jsリファレンス](https://expressjs.com/en/4x/api.html)
 
 #### Node.jsのインストール
 
-WindowsとmacOSの場合：
+WindowsとmacOSの場合:
 
 - インストーラーのダウンロード：[Node.jsウェブサイト](https://nodejs.org/)にアクセスし、お使いのオペレーティングシステム用のインストーラーをダウンロードします。安定性を高めるため、LTS（Long Term Support）バージョンのダウンロードをお勧めします。
 * インストーラーの実行：ダウンロードが完了したら、インストーラーを実行し、プロンプトに従います。これにより、[Node.js](https://nodejs.org/)と、JavaScriptパッケージを管理するための[npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager)（Node Package Manager）の両方がインストールされます。
-- インストールの確認：[Node.js](https://nodejs.org/)と[npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager)が正しくインストールされていることを確認するために、ターミナル（WindowsではCommand Prompt、macOSではTerminal）を開き、以下を入力します：
+- インストールの確認：[Node.js](https://nodejs.org/)と[npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager)が正しくインストールされていることを確認するために、ターミナル（WindowsではCommand Prompt、macOSではTerminal）を開き、以下を入力します: 
 
 ```sh
 node -v
@@ -78,28 +78,29 @@ node -v
 npm -v
 ```
 
-コンピュータのターミナルの使用方法については、以下のリソースをご覧ください：
+コンピュータのターミナルの使用方法については、以下のリソースをご覧ください:
 
 - [Command Prompt](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands) - Windows
 - [Mac Terminal](https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac#:~:text=Click%20the%20Launchpad%20icon%20in,%2C%20then%20double%2Dclick%20Terminal) - Apple
 
-これらのコマンドは、コンピュータにインストールされているNode.jsとnpmのバージョンを返すはずです。例えば、`node -v`と入力してエンター（またはリターン）キーを押すと、`v20.11.1`がターミナルに表示されるかもしれません。これは、Node.jsのバージョン`20.11.1`が正常にインストールされたことを意味します。Node.jsがインストールされていない場合、代わりに'node'がコマンドとして認識されないというエラーメッセージがターミナルに表示される可能性があります。同様に、`npm -v`と入力してエンターキーを押すと、`10.2.4`が表示されるかもしれません。npmがコンピュータにインストールされていない場合、代わりにエラーメッセージが表示される可能性があります。場合によっては、新しくインストールしたソフトウェアがターミナルに反映されていることを確認するために、コンピュータを再起動した後にインストールを確認することをお勧めします。
+これらのコマンドは、コンピュータにインストールされているNode.jsとnpmのバージョンを返すはずです。例えば、`node -v`と入力してエンター（またはリターン）キーを押すと、`v20.11.1`がターミナルに表示されるかもしれません。これは、Node.jsのバージョン`20.11.1`が正常にインストールされたことを意味します。Node.jsがインストールされていない場合、代わりに'node'がコマンドとして認識されないというエラーメッセージがターミナルに表示される可能性があります。同様に、`npm -v`と入力してエンターキーを押すと、`10.2.4`が表示されるかもしれません。
+npmがコンピュータにインストールされていない場合、代わりにエラーメッセージが表示されます。場合によっては、新しくインストールしたソフトウェアがターミナルに反映されていることを確認するために、コンピュータを再起動した後にインストールを確認することをお勧めします。
 
 #### Express.jsのインストール
 
-[`npm`](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager)を使用してExpress.jsをインストールします：ターミナルのディレクトリをステップ1のプロジェクトフォルダに変更します。例えば、フォルダが`melody-app-starter-main`という名前でコンピュータの`downloads`フォルダにダウンロードされた場合、以下のコマンドを入力してエンターを押すことで、ターミナルのディレクトリを変更できます：
+[`npm`](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager)を使用してExpress.jsをインストールします: ターミナルのディレクトリをステップ1のプロジェクトフォルダに変更します。例えば、フォルダが`melody-app-starter-main`という名前でコンピュータの`downloads`フォルダにダウンロードされた場合、以下のコマンドを入力してエンターを押すことで、ターミナルのディレクトリを変更できます: 
 
 ```sh
 cd downloads/melody_app_starter-main
 ```
 
-- **[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)ファイルの作成：** ターミナルで以下のコマンドを入力してエンターを押します：
+- **[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)ファイルの作成：** ターミナルで以下のコマンドを入力してエンターを押します: 
 
   ```sh
   npm init -y
   ```
 
-  ターミナルには、プロジェクトディレクトリに新しく作成した[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)ファイルの内容が表示されるはずです。このコマンドは、デフォルト値で新しいNode.jsプロジェクトを初期化します。メッセージには以下のような内容が含まれるかもしれません：
+  ターミナルには、プロジェクトディレクトリに新しく作成した[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)ファイルの内容が表示されるはずです。このコマンドは、デフォルト値で新しいNode.jsプロジェクトを初期化します。メッセージには以下のような内容が含まれるかもしれません:
 
   ```json
   {
@@ -119,21 +120,21 @@ cd downloads/melody_app_starter-main
 
   [`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)についての詳細は、[npmリファレンス](https://docs.npmjs.com/about-npm)のドキュメントをご覧ください。
 
-- **Express.jsのインストール：** ターミナルで以下のコマンドを入力してエンターを押します：
+- **Express.jsのインストール：** ターミナルで以下のコマンドを入力してエンターを押します: 
 
   ```sh
   npm install express
   ```
 
-  `npm`を使用してExpress.jsにアクセスする方法に注目してください！
+  `npm`を使用してExpress.jsへアクセスする方法に注目してください! 
 
-- **インストールの確認：** ターミナルで以下のコマンドを入力してエンターを押すことで、Express.jsがコンピュータにインストールされていることを確認できます：
+- **インストールの確認：** ターミナルで以下のコマンドを入力してエンターを押すことで、Express.jsがコンピュータにインストールされていることを確認できます: 
 
   ```sh
   npm list
   ```
 
-  ターミナルには、コンピュータにインストールされているすべてのnpmパッケージを示すツリー構造が表示されるはずです。Express.jsがインストールされている場合、以下のような表示が見られるはずです：
+  ターミナルには、コンピュータにインストールされているすべてのnpmパッケージを示すツリー構造が表示されるはずです。Express.jsがインストールされている場合、以下のような表示が見られるはずです: 
 
   ```
   melody_app_starter-main@1.0.0 /Users/..filepath
@@ -141,15 +142,15 @@ cd downloads/melody_app_starter-main
   └── express@4.19.1
   ```
 
-  これは、Express.jsのバージョン4.19.1がコンピュータにインストールされていることを示しています。また、プロジェクトディレクトリ（例：`melody-app-starter-main`フォルダ）の`node_modules`フォルダを確認して、Express.jsが一覧にあるかどうかを確認することもできます。
+  これは、Express.jsのバージョン4.19.1がコンピュータにインストールされていることを示しています。また、プロジェクトディレクトリ（例：`melody-app-starter-main`フォルダ）の`node_modules`フォルダを確認して、Express.jsが一覧にあるかどうかを確認できます。
 
-- **サーバーの実行：** ターミナルで以下のコマンドを入力してエンターを押します：
+- **サーバーの実行：** ターミナルで以下のコマンドを入力してエンターを押します: 
 
   ```sh
   node server.js
   ```
 
-  すべてが正しくインストールされ、Node.jsサーバーが動作している場合、ターミナルには以下のようなメッセージが表示されるはずです：
+  すべてが正常にインストールされ、Node.jsサーバーが動作している場合、ターミナルには以下のようなメッセージが表示されるはずです: 
 
   ```
   Server running at http://localhost:3000
@@ -157,11 +158,11 @@ cd downloads/melody_app_starter-main
 
 - サーバーのテスト：Webブラウザを開き、[**http://localhost:3000**](http://localhost:3000)にアクセスします。Webブラウザに空のcanvas要素が表示されるはずです。
 
-### ステップ3：サーバー上のフォルダからファイル名を読み込む
+### ステップ3:  サーバー上のフォルダからファイル名を読み込む
 
 - VSCode、または選択したコードエディタを開き、`melody_app_starter-main`ファイルを開きます
 - ファイルツリーを確認します
-- サーバーからJSONファイルの読み込みを可能にするために、[GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) HTTPリクエストを使用する指示をserver.jsファイルに含めます。server.jsの`let app = express()`の下に以下のコードを追加します：
+- サーバーからJSONファイルの読み込めるように、[GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) HTTPリクエストを使用する指示をserver.jsファイルに含めます。server.jsの`let app = express()`の下に以下のコードを追加します: 
 
 ```js
 //ファイルシステムモジュールの初期化
@@ -186,7 +187,7 @@ app.get('/songs', (req, res) => {
 - `preload()`と`loadJSON()`を使用して、songsフォルダのファイルを`songs`という名前のグローバル変数に読み込みます。[`preload()`](/reference/p5/preload)と[`loadJSON()`](/reference/p5/loadJSON)についての詳細は、[p5.jsリファレンス](/reference)をご覧ください。
 - `setup()`で`console.log(songs)`を使用して、JSON配列の内容を出力します。
 
-sketch.jsファイルは以下のようになるはずです：
+sketch.jsファイルは以下のようになるはずです: 
 
 ```js
 //ファイル名を含むJSONオブジェクトの変数
@@ -207,7 +208,7 @@ function draw() {
 }
 ```
 
-ブラウザのコンソールを確認して、`songs`変数の出力が以下のようになっていることを確認してください：
+ブラウザのコンソールを確認して、`songs`変数の出力が以下のようになっていることを確認してください:
 
 ```
 Object i
@@ -219,7 +220,7 @@ Object i
 // ...prototype
 ```
 
-これで[メロディーアプリ](https://docs.google.com/document/u/0/d/1mzJv-7qU1_CmkWI0ZFeqf3CeBfpOOVIrvPRZtxqFxRI/edit)を構築する準備が整いました！このガイドの完成したコードは[このGithubリポジトリ](https://github.com/MsQCompSci/melodyAppNodeStarter/tree/main)でアクセスできます。
+これで[メロディーアプリ](https://docs.google.com/document/u/0/d/1mzJv-7qU1_CmkWI0ZFeqf3CeBfpOOVIrvPRZtxqFxRI/edit)を構築する準備が整いました! このガイドの完成したコードは[このGithubリポジトリ](https://github.com/MsQCompSci/melodyAppNodeStarter/tree/main)でアクセスできます。
 
 
 ## 次のステップ

@@ -43,10 +43,10 @@ void main() {
     float distance = float(sample) / 20. * maxBlurDistance(blurriness);
     vec2 offset = vec2(cos(angle), sin(angle)) * distance;
 
-    // 近くのピクセルでのオブジェクトの距離はどれくらいか？
+    // 近くのピクセルでのオブジェクトの距離はどれくらいか?
     float sampleDepth = texture2D(depth, vTexCoord + offset).r;
 
-    // そのぼかしがどれくらい届くべきか？
+    // そのぼかしがどれくらい届くべきか?
     float sampleBlurDistance = maxBlurDistance(getBlurriness(sampleDepth));
 
     // もしそれが現在のピクセルの前にあるか、またはそのぼかしが
@@ -76,7 +76,7 @@ function setup() {
   blur = createShader(vertexShader, fragmentShader);
 
   describe(
-    "カメラの前で回転する5つの球体の列。カメラから最も近い球体と最も遠い球体がぼやけて見えます。",
+    "カメラの前で回転する5つの球体の列。カメラからもっとも近い球体ともっとも遠い球体がぼやけて見えます。",
   );
 }
 

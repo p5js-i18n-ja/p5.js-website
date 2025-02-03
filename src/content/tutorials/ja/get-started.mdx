@@ -21,7 +21,7 @@ authors:
 import EditableSketch from "../../../components/EditableSketch/index.astro";
 import Callout from "../../../components/Callout/index.astro";
 
-p5.jsへようこそ！p5.jsは初めてで、インタラクティブなスケッチを作成するための基本を学びたいですか？このチュートリアルに従って、シンプルな[インタラクティブな風景](https://editor.p5js.org/Msqcoding/sketches/SDbVilWaf)を作成しましょう。以下のことを学びます：
+p5.jsへようこそ! p5.jsは初めてで、インタラクティブなスケッチを作成するための基本を学びたいですか?このチュートリアルに従って、シンプルな[インタラクティブな風景](https://editor.p5js.org/Msqcoding/sketches/SDbVilWaf)を作成しましょう。以下のことを学びます: 
 
 - キャンバスのサイズと背景色を変更する
 - 図形やテキストを追加し、カスタマイズし、色を付ける
@@ -33,7 +33,7 @@ p5.jsへようこそ！p5.jsは初めてで、インタラクティブなスケ�
 
 - [環境のセットアップ](../setting-up-your-environment)
 
-始める前に、以下のことができるようになっているはずです：
+始める前に、以下のことができるようになっているはずです: 
 
 - [p5.js Web Editor](https://editor.p5js.org/)にログインして新しいプロジェクトを保存する
 
@@ -44,16 +44,16 @@ p5.jsへようこそ！p5.jsは初めてで、インタラクティブなスケ�
 [p5.js Web Editor](https://editor.p5js.org/)または[VS Code](https://code.visualstudio.com/)でプロジェクトを作成して保存するためのステップバイステップガイドは、[環境のセットアップ](../setting-up-your-environment)をご覧ください。
 
 
-## ステップ1：新しいp5.jsプロジェクトに名前を付けて保存する
+## ステップ1: 新しいp5.jsプロジェクトに名前を付けて保存する
 
 - 新しいp5.jsプロジェクトを作成し、名前を付けて保存します。
 
-[p5.js Web Editor](https://editor.p5js.org/)を使用する場合：
+[p5.js Web Editor](https://editor.p5js.org/)を使用する場合:
 
 - [p5.js Web Editor](https://editor.p5js.org/)にログインします。
 - *鉛筆アイコン*をクリックし、表示されるテキストボックスに「Interactive Landscape」と入力してプロジェクトに名前を付けます。
 - *ファイル*をクリックし、*保存*を選択します。
-- 保存したスケッチのギャラリーに移動して、プロジェクトが保存されたことを確認します：
+- 保存したスケッチのギャラリーに移動して、プロジェクトが保存されたことを確認します: 
   - *ファイル*をクリックし、*開く*を選択します。
   - アカウントに保存されたプロジェクトのリストの一番上に最新のスケッチが表示されます。
 
@@ -61,7 +61,7 @@ p5.jsへようこそ！p5.jsは初めてで、インタラクティブなスケ�
 
 #### デフォルトのコード
 
-すべてのp5.jsプロジェクトには、p5.jsライブラリと3つのファイルが含まれています：[`index.html`](https://www.classes.cs.uchicago.edu/archive/2021/spring/11111-1/happycoding/p5js/web-dev.html#:~:text=The%20index.,the%20page%20using%20HTML%20tags!)、[style.css](https://happycoding.io/tutorials/p5js/web-dev)、そして`sketch.js`です。sketch.jsファイルにコードを追加してキャンバスに変更を加えます。新しいp5.jsプロジェクトは、sketch.jsファイルに以下のコードで始まります：
+すべてのp5.jsプロジェクトには、p5.jsライブラリと3つのファイルが含まれています: [`index.html`](https://www.classes.cs.uchicago.edu/archive/2021/spring/11111-1/happycoding/p5js/web-dev.html#:~:text=The%20index.,the%20page%20using%20HTML%20tags!)、[style.css](https://happycoding.io/tutorials/p5js/web-dev)、そして`sketch.js`です。sketch.jsファイルにコードを追加してキャンバスに変更を加えます。新しいp5.jsプロジェクトは、sketch.jsファイルに以下のコードで始まります: 
 
 ```js
 function setup() {
@@ -74,11 +74,11 @@ function draw() {
 ```
 
 
-すべてのsketch.jsファイルは、2つの主要な関数で始まります：[`setup()`](/reference/p5/setup)と[`draw()`](/reference/p5/draw)です。 
+すべてのsketch.jsファイルは、2つの主要な関数で始まります: [`setup()`](/reference/p5/setup)と[`draw()`](/reference/p5/draw)です。 
 
 [関数](/reference/p5/function)は、特定のタスクを実行する一連の指示です。 
 
-sketch.jsのコードが実行されると：
+sketch.jsのコードが実行されると:
 
 - [`setup()`](/reference/p5/setup)が呼び出され、1回だけ実行されます。これはプロジェクトのデフォルト値を設定するのに使用できます。
   - [`setup()`](/reference/p5/setup)の中括弧（`{}`）内で、`createCanvas(400, 400)`はプレビューウィンドウで見ることができる、幅400ピクセル、高さ400ピクセルのHTMLキャンバスを作成します。
@@ -87,12 +87,12 @@ sketch.jsのコードが実行されると：
 
 [`setup()`](/reference/p5/setup)、[`draw()`](/reference/p5/draw)、[`createCanvas()`](/reference/p5/createCanvas)、[`background()`](/reference/p5/background)についてさらに学ぶには、[p5.jsリファレンス](/reference/)ページをご覧ください。
 
-## ステップ2：キャンバスのサイズを変更する
+## ステップ2:  キャンバスのサイズを変更する
 
 - [`createCanvas()`](/reference/p5/createCanvas)の*引数*を変更して、キャンバスの幅を600ピクセル、高さを400ピクセルに変更します。*再生*ボタンを押してプレビューウィンドウの変更を確認します。
 - *再生*ボタンを押すか、*自動更新*ボックスにチェックを入れてキャンバスを更新することを忘れないでください。
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 ```js
 function setup() {
@@ -106,14 +106,14 @@ function draw() {
 
 
 <Callout title="ヒント">
-[p5.js Web Editor](https://editor.p5js.org/)で*再生*をクリックし、"Auto-refresh"の横にあるボックスにチェックを入れると、プロジェクトにコードを追加するたびにキャンバスが継続的に更新されます。このボックスにチェックを入れると、スケッチに変更を加えるたびに*再生*ボタンを押す必要がなくなります。
+[p5.js Web Editor](https://editor.p5js.org/)で*再生*をクリックし、"Auto-refresh"横のボックスにチェックを入れると、プロジェクトにコードを追加するたびにキャンバスが継続的に更新されます。このボックスにチェックを入れると、スケッチに変更を加えるたびに*再生*ボタンを押す必要がなくなります。
 </Callout>
 
-## ステップ3：コメントを使用してコードを説明する
+## ステップ3:  コメントを使用してコードを説明する
 
 - `createCanvas(600, 400)`が何をするのかを説明するコメントを書きます。
 
-コードは以下のようになります：
+コードは以下のようになります: 
 
 ```js
 function setup() {
@@ -141,13 +141,13 @@ sketch.jsファイルはJavaScriptで書かれており、各コード行は*ス
 コメントとステートメントについての詳細は、[The Coding Trainのこのビデオ](https://www.youtube.com/watch?v=xJcrPJuem5Q)をご覧ください。
 
 
-## ステップ4：背景色を変更する
+## ステップ4:  背景色を変更する
 
 - [`background()`](/reference/p5/background)関数の*引数*を`background(135, 206, 235)`に変更して、キャンバスの背景色を空色に変更します。
 - このコード行を説明するコメントを追加します。
-- キャンバスを自動的に更新するために*自動更新*ボックスにチェックを入れます。
+- キャンバスを自動更新するために*自動更新*ボックスへチェックを入れます。
 
-コードは以下のようになります：
+コードは以下のようになります: 
 
 <EditableSketch code={`
 function setup() {
@@ -162,7 +162,8 @@ function draw() {
 }
 `} />
 
-[`background()`](/reference/p5/background)や図形などの他のp5.jsコマンドも関数です。[`background()`](/reference/p5/background)関数は特にキャンバスの背景色を変更します。[`background()`](/reference/p5/background)のp5.jsリファレンスページによると、上記のコードで見られる3つの*引数*は、キャンバスに表示される青色に対応する赤、緑、青の値を表しています。
+[`background()`](/reference/p5/background)や図形などの他のp5.jsコマンドも関数です。[`background()`](/reference/p5/background)関数は特にキャンバスの背景色を変更します。
+[`background()`](/reference/p5/background)のp5.jsリファレンスページによると、上記のコードで見られる3つの*引数*は、キャンバスへ表示される青色に対応する赤、緑、青の値を表しています。
 
 赤、緑、青に対応する数字の組み合わせは1000万以上あり、これらを使用できます。これらは[RGBカラーコード](/reference/p5/color)として知られています。上記のコードでは、Rの値は135、Gの値は206、Bの値は235です。これはキャンバスに表示されている薄い青色に対応しています。
 
@@ -175,17 +176,17 @@ function draw() {
 [Googleのカラーピッカー](https://g.co/kgs/aCdbzD)を使用して、背景を任意の色に設定するためのコードを検索できます。使用したい色を見つけ、RGBとラベル付けされたボックス内の数字をコピーし、[`background()`](/reference/p5/background)に貼り付けます。
 
 
-## ステップ5：キャンバスに図形を描く
+## ステップ5:  キャンバスに図形を描く
 
 - [`circle()`](/reference/p5/circle)関数を使用して、キャンバスの右上隅に太陽を描きます。
 - このコード行の最後にセミコロン（`;`）を追加します。
 - このコード行を説明するコメントを追加します。
 
 <Callout title="注意">
-図形を[`draw()`](/reference/p5/draw)関数の中括弧内（コードブロック内）に追加し、キャンバスを自動的に更新するために*自動更新*ボックスにチェックを入れることを忘れないでください。
+図形を[`draw()`](/reference/p5/draw)関数の中括弧内（コードブロック内）に追加し、キャンバスを自動的に更新するために*自動更新*ボックスへチェックを入れることを忘れないでください。
 </Callout>
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -208,7 +209,7 @@ function draw() {
 - 2番目の引数である数字50は、中心点のy座標です。これは、中心点がキャンバスの上端から50ピクセル下に位置していることを意味します。
 - 3番目の引数である数字100は、円のサイズ（幅と高さ）です。これは、円の幅が50ピクセル、高さが50ピクセルであることを意味します。
 
-![中心点が(x,y)にある円と、直径が"size"の図。円関数の使用構文が図の上に表示されています：「circle(x, y, size);」](../images/introduction/circle-diagram.png)
+![中心点が(x,y)にある円と、直径が"size"の図。円関数の使用構文が図の上に表示されています: 「circle(x, y, size);」](../images/introduction/circle-diagram.png)
 
 詳細については、[`circle()`](/reference/p5/circle)のp5.jsリファレンスページをご覧ください。
 
@@ -216,9 +217,10 @@ function draw() {
 
 キャンバスには、左上隅の水平位置0、垂直位置0から始まる目に見えない座標系が付属しています。
 
-![HTML &lt;canvas&gt;要素の図には、グリッドパターンのオーバーレイが表示されており、水平軸がx座標を、垂直軸がy座標を表し、グリッドの各交点が特定の(x,y)座標ペアを表しています。x軸に沿った矢印は、x座標がキャンバス上で右に移動するにつれて増加することを示しています。y軸に沿った矢印は、y座標がキャンバス上で下に移動するにつれて増加することを示しています。](../images/introduction/coordinates.png)
+![HTML &lt;canvas&gt;要素の図にはグリッドパターンのオーバーレイが表示されており、水平軸がx座標を、垂直軸がy座標を表し、グリッドの各交点が特定の(x,y)座標ペアを表しています。
+x軸に沿った矢印は、x座標がキャンバス上で右に移動するにつれて増加することを示しています。y軸に沿った矢印は、y座標がキャンバス上で下に移動するにつれて増加することを示しています。](../images/introduction/coordinates.png)
 
-キャンバス上のオブジェクトがこのポイントから右に移動すると、その水平位置が増加します。キャンバス上のオブジェクトがこのポイントから下に移動すると、その垂直位置が増加します。オブジェクトがキャンバス上で左に移動すると、そのx座標は減少します。オブジェクトがキャンバス上で上に移動すると、そのy座標は減少します。以下の例は、円の位置がキャンバス上で変化するときのx座標またはy座標の値を表示しています：
+キャンバス上のオブジェクトがこのポイントから右に移動すると、その水平位置が増加します。キャンバス上のオブジェクトがこのポイントから下に移動すると、その垂直位置が増加します。オブジェクトがキャンバス上で左に移動すると、そのx座標は減少します。オブジェクトがキャンバス上で上に移動すると、そのy座標は減少します。以下の例は、円の位置がキャンバス上で変化するときのx座標またはy座標の値を表示しています: 
 
 - [この例](https://editor.p5js.org/Msqcoding/full/AM5ZwrmNo)は、円がキャンバス上で水平に移動するときのx座標を表示します。
 - [この例](https://editor.p5js.org/Msqcoding/full/jZeTUjZfZ)は、円がキャンバス上で垂直に移動するときのy座標を表示します。
@@ -227,7 +229,7 @@ function draw() {
 
 HTMLキャンバス座標系と図形についてさらに学ぶには、[このp5.jsリファレンスページ](/reference)をご覧ください。
 
-## ステップ6：キャンバス上の図形と輪郭に色を付ける
+## ステップ6:  キャンバス上の図形と輪郭に色を付ける
 
 - [`circle()`](/reference/p5/circle)の上の行に`fill("yellow")`を追加して、太陽に色を付けます。
 - [`circle()`](/reference/p5/circle)の上の行に`stroke("orange")`を追加して、太陽の輪郭に色を付けます。
@@ -238,7 +240,7 @@ HTMLキャンバス座標系と図形についてさらに学ぶには、[この
 [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`strokeWeight()`](/reference/p5/strokeWeight)を[`draw()`](/reference/p5/draw)のコードブロック内、図形が描画される行の前に必ず追加してください。
 </Callout>
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -264,7 +266,7 @@ function draw() {
 [`fill()`](/reference/p5/fill)関数はキャンバス上のあらゆる図形の色を設定し、[`stroke()`](/reference/p5/stroke)関数は線と輪郭の色を設定します。両方とも[`background()`](/reference/p5/background)が使用するのと同じ引数を使用します。上記のコードでは、[`fill()`](/reference/p5/fill)と[`stroke()`](/reference/p5/stroke)の*引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を使用しています。[RGBとHEXカラーコード](https://htmlcolorcodes.com/)も使用できます。[`strokeWeight()`](/reference/p5/strokeWeight)関数は、その下にある線、輪郭、点の太さを設定するために数字を使用します。デフォルトの[`strokeWeight()`](/reference/p5/strokeWeight)は1ピクセルです。上記のコードでは、[`strokeWeight(20)`](/reference/p5/strokeWeight)が円の輪郭を20ピクセルに設定しています。
 
 <Callout title="ヒント">
-[p5.js Web Editor](https://editor.p5js.org/)では、色の名前の横にある小さな色付きボックスをクリックすることで、[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)で使用する異なる色を検索できます！*引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を入力すると、ボックスが表示されます。色名は[文字列](/reference/p5/String)データ型であるため、引用符（`""`）で囲まれています。
+[p5.js Web Editor](https://editor.p5js.org/)では、色の名前の横にある小さな色付きボックスをクリックすることで、[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)で使用する異なる色を検索できます! *引数*として[HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)を入力すると、ボックスが表示されます。色名は[文字列](/reference/p5/String)データ型であるため、引用符（`""`）で囲まれています。
 
 ![fill("yellow")を使用して円を黄色に塗った後、p5.js Web Editorでコーディングしているユーザーが、HTML色"yellow"の横に表示される黄色の四角をクリックします。これによりカラーツールが表示され、赤色が選択されます。ユーザーがコードエディタをクリックすると、円の色が黄色から赤に変わります。](../images/introduction/editor-color-picker.gif)
 </Callout>
@@ -277,14 +279,14 @@ function draw() {
 
 [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`strokeWeight()`](/reference/p5/strokeWeight)についてさらに学ぶには、[カラーリファレンス](/reference/p5/color)ページをご覧ください。[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)で使用するカラーコードを検索するには、p5.js Web Editorのカラーツールまたは[Googleのカラーピッカー](https://g.co/kgs/aCdbzD)を使用してください。
 
-## ステップ7：キャンバスにさらに図形を描いて色を付ける
+## ステップ7: キャンバスにさらに図形を描いて色を付ける
 
-- キャンバスの下半分に草を描きます：
+- キャンバスの下半分に草を描きます: 
   - 太陽のコードの下に`stroke(0)`と`strokeWeight(1)`を追加して、図形の輪郭の値をリセットします。
   - `rect(0, 200, 600, 200)`を使用して、キャンバスに長方形の図形を追加します。
   - 長方形のステートメントの上の行に`fill("green")`を追加して、長方形を緑色に塗ります。
   - 草を作成するコード行を説明するコメントを追加します。
-- （オプション）図形と色を使用して、風景にさらに詳細を追加します。以下の図形関数をクリックして、スケッチに含める方法を学びましょう：
+- （オプション）図形と色を使用して、風景にさらに詳細を追加します。以下の図形関数をクリックして、スケッチに含める方法を学びましょう:
   - [`ellipse()`](/reference/p5/ellipse)
   - [`square()`](/reference/p5/square)
   - [`quad()`](/reference/p5/quad)
@@ -335,17 +337,17 @@ function draw() {
 - 3番目の*引数*である数字600は、長方形の幅です。これは、長方形が600ピクセル幅であることを意味します。
 - 4番目の*引数*である数字200は、長方形の高さです。これは、長方形が200ピクセルの高さであることを意味します。
 
-![水平の長さが「width」とラベル付けされ、垂直の長さが「height」とラベル付けされた長方形の図。左上隅に「(x,y)」とラベル付けされた点があります。rect()関数の使用構文が図の上に表示されています：「rect(x, y, width, height);」](../images/introduction/rect-diagram.png)
+![水平の長さが「width」とラベル付けされ、垂直の長さが「height」とラベル付けされた長方形の図。左上隅に「(x,y)」とラベル付けされた点があります。rect()関数の使用構文が図の上に表示されています: 「rect(x, y, width, height);」](../images/introduction/rect-diagram.png)
 
 詳細については、[`rect()`](/reference/p5/rect)、[単純な図形](/reference/#Shape)、[色](/reference/#Color)のp5.jsリファレンスページをご覧ください。
 
-## ステップ8：絵文字を追加する
+## ステップ8: 絵文字を追加する
 
-- 花の絵文字とてんとう虫の絵文字（または他の好きな絵文字）を風景に追加します：
+- 花の絵文字とてんとう虫の絵文字（または他の好きな絵文字）を風景に追加します: 
   - `text("🌸", 100, 250);`を使用して、キャンバスに花を描きます
   - `text("🐞", 300, 250);`を使用して、キャンバスにてんとう虫を描きます
     - 選択した絵文字は引用符で囲む必要があります（例：`"🌸"`）。
-    - キーボードを使用して絵文字を挿入する方法については、以下の説明をご覧ください：
+    - キーボードを使用して絵文字を挿入する方法については、以下の説明をご覧ください:
       - [Macで絵文字を入力する](https://support.apple.com/guide/mac-help/use-emoji-and-symbols-on-mac-mchlp1560/14.0/mac/14.0#mchl9571760f)
       - [Windowsで絵文字を入力する](https://blogs.windows.com/windowsexperience/2018/02/05/windows-10-tip-get-started-emoji-keyboard-shortcut/)
       - [Chromebookで絵文字を入力する](https://support.google.com/chromebook/answer/6076237?hl=en#zippy=%2Cinsert-emoji-or-other-images)
@@ -354,10 +356,11 @@ function draw() {
   - キャンバスを更新するために*再生*ボタンを押すか、*自動更新*ボックスにチェックを入れることを忘れないでください。
 
 <Callout title="注意">
-[`textSize()`](/reference/p5/textSize)と[`text()`](/reference/p5/text)を、草を描くコード行の後の[`draw()`](/reference/p5/draw)のコードブロック内に必ず追加してください。[`text()`](/reference/p5/text)が[`rect()`](/reference/p5/rect)の前にコードに現れ、キャンバス上で長方形が描画される場所に配置されている場合、テキストが長方形の後ろに隠れてしまう可能性があります！重なりがどのように起こり得るかについての詳細な説明は、以下の[描画順序](#drawing-order)セクションをご覧ください。
+[`textSize()`](/reference/p5/textSize)と[`text()`](/reference/p5/text)を、草を描くコード行の後の[`draw()`](/reference/p5/draw)のコードブロック内に必ず追加してください。
+[`text()`](/reference/p5/text)が[`rect()`](/reference/p5/rect)より前にあり、キャンバス上で長方形が描画される場所に配置されている場合、テキストが長方形の後ろに隠れてしまう可能性があります! 重なりがどのように起こり得るかについての詳細な説明は、以下の[描画順序](#drawing-order)セクションをご覧ください。
 </Callout>
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -398,7 +401,7 @@ function draw() {
 
 ### <a id="drawing-order"></a>描画順序
 
-[`draw()`](/reference/p5/draw)は括弧内のコードを何度も繰り返し実行するため、図形はキャンバス上に層のように描画されます。最初に現れるコードが最初に描画され、[`draw()`](/reference/p5/draw)の中でより下に現れるコードはその後に描画されます。これが、図形やテキストをキャンバスに追加する前に[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`textSize()`](/reference/p5/textSize)を設定する必要がある理由です。p5.jsは図形やテキストを描画する***前に***、その色やサイズを知る必要があります。これにより、図形を重ねることもでき、時には他の図形の後ろに図形を隠すこともできます！図形が他の図形の後ろに隠れていないか確認するために、図形のx座標とy座標を必ず確認してください。
+[`draw()`](/reference/p5/draw)は括弧内のコードを何度も繰り返し実行するため、図形はキャンバス上に層のように描画されます。最初に現れるコードが最初に描画され、[`draw()`](/reference/p5/draw)の中でより下に現れるコードはその後に描画されます。これが、図形やテキストをキャンバスへ追加する前に[`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`textSize()`](/reference/p5/textSize)を設定する必要がある理由です。p5.jsは図形やテキストを描画する***前に***、その色やサイズを知る必要があります。これにより、図形を重ねることもでき、時には他の図形の後ろに図形を隠すこともできます! 図形が他の図形の後ろに隠れていないか確認するために、図形のx座標とy座標を必ず確認してください。
 
 重ね合わせの例については、これらのスケッチをご覧ください：[重なり合う図形（隠れている）](https://editor.p5js.org/Msqcoding/sketches/A4qkDd729)と[重なり合う図形](https://editor.p5js.org/Msqcoding/sketches/s822PY5T8)
 
@@ -411,25 +414,25 @@ p5.jsの一部の関数は*文字列*データ型の*引数*を必要とし、�
 - [文字列](/reference/p5/String)：テキストで表され、常に引用符（`""`）で囲まれています
 - [数値](/reference/p5/number)：数字で表されます
 
-例えば：
+例えば:
 
-- [`circle()`](/reference/p5/circle)は3つの[数値](/reference/p5/number)を使用します：x座標を表す数値、y座標を表す数値、ピクセル単位のサイズを表す数値。
-- [`text()`](/reference/p5/text)は表示するテキストを表す[文字列](/reference/p5/String)と、2つの[数値](/reference/p5/number)を使用します：x座標を表す数値とy座標を表す数値。
-- [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)は[数値](/reference/p5/number)と[文字列](/reference/p5/String)の両方を使用します：
+- [`circle()`](/reference/p5/circle)は3つの[数値](/reference/p5/number)を使用します: x座標を表す数値、y座標を表す数値、ピクセル単位のサイズを表す数値。
+- [`text()`](/reference/p5/text)は表示するテキストを表す[文字列](/reference/p5/String)と、2つの[数値](/reference/p5/number)を使用します: x座標を表す数値とy座標を表す数値。
+- [`fill()`](/reference/p5/fill)、[`stroke()`](/reference/p5/stroke)、[`background()`](/reference/p5/background)は[数値](/reference/p5/number)と[文字列](/reference/p5/String)の両方を使用します: 
   - グレースケールの色には1つの数値
   - [RGB色](https://www.w3schools.com/html/html_colors_rgb.asp)にはコンマで区切られた3つの数値
   - [HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)または[HEX色値](https://www.w3schools.com/html/html_colors_hex.asp)を含む[文字列](/reference/p5/String)
 
 
-## ステップ9：インタラクティブにする！
+## ステップ9: インタラクティブにする! 
 
 - てんとう虫の絵文字のx座標とy座標を`mouseX`、`mouseY`に変更します。
   - `text("🐞", mouseX, mouseY);`
-- マウスポインターをキャンバス上で動かし、てんとう虫がマウスポインターの位置に従うのを確認してください！
+- マウスポインターをキャンバス上で動かし、てんとう虫がマウスポインターの位置に従うのを確認してください! 
   - キャンバスを更新するために*再生*ボタンを押すか、*自動更新*ボックスにチェックを入れることを忘れないでください。
 - てんとう虫がマウスポインターと一緒に動く仕組みを説明するコメントを追加してください。
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -456,15 +459,16 @@ function draw() {
 }
 `} />
 
-[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)はp5.jsライブラリに付属のビルトイン変数で、システム変数と呼ばれています。変数は後でスケッチで使用できる値を格納します。また、x座標やy座標などの値が変化することがわかっている場合に使用すると便利です。[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)は特に、マウスポインターがキャンバス上をドラッグされるときのマウスポインターのx座標とy座標を格納します。[数値](/reference/p5/number)を必要とする任意の引数に[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)を使用できます！
+[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)はp5.jsライブラリに付属のビルトイン変数で、システム変数と呼ばれています。変数は後でスケッチで使用できる値を格納します。
+また、x座標やy座標などの値が変化するとわかっている場合に使用すると便利です。[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)は特に、マウスポインターがキャンバス上をドラッグされるときのマウスポインターのx座標とy座標を格納します。[数値](/reference/p5/number)を必要とする任意の引数に[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)を使用できます! 
 
-スケッチで[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)を使用する方法の例をいくつか見てみましょう：
+スケッチで[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)を使用する方法の例をいくつか見てみましょう:
 
 - [マウスのx座標とy座標を表示する（mouseXとmouseY）](https://editor.p5js.org/Msqcoding/sketches/v9PYEX_vY)
 - [mouseXとmouseYで色を変更する](https://editor.p5js.org/Msqcoding/sketches/VbLtYOfLc)
 - [mouseXとmouseYでサイズを変更する](https://editor.p5js.org/Msqcoding/sketches/gJ27u_HEZ)
 
-詳細については、[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)のp5.jsリファレンスページをご覧ください！p5.js座標系の復習は、キャンバス座標系と図形のp5.jsリファレンスページをご覧ください。[p5.jsリファレンス](/reference/)に含まれる他のシステム変数を探索してみてください：
+詳細については、[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)のp5.jsリファレンスページをご覧ください! p5.js座標系の復習は、キャンバス座標系と図形のp5.jsリファレンスページをご覧ください。[p5.jsリファレンス](/reference/)に含まれる他のシステム変数を探索してみてください:
 
 - [`width`](/reference/p5/width)：キャンバスの幅
 - [`height`](/reference/p5/height)：キャンバスの高さ
@@ -473,7 +477,8 @@ function draw() {
 
 ### エラー
 
-関数名のスペルを間違えたり、コンマを忘れたりするのは簡単です。構文規則はコンピュータがコードを解釈するのに役立ちます。「ルール」が破られると、コンソールにエラーメッセージが表示されます（例えば、[circle()](/reference/p5/circle)のスペルが間違っている場合）。これらのエラーは一般的に「バグ」と呼ばれます。コンソールには、あなたが犯した可能性のある間違いの詳細が表示されます。コードが正しく実行されない場合、コードにバグがある可能性があります！一般的なエラーの例とその修正方法については、[デバッグのフィールドガイド](field-guide-to-debugging)をご覧ください。
+関数名のスペルを間違えたり、コンマを忘れたりするのは簡単です。構文規則はコンピュータがコードを解釈するのに役立ちます。「ルール」が破られると、コンソールにエラーメッセージが表示されます（例えば、[circle()](/reference/p5/circle)のスペルが間違っている場合）。これらのエラーは一般的に「バグ」と呼ばれます。コンソールには、あなたが犯した可能性のある間違いの詳細が表示されます。
+コードが正しく実行されない場合、コードにバグがあるかもしれません! 一般的なエラーの例とその修正方法については、[デバッグのフィールドガイド](field-guide-to-debugging)をご覧ください。
 
 詳細については、The Coding Trainの[このビデオ](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)をご覧ください。
 
@@ -481,8 +486,8 @@ function draw() {
 ## 次のステップ
 
 - 次のチュートリアル：[変数と変化](../variables-and-change)
-- 次のスケッチを始める：
-  - キャンバス上に図形やテキストを配置するのに役立つ[このテンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を複製できます！
+- 次のスケッチを始める:
+  - キャンバス上に図形やテキストを配置するのに役立つ[このテンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を複製できます! 
     - [テンプレートリンク](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)をクリックし、*ファイル*、次に*複製*をクリックします。
     - プロジェクトの名前を変更して保存します。
 
@@ -494,12 +499,12 @@ function draw() {
 
 ## リソース
 
-- [ビデオ：The Coding Train 1.2：チュートリアル](https://www.youtube.com/watch?v=MXs1cOlidWs\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=3)
-- [ビデオ：The Coding Train 1.3：図形と描画](https://www.youtube.com/watch?v=c3TeLi6Ns1E\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=4)
-- [ビデオ：The Coding Train 1.4：色](https://www.youtube.com/watch?v=riiJTF5-N7c\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=5)
-- [ビデオ：The Coding Train 1.5：エラーとコンソール](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)
-- [ビデオ：The Coding Train 1.6：コードコメント](https://www.youtube.com/watch?v=xJcrPJuem5Q)
-- [ビデオ：The Coding Train 2.1：p5.jsの変数（mouseXとmouseY）](https://www.youtube.com/watch?v=7A5tKW9HGoM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=8)
+- [ビデオ：The Coding Train 1.2:  チュートリアル](https://www.youtube.com/watch?v=MXs1cOlidWs\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=3)
+- [ビデオ：The Coding Train 1.3:  図形と描画](https://www.youtube.com/watch?v=c3TeLi6Ns1E\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=4)
+- [ビデオ：The Coding Train 1.4:  色](https://www.youtube.com/watch?v=riiJTF5-N7c\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=5)
+- [ビデオ：The Coding Train 1.5:  エラーとコンソール](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)
+- [ビデオ：The Coding Train 1.6:  コードコメント](https://www.youtube.com/watch?v=xJcrPJuem5Q)
+- [ビデオ：The Coding Train 2.1: p5.jsの変数（mouseXとmouseY）](https://www.youtube.com/watch?v=7A5tKW9HGoM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=8)
 - [p5.jsリファレンス](/reference/)
 - [HTML色名](https://www.w3schools.com/tags/ref_colornames.asp)
 - [HEX色値](https://www.w3schools.com/html/html_colors_hex.asp)

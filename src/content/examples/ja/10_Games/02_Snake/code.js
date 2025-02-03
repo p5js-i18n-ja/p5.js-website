@@ -180,7 +180,7 @@ function gameOver() {
   // ユーザーがページをリロードしても保持されます。
   storeItem("high score", highScore);
   text(
-    `ゲームオーバー！
+    `ゲームオーバー!
 あなたのスコア: ${score}
 ハイスコア: ${highScore}
 クリックして再プレイ。`,

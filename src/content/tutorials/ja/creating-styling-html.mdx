@@ -17,23 +17,23 @@ authors:
 
 import Callout from "../../../components/Callout/index.astro";
 
-このチュートリアルでは、[p5.js Web Editor](https://editor.p5js.org/)で簡単な[ゲームボーイ](https://en.wikipedia.org/wiki/Game_Boy)エミュレータを構築することで、p5.jsと[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)の核となる概念を実践的に学びます。p5.jsがHTMLとCSSをどのように扱うのか、その構造と[`p5.Element`](/reference/p5/p5.Element)関数を使ったHTML要素の作成とスタイリングについて学びます。このチュートリアルの最後には、基本的なスネークゲームを実行できる[レトロスタイル](https://en.wikipedia.org/wiki/Retro_style)のゲームボーイエミュレータを開発することができます。
+このチュートリアルでは、[p5.js Web Editor](https://editor.p5js.org/)で簡単な[ゲームボーイ](https://en.wikipedia.org/wiki/Game_Boy)エミュレータを構築することで、p5.jsと[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)の核となる概念を実践的に学びます。p5.jsがHTMLとCSSをどのように扱うのか、その構造と[`p5.Element`](/reference/p5/p5.Element)関数を使ったHTML要素の作成とスタイリングについて学びます。このチュートリアルの最後には、基本的なスネークゲームを実行できる[レトロスタイル](https://en.wikipedia.org/wiki/Retro_style)のゲームボーイエミュレータを開発できます。
 
-このチュートリアルは[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最初のものです。[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最後に完成する[最終スケッチの例](https://editor.p5js.org/ruthikegah/sketches/sf6K_7QzP)をチェックしてみてください！
+このチュートリアルは[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最初のものです。[Web Design](https://drive.google.com/open?id=1UiEb9ujbVAuzg_WaLy22OVOH4zWuB-f3)チュートリアルシリーズの最後に完成する[最終スケッチの例](https://editor.p5js.org/ruthikegah/sketches/sf6K_7QzP)をチェックしてみてください! 
 
-このチュートリアルの最後には、あなたのスケッチは以下のようになっているはずです：
+このチュートリアルの最後には、あなたのスケッチは以下のようになっているはずです: 
 
 ![携帯型ゲームボーイコンソールのデジタル模倣。画面には黒い背景に赤い文字で「Press play icon to Start」と表示されています。画面の下にはゲームボーイのロゴ、左側に赤い方向ボタン、そして再生と一時停止アイコンが付いた2つの青いアクションボタンがあります。ゲームボーイは灰色で、暗い枠と丸みを帯びた端を持っています。](../images/web-design/gameboy.png)
 
 ## 前提条件:
 
-始める前に、以下のことを理解しているか、持っているべきです：
+始める前に、以下のことを理解しているか、持っているべきです: 
 
-- 学び、実験しようとする意欲、好奇心、そして意志が最も重要な前提条件です！
+- 学び、実験しようとする意欲、好奇心、そして意志がもっとも重要な前提条件です! 
 - p5.jsプロジェクトを作成し保存するための[p5.js Web Editor](https://editor.p5js.org/)の使い方
 - このチュートリアルの最終プロジェクトでは、p5.js入門チュートリアルの章にある[変数と変化](/tutorials/variables-and-change)チュートリアルに含まれるp5.jsの基本概念を理解している必要があります
 
-このチュートリアルは、すべてのレベルの学習者向けに設計されているので、コーディングが初めてでも心配いりません - それを指導するのが私たちの役目です！
+このチュートリアルは、すべてのレベルの学習者向けに設計されているので、コーディングが初めてでも心配いりません - それを指導するのが私たちの役目です! 
 
 
 ## プロジェクトのセットアップ
@@ -68,9 +68,9 @@ p5.js Web Editorを起動し、ファイル名`sketch.js`の横にある矢印�
 </html>
 ```
 
-HTML、つまり[Hypertext Markup Language](https://developer.mozilla.org/en-US/docs/Glossary/HTML)は、[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)を使用してウェブページ上で見ることができる[要素](https://developer.mozilla.org/en-US/docs/Glossary/Element)を作成します。[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、開始タグ用の二つの山括弧(`< >`)、または終了タグ用の中央にフォワードスラッシュが入った二つの山括弧(`</ >`)を使用します。HTMLタグのネスト構造についてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)と[HTMLレイアウト要素](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure#html_layout_elements_in_more_detail)の記事をご覧ください。
+HTML、つまり[Hypertext Markup Language](https://developer.mozilla.org/en-US/docs/Glossary/HTML)は、[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)を使用してウェブページ上で見ることができる[要素](https://developer.mozilla.org/en-US/docs/Glossary/Element)を作成します。[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、開始タグ用の2つの山括弧(`< >`)、または終了タグ用の中央にフォワードスラッシュが入った2つの山括弧(`</ >`)を使用します。HTMLタグのネスト構造についてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)と[HTMLレイアウト要素](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure#html_layout_elements_in_more_detail)の記事をご覧ください。
 
-上記のデフォルトの`index.html`ファイルでは：
+上記のデフォルトの`index.html`ファイルでは:
 
 - `<!DOCTYPE html>`タグは、文書のタイプとバージョンがHTML5であることを指定します。
 - `<html lang="en">`タグは、文書の言語を指定します（この場合、`"en"`は英語を表します）。
@@ -80,21 +80,21 @@ HTML、つまり[Hypertext Markup Language](https://developer.mozilla.org/en-US/
   - `<meta>`タグは、文書の[文字エンコーディング](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)を[UTF-8](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8)に設定します。
 - 開始`<body>`タグと終了`</body>`タグの間には、テキスト、画像、セクションなど、ウェブページに表示されるすべてのコンテンツがあります。また、外部JavaScriptファイル`sketch.js`を読み込む`<script>`タグも含まれており、これによってキャンバスがウェブページのプレビューウィンドウに表示されます。
 
-[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、`style.css`ファイルで[CSS (Cascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS)を使用して[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をスタイリングできるようにするラベルをエンコードすることができます。[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)には、作成時にタグ内に[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#class_selectors)と[ID](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors)をエンコードすることでラベル付けができます。
+[タグ](https://developer.mozilla.org/en-US/docs/Glossary/Tag)には、`style.css`ファイルで[CSS (Cascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS)を使用して[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をスタイリングできるようにするラベルをエンコードできます。[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)には、作成時においてタグ内に[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#class_selectors)と[ID](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Type_Class_and_ID_Selectors#id_selectors)をエンコードすることでラベル付けができます。
 
-HTMLとCSSがどのようにリンクしているかを示すために、タグ内で一意のIDを指定した`<div>`要素と、その`<div>`要素内に`<p>`要素を作成します。[`<div>`要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)はコンテンツをセクションに分割するのに役立ち、`<p>`要素はウェブページ上に段落テキストを生成します。タグが別のタグ内に配置される場合、これをネストと呼び、外側のタグを親、内側のタグを子と呼びます。HTMLのネスト構造は、ツリー図で表現できることを想像できます：
+HTMLとCSSがどのようにリンクしているかを示すために、タグ内で一意のIDを指定した`<div>`要素と、その`<div>`要素内に`<p>`要素を作成します。[`<div>`要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)はコンテンツをセクションで分割するのに役立ち、`<p>`要素はウェブページ上に段落テキストを生成します。タグが別のタグ内に配置される場合、これをネストと呼び、外側のタグを親、内側のタグを子と呼びます。HTMLのネスト構造は、ツリー図で表現できることを想像できます: 
 
 ![HTMLの要素間のネスト関係を示すバブルのツリー図。htmlの上のバブルにheadとbodyのバブルが接続されています。divバブルはbodyバブルに接続され、「親要素」という矢印のラベルが付いています。pバブルはdivバブルに接続され、「子要素」という矢印のラベルが付いています。対応するHTMLコードがツリー図の横に表示され、pタグがdivタグ内にネストされ、それらがbodyタグ内にネストされ、headとbodyの両方がhtmlタグ内にネストされていることを示しています。](../images/web-design/html-tree.png)
 
 この例では、`<p>`要素は`<div>`要素の子です。これは、`<div>`タグ内にネストされており、Document Object Model (DOM)内で要素を親子関係でリンクする階層を作成することを意味します。
 
-HTMLについてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)、[HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)、[headの中身は？](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)、そして[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) MDN学習モジュールをご覧ください。
+HTMLについてさらに学ぶには、[HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)、[HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)、[headの中身は?](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)、そして[Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) MDN学習モジュールをご覧ください。
 
 HTMLタグの一覧については、[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) MDNリファレンスページをご覧ください。
 
 #### ステップ2: HTML要素にIDを追加する
 
-以下のコードを`index.html`ファイルの`</main>`終了タグの下、`</html>`タグの前に追加してください：
+以下のコードを`index.html`ファイルの`</main>`終了タグの下、`</html>`タグの前に追加してください:
 
 ```html
 <!-- html, head tags-->
@@ -121,9 +121,9 @@ HTMLタグの一覧については、[HTML要素](https://developer.mozilla.org/
 <!-- ... body, html closing -->
 ```
 
-上記のコードスニペットでは、HTMLコードを理解しやすくするためにコメントを使用しました。HTMLのコメントは右向きの山括弧、感嘆符、2つのm-ダッシュ（`<!--`）で始まり、2つのm-ダッシュと左向きの山括弧（`-->`）で終わります。これらの間にネストされたテキストはウェブブラウザによってスキップされ、コードを整理し、コードの機能を思い出すのに最適な方法です！この例では、コメントを使用して`<script>`タグをコメントアウトし、現時点ではキャンバスを組み込まないようにしています。
+上記のコードスニペットでは、HTMLコードを理解しやすくするためにコメントを使用しました。HTMLのコメントは右向きの山括弧、感嘆符、2つのm-ダッシュ（`<!--`）で始まり、2つのm-ダッシュと左向きの山括弧（`-->`）で終わります。これらの間にネストされたテキストはウェブブラウザによってスキップされ、コードを整理し、コードの機能を思い出すのに最適な方法です! この例では、コメントを使用して`<script>`タグをコメントアウトし、現時点ではキャンバスを組み込まないようにしています。
 
-`<div>`要素には、開始タグ`<div>`内に`"Text"`という`id`が配置されています。`index.html`ファイル内のHTML要素にIDをエンコードする構文は以下の通りです：
+`<div>`要素には、開始タグ`<div>`内に`"Text"`という`id`が配置されています。`index.html`ファイル内のHTML要素にIDをエンコードする構文は以下の通りです: 
 
 ```
 <-- 要素にIDを付与する -->
@@ -147,9 +147,9 @@ HTML要素、ID、コメントについての詳細は、[HTMLを始めよう](h
 
 [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS)を使用して[HTML要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)をスタイリングするには、`style.css`ファイル内で[セレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)を使用して`index.html`ファイルから要素を選択する必要があります。セレクタの後には、すべてのCSSスタイルルールが[プロパティ：値のペア](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#properties_and_values)の形式で配置される中括弧のペアがあります。各要素のスタイルを設定するには、CSSプロパティ、コロン（`:`）、そのプロパティの値を指定し、最後にセミコロン（`;`）を付ける必要があります。
 
-例えば、タグ、クラス、またはIDによって要素を選択し、CSSの宣言を使用してそのスタイルを定義することができます。
+例えば、タグ、クラス、またはIDによって要素を選択し、CSSの宣言を使用してそのスタイルを定義できます。
 
-以下は、CSSで[要素セレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)を使用して要素を選択する構文です：
+以下は、CSSで[要素セレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)を使用して要素を選択する構文です: 
 
 ```css
 element {
@@ -159,7 +159,7 @@ element {
 
 要素セレクタを使用すると、htmlファイル内のその型のすべての要素が選択されます。
 
-以下は、CSSで[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です：
+以下は、CSSで[クラス](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です: 
 
 ```css
 .class {
@@ -167,9 +167,9 @@ element {
 }
 ```
 
-複数の要素（異なる型の要素でも）が同じクラスに属することができます。
+複数の要素（異なる型の要素でも）が同じクラスに属できます。
 
-以下は、CSSで[id](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です：
+以下は、CSSで[id](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)によって要素を選択する構文です: 
 
 ```css
 #id_label {
@@ -183,7 +183,7 @@ element {
 
 #### ステップ3 – CSSセレクタを使用してHTML要素をスタイリングする
 
-`style.css`ファイルを以下のコードのように修正してください：
+`style.css`ファイルを以下のコードのように修正してください:
 
 ```css
 html, body {
@@ -201,7 +201,7 @@ html, body {
 }
 ```
 
-`html`と`body`セレクタはカンマで区切られているため、中括弧内のすべての[CSSルール](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)が両方の要素に適用されます。`display`プロパティに`flex`の値を設定すると、要素が[フレックスコンテナ](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)になります。これにより、子要素に対して`display`プロパティの`flex`値を使用できるようになります。`justify-content`プロパティの値を`center`に設定すると、フレックスコンテナ内の子要素が水平方向に中央揃えされます。これは特に、コンテンツをページの中央にきちんと配置し、ブラウザウィンドウ内で整然と中央揃えにするのに便利です。
+`html`と`body`セレクタはカンマで区切られているため、中括弧内のすべての[CSSルール](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)が両方の要素に適用されます。`display`プロパティに`flex`の値を設定すると、要素が[フレックスコンテナ](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)になります。これにより、子要素に対して`display`プロパティの`flex`値を使用できるようになります。`justify-content`プロパティの値を`center`に設定すると、フレックスコンテナ内の子要素が水平方向に中央揃えされます。これにより、コンテンツをブラウザウィンドウの中央に整然と配置できます。
 
 [CSSセレクタ](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)、[CSSフレックスボックスレイアウト](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout)、[フレックスボックス](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)、[display](https://developer.mozilla.org/en-US/docs/Web/CSS/display)、[flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)、[justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)、[アイテムを中央に配置する方法](https://developer.mozilla.org/en-US/docs/Learn/CSS/Howto/Center_an_item)についてさらに学ぶには、MDNリファレンスページをご覧ください。
 
@@ -209,7 +209,7 @@ html, body {
 
 [CSS基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)、[margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)、[padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)についてさらに学ぶには、MDNリファレンスページをご覧ください。
 
-スケッチを実行すると、プレビューウィンドウにスタイリングされた`<div>`が表示されます：
+スケッチを実行すると、プレビューウィンドウにスタイリングされた`<div>`が表示されます: 
 
 ![黒い背景に白いテキストで「This is a console」と表示され、角が丸くなっている長方形。](../images/web-design/this-is-a-console.png)
 
@@ -222,7 +222,7 @@ html, body {
 
 p5.js Web Editorで新しいプロジェクトを開き、"GameBoy Emulator Part 1"という名前に変更してスケッチライブラリに保存してください。
 
-以下のコードを`style.css`ファイルに追加してください：
+以下のコードを`style.css`ファイルに追加してください:
 
 ```css
 html, body {
@@ -234,7 +234,7 @@ canvas {
 }
 ```
 
-`sketch.js`ファイルに移動し、以下のコードを追加してキャンバスをセットアップしてください：
+`sketch.js`ファイルに移動し、以下のコードを追加してキャンバスをセットアップしてください:
 
 ```js
 let winWidth = 400;
@@ -248,7 +248,7 @@ function draw() {
 }
 ```
 
-キャンバスは以下のように表示されるはずです：
+キャンバスは以下のように表示されるはずです: 
 
 ![ウェブページの中央に配置された、空の黒いキャンバス。](../images/web-design/empty-canvas.png)
 
@@ -273,10 +273,10 @@ CSSプロパティを使用してキャンバスに影を追加してくださ�
 
 コンソールの様々なコンポーネント（例えば、コンソール、画面、ロゴ、ボタン）を収容する`<div>`コンテナを作成します。ゲームのスコアを表示する`<p>`要素を作成します。各要素に、その用途を説明するIDを追加します。
 
-以下のコードを`sketch.js`ファイルの`setup()`内の`createCanvas()`の下に追加してください：
+以下のコードを`sketch.js`ファイルの`setup()`内の`createCanvas()`の下に追加してください:
 
 ```js
-// setup()の中：
+// setup()の中:
 
 // ゲームボーイエミュレータのコンテナを作成
 let gameBoyEmulator = createDiv();
@@ -313,24 +313,24 @@ let actionButtons = createDiv();
 actionButtons.id("action-buttons");
 ```
 
-ウェブ上でテキストを読みやすくするために、より目立つ色を使用します。ピンクがこの背景によく合います。`style.css`ファイルの`html, body`セレクタに以下を追加してください：
+ウェブ上でテキストを読みやすくするために、より目立つ色を使用します。ピンクがこの背景によく合います。`style.css`ファイルの`html, body`セレクタに以下を追加してください:
 
 ```css
 color: rgb(255,0,188);
 ```
 
-プレビューは以下のように表示されるはずです：
+プレビューは以下のように表示されるはずです: 
 
 ![黒い背景のブランクキャンバスと、右上に水平に並んだピンク色の「Score: Gameboy」というテキスト、その下に数字の0が表示されています。](../images/web-design/preview-with-text.png)
 
 
 ### `p5.Element`
 
-このステップでは、[`p5.Element`](/reference/p5/p5.Element)オブジェクトを使用してHTML要素を作成します。`p5.Element`を使用すると、標準的なHTML要素を`sketch.js`内のHTMLに追加することができます。すべてのHTML要素は`p5.Element`クラスの機能を共有します。これらの要素には[`createCanvas()`](/reference/p5/createCanvas)、[`createDiv()`](/reference/p5/createDiv)、[`createP()`](/reference/p5/createP)、[`createButton()`](/reference/p5/createButton)などが含まれます。`p5.Element`オブジェクトで使用できる機能には、[`.id()`](/reference/p5.Element/id)、[`.child()`](/reference/p5.Element/child)、[`.style()`](/reference/p5.Element/style)、[`.position()`](/reference/p5.Element/position)、[`.size()`](/reference/p5.Element/size)などがあります。
+このステップでは、[`p5.Element`](/reference/p5/p5.Element)オブジェクトを使用してHTML要素を作成します。`p5.Element`を使用すると、標準的なHTML要素を`sketch.js`内のHTMLに追加できます。すべてのHTML要素は`p5.Element`クラスの機能を共有します。これらの要素には[`createCanvas()`](/reference/p5/createCanvas)、[`createDiv()`](/reference/p5/createDiv)、[`createP()`](/reference/p5/createP)、[`createButton()`](/reference/p5/createButton)などが含まれます。`p5.Element`オブジェクトで使用できる機能には、[`.id()`](/reference/p5.Element/id)、[`.child()`](/reference/p5.Element/child)、[`.style()`](/reference/p5.Element/style)、[`.position()`](/reference/p5.Element/position)、[`.size()`](/reference/p5.Element/size)などがあります。
 
 `setup()`内で、`gameBoyEmulator`という変数を宣言し、[`createDiv()`](/reference/p5/createDiv)関数で作成された新しい`<div>` `p5.Element`を割り当てました。その後、`.id()`メソッドを呼び出して、`gameBoyEmulator`にID属性`"game-boy-emulator"`を与えました。
 
-`p5.Element`にIDを追加する構文は以下の通りです：
+`p5.Element`にIDを追加する構文は以下の通りです: 
 
 ```js
 variableName.id('idName');
@@ -354,7 +354,7 @@ CSSルールセットを追加してテキストの色を変更してくださ�
 
 #### ステップ6 – p5.Elementsをそれぞれのコンテナに追加する
 
-`setup()`内のアクションボタンコンテナの下に、以下のコードブロックを追加してください：
+`setup()`内のアクションボタンコンテナの下に、以下のコードブロックを追加してください:
 
 ```js
 // ページのbody要素を選択し、
@@ -377,7 +377,7 @@ buttonContainer.child(actionButtons);
 
 [`.child()`](/reference/p5.Element/child)関数は、`p5.Element`を別の`p5.Element`の子として追加します。
 
-`p5.Element`を別の要素の子として追加する構文は以下の通りです：
+`p5.Element`を別の要素の子として追加する構文は以下の通りです: 
 
 ```js
 childElement.child(parentElement);
@@ -389,19 +389,19 @@ childElement.child(parentElement);
 
 `gameContainer`、`gameBoyText`、`gameBoyEmulator`はすべて`gameBoyEmulator`（コンソール全体のコンテナ）内にネストされています。
 
-プレビューは以下のように表示されるはずです：
+プレビューは以下のように表示されるはずです: 
 
 ![黒い背景のブランクキャンバスと、キャンバスの上部に「Score: 0」というテキスト、キャンバスの下に「GameBoy」というテキストが表示されています。](../images/web-design/canvas-with-logo.png)
 
-[`select()`](/reference/p5/select)関数はDOMから要素を検索して返します。これを使用して、要素タグ、クラス、IDで要素を検索します。`select('body')`を呼び出すと、ページの`<body>`要素が返されます。`<body>`要素にアクセスできるようになったので、`gameBoyEmulator`を子として追加します。
+[`select()`](/reference/p5/select)関数はDOMから要素を検索して返します。これを使用して、要素タグ、クラス、IDで要素を検索します。`select('body')`を呼び出すと、ページの`<body>`要素が返されます。`<body>`要素へアクセスできるようになったので、`gameBoyEmulator`を子として追加します。
 
-JavaScriptでの変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、`setup()`内で以下のコードを入力して`body`要素をコンソールに出力してください：
+JavaScriptでの変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、`setup()`内で以下のコードを入力して`body`要素をコンソールに出力してください:
 
 ```js
 console.log(body.elt);
 ```
 
-`body.elt`は、プレビューでレンダリングされるhtmlページの`<body>`タグ内にネストされた結果のHTML要素にアクセスします。`console.log()`は要素をコンソールに出力します。index.htmlファイルには表示されていなくても、作成したすべてのp5.Elementsがコンソールにリストされていることに注目してください。これがJavaScriptの力です！sketch.jsファイルから、htmlファイル用の要素とcssファイル用のスタイルを作成することができます。
+`body.elt`は、プレビューでレンダリングされるhtmlページの`<body>`タグ内にネストされた結果のHTML要素にアクセスします。`console.log()`は要素をコンソールに出力します。index.htmlファイルには表示されていなくても、作成したすべてのp5.Elementsがコンソールにリストされていることに注目してください。これがJavaScriptの力です! sketch.jsファイルから、htmlファイル用の要素とcssファイル用のスタイルを作成できます。
 
 [こちらのサンプルコード](https://editor.p5js.org/Msqcoding/sketches/Eblr8BQLq)は、`<body>`からネストされた要素をコンソールに出力します。
 
@@ -414,7 +414,7 @@ console.log(body.elt);
 
 #### ステップ7 – コンテナをスタイリングする
 
-`setup()`関数内に以下のスタイルをコンテナに設定してください：
+`setup()`関数内に以下のスタイルをコンテナに設定してください:
 
 ```js
 // ゲームボーイエミュレータコンテナのスタイルを設定
@@ -437,9 +437,9 @@ actionButtons.style("display", "flex");
 actionButtons.style("align-items", "center");
 ```
 
-[`.style()`](/reference/p5.Element/style)メソッドを使用してHTML要素をスタイリングすることができます。[`.style()`](/reference/p5.Element/style)は、`p5.Element`のCSSスタイルプロパティを設定または取得するのに役立ちます。[`.style()`](/reference/p5.Element/style)の引数はCSS宣言を反映しています。
+[`.style()`](/reference/p5.Element/style)メソッドを使用してHTML要素をスタイリングできます。[`.style()`](/reference/p5.Element/style)は、`p5.Element`のCSSスタイルプロパティを設定または取得するのに役立ちます。[`.style()`](/reference/p5.Element/style)の引数はCSS宣言を反映しています。
 
-[`.style()`](/reference/p5.Element/style)の構文は以下の通りです：
+[`.style()`](/reference/p5.Element/style)の構文は以下の通りです: 
 
 ```js
 elementName.style("property", "value");
@@ -447,34 +447,34 @@ elementName.style("property", "value");
 
 明るい灰色の背景に対して黒の方が見やすくなったので、CSSの`html, body`セレクタで設定した`color: rgb(255,0,188);`を削除できるようになりました。
 
-すべての`p5.Element`のスタイリングが完了すると、プレビューウィンドウには以下のように表示されるはずです：
+すべての`p5.Element`のスタイリングが完了すると、プレビューウィンドウには以下のように表示されるはずです: 
 
 ![クラシックな携帯型ゲーム機ゲームボーイを模した、ミニマルなデザインで、黒と白の配色のコンソール。明るい灰色の背景に黒い枠を持つ暗い灰色の画面が中央にあります。画面の上には「Score」というテキストが表示され、その下に数字の「0」があります。画面の下には「GameBoy」というロゴが表示されています。](../images/web-design/gameboy-with-shadow.png)
 
-上記のスタイリングでは、`gameBoyEmulator`コンテナに灰色の背景、丸みを帯びた角を持つ黒い実線の枠、間隔を取るためのパディング、3D効果のための影を与えています。`buttonContainer`はフレックスボックスでスタイリングされ、その子要素（ボタン）は中央揃えで均等に配置されています。他の要素との適切な分離のために、ボタンコンテナの上に小さなマージンが適用されています。`arrowButtons`コンテナもフレックスコンテナです。矢印ボタンを垂直に積み重ね、中央揃えにするために列形式で配置されています。最後に、`actionButtons`コンテナはフレックスに設定され、その子要素を行に配置します。これにより、右上にスコアを配置するレイアウトが作成されます。ゲーム画面キャンバスの下に「GameBoy」テキストが中央揃えされています。JavaScriptでのこれらのスタイル変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、gameBoyEmulator.eltオブジェクトをコンソールに出力してください。
+上記のスタイリングでは、`gameBoyEmulator`コンテナに灰色の背景、丸みを帯びた角を持つ黒い実線の枠、間隔を取るためのパディング、3D効果のための影を与えています。`buttonContainer`はフレックスボックスでスタイリングされ、その子要素（ボタン）は中央揃えで均等に配置されています。他の要素との適切な分離のために、ボタンコンテナの上に小さなマージンが適用されています。`arrowButtons`コンテナもフレックスコンテナです。矢印ボタンを垂直に積み重ね、中央揃えをするために列形式で配置されています。最後に、`actionButtons`コンテナはフレックスに設定され、その子要素を行に配置します。これにより、右上にスコアを配置するレイアウトが作成されます。ゲーム画面キャンバスの下に「GameBoy」テキストが中央揃えされています。JavaScriptでのこれらのスタイル変更がHTMLのインラインスタイリングにどのように対応するかを確認するには、gameBoyEmulator.eltオブジェクトをコンソールに出力してください。
 
-`setup()`に以下のコードを書いて、作成したネスト階層とスタイルを表示してください：
+`setup()`に以下のコードを書いて、作成したネスト階層とスタイルを表示してください:
 
 ```js
 console.log(gameBoyEmulator.elt);
 ```
 
-コンテナのスタイリングに使用されたスタイルプロパティと概念について詳しく見てみましょう：
+コンテナのスタイリングに使用されたスタイルプロパティと概念について詳しく見てみましょう:
 
 - [ボックスモデル](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)：CSSボックスモデルは、すべてのウェブページ要素の構造を、[`padding`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php)（枠線の内側のスペース）、[`border`](https://www.phpforkids.com/css/css-inner-workings-border.php)（要素の周りの端）、[`margin`](https://www.phpforkids.com/css/css-inner-workings-margin-padding.php)（枠線の外側のスペース）、そして実際のコンテンツ領域自体を含む長方形のボックスとして説明します。このモデルは、ウェブページのデザインとレイアウトに役立ちます。
 
   ![CSSボックスモデルの図。中央の小さなボックスには「Content」とラベル付けされ、「Padding」とラベル付けされた影付きボックスに囲まれ、さらに「Margin」とラベル付けされた影付きボックスに囲まれています。コンテンツボックスの端からパディングボックスの端までの矢印には「20px」とラベル付けされ、パディングボックスの端からマージンボックスの端までの矢印には「8px」とラベル付けされています。](../images/web-design/box-model.png)
 
-- [寸法プロパティ：](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension) CSS寸法プロパティ（`width`や`height`など）は、要素のコンテンツ領域のサイズを設定します。また、max-widthとmin-width、max-heightとmin-heightを使用して、要素のサイズを制御することもできます。これにより、様々な画面や様々なコンテンツで見栄えよく表示されます。詳しくは[寸法プロパティ](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension)のMDNリファレンスをご覧ください。
+- [寸法プロパティ：](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension) CSS寸法プロパティ（`width`や`height`など）は、要素のコンテンツ領域のサイズを設定します。また、max-widthとmin-width、max-heightとmin-heightを使用して、要素のサイズを制御できます。これにより、様々な画面や様々なコンテンツで見栄えよく表示されます。詳しくは[寸法プロパティ](https://developer.mozilla.org/en-US/docs/Web/CSS/dimension)のMDNリファレンスをご覧ください。
 
 - [配置：](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align) HTML配置プロパティは、要素内またはレイアウト全体でのコンテンツの位置と配置を決定します。これには、水平テキスト配置のための`text-align`、インラインまたはテーブルセルコンテンツのための`vertical-align`、そしてフレキシブルコンテナやグリッドコンテナ内での高度なレイアウト配置のための`justify-content`や`align-items`などのフレックスボックスやグリッドプロパティが含まれます。詳しくは[HTML配置プロパティ](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/align)のMDNリファレンスをご覧ください。
 
 <Callout title="注意">
-プレビューでのゲームボーイの外観は、画面サイズによって異なる場合があります。CSSはキャンバスを左揃えにします。親要素に対して左に配置されます。エミュレータ要素が画面やウィンドウの幅を超える場合、キャンバスは中央に配置されません。より左側にシフトしているように見えます。異なる画面サイズに対応するためにCSSを調整する必要があるかもしれません。これは、そのようなレイアウトを望む場合に、キャンバスを中央に保つためです。詳しくは[レスポンシブ画面デザイン](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)のMDNリファレンスをご覧ください。
+プレビューでのゲームボーイの外観は、画面サイズによって異なる場合があります。CSSはキャンバスを左揃えにします。親要素に対して左に配置されます。エミュレータ要素が画面やウィンドウの幅を超える場合、キャンバスは中央に配置されません。より左側にシフトしているように見えます。異なる画面サイズへ対応するためにCSSを調整する必要があるかもしれません。これは、そのようなレイアウトを望む場合に、キャンバスを中央に保つためです。詳しくは[レスポンシブ画面デザイン](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)のMDNリファレンスをご覧ください。
 </Callout>
 
 <Callout>
-ゲームボーイのテキストの色を好きな色に変更してみてください！
+ゲームボーイのテキストの色を好きな色に変更してみてください! 
 
 [例](https://editor.p5js.org/ruthikegah/sketches/EY6n18IRE)
 </Callout>
@@ -482,7 +482,7 @@ console.log(gameBoyEmulator.elt);
 
 #### ステップ8 – テキストをスタイリングする
 
-最後に、`setup()`関数内でテキスト要素のスタイルと位置を設定します：
+最後に、`setup()`関数内でテキスト要素のスタイルと位置を設定します: 
 
 ```js
 // スタイルを追加
@@ -513,7 +513,7 @@ gameBoyText.style("border-radius", "5px");
 CSSを使用してテキストをスタイリングする他の方法をウェブで検索し、`.style()`を使用してそれらのスタイルを適用してみてください。
 </Callout>
 
-お疲れ様でした！p5.jsを使用してHTMLの作成とスタイリングに成功しました。この時点で、あなたのスケッチは以下のように見えるはずです：
+お疲れ様でした! p5.jsを使用してHTMLの作成とスタイリングに成功しました。この時点で、あなたのスケッチは以下のように見えるはずです: 
 
 ![3D効果のための微妙な影を持つゲームボーイゲーム機を模したデジタルインターフェース。画面は暗い灰色で、大きく中央に配置されています。画面の右上には白いテキストで「Score:」と表示され、その下に数字の「0」があります。画面の下には青い背景に白いフォントで「GameBoy」というロゴが中央揃えで表示されています。黒い枠と丸みを帯びた端がゲームボーイを囲んでいます。](../images/web-design/final-gameboy.png)
 
@@ -541,7 +541,7 @@ CSSを使用してテキストをスタイリングする他の方法をウェ�
 - [文書とウェブサイトの構造](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
 - [HTML基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
 - [HTMLを始めよう](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
-- [headの中身は？](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML) 
+- [headの中身は?](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML) 
 - [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
 - [HTMLによるウェブの構造化](https://developer.mozilla.org/en-US/docs/Learn/HTML)
 - [CSS基礎](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)

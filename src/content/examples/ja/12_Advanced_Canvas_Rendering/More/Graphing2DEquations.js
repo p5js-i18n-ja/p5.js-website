@@ -36,8 +36,8 @@ function draw() {
       theta = atan2(y, x); // デカルト座標を極座標に変換
       // 2次元の極座標を計算する関数
       val = sin(n * cos(r) + 5 * theta); // 結果は -1 から 1 の範囲の値です
-      //var val = cos(r);                            // もう一つのシンプルな関数
-      //var val = sin(theta);                        // もう一つのシンプルな関数
+      //var val = cos(r);                            // もうひとつのシンプルな関数
+      //var val = sin(theta);                        // もうひとつのシンプルな関数
       bw = color(((val + 1) * 255) / 2);
       index = 4 * (i + j * width);
       pixels[index] = red(bw);

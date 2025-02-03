@@ -26,18 +26,18 @@ class Car {
   }
 
   start(speed) {
-    // メソッドはパラメーターを期待します！
+    // メソッドはパラメーターを期待します!
     this.speed = speed;
   }
 
   display() {
-    // メソッドです！
+    // メソッドです!
     fill(this.color);
     rect(this.x, this.y, 20, 10);
   }
 
   move() {
-    // メソッドです！
+    // メソッドです!
     this.x += this.speed;
     // x を境界線で囲みます。
     if (this.x < -20) {

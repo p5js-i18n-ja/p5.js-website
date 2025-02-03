@@ -14,9 +14,7 @@
         "preferInList": "ですます",
         "strict": false
       },
-      "ja-no-mixed-period": {
-        "allowPeriodMarks": ["。", ":", "!", "?"]
-      },
+      "ja-no-mixed-period": false,
       "no-exclamation-question-mark": {
         "allowHalfWidthExclamation": true,
         "allowFullWidthExclamation": false,
@@ -24,11 +22,15 @@
         "allowFullWidthQuestion": false
       },
       "sentence-length": {
-        "max": 200
+        "max": 250
       },
-      "ja-unnatural-alphabet": {
-        "allow": ["x値", "Sキー"]
-      }
+      "ja-unnatural-alphabet": false,
+      "max-kanji-continuous-len": {
+        "max": 10
+      },
+      "ja-no-weak-phrase": false,
+      "max-comma": false,
+      "no-doubled-joshi": false
     },
     "preset-ja-spacing": true,
     "@textlint-ja/no-synonyms": true,

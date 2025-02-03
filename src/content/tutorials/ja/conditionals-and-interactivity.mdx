@@ -25,7 +25,7 @@ import Video from "../../../components/Video/index.astro"
 
 このチュートリアルでは、スケッチにユーザーインタラクションを追加する新しい方法と、コードの実行順序を制御する方法を学びます。
 
-[インタラクティブな太陽](https://editor.p5js.org/gbenedis@gmail.com/sketches/nNVmHVf5m)のスケッチと[日の出アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を作成することで、以下の基本的なプログラミングの概念を学びます：
+[インタラクティブな太陽](https://editor.p5js.org/gbenedis@gmail.com/sketches/nNVmHVf5m)のスケッチと[日の出アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を作成することで、以下の基本的なプログラミングの概念を学びます: 
 
 - 条件文（if、if-else、else-if）
 - ブール変数、比較演算子、式
@@ -41,7 +41,7 @@ import Video from "../../../components/Video/index.astro"
 - [はじめよう チュートリアル](/tutorials/get-started)
 - [変数と動き チュートリアル](/tutorials/variables-and-change/)
 
-始める前に、以下のことができるようになっているはずです：
+始める前に、以下のことができるようになっているはずです: 
 
 - p5.jsを使用してキャンバス上に図形やテキストを追加してカスタマイズする
   - [`circle()`](/reference/p5/circle) | [`rect()`](/reference/p5/rect) | [`ellipse()`](/reference/p5/ellipse) | [`triangle()`](/reference/p5/triangle) | [`line()`](/reference/p5/line)
@@ -52,7 +52,7 @@ import Video from "../../../components/Video/index.astro"
 - コードにコメントを付け、エラーメッセージに対処する - エラーメッセージとデバッグについてさらに学ぶには、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)リファレンスをお読みください。
 
 
-## パート1：インタラクティブな太陽
+## パート1: インタラクティブな太陽
 
 [インタラクティブな太陽](https://editor.p5js.org/gbenedis@gmail.com/sketches/nNVmHVf5m)のスケッチを作成することは、*条件文*とユーザーインタラクションの使用方法を学ぶ素晴らしい方法です。
 
@@ -65,13 +65,13 @@ import Video from "../../../components/Video/index.astro"
 
 太陽の位置をチェックする条件文を使用する前に、マウスポインタがキャンバス上を動くにつれて太陽の位置を更新するのに役立つカスタム変数を追加できます。
 
-#### ステップ1：カスタム変数を定義し初期化する
+#### ステップ1: カスタム変数を定義し初期化する
 
 - 新しいp5.jsプロジェクトを開き、"Interactive Sun"と名付けてスケッチを保存します。
 
 - 太陽のy座標用のカスタム変数`sunHeight`と、地平線のy座標用のカスタム変数`horizon`を宣言します。地平線の変数を200で初期化します。
 
-  - 以下のコード行をスケッチの[`setup()`](/reference/p5/setup)の前に追加します：
+  - 以下のコード行をスケッチの[`setup()`](/reference/p5/setup)の前に追加します: 
 
     ```js
     //太陽と地平線のy座標用のカスタム変数
@@ -81,14 +81,14 @@ import Video from "../../../components/Video/index.astro"
 
 - `sunHeight`をマウスポインタのy座標である`mouseY`に更新します。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```
     //太陽がマウスのy座標に従う
     sunHeight = mouseY;
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //太陽と地平線のy座標用のカスタム変数
@@ -112,11 +112,11 @@ function draw() {
 
 [`mouseY`](/reference/p5/mouseY)と[`let`](/reference/p5/let)についての詳細は、p5.jsリファレンスをご覧ください。
 
-#### ステップ2：図形を描画しキャンバスに色を付ける
+#### ステップ2:  図形を描画しキャンバスに色を付ける
 
 - カスタム変数`sunHeight`をy座標として使用する太陽を描画します。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
     //太陽
@@ -126,7 +126,7 @@ function draw() {
 
 - 地平線を示す線を描画します。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
     // 地平線の線を描画
@@ -134,7 +134,7 @@ function draw() {
     line(0,horizon,400,horizon);
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //太陽と地平線のy座標用のカスタム変数
@@ -162,14 +162,14 @@ function draw() {
 ```
 
 
-太陽は、`circle(200, sunHeight, 100)`の円のy座標の引数として`sunHeight`が使用されているため、マウスポインタが垂直に動くにつれてそれに従います。キャンバス上に線が描画され、各端点のy座標の引数として`horizon`が使用されています：`y1, y2`。これはキャンバス上に地平線をマークし、背景色を変更するために使用されます。
+太陽は、`circle(200, sunHeight, 100)`の円のy座標の引数として`sunHeight`が使用されているため、マウスポインタが垂直に動くにつれてそれに従います。キャンバス上に線が描画され、各端点のy座標の引数として`horizon`が使用されています: `y1, y2`。これはキャンバス上に地平線をマークし、背景色を変更するために使用されます。
 
 形状と変数についてさらに学ぶには、p5.jsリファレンスページの[2D形状](/reference#Shape)、[色](/reference#Color)、[基礎](/reference#Foundation)、[マウスイベント](/reference#Mouse)をご覧ください。一般的なバグについてのヘルプは、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)（例1＆2）をお読みください。
 
-#### ステップ3：ブール式を持つ条件文を使用して背景色を変更する
+#### ステップ3:  ブール式を持つ条件文を使用して背景色を変更する
 
 - 太陽が地平線より上にある場合、背景色を薄い青に設定します。
-  - 以下のコード行をスケッチの[`draw()`](/reference/p5/draw)内の`sunHeight = mouseY;`の行の後に追加します：
+  - 以下のコード行をスケッチの[`draw()`](/reference/p5/draw)内の`sunHeight = mouseY;`の行の後に追加します: 
 
     ```js
     //太陽が地平線より上にある場合、背景を薄い青に
@@ -178,7 +178,7 @@ function draw() {
     }
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //太陽と地平線のy座標用のカスタム変数
@@ -210,15 +210,15 @@ function draw() {
 }
 ```
 
-コードを実行し、マウスを使って太陽を動かしてみてください！
+コードを実行し、マウスを使って太陽を動かしてみてください! 
 
-上記のコードでは、`draw()`で最初に読み取られる文が`background(0)`であるため、デフォルトで背景は黒です。太陽が地平線より下にある場合、if文は中括弧内の*コードブロック*をスキップします：`background("lightblue")`。太陽が地平線より上にある場合、中括弧内の*コードブロック*が実行されます。これにより、デフォルトの黒色から薄い青色に色がリセットされます。
+上記のコードでは、`draw()`で最初に読み取られる文が`background(0)`であるため、デフォルトで背景は黒です。太陽が地平線より下にある場合、if文は中括弧内の*コードブロック*をスキップします: `background("lightblue")`。太陽が地平線より上にある場合、中括弧内の*コードブロック*が実行されます。これにより、デフォルトの黒色から薄い青色に色がリセットされます。
 
 ここでは、`background(0)`と`background("lightblue")`がいつ実行されるかを制御しています。*条件文*（または*if文*）は、特定のコード行がいつ実行されるかを制御する方法であり、スケッチで何が起こるかを変更します。
 
 #### IF文の構文
 
-if文は`if`キーワードで始まり、その後に括弧内の条件が続き、中括弧内の*コードブロック*と呼ばれる行が続きます。条件が`true`の場合、コードブロックが実行されます。if文の構文は以下のように定義されます：
+if文は`if`キーワードで始まり、その後に括弧内の条件が続き、中括弧内の*コードブロック*と呼ばれる行が続きます。条件が`true`の場合、コードブロックが実行されます。if文の構文は以下のように定義されます: 
 
 ```js
 if (条件) {
@@ -230,7 +230,7 @@ if (条件) {
 
 #### ブール式と値
 
-`if`キーワードの後の括弧内のコードは、*ブール値*または*ブール式*になります。以下の例では、ブール式を使用して`sunHeight`変数の値が`horizon`変数の値より小さいかどうかをチェックしています：
+`if`キーワードの後の括弧内のコードは、*ブール値*または*ブール式*になります。以下の例では、ブール式を使用して`sunHeight`変数の値が`horizon`変数の値より小さいかどうかをチェックしています: 
 
 <AnnotatedLine code={({ bottom }) => `
 if (${bottom('bool', 'sunHeight < horizon')}) {
@@ -243,7 +243,7 @@ if (${bottom('bool', 'sunHeight < horizon')}) {
 
 *ブール式*は*ブール*値を結果として返す文です。*ブール*値は`true`または`false`のいずれかになります。数値や文字列とは異なり、ブール値は2つしかありません。*ブール式*は条件が`true`か`false`かをチェックするのに役立ちます。したがって、*比較演算子*と呼ばれる特殊な記号を使用します。*比較演算子*は2つの値を比較する特殊な記号です（以下の表を参照）。
 
-ブール式を作成するために使用できる[*比較演算子*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)記号には以下のものがあります：
+ブール式を作成するために使用できる[*比較演算子*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)記号には以下のものがあります: 
 
 <table>
 
@@ -414,7 +414,7 @@ if文とブール値についてさらに学ぶには、p5.jsリファレンス�
 
 ### IF-ELSE文 
 
-もう一つの重要な条件文は*if-else文*で、2つのコードブロックを制御できます。if-else文の構文は以下のように定義されます：
+もうひとつの重要な条件文は*if-else文*で、2つのコードブロックを制御できます。if-else文の構文は以下のように定義されます: 
 
 ```js
 if (条件) {
@@ -429,11 +429,11 @@ if (条件) {
 
 ![「条件」と書かれたバブルから2つの矢印が出ている。「true」とラベル付けされた矢印は「1番目のコードブロック」と書かれたバブルを指している。「else (false)」とラベル付けされた2番目の矢印は「2番目のコードブロック」と書かれたバブルを指している。](../images/introduction/if-else-bubble.png)
 
-例えば、日の出アニメーションのif文を修正して、[`background()`](/reference/p5/background)関数を削除し、以下のif-else文を追加することができます：
+例えば、日の出アニメーションのif文を修正して、[`background()`](/reference/p5/background)関数を削除し、以下のif-else文を追加できます: 
 
 <Columns>
 <Column>
-##### 元のコード：
+##### 元のコード:
 
 ```js
 //...function draw
@@ -451,7 +451,7 @@ if (sunHeight < horizon) {
 
 </Column>
 <Column>
-##### 修正後のコード：
+##### 修正後のコード:
 
 ```js
 //...function draw
@@ -472,16 +472,16 @@ if (sunHeight < horizon) {
 </Column>
 </Columns>
 
-上記のコードでは、太陽が地平線より上にある場合、`sunHeight < horizon`が`true`を返し、`background("lightblue")`のコードが実行されます。`sunHeight`が地平線以上の場合、`else`キーワードの後のコードブロック、`background(0)`が実行されます。両方の書き方が同じ視覚効果を持っていますが、時にはif-elseを使用する方が明確で効率的な場合があります。特に2つの異なるコードブロックを制御できる場合です。
+上記のコードでは、太陽が地平線より上にある場合、`sunHeight < horizon`が`true`を返し、`background("lightblue")`のコードが実行されます。`sunHeight`が地平線以上の場合、`else`キーワードの後のコードブロック、`background(0)`が実行されます。両方の書き方が同じ視覚効果を持っていますが、時にはif-elseを使用するほうが明確で効率的な場合もあります。特に2つの異なるコードブロックを制御できる場合です。
 
 さらに学ぶには、p5.jsリファレンスページの[`if`](/reference/p5/if)と[`Boolean`](/reference/p5/Boolean)をご覧ください。
 
-#### ステップ4：太陽を隠す草を追加する  
+#### ステップ4:  太陽を隠す草を追加する  
 
-太陽が地平線より下にあるときに見えなくなるように、スケッチに草原の風景を追加します。
+太陽が地平線より下にあるときは見えなくなるように、スケッチに草原の風景を追加します。
 
-- 太陽の後に緑の長方形を描画して、太陽が地平線より下にあるときに隠れるようにします。この長方形のy座標の引数は`horizon`線の位置です。
-  - 以下のコードを地平線の線の後の[`draw()`](/reference/p5/draw)内に追加します：
+- 太陽の後に緑の長方形を描画して、太陽が地平線より下にあるときは隠れるようにします。この長方形のy座標の引数は`horizon`線の位置です。
+  - 以下のコードを地平線の線の後の[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
     //草
@@ -489,7 +489,7 @@ if (sunHeight < horizon) {
     rect(0, horizon, 400, 400);
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //太陽と地平線のy座標用のカスタム変数
@@ -532,26 +532,26 @@ function draw() {
 スケッチを実行し、太陽を地平線より下に動かしてみてください。太陽が消えるにつれて空がどのように変化するか見てください。[日の出アニメーションのサンプルスケッチ](https://editor.p5js.org/Msqcoding/sketches/StUo5StZi)へのリンク。
 
 <Callout>
-- 条件文を使用して草の色を変更してください！例えば、太陽が草原の上に昇るとき、草の色は濃い緑から明るい緑に変化します。
-- スケッチの風景に、色が変化する形をさらに追加してみてください！
+- 条件文を使用して草の色を変更してください! 例えば、太陽が草原の上に昇るとき、草の色は濃い緑から明るい緑に変化します。
+- スケッチの風景に、色が変化する形をさらに追加してみてください! 
 
 [例](https://editor.p5js.org/gbenedis@gmail.com/sketches/nNVmHVf5m)
 </Callout>
 
 
-## パート2：日の出アニメーション
+## パート2:  日の出アニメーション
 
 次に、太陽が自動的に動き、空の色が徐々に変化する[日の出アニメーション](https://editor.p5js.org/gbenedis@gmail.com/sketches/9lz2aqfTO)を作成します。
 
 <Video src="/videos/tutorials/sunrise.mp4" alt="赤橙色の空に山脈の後ろから太陽が昇る。" />
 
-#### ステップ1：太陽の位置と背景色の変数を宣言し初期化する
+#### ステップ1: 太陽の位置と背景色の変数を宣言し初期化する
 
 - 新しいp5.jsプロジェクトを開き、"Sunrise Animation"と名付けて保存します。
 
 - 太陽のy座標用のカスタム変数を宣言し、600で初期化します。
 
-  - 以下の行を[`setup()`](/reference/p5/setup)の前のスケッチに追加します：
+  - 以下の行を[`setup()`](/reference/p5/setup)の前のスケッチに追加します: 
 
     ```js
     //初期の太陽の位置用の変数
@@ -561,7 +561,7 @@ function draw() {
 
 - 空の色の赤と緑の成分の値用のカスタム変数を宣言し、0で初期化します。
 
-  - 以下の行を[`setup()`](/reference/p5/setup)の前のスケッチに追加します：
+  - 以下の行を[`setup()`](/reference/p5/setup)の前のスケッチに追加します: 
 
     ```js
     //色変更用の変数
@@ -571,7 +571,7 @@ function draw() {
 
 色コードについて思い出すには、[`fill()`](/reference/p5/fill)のp5.jsリファレンスまたは[RGB](https://developer.mozilla.org/en-US/docs/Glossary/RGB)のMDNリファレンスを確認してください。
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //初期の太陽の位置用の変数
@@ -591,11 +591,11 @@ function draw() {
 
 このステップでは、プログラムで使用される値を格納するための変数`redVal`、`greenVal`、`sunHeight`を作成しました。`sunHeight`の初期値は地平線より下の点で、`redVal`と`greenVal`の初期値は黒色を示しています。これらはアニメーションが始まるときの太陽の位置と空の色を設定します。これらは、アニメーションの*初期条件*と呼ばれます。これで、これらの変数を使用してキャンバス上で変更を加えることができます。
 
-#### ステップ2：カスタム変数を使用して風景を描画する
+#### ステップ2:  カスタム変数を使用して風景を描画する
 
 - 赤と緑のカスタム変数に基づいて背景を描画します。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
      //カスタム変数に基づいて背景を塗りつぶす
@@ -604,7 +604,7 @@ function draw() {
     ```
 
 - カスタム変数`sunHeight`をy座標として使用する太陽を描画します。
-  - 背景を塗りつぶした後に以下のコードを追加します：
+  - 背景を塗りつぶした後に以下のコードを追加します: 
 
     ```js
     //太陽
@@ -616,7 +616,7 @@ function draw() {
 
 - 風景に三角形の山を追加します。
 
-  - 太陽を描画した後に以下のコードを追加します：
+  - 太陽を描画した後に以下のコードを追加します: 
 
     ```js
     //山
@@ -636,7 +636,7 @@ function draw() {
     triangle(200, 400, 450, 250, 300, 400);
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
  
 ```js
 //初期の太陽の位置用の変数
@@ -676,17 +676,17 @@ function draw() {
 }
 ```
 
-このステップでは、`background()`と`circle()`関数でカスタム変数を使用してアニメーションの風景をカスタマイズしました。太陽は最初に描画されたため、山の後ろに隠れていることを覚えておいてください！
+このステップでは、`background()`と`circle()`関数でカスタム変数を使用してアニメーションの風景をカスタマイズしました。太陽は最初に描画されたため、山の後ろに隠れていることを覚えておいてください! 
 
 <Callout>
-風景をユニークで興味深いものにするために、好きなだけ形を追加してください！
+風景をユニークで興味深いものとするために、好きなだけ形を追加してください! 
 </Callout>
 
-#### ステップ3：条件文を使用してカスタム変数を更新する
+#### ステップ3:  条件文を使用してカスタム変数を更新する
 
 - `sunHeight`が130未満である限り、`sunHeight`変数を変更して太陽を動かします。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
     // sunHeightが130に達するまで2ずつ減少させる
@@ -697,7 +697,7 @@ function draw() {
 
 - `sunHeight`変数が480未満の間、`redVal`と`greenVal`変数の値を変更して、空の色を徐々に変化させます。
 
-  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します：
+  - 以下のコードを[`draw()`](/reference/p5/draw)内に追加します: 
 
     ```js
     // 日の出の間、色変数を4または1ずつ増加させる
@@ -707,7 +707,7 @@ function draw() {
     }
     ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 ```js
 //初期の太陽の位置用の変数
@@ -758,7 +758,7 @@ function draw() {
 }
 ```
 
-スケッチが実行されると、太陽が自動的に動きます！この動きは`sunHeight -= 2`という文によって引き起こされ、[`draw()`](/reference/p5/draw)が実行されるたびに`sunHeight`の値を`2`ずつ減少させます。if文のブール式`sunHeight > 130`が`false`になると、`sunHeight`の値は変化しなくなります。これは`sunHeight`が130以下の値になったときに起こります。
+スケッチが実行されると、太陽が自動的に動きます! この動きは`sunHeight -= 2`という文によって引き起こされ、[`draw()`](/reference/p5/draw)が実行されるたびに`sunHeight`の値を`2`ずつ減少させます。if文のブール式`sunHeight > 130`が`false`になると、`sunHeight`の値は変化しなくなります。これは`sunHeight`が130以下の値となったときに起こります。
 
 変数の値が減少するとき、これは*デクリメント*と呼ばれ、**減算代入**`-=`記号が使用されます。変数の値が増加するとき、これは*インクリメント*と呼ばれ、**加算代入**`+=`演算子が使用されます。変数がインクリメントまたはデクリメントされるたびに、その変数に格納されている値が変更され、新しい値が同じ変数に格納されます。
 
@@ -770,11 +770,11 @@ function draw() {
 [例](https://editor.p5js.org/gbenedis@gmail.com/sketches/IHAcGOxNz)
 </Callout>
 
-空の色が変化するのは、`redVal`と`greenVal`が徐々に変化するためです。2番目の条件文のブール式によると、`sunHeight`が480未満のとき、色変更の変数が変化します：`redVal`は4ずつ増加し、`greenVal`は1ずつ増加します。[`draw()`](/reference/p5/draw)が実行されるたびに、`redVal`と`greenVal`が増加し、次回の実行時に背景色を変更するために使用されます。これによりアニメーションの日の出効果が作成されます。
+空の色が変化するのは、`redVal`と`greenVal`が徐々に変化するためです。2番目の条件文のブール式によると、`sunHeight`が480未満のとき、色変更の変数が変化します: `redVal`は4ずつ増加し、`greenVal`は1ずつ増加します。[`draw()`](/reference/p5/draw)が実行されるたびに、`redVal`と`greenVal`が増加し、次回の実行時に背景色を変更するために使用されます。これによりアニメーションの日の出効果が作成されます。
 
 文`greenVal +=1`は`greenVal++`とも書くことができます。`++`は**インクリメント演算子**と呼ばれ、`--`は**デクリメント演算子**と呼ばれます。
 
-以下の文は同じ効果があります：
+以下の文は同じ効果があります: 
 
 ```js
 // 1ずつインクリメント
@@ -788,7 +788,7 @@ shrink -= 1;
 
 [++](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Increment)と[--](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement)についてさらに学ぶには、MDNリファレンスをご覧ください。
 
-[`draw()`](/reference/p5/draw)が最初に実行されるとき、背景は黒で`sunHeight`が減少します。太陽がy座標480に達すると、`redVal`と`greenVal`の値が増加するにつれて空の色が変化し始めます。太陽は`sunHeight`が130に達すると動きを止めます。これは最初の条件文によるものです：
+[`draw()`](/reference/p5/draw)が最初に実行されるとき、背景は黒で`sunHeight`が減少します。太陽がy座標480に達すると、`redVal`と`greenVal`の値が増加するにつれて空の色が変化し始めます。太陽は`sunHeight`が130に達すると動きを止めます。これは最初の条件文によるものです: 
 
 ```js
 if (sunHeight > 130) {
@@ -801,7 +801,7 @@ if (sunHeight > 130) {
 
 ### ネストされた条件文 
 
-複数の条件を同時にテストする場合、以下のように一つの条件を別の条件の中に「ネスト」することができます：
+複数の条件を同時にテストする場合、以下のようにひとつの条件を別の条件の中に「ネスト」できます: 
 
 ```js
 //sunHeightが常に130より大きい場合にのみ変数が変化する
@@ -817,9 +817,9 @@ if (sunHeight > 130) {
 ```
 
 
-if文を別のif文の*中に*置くとき、これを**ネストされた条件文**と呼びます。これにより、コードブロックが実行されるためには両方のブール式が`true`である必要があります。この例では、ネストされた条件の前のコードと比較して、太陽がy値130に達すると空の色も変化を止めるという違いがあります。
+if文を別のif文の*中*に配置することを**ネストされた条件文**と呼びます。この場合、コードブロックが実行されるためには、両方のブール式が`true`になっている必要があります。この例では、前のコードと比べて、太陽がy座標130に到達すると空の色も変化を停止するという違いがあります。
 
-上記のコードでは、`sunHeight`が130より大きい場合、中括弧内のコードブロックが実行されます：
+上記のコードでは、`sunHeight`が130より大きい場合、中括弧内のコードブロックが実行されます: 
 - `sunHeight`が2ずつ減少します
 - `sunHeight > 130`と`sunHeight < 480`の両方が`true`である限り、`redVal`と`greenVal`の値を変更するコードブロックが実行されます。
 
@@ -830,7 +830,7 @@ if文を別のif文の*中に*置くとき、これを**ネストされた条件
 
 複数の条件を持つ条件文を書く別の方法は、論理演算子を使用することです。AND演算子（`&&`）は、コードブロックを実行するために*両方*の条件が`true`でなければならない場合に使用されます。OR演算子（`||`）は、コードブロックを実行するために*いずれか*の条件が真でなければならない場合に使用されます。
 
-アニメーションの日の出スケッチのネストされた条件文を、AND（`&&`）論理演算子を使用して書き直すことができます。`sunHeight`が130未満*かつ*480より大きいことを要求するためです。以下のコードサンプルでは、演算子の両側のブール式が`true`でなければ、そのコードブロック内のコードは実行されません：
+アニメーションの日の出スケッチのネストされた条件文を、AND（`&&`）論理演算子を使用して書き直すことができます。`sunHeight`が130未満*かつ*480より大きいことを要求するためです。以下のコードサンプルでは、演算子の両側のブール式が`true`でなければ、そのコードブロック内のコードは実行されません:
 
 ```js
 if (sunHeight < 130 && sunHeight > 480) {
@@ -842,7 +842,7 @@ if (sunHeight < 130 && sunHeight > 480) {
 論理演算子についてさらに学ぶには、MDNリファレンスの[論理AND（`&&`）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND)と[論理OR（`||`）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)をご覧ください。
 
 <Callout>
-論理演算子を練習するために、以下のコードを`draw()`内に追加してみてください：
+論理演算子を練習するために、以下のコードを`draw()`内に追加してみてください:
 
 ```js
 if (mouseIsPressed == true && sunHeight === 130) {
@@ -856,13 +856,13 @@ if (mouseIsPressed == true && sunHeight === 130) {
 
 ### ブール変数: `mouseIsPressed` と `keyIsPressed`
 
-`mouseIsPressed` と `keyIsPressed` は p5.js に組み込まれた特別な変数で、ブール値を含んでいます。`mouseIsPressed` はキャンバス上でマウスボタンが押されているときに `true` になり、そうでない場合は `false` になります。`keyIsPressed` はキーボードの任意のキーが押されているときに `true` になり、そうでない場合は `false` になります。
+`mouseIsPressed`と`keyIsPressed`は、p5.jsに組み込まれたブール値を持つ特別な変数です。`mouseIsPressed`は、キャンバス上でマウスボタンが押されているときに`true`となり、押されていないときは`false`となります。同様に、`keyIsPressed`は、キーボードのいずれかのキーが押されているときに`true`となり、押されていないときは`false`となります。
 
 [この例](https://editor.p5js.org/Msqcoding/sketches/CnKfDeaBG)を探索して、マウスボタンが押されたときにコンソールで `mouseIsPressed` に格納されている値が変化するのを確認してください。
 
-「Try this!」チャレンジでは、`sunHeight` が 130 に等しく *かつ* マウスボタンが押されているとき、空が暗くなります。おそらく日食を表現しているのでしょう！
+「Try this!」チャレンジでは、`sunHeight` が130に等しく *かつ* マウスボタンが押されているとき、空が暗くなります。おそらく日食を表現しているのでしょう! 
 
-`mouseIsPressed` を if 文で単独で使用することもできます:
+`mouseIsPressed`は、if文の条件式として単独で使用できます:
 
 ```js
 if (mouseIsPressed && sunHeight === 130) {
@@ -872,13 +872,13 @@ if (mouseIsPressed && sunHeight === 130) {
 
 `mouseIsPressed` はすでに `true` または `false` の値を格納しているため、ブール式を作成するために比較演算子を使用する必要はありません。ブール式はブール値に評価され、ブール変数はブール値を格納します。条件文はコードを実行するためにブール値が `true` であることだけを必要とします。`mouseIsPressed` が `true` であれば、条件文のコードブロックが実行されます。
 
-`mouseIsPressed` と `keyIsPressed` を使用した以下の例を探索してください：
+`mouseIsPressed` と `keyIsPressed` を使用した以下の例を探索してください:
 
 - [Mouse and keys](https://editor.p5js.org/Msqcoding/sketches/MQtma5kta): 論理演算子を使用せずに `mouseIsPressed` と `keyIsPressed` を条件文で使用する方法を探索します。
-- [Clickable button](https://editor.p5js.org/Msqcoding/sketches/gmRjOEyu_): mouseIsPressed、mouseX、mouseYを使用してクリック可能なボタンを作成する例を探索します！
+- [Clickable button](https://editor.p5js.org/Msqcoding/sketches/gmRjOEyu_): mouseIsPressed、mouseX、mouseYを使用してクリック可能なボタンを作成する例を探索します! 
 - [Multiple keys:](https://editor.p5js.org/Msqcoding/sketches/kyYpyMh0p) 複数のキーを使用してキャンバス上で変更を加える例を探索します。
 
-詳細については、p5.js リファレンスページの [`mouseIsPressed`](/reference/p5/mouseIsPressed)、[`keyIsPressed`](/reference/p5/keyIsPressed)、[`key`](/reference/p5/key)、[`keyCode`](/reference/p5/keyCode) をご覧ください。
+詳細については、p5.jsリファレンスページの [`mouseIsPressed`](/reference/p5/mouseIsPressed)、[`keyIsPressed`](/reference/p5/keyIsPressed)、[`key`](/reference/p5/key)、[`keyCode`](/reference/p5/keyCode) をご覧ください。
 
 ## まとめ
 

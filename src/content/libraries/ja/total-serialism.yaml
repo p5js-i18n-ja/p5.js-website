@@ -1,10 +1,10 @@
 name: Total Serialism
-description: アルゴリズム作曲に主に焦点を当てた、配列を手続き的に生成および変換するためのメソッドが詰まったツールボックスです。マルコフ連鎖、セルオートマトン、リンデンマイヤーシステム、ユークリッド分布など、多くのメソッドが含まれています！希望のメソッドで配列を生成し、for-loopで簡単に反復して結果を描画できます。
+description: アルゴリズム作曲に主に焦点を当てた、配列を手続き的に生成および変換するためのメソッドが詰まったツールボックスです。マルコフ連鎖、セルオートマトン、リンデンマイヤーシステム、ユークリッド分布など、多くのメソッドが含まれています!希望のメソッドで配列を生成し、for-loopで簡単に反復して結果を描画できます。
 category: algorithms
 sourceUrl: https://github.com/tmhglnd/total-serialism
 websiteUrl: https://tmhglnd.github.io/total-serialism/
 featuredImage: ../images/total-serialism.png
-featuredImageAlt: 'このライブラリのセルオートマトン、フィボナッチ数列、ランダムウォークなどの手続き的関数で生成されたカラフルな円と四角の画像。'
+featuredImageAlt: "このライブラリのセルオートマトン、フィボナッチ数列、ランダムウォークなどの手続き的関数で生成されたカラフルな円と四角の画像。"
 author:
   name: Timo Hoogland
   url: https://www.timohoogland.name/

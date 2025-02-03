@@ -27,16 +27,16 @@ import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
 
 このチュートリアルでは、p5.jsを使用して[インタラクティブな花園](https://editor.p5js.org/ptiarram/sketches/8xWVCzmn2)をシミュレーションします。このプロジェクトでは、デジタルキャンバスに20個のランダムに生成された花が登場し、それぞれ異なる色とサイズを持ちます。ユーザーはキャンバスをクリックして新しいユニークな花を追加し、庭の多様性を増やすこともできます。各花には萎れるアニメーションがプログラムされています。このアニメーションにより、花は自然な花の寿命サイクルのように、ゆっくりと縮小して消えていきます。
 
-このチュートリアルでは、以下のことを学びます：
+このチュートリアルでは、以下のことを学びます: 
 
 - [JavaScriptオブジェクト](https://developer.mozilla.org/en-US/docs/Glossary/object)を定義、作成、使用することで、データ構造を探索します。
 - [JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)のようなビルトインオブジェクトに対してアクションを実行するためのオブジェクトメソッドを探索し、使用します。
-- 複数のオブジェクトを一度に管理するために、forループを使用した反復処理を行います。
+- 複数のオブジェクトを一度で管理するために、forループを使用した反復処理を行います。
 
 
 ## 前提条件
 
-始める前に、以下のことができるようになっている必要があります：
+始める前に、以下のことができるようになっている必要があります: 
 
 - p5.jsを使用してキャンバス上に図形や色を追加およびカスタマイズする
 - カスタム変数、パラメータと戻り値を持つ関数を宣言、初期化、使用、更新する
@@ -48,27 +48,27 @@ import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
 配列、ループ、カスタム関数の詳細については、[関数によるコードの整理](/tutorials/organizing-code-with-functions)と[ループによる繰り返し](/tutorials/repeating-with-loops)のチュートリアルをご覧ください。
 
 - [変数と変更](/tutorials/variables-and-change)チュートリアルでは、変数を使用してデータを保存する方法を学びました。変数は数値やテキストなどの単一の値を保存するのに便利です。
-- [メディアオブジェクトによるアニメーション](/tutorials/animating-with-media-objects)チュートリアルでは、p5.jsのビルトインの`p5.Image`と`p5.Graphics`オブジェクトの使用方法を学びました。これらのオブジェクトは、画像などのデータを[*メソッド*](https://www.w3schools.com/js/js_object_methods.asp#:~:text=JavaScript%20methods%20are%20actions%20that,property%20containing%20a%20function%20definition.)と呼ばれる特別な関数とバンドルし、ユーザーがそのデータに対して操作を実行できるようにします。
+- [メディアオブジェクトによるアニメーション](/tutorials/animating-with-media-objects)チュートリアルでは、p5.jsのビルトインの`p5.Image`と`p5.Graphics`オブジェクトの使用方法を学びました。これらのオブジェクトは、画像などのデータを[*メソッド*](https://www.w3schools.com/js/js_object_methods.asp#:~:text=JavaScript%20methods%20are%20actions%20that,property%20containing%20a%20function%20definition.)と呼ばれる特別な関数とバンドルし、ユーザーがそのデータに対して操作できるようにします。
 
-このチュートリアルでは、以下のことを学びます：
+このチュートリアルでは、以下のことを学びます: 
 
 - オブジェクトを定義する
 - オブジェクトを更新し描画するためのカスタム関数を作成し使用する
 - 配列を使用して複数のオブジェクトを管理する
 
-それでは始めましょう！
+それでは始めましょう! 
 
 ## JavaScriptオブジェクト
 
 変数は一度に1つの値（数値、文字列、またはブール値）を保存できることを学びました。配列はインデックスに複数の値を保存できます。しかし、時には1つのものに関連する複数のデータを一緒に保存したいことがあります。これを[JavaScriptオブジェクト](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)を使用して行うことができます。オブジェクトは[プロパティ](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)と値をペアにしてデータをバンドルします。プロパティはオブジェクトに関連付けられた特別な種類の変数または名前です。各プロパティは値を保存します。例えば、花に基づいてJavaScriptオブジェクトを作成したい場合、その位置（xとy）と絵文字シンボルを記述するプロパティを持つことができます。
 
-## ステップ1：最初のオブジェクトを作成する
+## ステップ1: 最初のオブジェクトを作成する
 
 花園を1つの花から始めましょう。絵文字を使って描くことから始めるので、花のx座標、y座標、絵文字に関するデータが必要です。
 
 - 新しいp5.jsプロジェクトを開き、「Data Structure Garden」と名付けます。プロジェクトを保存します。
 
-- 花のキャンバス座標と描画に使用する絵文字をバンドルして、花オブジェクトを作成します。このオブジェクトを`flower`という名前の変数に保存しましょう。[`setup()`](/reference/p5/setup)の上にこのコードを追加します：
+- 花のキャンバス座標と描画に使用する絵文字をバンドルして、花オブジェクトを作成します。このオブジェクトを`flower`という名前の変数に保存しましょう。[`setup()`](/reference/p5/setup)の上にこのコードを追加します: 
 
   ```js
   // 花オブジェクト
@@ -79,7 +79,7 @@ import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
   };
   ```
 
-- `setup()`に以下のコード行を追加して、オブジェクトをコンソールに出力します：
+- `setup()`に以下のコード行を追加して、オブジェクトをコンソールに出力します: 
 
   ```js
   // オブジェクトをコンソールに出力
@@ -88,7 +88,7 @@ import AnnotatedLine from "../../../components/AnnotatedLine/index.astro";
 
 - 背景を`"lightblue"`に設定します。
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 // 花オブジェクト
@@ -111,7 +111,7 @@ function draw() {
 
 [p5.js Web Editorでここまでのコードを開いてみてください。](https://editor.p5js.org/KM_Playground/sketches/Nwte7l2dD) コンソールに花オブジェクトが出力されているはずです。コンソールの矢印をクリックすると、オブジェクトのプロパティと値が表示されることに注目してください。
 
-オブジェクトを定義する一般的な構文は以下の通りです：
+オブジェクトを定義する一般的な構文は以下の通りです: 
 
 ```js
 // オブジェクトを定義する
@@ -122,10 +122,10 @@ let オブジェクト名 = {
 };
 ```
 
-オブジェクトの構文は以下を使用します：
+オブジェクトの構文は以下を使用します: 
 
 - 中括弧（`{}`）で[プロパティ](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript)のバンドルを囲みます；
-  - プロパティは変数や関数の名前のような名前、または文字列にすることができます。プロパティ名にスペースを使用する場合、文字列を使用すると便利なことがよくあります。例えば、「名」と「姓」のプロパティを持つオブジェクトを作成する場合、次のようになります：
+  - プロパティは変数や関数の名前のような名前、または文字列にできます。プロパティ名にスペースを使用する場合、文字列を使用すると便利なことがよくあります。例えば、「名」と「姓」のプロパティを持つオブジェクトを作成する場合、次のようになります: 
 
     ```js
     let ironMan = { 
@@ -135,7 +135,7 @@ let オブジェクト名 = {
     ```
 
 - コロン（:）で各プロパティと特定の値を区切ります；
-  - 値は任意のデータ型にすることができ、関数でさえ可能です！
+  - 値は任意のデータ型を指定でき、関数でさえ可能です! 
 - カンマ（,）で各`プロパティ : 値`のペアを区切ります。
 
 <AnnotatedLine code={({ top, bottom }) => `
@@ -152,7 +152,7 @@ let ${top('obj', 'flower')} = {
 
 オブジェクトを定義するときに新しい変数を初期化することで、オブジェクトを保存できます。上のコードでは、`flower`という名前の変数を宣言しました。そして、キャンバス上に描画できる花を表すプロパティを持つオブジェクトで`flower`変数を初期化しました。
 
-オブジェクトのプロパティと値を確認するために、[`console.log()`](/reference/console/log)を使用しました。これにより、コンソールに以下のように表示されます：
+オブジェクトのプロパティと値を確認するために、[`console.log()`](/reference/console/log)を使用しました。これにより、コンソールに以下のように表示されます: 
 
 ```
 ▼ {x: 200, y: 100, emoji: "🌸"}
@@ -162,9 +162,9 @@ let ${top('obj', 'flower')} = {
 ```
 
 
-## ステップ2：オブジェクトを使用する
+## ステップ2:  オブジェクトを使用する
 
-オブジェクトのプロパティに保存されている任意の値には、その変数名、プロパティ名、そしてドット表記を使用してアクセスできます：
+オブジェクトのプロパティに保存されている任意の値には、その変数名、プロパティ名、そしてドット表記を使用してアクセスできます: 
 
 ```js
 // ドット表記を使用してオブジェクトのプロパティ1の値にアクセスする
@@ -172,7 +172,7 @@ let ${top('obj', 'flower')} = {
 ```
 
 - 花オブジェクトのプロパティを使用して、[`text()`](/reference/p5/text)関数で花をキャンバス上に配置します。
-  - [`draw()`](/reference/p5/draw)内に以下のコードを追加します：
+  - [`draw()`](/reference/p5/draw)内に以下のコードを追加します: 
 
     ```js
     // 花オブジェクトを表示する
@@ -186,7 +186,7 @@ let ${top('obj', 'flower')} = {
   textSize(100);
   ```
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 // 花オブジェクト
@@ -211,9 +211,9 @@ function draw() {
 }
 `} />
 
-花オブジェクトの値にアクセスするために、[ドット表記](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)を使用しています。これはドット演算子を使用してオブジェクト内のプロパティと値にアクセスします。
+花オブジェクトの値へアクセスするために、[ドット表記](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)を使用しています。これはドット演算子を使用してオブジェクト内のプロパティと値にアクセスします。
 
-上のコードでは、以下にアクセスしています：
+上のコードでは、以下にアクセスしています: 
 
 - `flower.emoji`で花の絵文字
 - `flower.x`でx座標
@@ -230,16 +230,16 @@ p5.jsリファレンスで[オブジェクト](/reference/p5/object)について
 [例。](https://editor.p5js.org/KM_Playground/sketches/ezATsCBra) 
 </Callout>
 
-## ステップ3：`createFlower()`関数を定義する
+## ステップ3:  `createFlower()`関数を定義する
 
-次に、キャンバス上に異なる花を表示できる関数を定義しましょう。作成する花オブジェクトをカスタマイズできる`createFlower()`関数を定義します。異なる花のx座標とy座標を変更できるようにしたいです。また、サイズと色も変更したいです。それを行う一つの方法は、花オブジェクトに`size`と`color`の新しいプロパティを追加することです。このプロジェクトでは、花が現れてから一定時間後に消えるようにしたいので、花オブジェクトに`lifespan`プロパティも含めます。
+次に、キャンバス上に異なる花を表示できる関数を定義しましょう。作成する花オブジェクトをカスタマイズできる`createFlower()`関数を定義します。異なる花のx座標とy座標を変更できるようにしたいです。また、サイズと色も変更したいです。それを行うひとつの方法は、花オブジェクトに`size`と`color`の新しいプロパティを追加することです。このプロジェクトでは、花が現れてから一定時間後に消したいので、花オブジェクトに`lifespan`プロパティも含めます。
 
 `createFlower()`が呼び出されたときに情報を返すようにしたいです。ちょうどビルトインの`text()`関数がキャンバス上にテキストを返すのと同じように。そのため、[戻り値](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values)を指定する必要があります。*戻り値*を使用することは、関数によって計算された情報を変数や配列に保存する素晴らしい方法です。
 
-この例では、[`random()`](/reference/p5/random)を使用して、キャンバス上に描画されるときに花に多様性を持たせます。
+この例では、[`random()`](/reference/p5/random)を使用して、キャンバス上へ描画されるときに花の多様性を持たせます。
 
 - ランダムな花オブジェクトを作成する`createFlower()`関数を定義します。`createFlower()`が呼び出されるたびに、すべての値がランダムに設定されます。
-  - [`draw()`](/reference/p5/draw)と[`setup()`](/reference/p5/setup)の外側に、以下の関数宣言を追加します：
+  - [`draw()`](/reference/p5/draw)と[`setup()`](/reference/p5/setup)の外側に、以下の関数宣言を追加します: 
 
     ```js
     // ランダムな花オブジェクトを作成する関数
@@ -258,7 +258,7 @@ p5.jsリファレンスで[オブジェクト](/reference/p5/object)について
     ```
 
 - `createFlower()`関数をテストするために、それを使用して花オブジェクトを作成し、`myFlower`という変数に保存します。
-  - [`draw()`](/reference/p5/draw)関数に以下を追加します：
+  - [`draw()`](/reference/p5/draw)関数に以下を追加します: 
 
     ```js
     // 花オブジェクトを作成する
@@ -266,7 +266,7 @@ p5.jsリファレンスで[オブジェクト](/reference/p5/object)について
     ```
 
 - `myFlower`のプロパティを使用してキャンバス上に楕円を描画します。
-  - [`draw()`](/reference/p5/draw)関数に以下を追加します：
+  - [`draw()`](/reference/p5/draw)関数に以下を追加します: 
 
     ```js
     // 花オブジェクトのプロパティを使用して楕円を描画する
@@ -274,9 +274,9 @@ p5.jsリファレンスで[オブジェクト](/reference/p5/object)について
     ellipse(myFlower.x, myFlower.y, myFlower.size);
     ```
 
-- 各花が現れる速度を遅くするために、フレームレートを1秒あたり1フレームに変更します。[`setup()`](/reference/p5/setup)に以下を追加します：`frameRate(1);`。
+- 各花が現れる速度を遅くするために、フレームレートを1秒あたり1フレームに変更します。[`setup()`](/reference/p5/setup)に以下を追加します: `frameRate(1);`。
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -319,7 +319,7 @@ p5.jsリファレンスで[`return`](/reference/p5/return)値と[`random()`](/re
 [例。](https://editor.p5js.org/KM_Playground/sketches/Cu8PrnNfH) 
 </Callout>
 
-## ステップ4：パラメータを持つ`drawFlower()`関数を定義する
+## ステップ4:  パラメータを持つ`drawFlower()`関数を定義する
 
 `createFlower()`が新しい花オブジェクトを作成して返すことがわかったので、`drawFlower()`関数を定義しましょう。`drawFlower()`関数は花オブジェクトを引数として受け取り、それをキャンバス上に配置します。これにより、コードが整理され管理しやすくなります。
 
@@ -329,7 +329,7 @@ p5.jsリファレンスで[`return`](/reference/p5/return)値と[`random()`](/re
   function drawFlower(flower) { }
   ```
 
-- `drawFlower()`関数の内部で、花びらと花の中心を含む花の属性を描画します。花オブジェクトのプロパティを`x`と`y`の位置、`size`、`color`に使用することを忘れないでください。以下のコードを関数本体に追加できます：
+- `drawFlower()`関数の内部で、花びらと花の中心を含む花の属性を描画します。花オブジェクトのプロパティを`x`と`y`の位置、`size`、`color`に使用することを忘れないでください。以下のコードを関数本体に追加できます: 
 
   ```js
   noStroke();
@@ -344,7 +344,7 @@ p5.jsリファレンスで[`return`](/reference/p5/return)値と[`random()`](/re
   circle(flower.x, flower.y, flower.size / 2);
   ```
 
-- 次に、`drawFlower()`関数をテストします。[`draw()`](/reference/p5/draw)関数に以下を追加します：
+- 次に、`drawFlower()`関数をテストします。[`draw()`](/reference/p5/draw)関数に以下を追加します: 
 
   ```js
   // drawFlower()をテストする
@@ -352,7 +352,7 @@ p5.jsリファレンスで[`return`](/reference/p5/return)値と[`random()`](/re
   drawFlower(flower1);
   ```
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -396,7 +396,7 @@ function drawFlower(flower) {
 上のコードでは、`createFlower()`を使用してランダムな花を作成し、それを`flower1`に保存しています。そしてランダムな花（`flower1`）を`drawFlower()`に渡し、花オブジェクトのプロパティにアクセスしてキャンバス上に花を描画します。このプロセスは[`draw()`](/reference/p5/draw)関数が実行されるたびに発生するので、ランダムな花がキャンバス上に現れては消えます。
 
 <Callout>
-他の2D形状を使用して花の描画を変更・修正してください：
+他の2D形状を使用して花の描画を変更・修正してください:
 
 - [`ellipse()`](/reference/p5/ellipse)
 - [`square()`](/reference/p5/square)
@@ -409,11 +409,11 @@ function drawFlower(flower) {
 [例。](https://editor.p5js.org/KM_Playground/sketches/fDX0Xjq31)
 </Callout>
 
-## ステップ5：配列の使用方法を学ぶ
+## ステップ5:  配列の使用方法を学ぶ
 
 配列を使用して花の庭を作る前に、いくつかの簡単な例で配列の動作をよりよく理解しましょう。[JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)は1つの変数名で複数の値を保存できるオブジェクトです。各値は*インデックス*と呼ばれる特定の位置に*要素*として保存されます。任意の[JavaScript配列](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)の最初の*要素*の*インデックス*は0です。
 
-### 例1：名前の配列の作成と描画
+### 例1: 名前の配列の作成と描画
 
 <EditableSketch code={`
 // flowers配列を作成する
@@ -454,9 +454,10 @@ function setup() {
 
 上のコードスニペットでは、インデックス表記`flowers[0]`を使用して`flowers`配列の最初の要素（インデックス0）にアクセスしています。上の例では、この構文を使用して`flowers`配列のさまざまな要素からアクセスした名前をキャンバス上にテキストとして配置しています。
 
-そして、その値を`rose`という新しい変数に割り当てています。`rose`は now `flowers`配列の最初の花の名前である文字列`"Rose"`を保持します。他の要素に保存されている値も同じ方法でアクセスできます。
+そして、その値を`rose`という新しい変数に代入します。`rose`は`flowers`配列の最初の花の名前である文字列`"Rose"`を保持することになります。他の要素に格納されている値も同じ方法でアクセスできます。
 
-### 例2：`for`ループを使用して名前の配列を反復処理する
+
+### 例2:  `for`ループを使用して名前の配列を反復処理する
 
 <EditableSketch code={`
 // flowers配列を作成する
@@ -488,9 +489,10 @@ for (${top('start', 'let i = 0;')} ${top('end', 'i < flowers.length')}; i += 1) 
     <Fragment slot="access">要素`i`の花を取得する</Fragment>
 </AnnotatedLine>
 
-反復処理を行うために、上のコードスニペットでは`for`ループを使用して花の配列の各要素を「見ていきます」。`for`ループによると、インデックス`i`は`0`から始まり、配列の要素数よりも1小さい数に達するまで各反復で増加します。配列はインデックスを0から始めるため、配列の最後の要素のインデックスは配列の要素数よりも1小さくなります。任意の配列の要素数は`array.length`プロパティを使用してアクセスできます。上の`for`ループでは、`flowers.length`を使用して`flowers`配列の長さにアクセスしています。配列の値にアクセスするために、`for`ループ内の[`text()`](/reference/p5/text)関数で`flowers[i]`を使用して、各要素の値をキャンバス上にテキストとして表示しています。
+反復処理を行うために、上のコードスニペットでは`for`ループを使用して花の配列の各要素を「見ていきます」。`for`ループによると、インデックス`i`は`0`から始まり、配列の要素数よりも1小さい数に達するまで各反復で増加します。配列はインデックスを0から始めるため、配列の最後の要素のインデックスは配列の要素数よりも1小さくなります。任意の配列の要素数は`array.length`プロパティを使用してアクセスできます。
+上の`for`ループでは、`flowers.length`を使用して`flowers`配列の長さにアクセスしています。配列の値へアクセスするために、`for`ループ内の[`text()`](/reference/p5/text)関数で`flowers[i]`を使用して、各要素の値をキャンバス上にテキストとして表示しています。
 
-### 例3：配列に新しい要素を追加する
+### 例3:  配列に新しい要素を追加する
 
 <EditableSketch code={`
 // flowers配列を作成する
@@ -519,7 +521,7 @@ flowers${bottom('push', '.push("Sunflower");')}
 
 配列メソッド[`array.push()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)を使用して、配列の末尾に新しい要素を追加できます。この例では、`"Sunflower"`を`flowers`配列の末尾に追加しています。
 
-### 例4：配列要素の削除
+### 例4:  配列要素の削除
 
 <EditableSketch code={`
 // flowers配列を作成する
@@ -550,9 +552,9 @@ flowers.splice(${bottom('start', '   0   ')}, ${bottom('count', '   1   ')});
     <Fragment slot="count">...1つの要素を削除する</Fragment>
 </AnnotatedLine>
 
-配列から要素を削除するために、[`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)関数を使用します。`array.splice()`関数は2つのパラメータを持つ`flowers`配列を変更します：1つは開始インデックス、もう1つは削除する要素の数です。`flowers.splice(0,1)`の結果、配列から`"Rose"`が削除され、`"Daisy"`と`"Tulip"`だけが残ります。
+配列から要素を削除するために、[`array.splice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)関数を使用します。`array.splice()`関数は2つのパラメータを持つ`flowers`配列を変更します: 1つは開始インデックス、もうひとつは削除する要素の数です。`flowers.splice(0,1)`の結果、配列から`"Rose"`が削除され、`"Daisy"`と`"Tulip"`だけが残ります。
 
-### 例5：配列に対する`for..of`ループの使用
+### 例5:  配列に対する`for..of`ループの使用
 
 <EditableSketch code={`
 // flowers配列を作成する
@@ -583,13 +585,13 @@ for (${top('decl', 'let flower')} ${top('kw', '   of   ')} ${top('arr', 'flowers
     <Fragment slot="elt">現在の要素で何かを行う</Fragment>
 </AnnotatedLine>
 
-`for..of`ループを使用して配列を反復処理することもできます。`flower`変数はループの反復中に各要素を一時的に保存します。ループ内の`print(flower)`文は各花の名前をコンソールに出力し、順番に`"Rose"`、`"Daisy"`、`"Tulip"`を表示します。
+`for..of`ループを使用して配列を反復処理できます。`flower`変数はループの反復中に各要素を一時的に保存します。ループ内の`print(flower)`文は各花の名前をコンソールに出力し、順番に`"Rose"`、`"Daisy"`、`"Tulip"`を表示します。
 
-`for..of`ループを使用すると、物事が複雑になったときにコードが読みやすくなることがあります。以下の例を参照してください：[インデックスを使用したforループ](https://editor.p5js.org/Msqcoding/sketches/HrIxPGZEP) vs [`for..of`ループ](https://editor.p5js.org/Msqcoding/sketches/TYq2M6noR)。
+`for..of`ループを使用すると、物事が複雑化したときにコードが読みやすくなります。以下の例を参照してください：[インデックスを使用したforループ](https://editor.p5js.org/Msqcoding/sketches/HrIxPGZEP) vs [`for..of`ループ](https://editor.p5js.org/Msqcoding/sketches/TYq2M6noR)。
 
-## ステップ6：配列を使用して複数の花を生成する
+## ステップ6:  配列を使用して複数の花を生成する
 
-さて、配列を使用して画面上に複数の花を生成する時が来ました。
+さて、配列を使用して画面上に複数の花を生成するときが来ました。
 
 - まず、プログラムの先頭で`flowers`配列を宣言します。空の角括弧は空の花の配列を表します。
 
@@ -632,7 +634,7 @@ for (${top('decl', 'let flower')} ${top('kw', '   of   ')} ${top('arr', 'flowers
   }
   ```
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 // 花の配列
@@ -696,11 +698,11 @@ function drawFlower(flower) {
 [例。](https://editor.p5js.org/KM_Playground/sketches/BkgxufvQf)
 </Callout>
 
-## ステップ7：配列内の花を更新する
+## ステップ7: 配列内の花を更新する
 
 花の配列をテストしたので、次は萎れる効果を描画しましょう。花を制御するために配列を使用することの利点の1つは、各花の値を更新できることです。
 
-- 他のすべての関数の外側で、`updateAndDrawFlowers()`という関数を定義します：
+- 他のすべての関数の外側で、`updateAndDrawFlowers()`という関数を定義します: 
 
   ```js
   function updateAndDrawFlowers() {}
@@ -716,7 +718,7 @@ function drawFlower(flower) {
 
 - forループ内で、萎れをシミュレートするために花オブジェクトの`size`と`lifespan`を減少させます。
 
-  `drawFlower()`関数が花を描画した後、花のサイズを1%減少させることで萎れのアニメーション効果を追加します。現在のサイズに0.99を掛けて、その結果を花の`size`プロパティに戻すことで萎れ効果を作成します。次に、寿命を減少させ、その値を花の`lifespan`変数に保存します。以下の構文で乗算[代入演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators)と[デクリメント](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement)演算子を使用します：
+  `drawFlower()`関数が花を描画した後、花のサイズを1%減少させることで萎れのアニメーション効果を追加します。現在のサイズに0.99を掛けて、その結果を花の`size`プロパティに戻すことで萎れ効果を作成します。次に、寿命を減少させ、その値を花の`lifespan`変数に保存します。以下の構文で乗算[代入演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#assignment_operators)と[デクリメント](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Decrement)演算子を使用します: 
 
   ```js
   // 花の萎れ効果
@@ -752,7 +754,7 @@ function drawFlower(flower) {
 - `draw()`関数に`updateAndDrawFlowers()`を追加します。
 - `setup()`から`frameRate(1)`の呼び出しを削除します。
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 // 花の配列
@@ -839,9 +841,9 @@ function drawFlower(flower) {
 
 ## ステップ8: `mousePressed()`を使って配列にさらに花を追加する
 
-最後に、[`mousePressed()`](/reference/p5/mousePressed)、[`mouseX`](/reference/p5/mouseX)、[`mouseY`](/reference/p5/mouseY)を使用して、キャンバスがクリックされるたびに花オブジェクトを flowers 配列に追加しましょう。
+最後に、[`mousePressed()`](/reference/p5/mousePressed)、[`mouseX`](/reference/p5/mouseX)、[`mouseY`](/reference/p5/mouseY)を使用して、キャンバスがクリックされるたびに花オブジェクトをflowers配列に追加しましょう。
 
-- 他のすべての関数の外側に、`mousePressed()` 関数を書きます：
+- 他のすべての関数の外側に、`mousePressed()` 関数を書きます: 
 
   ```js
   function mousePressed() {
@@ -858,7 +860,7 @@ function drawFlower(flower) {
   }
   ```
 
-あなたのコードは以下のようになるはずです：
+あなたのコードは以下のようになるはずです: 
 
 <EditableSketch code={`
 // 花の配列
@@ -959,17 +961,17 @@ function drawFlower(flower) {
 
 ## まとめ
 
-データ構造ガーデンチュートリアルを完了おめでとうございます！
+データ構造ガーデンチュートリアルを完了おめでとうございます! 
 
 この旅を通じて、動的でインタラクティブなガーデンシミュレーションを作成するためのJavaScriptオブジェクトと配列の基本的な概念について学びました。配列を使用して、それぞれが独自のプロパティと動作を持つ複数のオブジェクトをエレガントかつ効率的に管理しました。これはプログラミングの世界で強力なスキルであり、より複雑でインタラクティブなアプリケーションへの扉を開きます。
 
 ## 次のステップ
 
 - [HTMLとCSSの作成とスタイリング](/tutorials/creating-styling-html)チュートリアルで、p5.jsでHTMLとCSSを使用します。
-- [アブラカダブラ：手で話す](/tutorials/speak-with-your-hands)チュートリアルで、p5.jsで[ml5.js](https://ml5js.org/)を使用します。
+- [アブラカダブラ：手で話す](/tutorials/speak-with-your-hands)チュートリアルにて、p5.jsで[ml5.js](https://ml5js.org/)を使用します。
 - [Node.jsを始める](/tutorials/getting-started-with-nodejs)と[シンプルなメロディーアプリ](/tutorials/simple-melody-app/)チュートリアルで、p5.jsで[node.js](https://www.w3schools.com/nodejs/nodejs_intro.asp)を使用します。
 
-もう一度、このチュートリアルを完了したことをお祝いします。実験を続け、コーディングを続け、そして最も重要なのは、学習と創造を楽しんでください！
+もう一度、このチュートリアルを完了したことをお祝いします。実験を続け、コーディングを続け、そしてもっとも重要なのは、学習と創造を楽しんでください! 
 
 ## リソース
 

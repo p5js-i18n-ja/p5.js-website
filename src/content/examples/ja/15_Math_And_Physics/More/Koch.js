@@ -15,7 +15,7 @@ function setup() {
 
 function draw() {
   background(0);
-  // 雪片を描きます！
+  // 雪片を描きます!
   k.render();
   // 反復
   k.nextLevel();
@@ -54,7 +54,7 @@ class KochLine {
     return v;
   }
 
-  // さらに複雑なことに、この p5.Vector がどこにあるかを計算するために少し三角法を使う必要があります！
+  // さらに複雑なことに、この p5.Vector がどこにあるかを計算するために少し三角法を使う必要があります!
   kochC() {
     let a = this.start.copy(); // 最初から始めます。
     let v = p5.Vector.sub(this.end, this.start);

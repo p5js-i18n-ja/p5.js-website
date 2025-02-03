@@ -8,7 +8,7 @@ function setup() {
   background(255);
 
   // greeting変数を使って、名前を尋ねます。
-  greeting = createElement("h2", "あなたの名前は何ですか？");
+  greeting = createElement("h2", "あなたの名前は何ですか?");
   greeting.position(20, 5);
 
   // キャンバスに入力とボタンを作成します。
@@ -33,7 +33,7 @@ function greet() {
   let name = nameInput.value();
 
   // 挨拶を更新して、相手の名前を表示します。
-  greeting.html(`こんにちは、${name}さん！`);
+  greeting.html(`こんにちは、${name}さん!`);
 
   // 入力の値をクリアします。
   nameInput.value("");

@@ -1,6 +1,6 @@
 ---
 title: "変数と変化"
-description: 変数について学び、アニメーションのあるスケッチを作成する方法を学びましょう！
+description: 変数について学び、アニメーションのあるスケッチを作成する方法を学びましょう! 
 category: introduction
 categoryIndex: 2
 featuredImage: ../images/featured/VarThumb.jpg
@@ -31,20 +31,20 @@ import EditableSketch from "../../../components/EditableSketch/index.astro";
 
 <Video src="/videos/tutorials/landscape.mp4" alt="背景に三日月と山脈があり、前景に草と成長する木々がある、アニメーションのある風景。星がランダムに現れ、雲がキャンバス上を移動します。" />
 
-このチュートリアルでは以下のことを学びます：
+このチュートリアルでは以下のことを学びます: 
 
 - p5.jsのスケッチで変数を宣言、初期化、更新する
 - p5.jsの図形関数で変数、演算子、random()を使用してキャンバス上に動きを作成する
 - p5.jsのプロジェクトに線形およびランダムな動きを追加する
 
 
-## 前提条件：
+## 前提条件:
 
 - [環境のセットアップ](/tutorials/setting-up-your-environment)
 - [はじめに](/tutorials/get-started)
 - (オプション) [デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)
 
-始める前に、以下のことができるようになっているはずです：
+始める前に、以下のことができるようになっているはずです: 
 
 - [p5.js Web Editor](https://editor.p5js.org/)にログインし、新しいプロジェクトを保存する
 - キャンバスのサイズと背景色を変更する
@@ -57,22 +57,22 @@ import EditableSketch from "../../../components/EditableSketch/index.astro";
 - [エラーメッセージ](/tutorials/field-guide-to-debugging)を読んで対処する
 
 
-## ステップ1：開始点を選ぶ<a id="step-1"></a>
+## ステップ1: 開始点を選ぶ<a id="step-1"></a>
 
-[p5.js Web Editor](https://editor.p5js.org/)にログインし、以下のオプションから1つ選んでください：
+[p5.js Web Editor](https://editor.p5js.org/)にログインし、以下のオプションから1つ選んでください:
 
-- 前回の[はじめてのチュートリアル](/tutorials/get-started)を完了している場合：
+- 前回の[はじめてのチュートリアル](/tutorials/get-started)を完了している場合:
   - [インタラクティブな風景](https://editor.p5js.org/p5Master718/sketches/aDwxcxCbV)を複製し、新しい名前を付けます。
     - [インタラクティブな風景](https://editor.p5js.org/p5Master718/sketches/aDwxcxCbV)を開き、*File*をクリックし、*Duplicate*を選択します。
     - 名前を「Animated Landscape」などに変更します。
   - [ステップ3](#step-3)に進みます。
-- 最初から始める場合：
-  - キャンバス上に図形やテキストを配置するのに役立つコードが含まれている[このテンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を使用します：
+- 最初から始める場合:
+  - キャンバス上に図形やテキストを配置するのに役立つコードが含まれている[このテンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を使用します: 
   - [テンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を複製し、新しい名前を付けます。
     - この[テンプレートリンク](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を開き、*File*をクリックし、*Duplicate*を選択します。
     - 名前を「Animated Landscape」などに変更します。
-  - テンプレートを使用せずに新しいp5.jsプロジェクトを開き、「Animated Landscape」という名前を付けて保存することもできます。
-    - ヘルパーコードを使用したい場合は、以下の行を[`draw()`](/reference/p5/draw)関数にコピーしてください：
+  - テンプレートを使用せずに新しいp5.jsプロジェクトを開き、「Animated Landscape」という名前を付けて保存できます。
+    - ヘルパーコードを使用したい場合は、以下の行を[`draw()`](/reference/p5/draw)関数にコピーしてください:
 
       ```js
       //マウスのx座標とy座標をキャンバス上に表示します
@@ -84,7 +84,7 @@ import EditableSketch from "../../../components/EditableSketch/index.astro";
 [p5.js Web Editor](https://editor.p5js.org/)で*Play*をクリックし、「Auto-refresh」の横にあるチェックボックスをオンにすると、プロジェクトにコードを追加するたびにキャンバスが継続的に更新されます。このボックスをチェックすると、スケッチに変更を加えるたびに*Play*ボタンを押す必要がなくなります。
 </Callout>
 
-[テンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を複製した場合、コードは以下のようになるはずです：
+[テンプレート](https://editor.p5js.org/Msqcoding/sketches/nHyx0xDG6)を複製した場合、コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 function setup() {
@@ -105,7 +105,7 @@ function draw() {
 
 
 <Callout title="ヒント">
-このテキストを表示し続けるには、このコードが[`draw()`](/reference/p5/draw)の最後の行に表示されていることを確認してください。背景とブレンドする場合は、[`fill()`](/reference/p5/fill)の値を変更してテキストの色を変更する必要があるかもしれません。座標が不要になったら、[`fill()`](/reference/p5/fill)と[`text()`](/reference/p5/text)関数の前に`//`を入力します。これにより、それらの行をコメントとして隠すことで、プログラムにそれらの行をスキップするよう指示します！
+このテキストを表示し続けるには、このコードが[`draw()`](/reference/p5/draw)の最後の行に表示されていることを確認してください。背景とブレンドする場合は、[`fill()`](/reference/p5/fill)の値を変更してテキストの色を変更する必要があるかもしれません。座標が不要になったら、[`fill()`](/reference/p5/fill)と[`text()`](/reference/p5/text)関数の前に`//`を入力します。これにより、それらの行をコメントとして隠すことで、プログラムにそれらの行をスキップするよう指示します! 
 
 **忘れずに：** プログラムの最後の行は`}`（閉じ中括弧）であるべきです。これは[`draw()`](/reference/p5/draw)関数のブロックを閉じます。
 </Callout>
@@ -115,24 +115,24 @@ function draw() {
 
 ### 変数
 
-変数は、スケッチで使用できる値を格納します。**変数は、時間とともに変化する要素をスケッチに追加する際に非常に役立ちます。** 変数は計算、メッセージ、関数の引数など、さまざまな用途に使用できます！
+変数は、スケッチで使用できる値を格納します。**変数は、時間とともに変化する要素をスケッチに追加する際に非常に役立ちます。** 変数は計算、メッセージ、関数の引数など、さまざまな用途に使用できます! 
 
-[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)は、p5.jsライブラリに組み込まれている変数です。これらは、マウスポインタがキャンバス上をドラッグされる際のx座標とy座標を格納します。[はじめに](/tutorials/get-started)チュートリアルでは、[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)をてんとう虫や他の絵文字のx座標とy座標として使用した[インタラクティブな風景](https://editor.p5js.org/p5Master718/sketches/aDwxcxCbV)を作成しました。これにより、絵文字がキャンバス上でマウスポインタをドラッグすると追従し、アートワークをインタラクティブにすることができました！
+[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)は、p5.jsライブラリに組み込まれている変数です。これらは、マウスポインタがキャンバス上をドラッグされる際のx座標とy座標を格納します。[はじめに](/tutorials/get-started)チュートリアルでは、[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)をてんとう虫や他の絵文字のx座標とy座標として使用した[インタラクティブな風景](https://editor.p5js.org/p5Master718/sketches/aDwxcxCbV)を作成しました。これにより、絵文字がキャンバス上でマウスポインタをドラッグすると追従し、アートワークをインタラクティブにできました! 
 
 上記のテンプレートでは、[`mouseX`](/reference/p5/mouseX)と[`mouseY`](/reference/p5/mouseY)を使用して、[`text()`](/reference/p5/text)関数を使ってマウスのx座標とy座標をキャンバス上に表示しています。変数は[`text()`](/reference/p5/text)関数と[文字列補間](https://www.geeksforgeeks.org/string-interpolation-in-javascript/)（例2）を使用してテキストと一緒にキャンバス上に表示できます。
 
 
 ### 文字列補間
 
-[はじめに](/tutorials/get-started)では、文字列が常に引用符（`""`）で囲まれた[データ型](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)であることを学びました。変数と文字列を一緒に使用するために、[テンプレートリテラル](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)を使用できます！テンプレートリテラルは引用符（`""`）の代わりにバッククォート（``）で始まり終わります。[この例](https://editor.p5js.org/Msqcoding/sketches/pfSJLvxOB)のように、バッククォートの間に任意の文字を入力して文字列を生成できます。`${}`プレースホルダーを使用し、中括弧内に変数名を配置することで、[この例](https://editor.p5js.org/Msqcoding/sketches/8sM-h5Hd9)のように文字列に変数を含めることができます。
+[はじめに](/tutorials/get-started)では、文字列が常に引用符（`""`）で囲まれた[データ型](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)であることを学びました。変数と文字列を一緒に使用するために、[テンプレートリテラル](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)を使用できます! テンプレートリテラルは引用符（`""`）の代わりにバッククォート（``）で始まり終わります。[この例](https://editor.p5js.org/Msqcoding/sketches/pfSJLvxOB)のように、バッククォートの間に任意の文字を入力して文字列を生成できます。`${}`プレースホルダーを使用し、中括弧内に変数名を配置することで、[この例](https://editor.p5js.org/Msqcoding/sketches/8sM-h5Hd9)のように文字列に変数を含めることができます。
 
-詳しくは[文字列補間](https://www.geeksforgeeks.org/string-interpolation-in-javascript/)（例2）、[テンプレートリテラル](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)、またはp5.jsの[string](/reference/p5/String)リファレンスページをご覧ください！
+詳しくは[文字列補間](https://www.geeksforgeeks.org/string-interpolation-in-javascript/)（例2）、[テンプレートリテラル](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)、またはp5.jsの[string](/reference/p5/String)リファレンスページをご覧ください! 
 
 <Callout title="注意">
-[数値](/reference/p5/number)を含む変数は、数値が必要な場所で引数として使用できます。[文字列](/reference/p5/String)を格納する変数を数値が必要な場所で使用すると、コンソールに`"...was expecting Number for the first parameter, received string instead."`のようなエラーメッセージが表示されます。一般的なエラーとその修正方法については、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)のエラーメッセージセクションをご覧ください！
+[数値](/reference/p5/number)を含む変数は、数値が必要な場所で引数として使用できます。[文字列](/reference/p5/String)を格納する変数を数値が必要な場所で使用すると、コンソールに`"...was expecting Number for the first parameter, received string instead."`のようなエラーメッセージが表示されます。一般的なエラーとその修正方法については、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)のエラーメッセージセクションをご覧ください! 
 </Callout>
 
-## ステップ2：背景の風景を作成する<a id="step-2"></a>
+## ステップ2:  背景の風景を作成する<a id="step-2"></a>
 
 - 背景に色を付けます。
 - 風景の形（太陽や月、山、建物、家、木など）を追加し、色を付けます。
@@ -140,7 +140,7 @@ function draw() {
 
 キャンバス上で色と形を使用する方法の詳細については、[はじめにのステップ4〜6](/tutorials/get-started)を参照してください。
 
-コードは次のようになります：
+コードは次のようになります: 
 
 <EditableSketch code={`
 function setup() {
@@ -194,10 +194,10 @@ function draw() {
 
 [デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)とThe Coding Trainの[このビデオ](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)で強調されている一般的なエラーを避けるようにしてください。
 
-## ステップ3：カスタム変数を使用して形を描く<a id="step-3"></a>
+## ステップ3:  カスタム変数を使用して形を描く<a id="step-3"></a>
 
 - [`ellipse()`](/reference/p5/ellipse)メソッドを使用して、キャンバスの空に白い雲を配置します。
-  - 以下のテキスト行を草のコードの直下に追加します：
+  - 以下のテキスト行を草のコードの直下に追加します: 
 
     ```js
     //雲
@@ -206,7 +206,7 @@ function draw() {
     ```
 
 - `cloudOneX`という名前のカスタム変数を作成し、その中に数字50を格納します – この変数はプログラム全体を通して白い雲のx座標の値を格納します。
-  - 以下のテキスト行を[`setup()`](/reference/p5/setup)の前に追加します：
+  - 以下のテキスト行を[`setup()`](/reference/p5/setup)の前に追加します: 
 
     ```js
     //雲のx座標のためのカスタム変数
@@ -214,13 +214,13 @@ function draw() {
     ```
 
 - `ellipse(50, 50, 80, 40);`のx座標を`cloudOneX`変数に置き換えます。
-  - このコード行は以下のようになるはずです：
+  - このコード行は以下のようになるはずです: 
 
     ```js
     ellipse(cloudOneX, 50, 80, 40);
     ```
 
-コードは次のようになります：
+コードは次のようになります: 
 
 <EditableSketch code={`
 //雲のx座標のためのカスタム変数
@@ -272,12 +272,12 @@ function draw() {
 
 ### カスタム変数
 
-カスタム変数は、後で変更可能な[数値](/reference/p5/number)や[文字列](/reference/p5/String)などの値を格納します。カスタム変数は変更可能な値を格納するため、キャンバス上の形のx座標やy座標、サイズを変更するのに使用できます。形のx座標やy座標が変更されると、それは動いているように見えます。このステップでは：
+カスタム変数は、後で変更可能な[数値](/reference/p5/number)や[文字列](/reference/p5/String)などの値を格納します。カスタム変数は変更可能な値を格納するため、キャンバス上の形のx座標やy座標、サイズを変更するのに使用できます。形のx座標やy座標が変更されると、それは動いているように見えます。このステップでは:
 
 - [`ellipse()`](/reference/p5/ellipse)を使用して、x座標として数値50を使用して白い雲をキャンバス上に配置しました；
 - [`setup();`](/reference/p5/setup)の前に`cloudOneX`という名前のカスタム変数を*宣言*しました
   - プログラムで使用するカスタム変数を作成する場合、名前を付け、キーワード[`let`](/reference/p5/let)を使用して*宣言*する必要があります。
-  - 変数は任意の名前で*宣言*できますが、変数の用途を思い出すのに役立つ名前を使用するのが最適です！
+  - 変数は任意の名前で*宣言*できますが、変数の用途を思い出すのに役立つ名前を使用するのが最適です! 
 - `cloudOneX`に数値50を割り当てて*初期化*しました。
   - *代入演算子*（`=`）を使用して変数に値を格納できます – これは特定の変数に値を割り当てます。
   - カスタム変数に初めて値が格納されるとき、それを変数の*初期化*と呼びます。
@@ -289,7 +289,7 @@ function draw() {
 
 ### 変数のスコープ
 
-*変数のスコープ*は、プログラム内でその変数を使用できる場所を説明します。カスタム変数を[`setup()`](/reference/p5/setup)と[`draw()`](/reference/p5/draw)の外部で宣言することがしばしば有用です。なぜなら、これにより変数が*グローバルスコープ*を持つことができるからです。*グローバルスコープ*を持つ変数は、プログラムのどこでも使用できます。グローバル変数は多くの場合、コードの最初の行で宣言されます。これはプログラマーが何が変更されているかを理解するのに役立ち、コードの保守を容易にし、コードの後半での混乱を避けるのに役立ちます。[`mouseX`](/reference/p5/mouseX)、[`mouseY`](/reference/p5/mouseY)、[`width`](/reference/p5/width)、[`height`](/reference/p5/height)などの組み込み変数は、p5.jsライブラリに組み込まれているため宣言する必要がなく、グローバルスコープを持っているためコードのどこでも使用できます！
+*変数のスコープ*は、プログラム内でその変数を使用できる場所を説明します。カスタム変数を[`setup()`](/reference/p5/setup)と[`draw()`](/reference/p5/draw)の外部で宣言することがしばしば有用です。なぜなら、これにより変数が*グローバルスコープ*を持つことができるからです。*グローバルスコープ*を持つ変数は、プログラムのどこでも使用できます。グローバル変数は多くの場合、コードの最初の行で宣言されます。これはプログラマーが何が変更されているかを理解するのに役立ち、コードの保守を容易にし、コードの後半での混乱を避けるのに役立ちます。[`mouseX`](/reference/p5/mouseX)、[`mouseY`](/reference/p5/mouseY)、[`width`](/reference/p5/width)、[`height`](/reference/p5/height)などの組み込み変数は、p5.jsライブラリに組み込まれているため宣言する必要がなく、グローバルスコープを持っているためコードのどこでも使用できます! 
 
 他の関数（[`draw()`](/reference/p5/draw)や[`setup()`](/reference/p5/setup)など）内で宣言された変数は*ローカルスコープ*を持ちます – つまり、それらが宣言されたブロックまたは関数内でのみ使用できます。[`setup()`](/reference/p5/setup)で宣言された変数は[`draw()`](/reference/p5/draw)や他の関数で使用できず、[`draw()`](/reference/p5/draw)で定義された変数は[`setup()`](/reference/p5/setup)で使用できません。グローバルとローカル変数のスコープの[この例](https://editor.p5js.org/p5Master718/sketches/aa8bBwGHb)をご覧ください。
 
@@ -297,7 +297,7 @@ function draw() {
 
 ### アニメーションのための変数の使用
 
-キャンバス上の形のx座標やy座標が変化すると、その形が動いているように見えます。キャンバス上に表示される任意のものの x座標やy座標の代わりに変数を使用できます。例：
+キャンバス上の形のx座標やy座標が変化すると、その形が動いているように見えます。キャンバス上に表示される任意のもののx座標やy座標の代わりに変数を使用できます。例:
 
 - `cloudOneX`に格納されている値を、初期化されている値を置き換えることで変更し、キャンバス上の白い雲の変化を観察します。
   - `cloudOneX`の値が増加すると、白い雲は右に移動しているように見えます。
@@ -306,9 +306,9 @@ function draw() {
 次のステップでは、`cloudOneX`の値を変更して、雲がキャンバス上で水平に移動しているように見えるようにします。
 
 
-## ステップ4：水平方向の動きを追加する<a id="step-4"></a>
+## ステップ4:  水平方向の動きを追加する<a id="step-4"></a>
 
-- 白い雲の下の行に、以下のコードを追加します：
+- 白い雲の下の行に、以下のコードを追加します: 
 
   ```js
   //x座標をフレームカウントに設定します
@@ -316,7 +316,7 @@ function draw() {
   cloudOneX = frameCount % width
   ```
 
-コードは次のようになります：
+コードは次のようになります: 
 
 <EditableSketch code={`
 //雲のx座標のためのカスタム変数
@@ -362,12 +362,12 @@ function draw() {
 }
 `} />
 
-上記のステップでは、`cloudOneX`を`frameCount % width`の値に設定しました。[`draw()`](/reference/p5/draw)が繰り返し実行されることを思い出してください：
+上記のステップでは、`cloudOneX`を`frameCount % width`の値に設定しました。[`draw()`](/reference/p5/draw)が繰り返し実行されることを思い出してください:
 
 - [`frameCount`](/reference/p5/frameCount)は、[`draw()`](/reference/p5/draw)が実行された回数を保存する組み込み変数です。この値は、プログラムが実行されている限り増加し続けます。
   - [`frameCount`](/reference/p5/frameCount)に格納される値を表示する[この例](https://editor.p5js.org/p5Master718/sketches/hT1KJ-RF4)をご覧ください。
 - [`width`](/reference/p5/width)は、[`createCanvas()`](/reference/p5/createCanvas)で定義されたキャンバスの幅を格納する組み込み変数です。この例では、[`width`](/reference/p5/width)が400で[`height`](/reference/p5/height)が400であることがわかります。
-- [`%`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder)は剰余演算子（モジュロとも呼ばれます）です - 左側の数（[`frameCount`](/reference/p5/frameCount)）を右側の数（400）で割り、その余りを返します。以下の表は、プログラムの実行中に[`frameCount`](/reference/p5/frameCount)と`frameCount % width`がどのように変化するかを示しています（**[`width`](/reference/p5/width)が400の場合**）：
+- [`%`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder)は剰余演算子（モジュロとも呼ばれます）です - 左側の数（[`frameCount`](/reference/p5/frameCount)）を右側の数（400）で割り、その余りを返します。以下の表は、プログラムの実行中に[`frameCount`](/reference/p5/frameCount)と`frameCount % width`がどのように変化するかを示しています（**[`width`](/reference/p5/width)が400の場合**）:
 
 <table >
 
@@ -501,7 +501,7 @@ function draw() {
 
 </table>
 
-- `cloudOneX = frameCount % width`の場合：
+- `cloudOneX = frameCount % width`の場合:
   - [`frameCount`](/reference/p5/frameCount)が400未満の場合、`frameCount % width`は[`frameCount`](/reference/p5/frameCount)の値を返します。
     - 例：[`frameCount`](/reference/p5/frameCount)が40の場合、`frameCount % width`は40を返し、`cloudOneX`に格納します。これにより、白い雲がx座標40に移動します。
   - [`frameCount`](/reference/p5/frameCount)が増加するにつれて、新しい値が`cloudOneX`に格納され、白い雲は右に移動しているように見えます（より高いx座標）。
@@ -510,20 +510,20 @@ function draw() {
     - 例：[`frameCount`](/reference/p5/frameCount)が440の場合、`frameCount % width`は40を返し、`cloudOneX`に格納します。
   - [`frameCount`](/reference/p5/frameCount)が[`width`](/reference/p5/width)の倍数に達するたびに、`frameCount % width`は0になり、雲がキャンバスの左端（x座標が0の位置）にリセットされたように見えます。
 
-プログラムが実行されると：
+プログラムが実行されると:
 
 - `cloudOneX`が宣言され、50の値で初期化されます。
 - [`setup()`](/reference/p5/setup)が実行され、幅400ピクセルのキャンバスを作成します。
-- [`draw()`](/reference/p5/draw)が最初に実行されるとき：
+- [`draw()`](/reference/p5/draw)が最初に実行されるとき:
   - 背景と風景のすべての形がキャンバス上に描画されます；
   - 雲がx座標`cloudOneX`（数値50を格納）で描画されます；
   - `cloudOneX`に`frameCount % width`の余りが格納されます。
-- [`draw()`](/reference/p5/draw)が2回目に実行されるとき：
+- [`draw()`](/reference/p5/draw)が2回目に実行されるとき:
   - 背景と風景が再び描画されると、すべての形が覆われます；
   - 新しい雲が`cloudOneX`の新しい値で上に描画され、x座標0から400まで移動し、その後リセットしたように見える錯覚を作り出します；
   - このパターンは[`draw()`](/reference/p5/draw)が停止するまで続きます。
 
-キャンバス上を形が移動する際の[`frameCount`](/reference/p5/frameCount)と`frameCount % width`の値を表示する[この例](https://editor.p5js.org/p5Master718/sketches/wpAhQK9WN)をご覧ください。詳細については、[MDNの剰余リファレンス](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder)をご覧ください！
+キャンバス上を形が移動する際の[`frameCount`](/reference/p5/frameCount)と`frameCount % width`の値を表示する[この例](https://editor.p5js.org/p5Master718/sketches/wpAhQK9WN)をご覧ください。詳細については、[MDNの剰余リファレンス](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder)をご覧ください! 
 
 ### アニメーションとdraw()
 
@@ -536,7 +536,7 @@ function draw() {
 - [この例](https://editor.p5js.org/p5Master718/sketches/H3dfPaKaN)は、円がキャンバス上を水平に移動する際のx座標の変化を示しています。
 - [この例](https://editor.p5js.org/p5Master718/sketches/CHPMI1xBJ)は、円がキャンバス上を垂直に移動する際のy座標の変化を示しています。
 - [この例](https://editor.p5js.org/p5Master718/full/vEDfXfXBJ)は、プログラムの実行中に円のサイズが変化する様子を示しています。
-- これらの例は、[`draw()`](/reference/p5/draw)関数が実行されるたびに新しい位置に新しい形が描画される様子を示しています：[水平方向の動き](https://editor.p5js.org/p5Master718/sketches/hSv6uLFvv) | [垂直方向の動き](https://editor.p5js.org/p5Master718/sketches/Xk_MUZ9yT) | [ランダムな動き](https://editor.p5js.org/Msqcoding/sketches/yLtbuqPIG)
+- これらの例は、[`draw()`](/reference/p5/draw)関数が実行されるたびに新しい位置に新しい形が描画される様子を示しています: [水平方向の動き](https://editor.p5js.org/p5Master718/sketches/hSv6uLFvv) | [垂直方向の動き](https://editor.p5js.org/p5Master718/sketches/Xk_MUZ9yT) | [ランダムな動き](https://editor.p5js.org/Msqcoding/sketches/yLtbuqPIG)
   - これらの例では、[`draw()`](/reference/p5/draw)が提供する「フリップブック」の錯覚を取り除くために[`background()`](/reference/p5/background)が削除されています。これにより、背景がそれを覆わないため、描画されるすべての新しい形を見ることができます。
 
 詳細については、[`draw()`](/reference/p5/draw)のp5.jsリファレンスをご覧ください。
@@ -553,19 +553,19 @@ function draw() {
 詳細については、以下のp5.jsリファレンスページをご覧ください：[`frameRate()`](/reference/p5/frameRate) | [`frameCount`](/reference/p5/frameCount) | [`console.log()`](/reference/console/log)
 
 
-## ステップ5：より多くの動く雲を追加し、フレームレートを変更する<a id="step-5"></a>
+## ステップ5:  より多くの動く雲を追加し、フレームレートを変更する<a id="step-5"></a>
 
-- フレームレートを15に設定してアニメーションを遅くします：
-  - [`background()`](/reference/p5/background)の下の行にこれを追加します：`frameRate(15); //フレームレートを15に設定`
+- フレームレートを15に設定してアニメーションを遅くします: 
+  - [`background()`](/reference/p5/background)の下の行にこれを追加します: `frameRate(15); //フレームレートを15に設定`
 - [ステップ4](#step-4)を繰り返して、異なるxとy値で風景にさらに雲を追加します。
-  - 最初の雲の下にこのテキストを追加できます：
+  - 最初の雲の下にこのテキストを追加できます: 
 
     ```js
     ellipse(cloudOneX - 40, 100, 60, 20);
     ellipse(cloudOneX + 20, 150, 40, 10);
     ```
 
-コードは次のようになります：
+コードは次のようになります: 
 
 <EditableSketch code={`
 //雲のx座標のためのカスタム変数
@@ -615,7 +615,7 @@ function draw() {
 }
 `} />
 
-上記のステップでは、以下を追加しました：
+上記のステップでは、以下を追加しました:
 
 - x座標`cloudOneX - 40`、y座標`100`の2番目の雲
   - これにより、2番目の雲が最初の雲の40ピクセル左、20ピクセル下に描画されます。
@@ -626,12 +626,12 @@ function draw() {
 
 - [この例](https://editor.p5js.org/p5Master718/sketches/FiePhOrbF)は、参照点（x, y）を使用して複数の形の位置を一度に変更する方法を示しています。
 
-## ステップ6：垂直方向の動きを追加する
+## ステップ6:  垂直方向の動きを追加する
 
 風景に垂直方向（上下）に動く木（または他のオブジェクト）を追加します。
 
 - キャンバスに木を描きます。
-  - 雲が描かれるコードと変数が増加するコードの間にこのテキストを追加します：
+  - 雲が描かれるコードと変数が増加するコードの間にこのテキストを追加します: 
 
     ```js
     //成長する木
@@ -643,8 +643,8 @@ function draw() {
     triangle(25, 270, 45, 240, 70, 270);
     ```
 
-- 葉を描く三角形の頂点（240）から`frameCount % 290`を引きます - `cloudOneX`に格納される値：
-  - 上記の三角形のy<sub>2</sub>の値を`frameCount % 290`を引くように修正します：
+- 葉を描く三角形の頂点（240）から`frameCount % 290`を引きます - `cloudOneX`に格納される値:
+  - 上記の三角形のy<sub>2</sub>の値を`frameCount % 290`を引くように修正します: 
 
     ```js
     //葉
@@ -653,7 +653,7 @@ function draw() {
     ```
 
 - 同じように成長する木をさらに追加します。
-  - 最初の木の下にこのテキスト行を追加します：
+  - 最初の木の下にこのテキスト行を追加します: 
 
     ```js
     //幹
@@ -663,7 +663,7 @@ function draw() {
     fill("green");
     triangle(325, 330, 345, 240 - frameCount % 290, 370, 330);
     ```
-コードは次のようになります：
+コードは次のようになります: 
 
 <EditableSketch code={`
 //雲のx座標のためのカスタム変数
@@ -732,10 +732,10 @@ function draw() {
 }
 `} />
 
-このステップでは、以下を行いました：
+このステップでは、以下を行いました:
 
 - 長方形（木の幹）と三角形（葉）で構成される木を追加しました；
-- 三角形の頂点のy座標（`y2`）の値を`frameCount % 290`を引くように修正しました（`y2`の位置を思い出すには[triangle()](/reference/p5/triangle)の図を参照してください）：
+- 三角形の頂点のy座標（`y2`）の値を`frameCount % 290`を引くように修正しました（`y2`の位置を思い出すには[triangle()](/reference/p5/triangle)の図を参照してください）:
   - 木の葉を成長させたいので、三角形の頂点は[`draw()`](/reference/p5/draw)が実行されるたびにキャンバス上で上に移動する必要があります。[この例](https://editor.p5js.org/p5Master718/sketches/605MEWNxh)で見られるように、キャンバス上で上に移動する点のy座標（`y2`）は減少します。
   - この動きを実現するために、`y2`の値を`240 - frameCount % 290`を引くように修正しました。これにより、[`frameCount`](/reference/p5/frameCount)を290で割った余りだけ`y2`が減少します。
   - [ステップ5](#step-5)で見たように、[`draw()`](/reference/p5/draw)関数が実行されるたびに、`frameCount % 290`が返す値は`1`ずつ増加するので、`y2`も変化します。
@@ -748,10 +748,10 @@ function draw() {
 
 詳細については、以下のp5.jsリファレンスページをご覧ください：[`frameRate()`](/reference/p5/frameRate) | [`frameCount`](/reference/p5/frameCount) | [`triangle()`](/reference/p5/triangle)
 
-## ステップ7：ランダムな動きを追加する<a id="step-7"></a>
+## ステップ7: ランダムな動きを追加する<a id="step-7"></a>
 
 - 空にランダムな位置に現れる流れ星を追加します。
-  - `lineXone`と`lineYone`という2つの変数を宣言し、`0`で初期化します。これらのテキスト行を[`setup()`](/reference/p5/setup)の前に追加します：
+  - `lineXone`と`lineYone`という2つの変数を宣言し、`0`で初期化します。これらのテキスト行を[`setup()`](/reference/p5/setup)の前に追加します: 
 
     ```js
     //流れ星のためのカスタム変数
@@ -759,7 +759,7 @@ function draw() {
     let lineYone = 0;
     ```
 
-- 流れ星を表す線を描きます。このテキストを`frameRate(15)`の下に追加します：
+- 流れ星を表す線を描きます。このテキストを`frameRate(15)`の下に追加します: 
 
   ```js
   //流れ星
@@ -767,7 +767,7 @@ function draw() {
   line(lineXone, lineYone, lineXone + 30, lineYone - 30);
   ```
 
-- `lineXone`と`lineYone`をランダムな値に設定します。このテキストを`cloudOneX`が`frameCount % width`に割り当てられるコード行の後に追加します：
+- `lineXone`と`lineYone`をランダムな値に設定します。このテキストを`cloudOneX`が`frameCount % width`に割り当てられるコード行の後に追加します: 
 
   ```js
   //流れ星をランダムな位置に設定
@@ -776,9 +776,9 @@ function draw() {
   ```
 
 - マウスポインタのx座標とy座標を表示するコード行を`draw()`の最後から削除して、最終プロジェクトを表示します。
-- 友達とシェアしましょう！
+- 友達とシェアしましょう! 
 
-コードは以下のようになるはずです：
+コードは以下のようになるはずです: 
 
 <EditableSketch code={`
 //雲のx座標のためのカスタム変数
@@ -870,14 +870,14 @@ x<sub>1</sub>,y<sub>1</sub>を使用してx<sub>2</sub>,y<sub>2</sub>の値を�
 
 [`random()`](/reference/p5/random)は最小値と最大値の間のランダムな数を生成するために使用されます。これを使用して`lineXone`と`lineYone`にランダムな数を再割り当てし、風景の空の中にランダムな位置に配置しました。
 
-[`random()`](/reference/p5/random)を使用した例：
+[`random()`](/reference/p5/random)を使用した例:
 
 - [ランダムを使用して線の位置を変更する](https://editor.p5js.org/Msqcoding/sketches/9OI5Y0uDk)
 - [ランダムを使用して色を変更する](https://editor.p5js.org/Msqcoding/sketches/mcfTlMLQX)
 
 ランダムな数がどのように生成されるかについて詳しく学ぶには、[`random()`](/reference/p5/random)のp5.jsリファレンスページをご覧ください。
 
-[`draw()`](/reference/p5/draw)が実行されるとき：
+[`draw()`](/reference/p5/draw)が実行されるとき:
 
 - 背景が設定されます。
 - 流れ星が他の風景と共にキャンバス上に配置され、`cloudOneX`が変更されます。
@@ -890,7 +890,7 @@ x<sub>1</sub>,y<sub>1</sub>を使用してx<sub>2</sub>,y<sub>2</sub>の値を�
 
 ### エラーメッセージ
 
-p5.jsは、理解できないコード行についてプログラマーとコミュニケーションを取るためにコンソールを使用します。これらは[エラーメッセージ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)と呼ばれます。プログラマーはこれを使用してコード内の「バグ」を見つけて修正します。詳しく学ぶには、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)を読むか、[このビデオ](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)をご覧ください！
+p5.jsは、理解できないコード行についてプログラマーとコミュニケーションを取るためにコンソールを使用します。これらは[エラーメッセージ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)と呼ばれます。プログラマーはこれを使用してコード内の「バグ」を見つけて修正します。詳しく学ぶには、[デバッグのフィールドガイド](/tutorials/field-guide-to-debugging)を読むか、[このビデオ](https://www.youtube.com/watch?v=LuGsp5KeJMM\&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA\&index=6)をご覧ください! 
 
 
 ## 次のステップ

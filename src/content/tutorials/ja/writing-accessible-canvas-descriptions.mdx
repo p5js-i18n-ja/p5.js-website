@@ -32,7 +32,7 @@ authors:
 
 ### 利用可能なラベリング関数
 
-p5.jsはキャンバスのラベリングのために4つの異なる関数を提供しています：
+p5.jsはキャンバスのラベリングのために4つの異なる関数を提供しています: 
 
 - [`describe()`](/reference/p5/describe)は、キャンバスの内容の説明を提供します。この関数のパラメータには、ラベル自体を表す`text`と、ラベルの表示/非表示を設定するオプションのパラメータ`display`があります。
 - [`describeElement()`](/reference/p5/describeElement)は、キャンバス内の特定の要素または要素のグループを説明します。この関数のパラメータには、ラベルのタイトルとなる`name`、ラベル自体を表す`text`、そしてラベルの表示/非表示を設定するオプションのパラメータ`display`があります。
@@ -44,7 +44,7 @@ p5.jsはキャンバスのラベリングのために4つの異なる関数を�
 
 ラベリングを始める前に、プロジェクトのコードはほぼ完成している必要がありますが、最初からラベリングを念頭に置いておくべきです。明確で効果的なラベルを書くために、キャンバス要素内でコードが作成する視覚的な要素について明確な理解が必要です。
 
-例えば、キャンバスの結果として生成される視覚的な要素について明確な理解がないままラベルを書き始めると、以下のコード例のように、ラベルと視覚的な要素が異なるメッセージを伝えてしまう可能性があります：
+例えば、キャンバスの結果として生成される視覚的な要素について明確な理解がないままラベルを書き始めると、以下のコード例のように、ラベルと視覚的な要素が異なるメッセージを伝えてしまう可能性があります: 
 
 ```js
 js
@@ -91,14 +91,14 @@ function draw() {
 
 [`describe()`](/reference/p5/describe)ラベルを使用してキャンバス全体を説明してください。コード内の特定の要素により詳細なラベルを追加するには、[`describeElement()`](/reference/p5/describeElement)、[`textOutput()`](/reference/p5/textOutput)、または[`gridOutput()`](/reference/p5/gridOutput)関数を使用してください。
 
-[`describe()`](/reference/p5/describe)と[`describeElement()`](/reference/p5/describeElement)関数では、キャンバスの視覚的な要素のテキスト説明を自由に作成できます。[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)関数は、キャンバスのサイズ、色、および各視覚要素の色、位置、キャンバス内で占める領域をリストとして自動的に説明します。[`describe()`](/reference/p5/describe)や[`describeElement()`](/reference/p5/describeElement)とは異なり、[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)関数は形状の使用意図を解釈できません。どの関数を使用するかを選択する際は、コンテキストを考慮してください。[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)を使用して花を「8つの円と1つの長方形」として説明するのと、[`describe()`](/reference/p5/describe)または[`describeElement()`](/reference/p5/describeElement)を使用して「赤い花びらと緑の茎を持つ花」として説明するのと、どちらが良いでしょうか？どのようなラベリングがキャンバスの最適な説明を提供するでしょうか？多くの形状を持つより大きな視覚的要素を作成している場合は、[`describeElement()`](/reference/p5/describeElement)を使用して各形状グループが何であるかをラベル付けすることをお勧めします。
+[`describe()`](/reference/p5/describe)と[`describeElement()`](/reference/p5/describeElement)関数では、キャンバスの視覚的な要素のテキスト説明を自由に作成できます。[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)関数は、キャンバスのサイズ、色、および各視覚要素の色、位置、キャンバス内で占める領域をリストとして自動的に説明します。[`describe()`](/reference/p5/describe)や[`describeElement()`](/reference/p5/describeElement)とは異なり、[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)関数は形状の使用意図を解釈できません。どの関数を使用するかを選択する際は、コンテキストを考慮してください。[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)を使用して花を「8つの円と1つの長方形」として説明するのと、[`describe()`](/reference/p5/describe)または[`describeElement()`](/reference/p5/describeElement)を使用して「赤い花びらと緑の茎を持つ花」として説明するのと、どちらが良いでしょうか?どのようなラベリングがキャンバスの最適な説明を提供するでしょうか?多くの形状を持つより大きな視覚的要素を作成している場合は、[`describeElement()`](/reference/p5/describeElement)を使用して各形状グループが何であるかをラベル付けすることをお勧めします。
 
 同じキャンバスを説明するために[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)の両方の関数を使用しないでください。両方を使用すると、類似した説明が2回表示され、スクリーンリーダーでの解釈が困難になります。同様に、[`textOutput()`](/reference/p5/textOutput)または[`gridOutput()`](/reference/p5/gridOutput)を[`describeElement()`](/reference/p5/describeElement)ラベルと一緒に使用することも避けてください。[`describe()`](/reference/p5/describe)ラベルを補完するために、これらの関数の1つだけを選択することをお勧めします。
 
 
 ### 複雑なプロジェクト
 
-以下の場合は、p5のラベリング関数の代わりに通常のARIAラベリングとカスタムビルドのフォールバックラベルを使用してください：
+以下の場合は、p5のラベリング関数の代わりに通常のARIAラベリングとカスタムビルドのフォールバックラベルを使用してください:
 
 - 外部のインタラクティブ要素（キャンバス外の要素）を介してコンテンツが大幅に変更される場合
 - キャンバスコード外で書かれたDOM要素と相互作用する場合
@@ -119,13 +119,13 @@ function draw() {
 
 時には[`describe()`](/reference/p5/describe)ラベルだけではキャンバスの視覚的要素を説明するのに十分ではない場合があります。[`describe()`](/reference/p5/describe)を使用してキャンバスの視覚的要素を適切に詳細に説明できない場合は、[`describeElement()`](/reference/p5/describeElement)ラベルを使用して視覚的要素の個別の説明を提供してください。
 
-[`describeElement()`](/reference/p5/describeElement)の説明は、キャンバスの[`describe()`](/reference/p5/describe)ラベルで提供された情報と矛盾してはいけません。[`describeElement()`](/reference/p5/describeElement)ラベルには一意のタイトルと1-2文の説明が必要です。キャンバスの最も重要な視覚的側面を描写するコードの部分のみにラベルを付けるようにしてください。
+[`describeElement()`](/reference/p5/describeElement)の説明は、キャンバスの[`describe()`](/reference/p5/describe)ラベルで提供された情報と矛盾してはいけません。[`describeElement()`](/reference/p5/describeElement)ラベルには一意のタイトルと1-2文の説明が必要です。キャンバスのもっとも重要な視覚的側面を描写するコードの部分のみにラベルを付けるようにしてください。
 
-各[`describeElement()`](/reference/p5/describeElement)ラベル内で、その要素の重要な特性について説明してください。要素はアニメーション化されていますか？要素はインタラクティブですか？要素はプロジェクトにどのような意味を提供しますか？
+各[`describeElement()`](/reference/p5/describeElement)ラベル内で、その要素の重要な特性について説明してください。要素はアニメーション化されていますか?要素はインタラクティブですか?要素はプロジェクトにどのような意味を提供しますか?
 
 キャンバスに画像の全体的な理解に重要な[`text()`](/reference/p5/text)要素が含まれている場合は、それらに対して別のラベルを作成してください。読みやすいテキストには引用符を付けてラベル付けしてください。例：`describeElement('Text', '黒いキャンバスの中央に緑色で表示された"hello, world"という言葉。')`
 
-前述のように、各ラベルを「p5キャンバス...」などで始める必要はありません。スクリーンリーダーはラベルを読み上げる前に要素の種類を呼び出します：
+前述のように、各ラベルを「p5キャンバス...」などで始める必要はありません。スクリーンリーダーはラベルを読み上げる前に要素の種類を呼び出します: 
 
 ```js
 function setup() {
@@ -160,14 +160,14 @@ function draw() {
 
 [`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)は、サイズ、色、形状など、視覚要素のコードに基づいてラベル情報を自動的に計算します。[`describeElement()`](/reference/p5/describeElement)とは異なり、キャンバスのすべての視覚要素を説明するために1つのラベルだけを使用する必要があり、設定するパラメータはラベルを有効にする`display`だけです。
 
-[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)によって提供される情報は、スクリーンリーダーがアクセスできる非表示の[`div`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)内に自動的に生成されます。これらの関数がコードをどのように解釈しているかを確認したい場合は、`LABEL`引数を使用してキャンバスの下のスペースに出力を表示することができます。
+[`textOutput()`](/reference/p5/textOutput)と[`gridOutput()`](/reference/p5/gridOutput)によって提供される情報は、スクリーンリーダーがアクセスできる非表示の[`div`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div)内に自動的に生成されます。これらの関数がコードをどのように解釈しているかを確認したい場合は、`LABEL`引数を使用してキャンバスの下のスペースに出力を表示できます。
 
 
 ### アニメーションまたはインタラクティブな要素を持つプロジェクト
 
 HTMLボタン、ドロップダウン、入力などの個々のインタラクティブ要素にはラベルは必要ありません。これらの要素はp5.jsキャンバスの外部に構築され、スクリーンリーダーによって解釈されます。つまり、[`textOutput()`](/reference/p5/gridOutput)と[`gridOutput()`](/reference/p5/gridOutput)関数はこれらのインタラクティブな入力に関する情報を提供しません。
 
-キャンバス要素がアニメーション化されているか、インタラクティブな場合は、その現在の状態や特性をラベルで表現してください。関数を[`draw()`](/reference/p5/draw)関数内に配置する限り、形状の新しい情報で自動的に更新されます。[`describeElement()`](/reference/p5/describeElement)を使用している場合は、テンプレート文字列を使用して要素の説明を更新してください：
+キャンバス要素がアニメーション化されているか、インタラクティブな場合は、その現在の状態や特性をラベルで表現してください。関数を[`draw()`](/reference/p5/draw)関数内に配置する限り、形状の新しい情報で自動的に更新されます。[`describeElement()`](/reference/p5/describeElement)を使用している場合は、テンプレート文字列を使用して要素の説明を更新してください:
 
 ```js
 let x = 0;
@@ -255,18 +255,18 @@ function draw() {
 }
 ```
 
-ラベルをテストする際は、以下の質問を考慮してください：
+ラベルをテストする際は、以下の質問を考慮してください:
 
-- キャンバスのラベルは、スケッチがどのように見えるか、その目的を理解するのに十分な情報を提供していますか？
-- このキャンバスが他のコンテンツと共にウェブページ上に存在する場合、ページの訪問者はキャンバスが周囲のコンテキストとどのように関連しているかを十分に理解できますか？
+- キャンバスのラベルは、スケッチがどのように見えるか、その目的を理解するのに十分な情報を提供していますか?
+- このキャンバスが他のコンテンツと共にウェブページ上に存在する場合、ページの訪問者はキャンバスが周囲のコンテキストとどのように関連しているかを十分に理解できますか?
 
-出力をテストしたら、必ず`LABEL`引数を削除してください。`LABEL`が有効な場合、スクリーンリーダーはキャンバスにフォーカスが当たった時にフォールバックテキストと表示されているラベルテキストの両方を読み上げることを強制されます。これにより、不必要な情報の繰り返しが発生します。
+出力をテストしたら、必ず`LABEL`引数を削除してください。`LABEL`が有効な場合、スクリーンリーダーはキャンバスにフォーカスが当たったときにフォールバックテキストと表示されているラベルテキストの両方を読み上げることを強制されます。これにより、不必要な情報の繰り返しが発生します。
 
-スクリーンリーダーを有効にするかダウンロードしてコードをテストすることができます。MacOSには[VoiceOver](https://support.apple.com/guide/voiceover/welcome/mac)という組み込みのスクリーンリーダーがあり、PCには無料でダウンロード可能なオプションがあります。スクリーンリーダーの使用に関する詳細については、[W3 Schoolの「アクセシビリティスクリーンリーダー」](https://www.w3schools.com/accessibility/accessibility_screen_readers.php)を参照してください。
+スクリーンリーダーを有効にするかダウンロードしてコードをテストできます。MacOSには[VoiceOver](https://support.apple.com/guide/voiceover/welcome/mac)という組み込みのスクリーンリーダーがあり、PCには無料でダウンロード可能なオプションがあります。スクリーンリーダーの使用に関する詳細については、[W3 Schoolの「アクセシビリティスクリーンリーダー」](https://www.w3schools.com/accessibility/accessibility_screen_readers.php)を参照してください。
 
 
 ## 結論
 
-ラベルをテストしたら、キャンバスはスクリーンリーダー技術でアクセス可能になるはずです！これは、より多くの人々があなたのプロジェクトに意味のある形で関わることを可能にするコミュニティケアの行為です。あなたは、よりインクルーシブでバリアフリーなインターネットに貢献する実践をモデル化しています。
+ラベルをテストしたら、キャンバスはスクリーンリーダー技術でアクセス可能になるはずです! これは、より多くの人々があなたのプロジェクトに意味のある形で関わることを可能にするコミュニティケアの行為です。あなたは、よりインクルーシブでバリアフリーなインターネットに貢献する実践をモデル化しています。
 
 p5.jsとアクセシビリティについてさらに学ぶには、[スクリーンリーダーでp5.jsを使用する方法](/tutorials/p5js-with-screen-reader)を読んでください。

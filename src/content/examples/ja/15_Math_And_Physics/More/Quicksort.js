@@ -66,7 +66,7 @@ function draw() {
 
 async function quickSort(start, end) {
   if (start > end) {
-    // 並べ替えるものがない！
+    // 並べ替えるものがない!
     return;
   }
   // partition() は、ピボット要素のインデックスを返します。
@@ -81,7 +81,7 @@ async function quickSort(start, end) {
 
 // 最後のインデックスの要素をピボット要素として選択しましたが、
 // 他の選択肢を選択することもできます。
-// たとえば、最初の要素をピボットとして選択することができます。
+// たとえば、最初の要素をピボットとして選択できます。
 async function partition(start, end) {
   for (let i = start; i < end; i++) {
     // 現在考慮されている要素を識別します。

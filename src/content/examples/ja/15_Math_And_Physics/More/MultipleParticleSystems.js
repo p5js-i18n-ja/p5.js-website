@@ -63,7 +63,7 @@ Particle.prototype.display = function () {
   ellipse(this.position.x, this.position.y, 12, 12);
 };
 
-// パーティクルはまだ役に立ちますか？
+// パーティクルはまだ役に立ちますか?
 Particle.prototype.isDead = function () {
   if (this.lifespan < 0) {
     return true;

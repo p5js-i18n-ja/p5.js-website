@@ -18,7 +18,7 @@ function draw() {
   // マウスのx位置に基づいてポイントの数を設定します
   let pointCount = map(mouseX, 0, width, 6, 60);
 
-  // pointCountを最も近い整数に丸めます
+  // pointCountをもっとも近い整数に丸めます
   pointCount = round(pointCount);
 
   // 現在のpointCountを表示します

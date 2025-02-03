@@ -35,8 +35,8 @@ function gotFile(file) {
     image(img, 0, 0, width, height);
   } else {
     // キャンバスにドロップされたファイルが画像でない場合、
-    // 指示を「画像ファイルではありません！」に変更します。
-    canvasText = "画像ファイルではありません！";
+    // 指示を「画像ファイルではありません!」に変更します。
+    canvasText = "画像ファイルではありません!";
     redraw();
   }
 }
