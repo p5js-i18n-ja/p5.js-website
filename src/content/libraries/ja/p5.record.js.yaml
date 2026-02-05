@@ -1,0 +1,12 @@
+name: p5.record.js
+category: export
+description: HTMLキャンバスベースのスケッチを記録する機能を提供するp5.jsアドオン。
+sourceUrl: https://github.com/limzykenneth/p5.record.js
+websiteUrl: https://github.com/limzykenneth/p5.record.js
+npmFilePath: dist/p5.record.min.js
+featuredImage: ../images/p5.record.js.png
+featuredImageAlt: 黒い背景の上に重ねられた「p5.record.js」というテキスト。テキストの左半分は赤く、右半分は緑色です。
+author:
+  name: Kenneth Lim
+  url: https://limzykenneth.com
+license: BSD-3-Clause

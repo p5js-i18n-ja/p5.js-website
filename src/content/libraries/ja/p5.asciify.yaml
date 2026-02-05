@@ -1,0 +1,12 @@
+name: p5.asciify
+description: お気に入りのWEBGL p5.jsスケッチに、リアルタイムのASCII変換を即座に適用します。
+category: shaders
+sourceUrl: https://p5.textmode.art
+featuredImage: ../images/p5.asciify.png
+featuredImageAlt: 「p5.asciify」と書かれたロゴを中心にした、パーリンノイズを表すASCII文字のグリッド。
+author:
+  name: humanbydefinition
+  url: https://github.com/humanbydefinition
+npm: p5.asciify
+license: MIT
+featured: true

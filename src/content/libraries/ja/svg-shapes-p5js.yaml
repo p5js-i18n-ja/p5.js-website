@@ -1,0 +1,9 @@
+name: svg-shapes-p5js
+description: p5.js用のSVG描画ライブラリ。
+category: drawing
+sourceUrl: https://github.com/irenelfeng/svg-shapes-p5js
+featuredImage: ../images/svg-shapes-p5js.png
+featuredImageAlt: p5.jsのスターロゴのスケーリングされたsvgで作られたSVGシェイプライブラリの画像
+author:
+  name: Irene Feng
+  url: https://irenefeng.com

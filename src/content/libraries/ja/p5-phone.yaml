@@ -1,0 +1,13 @@
+name: p5-phone
+description: p5.js用のモバイルハードウェアアクセス - 電話のハードウェアへのアクセスを簡素化し、デフォルトのジェスチャーをロックし、オンスクリーンコンソールを追加します。
+category: hardware
+sourceUrl: https://github.com/npuckett/p5-phone
+featuredImage: ../images/p5-phone.png
+featuredImageAlt: モーションセンサーデータとタッチコントロールを表示するオンスクリーンデバッグパネルを備えたp5.jsスケッチを表示している携帯電話
+author:
+  name: Nick Puckett
+  url: https://github.com/npuckett
+websiteUrl: https://npuckett.github.io/p5-phone/examples/homepage/
+npm: p5-phone
+npmFilePath: dist/p5-phone.min.js
+license: MIT

@@ -1,0 +1,11 @@
+name: p5.spatial.js
+description: p5.sound.jsにマルチチャンネルオーディオサポートを追加します。
+category: sound
+sourceUrl: https://github.com/ogbabydiesal/p5.spatial.js
+featuredImage: ../images/p5spatialjs.png
+featuredImageAlt: 8つの重なり合う円の配列。
+author:
+  name: Tommy Martinez
+  url: https://thomasjohnmartinez.com/
+license: LPGL-2.1
+featured: true

@@ -1,0 +1,11 @@
+name: TurtleGraphics
+description: タートルグラフィックスを使用して描画される画像を表示します。
+category: drawing
+sourceUrl: https://github.com/quarks/turtle-graphics
+websiteUrl: http://www.lagers.org.uk/tg/index.html
+author:
+  name: Peter Lager
+  url: http://www.lagers.org.uk
+featuredImage: ../images/turtle-graphics.jpg
+featuredImageAlt: このライブラリで描画できるグラフィックの一部を示すポスター
+license: MIT

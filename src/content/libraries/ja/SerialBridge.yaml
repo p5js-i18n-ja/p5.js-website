@@ -1,0 +1,9 @@
+name: Serial Bridge
+category: hardware
+description: シリアルデバイス（Arduino、マイクロコントローラ）とp5.jsをブリッジするデスクトップアプリケーションで、シンプルなJavaScript APIを通じて複数の同時接続とリアルタイムデータストリーミングを可能にします。
+sourceUrl: https://github.com/IrtizaNasar/SerialBridge
+featuredImage: ../images/SerialBridge.png
+featuredImageAlt: SerialBridge接続マネージャーのインターフェイス。サーバーURL、ワークスペース、アクションメニュー、p5.jsプロジェクトへのデータストリーミングのための接続追加プロンプトが表示された、ダークテーマのデスクトップアプリケーション。
+author:
+  name: IrtizaNasar
+  url: https://github.com/IrtizaNasar

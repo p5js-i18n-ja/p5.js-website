@@ -89,8 +89,8 @@ example:
       // テキストのスタイルを設定します。
       textAlign(CENTER);
 
-      // 大きさを表示します。
-      let m = floor(v3.mag());
+      // 大きさを表示します。floor(v3.mag())と同じです。
+      let m = floor(p5.Vector.dist(v1, v2));
       text(m, 50, 75);
     }
 

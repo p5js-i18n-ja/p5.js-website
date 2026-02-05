@@ -1,0 +1,12 @@
+name: p5.comfyui-helper
+description: ComfyUIと連携するためのライブラリ
+category: ai-ml-cv
+sourceUrl: https://github.com/gohai/p5.comfyui-helper
+featuredImage: ../images/p5.comfyui-helper.png
+featuredImageAlt: 2つのブラウザウィンドウのスクリーンショット - 1つはComfyUIのインスタンスを実行し、もう1つはp5.jsスケッチを実行しています
+author:
+  name: Gottfried Haider
+  url: https://github.com/gohai/
+npm: "@gohai/p5.comfyui-helper"
+npmFilePath: libraries/p5.comfyui-helper.js
+license: LGPL-2.1-or-later

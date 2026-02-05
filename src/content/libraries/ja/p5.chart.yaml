@@ -1,0 +1,11 @@
+name: p5.chart
+category: data
+description: p5.js用のインタラクティブでモバイル対応のデータ視覚化ライブラリ
+author:
+  name: Siddharth Chattoraj
+  url: https://siddharthchattoraj.com
+sourceUrl: https://github.com/tadavoila/p5.chart.js
+npm: p5.chart
+featuredImage: ../images/p5.chart.png
+featuredImageAlt: p5.chartのロゴ
+license: MIT

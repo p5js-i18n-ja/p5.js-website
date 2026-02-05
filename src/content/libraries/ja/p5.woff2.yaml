@@ -1,0 +1,12 @@
+name: p5.woff2
+description: WebGLレンダリング、textToPoints、およびwoff2フォントの関連テキストメソッドのサポートを追加するアドオン。Google FontsのURLを読み込むだけで準備完了です！
+category: utils
+sourceUrl: https://github.com/davepagurek/p5.woff2
+featuredImage: ../images/p5.woff2.png
+featuredImageAlt: 異なる太さで繰り返される「The quick brown fox jumps over the lazy dog」というテキスト
+author:
+  name: Dave Pagurek
+  url: https://www.davepagurek.com
+npm: "p5.woff2"
+license: MIT
+featured: true

@@ -1,0 +1,10 @@
+name: every
+category: utils
+description: everyは、p5.jsスケッチでシーンの切り替えや繰り返しの描画などを行う際に、時間を扱う処理を簡素化します。
+sourceUrl: https://github.com/mngyuan/every
+author:
+  - name: Kevin Lee
+    url: http://mngyuan.com/
+license: MIT
+featuredImage: ../images/every.png
+featuredImageAlt: 「every」という大きなテキストと、その下に小さな「time」という文字。

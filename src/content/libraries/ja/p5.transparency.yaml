@@ -1,0 +1,11 @@
+name: p5.transparency
+description: WebGLモードでは、透明な画像が不透明であるかのように、他のオブジェクトを遮ることがあります。このライブラリは、アイテムをより良くブレンドさせるために、各アイテムを囲むヘルパー関数を提供します。
+category: 3d
+sourceUrl: https://github.com/davepagurek/p5.transparency
+featuredImage: ../images/p5.transparency.png
+featuredImageAlt: 半透明の3Dバブル
+author:
+  name: Dave Pagurek
+  url: https://www.davepagurek.com
+npm: "p5.transparency"
+license: MIT

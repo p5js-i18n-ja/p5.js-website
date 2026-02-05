@@ -1,0 +1,12 @@
+name: XYscope.js
+category: drawing
+description: アナログベクトルディスプレイ上にグラフィックを描画するためのp5.jsライブラリ
+author:
+  name: Ted Davis
+  url: https://teddavis.org
+sourceUrl: https://github.com/ffd8/xyscopejs
+websiteUrl: https://teddavis.org/xyscopejs
+npmFilePath: ffd8/xyscopejs@main/xyscope.js
+featuredImage: ../images/xyscope.js.png
+featuredImageAlt: 「XYscope.js」を形成し、2番目の信号によって変調された、光る緑色のベクトルモニタの線。
+license: GNU General Public License v3.0

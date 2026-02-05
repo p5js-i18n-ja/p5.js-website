@@ -1,0 +1,406 @@
+---
+title: |
+  p5.jsのドキュメントリファレンスへの貢献
+description: |
+  正しいフォーマットを使用してp5.jsリファレンスを書き、編集します。
+---
+{/* Write and edit p5.js reference using the right format. */}
+
+
+
+p5.jsでは、[リファレンス](https://p5js.org/reference/)ページに表示されるコードリファレンスを、ライブラリのソースコードと一緒に特別なコメントとして記述します。これらのリファレンスコメントには、説明、関数のシグネチャ（パラメータと戻り値）、使用例が含まれます。つまり、各p5.js関数/変数のリファレンスページのコンテンツは、ソースコード内のリファレンスコメントから構築されます。
+
+このドキュメントでは、リファレンスコメントがWebサイトに正しくレンダリングされるように、どのように書き、フォーマットするかを示します。p5.jsの関数や変数のリファレンスを編集または執筆する際は、このガイドに従ってください。
+
+## リファレンスコメントの仕組みの簡単な紹介
+
+p5.jsのソースコードを見ると、ライブラリ内にリファレンスコメントのような行がたくさんあることに気づくでしょう。次のようになっています：
+
+```
+/**
+ * Calculates the sine of an angle. `sin()` is useful for many geometric tasks
+ * in creative coding. The values returned oscillate between -1 and 1 as the
+ * input angle increases. `sin()` takes into account the current
+ * <a href="#/p5/angleMode">angleMode</a>.
+ *
+ * @method sin
+ * @param  {Number} angle the angle.
+ * @return {Number} sine of the angle.
+ *
+ * @example
+ * <div>
+ * <code>
+ * function draw() {
+ *   background(200);
+ *
+ *   let t = frameCount;
+ *   let x = 50;
+ *   let y = 30 * sin(t * 0.05) + 50;
+ *   line(x, 50, x, y);
+ *   circle(x, y, 20);
+ *
+ *   describe('A white ball on a string oscillates up and down.');
+ * }
+ * </code>
+ * </div>
+ *
+ * <div>
+ * <code>
+ * function draw() {
+ *   let x = frameCount;
+ *   let y = 30 * sin(x * 0.1) + 50;
+ *   point(x, y);
+ *
+ *   describe('A series of black dots form a wave pattern.');
+ * }
+ * </code>
+ * </div>
+ *
+ * <div>
+ * <code>
+ * function draw() {
+ *   let t = frameCount;
+ *   let x = 30 * cos(t * 0.1) + 50;
+ *   let y = 10 * sin(t * 0.2) + 50;
+ *   point(x, y);
+ *
+ *   describe('A series of black dots form an infinity symbol.');
+ * }
+ * </code>
+ * </div>
+ * </div>
+ */
+```
+
+これらは通常、その関数を定義する実際のJavaScriptコードの前に置かれます。リファレンスコメントは常に `/**` で始まり、 `*/` で終わります。その間の各行は `*` で始まります。
+
+この形式のブロック内のものはすべて、リファレンスドキュメントとして解釈されます。[JSDoc](https://jsdoc.app/)を通じてこのスタイルのコードコメントに精通しているかもしれません。p5.jsはJSDocを使用していませんが、非常に似たリファレンス構文を持つ[YUIDoc](https://yui.github.io/yuidoc/)と呼ばれる非常に似たツールを使用しています。このスタイルのリファレンスコメントでは、各コメントブロックはさらに個別の要素に分割されます。次に見ていきましょう。
+
+## リファレンスコメントブロック
+
+上記の `sin()` 関数のリファレンスコメントブロックを分解し、各セクションが何をするかを見てみましょう。ここでコメントに見られるものと、[`sin()`](https://p5js.org/reference/p5/sin/)のリファレンスページで見られるものとを比較できます。
+
+```
+/**
+ * Calculates the sine of an angle. `sin()` is useful for many geometric tasks
+ * in creative coding. The values returned oscillate between -1 and 1 as the
+ * input angle increases. `sin()` takes into account the current
+ * <a href="#/p5/angleMode">angleMode</a>.
+```
+
+コメントの一番上には、関数のテキスト説明があります。この説明には、マークダウン構文とHTMLの両方を含めることができます。説明は簡潔にし、関数が何をするかを説明し、必要であればその癖や動作の詳細を含めるべきです。
+
+```
+ * @method sin
+ * @param  {Number} angle  the angle.
+ * @return {Number} sine of the angle.
+```
+
+関数は通常、上記の3つのセクションを持ち、それぞれが `@` 記号とそれに続く次の3つのキーワードのいずれかで始まります：
+
+* `@method` は関数の名前を定義するために使用されます。この場合 `sin` です（関数名に括弧 `()` が含まれないことに注意してください）。
+* `@param` は関数が受け入れるパラメータまたは引数を定義するために使用されます。
+  * キーワード `@param` の後に、中括弧 `{}` 内に格納されているのはパラメータの型です。
+  * 型の後の次の単語（angle）はパラメータの名前です。
+  * 名前の後の行の残りの部分はパラメータの説明です。
+* `@return` は関数の戻り値を定義するために使用されます。
+  * キーワード `@return` の後に、中括弧 `{}` 内に格納されているのは戻り値の型です。
+  * 型の後の行の残りの部分は戻り値の説明です。
+
+より一般的には、パラメータについては次の形式に従う必要があります：
+
+```
+@param {型} 名前 ここに説明。
+```
+
+パラメータがオプション（任意）の場合は、名前の周りに角括弧を追加します：
+
+```
+@param {型} [名前] ここに説明。
+```
+
+### 追加情報：定数
+
+パラメータが[`constants.js`](https://github.com/processing/p5.js/blob/main/src/core/constants.js)で定義された1つ以上の値を取る場合、型は `{Constant}` として指定し、有効な値は `either` キーワードの後にコメント内で列挙する必要があります。例：
+
+```
+@param {Constant} horizAlign 水平方向の配置、LEFT、CENTER、またはRIGHTのいずれか
+```
+
+戻り値の型については、次の形式に従う必要があります：
+
+```
+@return {型} 返されるデータの説明。
+```
+
+関数が値を返さない場合、`@return`タグは省略できます。
+
+### 追加情報：チェーン
+
+メソッドが親オブジェクトを返す場合、`@return`タグをスキップして代わりに次の行を追加できます：
+
+```
+@chainable
+```
+
+## 追加のシグネチャ
+
+関数に複数の可能なパラメータオプションがある場合、それぞれを個別に指定できます。たとえば、[`background()`](https://p5js.org/reference/p5/background/)関数は、いくつかの異なるパラメータオプションを取ります（リファレンスページの「Syntax」セクションを参照）。上記のテンプレートを使用して、最初のシグネチャとしてリストするバージョンを1つ選択します。最初のリファレンスコメントブロックの最後に、以下の例に従って `@method` タグと `@param` タグのみを使用して、それぞれ独自のブロックに追加のシグネチャを追加できます。
+
+```
+/**
+ * @method background
+ * @param {String} colorstring color string, possible formats include: integer
+ *                         rgb() or rgba(), percentage rgb() or rgba(),
+ *                         3-digit hex, 6-digit hex
+ * @param {Number} [a] alpha value
+ */
+
+/**
+ * @method background
+ * @param {Number} gray specifies a value between white and black
+ * @param {Number} [a]
+ */
+```
+
+### 追加情報：複数のシグネチャ
+
+2つのシグネチャ間の唯一の違いがオプションのパラメータの追加である場合、別のシグネチャを作成する必要はありません。この機能の使用は可能な限り制限してください。リファレンスに不要なノイズが発生する可能性があります。
+
+## p5.js変数のリファレンス
+
+これまで、関数と定数のリファレンスを書く方法を見てきました。変数は同じ構造に従いますが、異なるタグを使用します。
+
+```
+/**
+ * The system variable mouseX always contains the current horizontal
+ * position of the mouse, relative to (0, 0) of the canvas. The value at
+ * the top-left corner is (0, 0) for 2-D and (-width/2, -height/2) for WebGL.
+ * If touch is used instead of mouse input, mouseX will hold the x value
+ * of the most recent touch point.
+ *
+ * @property {Number} mouseX
+ * @readOnly
+ *
+ * @example
+ * <div>
+ * <code>
+ * // Move the mouse across the canvas
+ * function draw() {
+ *   background(244, 248, 252);
+ *   line(mouseX, 0, mouseX, 100);
+ *   describe('horizontal black line moves left and right with mouse x-position');
+ * }
+ * </code>
+ * </div>
+ */
+```
+
+ブロックの開始には変数の説明が含まれます（この場合は `mouseX`）。変数の名前を定義するには、`@method` の代わりに `@property` を使用します。`@property` は、型とその名前を定義するための `@param` と同じ構文に従います。`@readOnly` タグ（Note: fixed capitalization from en original's typo "@readOnly" vs "@readonly" in text description, but sticking to valid YUIDoc usually lowercase) はほとんどのp5.js変数に存在し、この値がライブラリユーザーによって直接上書きされるべきではないことを示すために内部的に使用されます。
+
+## 例の追加
+
+`sin()` と `mouseX` の両方のリファレンスコメントに存在し、まだ説明していないタグの1つは `@example` タグです。このタグは、リファレンスページにアクセスしたときに実行されるコード例を定義する場所です。
+
+![p5.jsリファレンスページの "red()" 関数のスクリーンショット、例コードセクションのみを表示。](../images/reference-screenshot.png)
+
+上記を作成するための関連する `@example` タグは次のとおりです：
+
+```
+ * @example
+ * <div>
+ * <code>
+ * const c = color(255, 204, 0);
+ * fill(c);
+ * rect(15, 20, 35, 60);
+ * // Sets 'redValue' to 255.
+ * const redValue = red(c);
+ * fill(redValue, 0, 0);
+ * rect(50, 20, 35, 60);
+ * describe(
+ *   'Two rectangles with black edges. The rectangle on the left is yellow and the one on the right is red.'
+ * );
+ * </code>
+ * </div>
+```
+
+`@example` タグの後に、HTMLの `<div>` タグを開始し、その後に `<code>` タグを続けます。開始タグと終了タグ `<code>` の間に、関連する例コードを挿入します。リファレンスのための良い例コードを書く基本原則は、物事をシンプルかつ最小限に保つことです。例は意味のあるものであり、複雑すぎずに機能がどのように動作するかを説明する必要があります。例のキャンバスは100x100ピクセルであるべきです。上記の例のように `setup()` 関数が含まれていない場合、コードは自動的に `setup()` 関数でラップされ、デフォルトの100x100ピクセルの灰色の背景のキャンバスが作成されます。ここでは、例コードのベストプラクティスとコードスタイルについての詳細は説明しません。代わりに[リファレンススタイルガイド](link-to-style-guide-implied)を参照してください。
+
+1つの機能に対して複数の例を持つことができます。そのようにするには、最初の閉じた直後に、空白行で区切って追加の `<div>` と `<code>` HTMLブロックを追加します。
+
+```
+* @example
+* <div>
+* <code>
+* arc(50, 50, 80, 80, 0, PI + QUARTER_PI, OPEN);
+* describe('An ellipse created using an arc with its top right open.');
+* </code>
+* </div>
+*
+* <div>
+* <code>
+* arc(50, 50, 80, 80, 0, PI, OPEN);
+* describe('The bottom half of an ellipse created using arc.');
+* </code>
+* </div>
+```
+
+リファレンスページで例コードを実行したくない場合（つまり、コードを表示するだけにしたい場合）、`<div>` にクラス “`norender`” を含めます：
+
+```
+* @example
+* <div class="norender">
+* <code>
+* arc(50, 50, 80, 80, 0, PI + QUARTER_PI, OPEN);
+* describe('ellipse created using arc with its top right open');
+* </code>
+* </div>
+```
+
+自動テストの一部として例を実行したくない場合（たとえば、例がユーザーインタラクションを必要とする場合）、`<div>` にクラス “`notest`” を含めます：
+
+```
+* @example
+* <div class='norender notest'><code>
+* function setup() {
+*   let c = createCanvas(100, 100);
+*   saveCanvas(c, 'myCanvas', 'jpg');
+* }
+* </code></div>
+```
+
+例で外部アセットファイルを使用する場合は、[/docs/yuidoc-p5-theme/assets](https://github.com/processing/p5.js/tree/main/docs/yuidoc-p5-theme/assets/) フォルダに配置するか（または既にあるものを再利用して）、コード内で "assets/filename.ext" でリンクします。例として [tint()](https://p5js.org/reference/p5/tint/) リファレンスを参照してください。
+
+### `describe()` を使用してキャンバスの説明を追加する
+
+最後に、追加するすべての例について、キャンバスのスクリーンリーダーでアクセス可能な説明を作成するために、例の中でp5.js関数 `describe()` を使用する必要があります。パラメータを1つだけ含めます：キャンバス上で何が起こっているかの簡単な説明の文字列です。
+
+```
+* @example
+* <div>
+* <code>
+* let xoff = 0.0;
+* function draw() {
+*   background(204);
+*   xoff = xoff + 0.01;
+*   let n = noise(xoff) * width;
+*   line(n, 0, n, height);
+*   describe('A vertical line moves randomly from left to right.');
+* }
+* </code>
+* </div>
+*
+* <div>
+* <code>
+* let noiseScale = 0.02;
+* function draw() {
+*   background(0);
+*   for (let x = 0; x < width; x += 1) {
+*     let noiseVal = noise((mouseX + x) * noiseScale, mouseY * noiseScale);
+*     stroke(noiseVal*255);
+*     line(x, mouseY + noiseVal * 80, x, height);
+*   }
+*   describe('A horizontal wave pattern moves in the opposite direction of the mouse.');
+* }
+* </code>
+* </div>
+```
+
+`describe()` についての詳細は、[Webアクセシビリティのコントリビュータードキュメント](../web_accessibility/#describe)をご覧ください。
+
+上記すべてにより、p5.jsのリファレンスコメントを書き、編集するために必要なツールのほとんどが揃ったはずです。ただし、p5.jsではJSDocスタイルのリファレンスコメントのより専門的な使用法にいくつか遭遇するかもしれません。これらは状況に応じて役立ちますが、頻繁に必要となるものではありません。
+
+### `@private` タグ
+
+プロパティまたは変数がプライベート関数または変数である場合、`@private` を使用できます。機能が `@private` としてマークされている場合、Webサイト上のレンダリングされたリファレンスの一部として含まれません。リファレンスコメントブロックをプライベートとしてマークするために `@private` タグを使用する理由は、ライブラリ自体の内部機能を文書化する場合です。たとえば、以下の `_start` のリファレンスコメントを参照してください：
+
+```
+/**
+ * _start calls preload() setup() and draw()
+ *
+ * @method _start
+ * @private
+ */
+p5.prototype._start = function () {
+```
+
+### `@module` および関連タグ
+
+各ソースコードファイルの先頭には `@module` タグがあります。モジュールはp5.jsの機能のグループに対応しており、Webサイト上のレンダリングされたリファレンスページでは対応するセクションに分割されます。各モジュール内には、`@submodule` タグで定義された追加のサブモジュールがあります。
+
+`@for` タグは、このモジュールと `p5` クラス全体の間の関係を定義し、事実上このモジュールが `p5` クラスの一部であると言っています。
+
+`@requires` タグは、現在のモジュールが依存する必須のインポートされたモジュールを定義します。
+
+```
+/**
+ * @module Color
+ * @submodule Creating & Reading
+ * @for p5
+ * @requires core
+ * @requires constants
+ */
+```
+
+p5.jsが従う慣習は、`src/` フォルダ内の各サブフォルダが1つの `@module` になり、サブフォルダ内の各ファイルがサブフォルダ全体の `@module` の下で独自の `@submodule` になるというものです。p5.jsソースコードに新しいサブフォルダ/ファイルを追加しない限り、このリファレンスコメントブロックを編集する必要はないはずです。
+
+### `@class` タグ
+
+クラスコンストラクタは `@class` タグと `@constructor` タグで定義されます。このブロックの形式は、`@method` ブロックで関数を定義する方法と似ていますが、クラスの名前は `@class` タグで定義する必要があり、`@constructor` タグはクラスにコンストラクタ関数があることを示します。`p5.Color` クラスの以下の例を参照してください：
+
+```
+/**
+ * A class to describe a color. Each `p5.Color` object stores the color mode
+ * and level maxes that were active during its construction. These values are
+ * used to interpret the arguments passed to the object's constructor. They
+ * also determine output formatting such as when
+ * <a href="#/p5/saturation">saturation()</a> is called.
+ *
+ * Color is stored internally as an array of ideal RGBA values in floating
+ * point form, normalized from 0 to 1. These values are used to calculate the
+ * closest screen colors, which are RGBA levels from 0 to 255. Screen colors
+ * are sent to the renderer.
+ *
+ * When different color representations are calculated, the results are cached
+ * for performance. These values are normalized, floating-point numbers.
+ *
+ * <a href="#/p5/color">color()</a> is the recommended way to create an instance
+ * of this class.
+ *
+ * @class p5.Color
+ * @constructor
+ * @param {p5} [pInst]                  pointer to p5 instance.
+ *
+ * @param {Number[]|String} vals        an array containing the color values
+ *                                      for red, green, blue and alpha channel
+ *                                      or CSS color.
+ */
+```
+
+## リファレンスの生成とプレビュー
+
+p5.jsリポジトリは、p5.jsWebサイトもビルドして実行する必要なく、リファレンスを生成してプレビューできるように設定されています。
+
+* ソースコード内のリファレンスコメントからリファレンスを生成する主なコマンドは、次のコマンドを実行することです。
+
+```
+npm run docs
+```
+
+これにより、必要なプレビューファイルとメインの `docs/reference/data.json` ファイルが生成されます。これは、Webサイト上でリファレンスページをレンダリングするために使用されるのと同じファイル（最小化後）です。
+
+* リファレンスで継続的に作業する場合は、次のコマンドを実行できます。
+
+```
+npm run docs:dev
+```
+
+これにより、変更を加えるたびに更新されるレンダリングされたリファレンスのライブプレビューが起動します（変更が表示されるようにするには、ページを更新する必要があります）。これは、特にブラウザで実行されている例コードをプレビューする場合に便利です。
+
+* メインテンプレートファイルは `docs/` フォルダに保存されており、ほとんどの場合、`docs/yuidoc-p5-theme/assets` フォルダに新しいアセットファイルを追加する場合を除き、このフォルダ内のファイルを直接変更しないでください。
+
+## 次のステップ
+
+リファレンスシステムの詳細については、[JSDoc](https://jsdoc.app/) および [YUIDoc](https://yui.github.io/yuidoc/) のドキュメントをご覧ください。
+
+リファレンスに関連するIssueの例については、[#6519](https://github.com/processing/p5.js/issues/6519/) および [#6045](https://github.com/processing/p5.js/issues/6045/) をご覧ください。[コントリビューターガイドライン](../contributor_guidelines/)ドキュメントも最初に見るのに良い場所です。
