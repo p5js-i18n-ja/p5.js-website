@@ -1,4 +1,7 @@
 ---
+# This file was auto-generated. Please do not edit it manually!
+# To make changes, edit the comments in the corresponding source file:
+# https://github.com/processing/p5.js/blob/v1.11.11/src/webgl/loading.js#L13
 title: loadModel
 module: Shape
 submodule: 3D Models
@@ -30,6 +33,16 @@ description: >
 
   <code>'https://example.com/model.obj'</code> may be blocked due to browser
   security.</p>
+
+  <p>Note: When loading a <code>.obj</code> file that references materials
+  stored in
+
+  <code>.mtl</code> files, p5.js will attempt to load and apply those materials.
+
+  To ensure that the <code>.obj</code> file reads the <code>.mtl</code> file
+  correctly include the
+
+  <code>.mtl</code> file alongside it.</p>
 
   <p>The first way to call <code>loadModel()</code> has three optional
   parameters after the
@@ -391,7 +404,7 @@ overloads:
     return:
       description: the <a href="#/p5.Geometry">p5.Geometry</a> object
       type: p5.Geometry
-  - line: 319
+  - line: 324
     params:
       - name: path
         description: ''
@@ -411,7 +424,7 @@ overloads:
     return:
       description: new <a href="#/p5.Geometry">p5.Geometry</a> object.
       type: p5.Geometry
-  - line: 327
+  - line: 332
     params:
       - name: path
         description: ''

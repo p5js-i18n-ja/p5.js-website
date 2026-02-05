@@ -6,11 +6,11 @@ import { fileURLToPath } from "url";
 import { rewriteRelativeLink } from "../pages/_utils-node";
 import { p5Version } from "../globals/p5-version";
 
-let latestRelease = p5Version;
+let latestRelease:string = p5Version;
 // If the latest release is a version number (e.g. 1.10.0) without a 'v'
 // prefix, add the v prefix
 if (/^\d+\.\d+\.\d+$/.exec(latestRelease)) {
-  latestRelease = 'v' + latestRelease;
+  latestRelease = `v${  latestRelease}`;
 }
 
 export const p5RepoUrl = "https://github.com/processing/p5.js.git";
@@ -232,7 +232,7 @@ export const sanitizeName = (name: string) =>
  * @returns full path to the entry
  */
 export const fullPathFromDirent = (dirent: Dirent): string =>
-  path.join(dirent.path, dirent.name);
+  path.join(dirent.parentPath, dirent.name);
 
 /**
  * Returns the absolute path of the files within a directory
@@ -253,7 +253,7 @@ export const getFilepathsWithinDir = async (
       [dirAbsolutePath]
     : // readdir returns relative filepaths 🥴
       (await readdir(dirAbsolutePath)).map((p) =>
-        path.join(dir.path, dir.name, p),
+        path.join(dir.parentPath, dir.name, p),
       );
 };
 
@@ -295,7 +295,7 @@ export const rewriteRelativeMdLinks = (markdownText: string): string => {
    * 1. Text for the link
    * 2. Link url (but not the .md extension at the end)
    */
-  const regexPattern: RegExp = /(\!?)\[([^\]]+)\]\(([^\)]+)\)/g;
+  const regexPattern: RegExp = /(!?)\[([^\]]+)\]\(([^)]+)\)/g;
   return markdownText.replace(regexPattern, (match, img, linkText, url: string) => {
     // Don't convert images
     if (img) return match;
@@ -303,4 +303,16 @@ export const rewriteRelativeMdLinks = (markdownText: string): string => {
     const updatedUrl = rewriteRelativeLink(url);
     return `[${linkText}](${updatedUrl})`;
   });
+};
+/**
+ * Deletes the contents of the given directory.
+ * @param dirPath Path to the directory to clean up.
+ */
+export const cleanUpDirectory = async (dirPath: string) => {
+  try {
+    await fs.rm(dirPath, { recursive: true, force: true });
+    console.log(`Cleaned up directory: ${dirPath}`);
+  } catch (err) {
+    console.error(`Error cleaning up directory ${dirPath}: ${err}`);
+  }
 };

@@ -260,9 +260,9 @@ const moveContentDirectory = async (
 const buildContributorDocs = async () => {
   console.log("Building contributor docs...");
 
-  let latestRelease = p5Version;
+  let latestRelease:string = p5Version;
   if (/^\d+\.\d+\.\d+$/.exec(latestRelease)) {
-    latestRelease = 'v' + latestRelease;
+    latestRelease = `v${  latestRelease}`;
   }
 
   await cloneLibraryRepo(clonedRepoPath, docsRepoUrl, latestRelease);
@@ -323,4 +323,6 @@ const buildContributorDocs = async () => {
   console.log("Contributor docs build completed.");
 };
 
-buildContributorDocs();
+if(import.meta.main){
+  buildContributorDocs();
+}

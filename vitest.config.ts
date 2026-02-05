@@ -1,5 +1,5 @@
-/// <reference types="vitest" />
 import { getViteConfig } from "astro/config";
+import { configDefaults } from 'vitest/config';
 import preact from "@preact/preset-vite";
 
 export default getViteConfig({
@@ -9,8 +9,32 @@ export default getViteConfig({
     mainFields: ["module"],
   },
   test: {
-    /* for example, use global to avoid globals imports (describe, test, expect): */
-    // globals: true,
-    environment: "jsdom",
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "DOM",
+          environment: "jsdom",
+          include: [
+            "test/**/*"
+          ],
+          exclude: [
+            ...configDefaults.exclude,
+            "test/pages/*",
+            "test/mocks/*",
+            'test/a11y/**'
+          ]
+        }
+      },
+      {
+        extends: true,
+        test: {
+          name: "node",
+          include: [
+            "test/pages/*"
+          ]
+        }
+      }
+    ]
   },
 });

@@ -22,22 +22,25 @@ export const JumpToLinks = ({
       <button
         class={styles.toggle}
         onClick={handleToggle}
-        aria-hidden="true"
-        tabIndex={-1}
+        aria-expanded={isOpen}
+        aria-label={`${heading} menu toggle`}
       >
         <span>{heading}</span>
         <div class="pt-[6px]">
           <Icon kind={isOpen ? "chevron-down" : "chevron-up"} />
         </div>
       </button>
+
       {isOpen && (
         <ul>
           {links?.map((link) => (
             <li
               key={link.label}
-              class={`${styles.linklabel} ${link.size ?? ""} ${link.current ? "current" : ""}`}
+              class={`${styles.linklabel} ${link.size ?? ""}`}
             >
-              <a href={link.url}>{link.label}</a>
+              <a href={link.url} class={link.current ? "current" : ""}>
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>

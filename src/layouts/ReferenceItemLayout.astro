@@ -20,6 +20,9 @@ import type {
 import { setJumpToState } from "../globals/state";
 import { p5Version } from "../globals/p5-version";
 import flask from "@src/content/ui/images/icons/flask.svg?raw"; 
+import warning from "@src/content/ui/images/icons/warning.svg?raw"; 
+import OutdatedTranslationBanner from "@components/OutdatedTranslationBanner/index.astro";
+import { checkTranslationBanner } from "../utils/translationBanner";
 
 const { entry, relatedEntries } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.url.pathname);
@@ -76,6 +79,17 @@ const relatedReferences = [
 
 const seenParams: Record<string, true> = {};
 
+const descriptionParts = description.split(
+  /(<pre><code class="language-js example">[\s\S]+?<\/code><\/pre>)/gm
+);
+
+const { showBanner, englishUrl } = checkTranslationBanner(
+  'reference',
+  entry.id,
+  currentLocale,
+  Astro.url.pathname,
+  Astro.url.origin
+);
 ---
 
 <Head title={entry.data.title} locale={currentLocale} />
@@ -88,6 +102,7 @@ const seenParams: Record<string, true> = {};
   topic="reference"
   className="reference-item"
 >
+  {showBanner && <OutdatedTranslationBanner englishUrl={englishUrl} locale={currentLocale} />}
   <div class="content-grid mt-0 max-w-[770px]">
     <div class="col-span-9 xl:min-w-[1000px]">
       {entry.data.beta && (
@@ -102,10 +117,44 @@ const seenParams: Record<string, true> = {};
           <p>{t('experimentalApi', 'description')}</p>
         </div>
       )}
-      <div
-        set:html={description}
-        class="[&_a]:text-type-magenta-dark [&_a]:!decoration-type-magenta-dark mb-xl reference-item rendered-markdown"
-      />
+      {entry.data.deprecated && (
+        <div class="deprecated">
+          <h5>
+            <div
+              class="inline-block mr-2 w-[20px] h-[20px] mb-[-2px]"
+              set:html={warning}
+            />
+            {t('calloutTitles', 'Warning')}
+          </h5>
+          <p set:html={entry.data.deprecated} />
+        </div>
+      )}
+      {descriptionParts.map((part) => {
+        if (part.startsWith('<pre')) {
+          const exampleCode = part
+            .replace(/<pre><code class="language-js example">/, '')
+            .replace(/<\/code><\/pre>/, '');
+
+          return (
+            <CodeEmbed
+              client:load
+              initialValue={exampleCode}
+              previewable
+              editable
+              lazyLoad={false}
+              allowSideBySide={true}
+              includeSound={entry.data.module === 'p5.sound'}
+            />
+          )
+        } else {
+          return (
+            <div
+              set:html={part}
+              class="[&_a]:text-type-magenta-dark [&_a]:!decoration-type-magenta-dark mb-xl reference-item rendered-markdown"
+            />
+          );
+        }
+      })}
       {
         examples && (
           <div class="mb-xl">
@@ -244,13 +293,12 @@ const seenParams: Record<string, true> = {};
         entry.data.file && entry.data.line &&(
           <div class="my-xl">
            <div class="text-body [&_a]:text-type-magenta-dark [&_a]:!decoration-type-magenta-dark my-lg">
-            Notice any errors or typos? <a href ="https://github.com/processing/p5.js/issues">Please let us know</a>. Please feel free to edit 
+            This page is generated from the comments in
             <a
                 href={`https://github.com/processing/p5.js/blob/v${p5Version}/${entry.data.file}#L${entry.data.line}`}     
                   >
                   {entry.data.file}
-                  </a>
-                and open a pull request!
+                  </a>. Please feel free to edit it and submit a pull request!
            </div>
           </div>
         )

@@ -18,6 +18,7 @@ import { sanitizeName } from "../utils";
 import path from "path";
 import { load } from "cheerio";
 import he from "he";
+import { p5Version } from "../../globals/p5-version";
 
 /* Base path for the content directory */
 const prefix = "./src/content/reference/en/";
@@ -80,7 +81,7 @@ const getModulePath = (doc: ReferenceClassDefinition | ReferenceClassItem) => {
     docClass = doc.class;
   } else {
     if (!doc.module) console.log(doc)
-    docClass = doc.module.startsWith("p5.") ? doc.module : "p5";
+    docClass = doc.module?.startsWith("p5.") ? doc.module : "p5";
   }
 
   return path.join(prefix, docClass, sortedModule);
@@ -208,7 +209,7 @@ const correctRelativeLinksInDescription = (description: string | undefined) => {
       !href.endsWith('/') &&
       !/(\.\w+)$/.exec(href) &&
       !href.includes('?') &&
-      !/#([\w\-]+)$/.exec(href)
+      !/#([\w-]+)$/.exec(href)
     ) {
       href += '/';
     }
@@ -252,9 +253,10 @@ const convertToMDX = async (
     title: sanitizeName(doc.name),
     module: doc.module,
     submodule: doc.submodule ?? "",
-    file: doc.file.replace(/.*p5\.js\/(.*)/, "$1"),
+    file: doc.file.replace(/.*p5\.js\/(.*)/, "$1").replace(/\\/g, '/'),
     description: doc.description ?? "",
     line: doc.line,
+    deprecated: doc.deprecated,
   } as Record<string, unknown>;
 
   // Add specific frontmatter based on the type of doc
@@ -289,14 +291,19 @@ const convertToMDX = async (
   );
 
   try {
+    // Add YAML comment to the frontmatter
+    const comment = `# This file was auto-generated. Please do not edit it manually!\n# To make changes, edit the comments in the corresponding source file:\n# https://github.com/processing/p5.js/blob/v${p5Version}/${doc.file.replace(/\\/g, '/')}#L${doc.line}`;
+    
     // Convert the frontmatter to a string
     const frontmatter = matter.stringify("", frontMatterArgs);
+    const frontmatterWithComment = frontmatter.replace('---\n', `---\n${comment}\n`);
+    
     // Stores the body of the MDX file
     const markdownContent = `# ${sanitizeName(doc.name)}\n`;
     // Convert the markdown content to MDX
     const mdxContent = remark().use(remarkMDX).processSync(markdownContent);
     // Return the full MDX file as a string
-    return `${frontmatter}\n${mdxContent.toString()}`;
+    return `${frontmatterWithComment}\n${mdxContent.toString()}`;
   } catch (err) {
     console.error(`Error converting ${doc.name} to MDX: ${err}`);
     return;
@@ -414,6 +421,7 @@ const convertDocsToMDX = async (
           doc.example = correctRelativeLinksToExampleAssets(
             doc.example,
           ) as string[];
+          doc.deprecated = (doc.deprecated ? (doc.deprecationMessage ?? true) : undefined) as any;
           const mdx = await convertToMDX(doc);
 
           return mdx ? { mdx, savePath, name: doc.name } : null;
@@ -456,11 +464,13 @@ const saveMDX = async (mdxDocs: ReferenceMDXDoc[]) => {
   }
 };
 
-buildReference();
-
 export const testingExports = {
   modulePathTree,
   memberMethodPreviews: classMethodAndPropertyPreviews,
   addDocToModulePathTree,
   addMemberMethodPreviewsToClassDocs: addMethodAndPropertyPreviewsToClassDocs,
 };
+
+if(import.meta.main){
+  buildReference();
+}
