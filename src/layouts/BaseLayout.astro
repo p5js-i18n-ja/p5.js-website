@@ -38,9 +38,14 @@ const {
 
 const currentLocale = getCurrentLocale(Astro.url.pathname);
 
-const slug = title.toLowerCase().split(/\s+|\./).join('-');
+const slug = title
+  .toLowerCase()
+  .split(/\s+|\./)
+  .join("-");
 const pages = await getCollectionInLocaleWithFallbacks("pages", currentLocale);
-const headerPage = pages.find((page) => removeLocalePrefix(page.slug).slice(1) === slug);
+const headerPage = pages.find(
+  (page) => removeLocalePrefix(page.slug).slice(1) === slug,
+);
 let HeaderContent: any = undefined;
 if (headerPage) {
   const { Content } = await headerPage.render();
@@ -76,7 +81,7 @@ const headerTopic = topic
         "reduced-motion",
       ];
       const storedSettings = settings.filter(
-        (setting) => localStorage.getItem(setting) === "true"
+        (setting) => localStorage.getItem(setting) === "true",
       );
       if (storedSettings.length === 0) {
         storedSettings.push("light-theme");
@@ -126,7 +131,8 @@ const headerTopic = topic
                 <HeaderContent />
               </div>
             </div>
-        )}
+          )
+        }
         <div class={mainContentParentClass}>
           <slot />
         </div>
