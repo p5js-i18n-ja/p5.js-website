@@ -110,6 +110,7 @@ tutorialCategories:
   criticalAI: "クリティカルAI"
   webgl: "WebGL"
   "advanced": "上級トピック"
+  education-resources: "教育リソース"
 tutorialsPage:
   education-resources: 教育リソース
   education-resources-snippet: "どのような教育経験にも、ユニークな目標、メッセージ、条件、環境があります。ワークショップやクラスなど、p5.jsの教育リソースを文書化し共有することで、世界中のp5.js学習者と教育者のコミュニティをより良くつなげることを目指しています。"
