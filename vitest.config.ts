@@ -1,5 +1,6 @@
+/// <reference types="vitest" />
 import { getViteConfig } from "astro/config";
-import { configDefaults } from 'vitest/config';
+import { configDefaults } from "vitest/config";
 import preact from "@preact/preset-vite";
 
 export default getViteConfig({
@@ -15,26 +16,22 @@ export default getViteConfig({
         test: {
           name: "DOM",
           environment: "jsdom",
-          include: [
-            "test/**/*"
-          ],
+          include: ["test/**/*"],
           exclude: [
             ...configDefaults.exclude,
             "test/pages/*",
             "test/mocks/*",
-            'test/a11y/**'
-          ]
-        }
+            "test/a11y/**",
+          ],
+        },
       },
       {
         extends: true,
         test: {
           name: "node",
-          include: [
-            "test/pages/*"
-          ]
-        }
-      }
-    ]
+          include: ["test/pages/*"],
+        },
+      },
+    ],
   },
-});
+} as any);
