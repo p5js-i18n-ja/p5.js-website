@@ -32,7 +32,7 @@ const localizedDescription =
 
 const rootUrl = new URL(
   "/",
-  process.env.NODE_ENV === "production" ? Astro.site : Astro.url.href
+  process.env.NODE_ENV === "production" ? Astro.site : Astro.url.href,
 );
 const ogpImageSrc = new URL(featuredImageSrc, rootUrl);
 ---
@@ -56,20 +56,6 @@ const ogpImageSrc = new URL(featuredImageSrc, rootUrl);
   <meta name="twitter:image" content={ogpImageSrc} />
   <meta name="twitter:url" content={Astro.url.href} />
 
-  <link
-    rel="preload"
-    href="/fonts/BIZUDPGothic-Bold.ttf"
-    as="font"
-    type="font/ttf"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href="/fonts/BIZUDPGothic-Regular.ttf"
-    as="font"
-    type="font/ttf"
-    crossorigin
-  />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VGSHD816SC"
   ></script>
