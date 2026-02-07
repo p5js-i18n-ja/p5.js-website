@@ -82,51 +82,56 @@ example:
     </div>
 class: p5
 overloads:
-  - line: '1737'
+  - line: 1373
     params:
       - name: v1
-        description: |
-          <p>グレー値、赤または色相の値（カラーモードに依存）、
-          または色文字列</p>
-        type: 'Number|String'
+        description: >
+          <p>RGBモードなら赤、HSBモードなら色相の値。</p>
+        type: Number
       - name: v2
-        description: |
-          <p>緑または彩度の値（カラーモードに依存）</p>
+        description: >
+          <p>RGBモードなら緑、HSBモードなら彩度の値。</p>
         type: Number
-        optional: true
       - name: v3
-        description: |
-          <p>青または明度の値（カラーモードに依存）</p>
+        description: >
+          <p>RGBモードなら青、HSBモードなら明度の値。</p>
         type: Number
-        optional: true
       - name: alpha
-        description: |
-          <p>アルファ値</p>
+        description: >
+          <p>アルファ値（不透明度）。0は透明、255は不透明。</p>
         type: Number
         optional: true
     chainable: 1
-  - line: '1801'
+  - line: 1596
     params:
       - name: value
         description: |
-          <p>グレー値、赤または色相の値（カラーモードに依存）、
-          色文字列、p5.Colorオブジェクト、
-          または色の値を含む配列</p>
-        type: 'Number|String|p5.Color|Number[]'
+          <p>色を表す文字列。</p>
+        type: String
     chainable: 1
-  - line: '1809'
+  - line: 1602
+    params:
+      - name: gray
+        description: |
+          <p>グレー値。</p>
+        type: Number
+      - name: alpha
+        description: ''
+        type: Number
+        optional: true
+    chainable: 1
+  - line: 1609
     params:
       - name: values
         description: |
-          <p>色の赤、緑、青、
-          およびアルファコンポーネントを含む配列</p>
+          <p>色の赤、緑、青、およびアルファコンポーネントを含む配列。</p>
         type: 'Number[]'
     chainable: 1
-  - line: '1816'
+  - line: 1616
     params:
       - name: color
         description: |
-          <p>任意の色の値</p>
+          <p>p5.Colorオブジェクト。</p>
         type: p5.Color
     chainable: 1
 chainable: true

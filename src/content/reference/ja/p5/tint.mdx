@@ -65,49 +65,53 @@ example:
     </div>
 class: p5
 overloads:
-  - line: 452
+  - line: 1192
     params:
       - name: v1
         description: |
-          <p>グレースケール値、赤または色相の値
-          （モードに応じて）</p>
+          <p>グレースケール値、赤または色相の値（モードに応じて）。</p>
         type: Number
       - name: v2
         description: |
-          <p>グレースケール値、緑または彩度の値
-          （モードに応じて）</p>
+          <p>緑または彩度の値（モードに応じて）。</p>
         type: Number
-        optional: true
       - name: v3
         description: |
-          <p>グレースケール値、青または明度の値
-          （モードに応じて）</p>
+          <p>青または明度の値（モードに応じて）。</p>
         type: Number
-        optional: true
       - name: alpha
-        description: |
-          <p>アルファ値</p>
+        description: ''
         type: Number
         optional: true
-  - line: 537
+  - line: 1318
     params:
       - name: value
         description: |
-          <p>色文字列</p>
+          <p>色文字列。</p>
         type: String
-  - line: 543
+  - line: 1323
+    params:
+      - name: gray
+        description: |
+          <p>グレースケール値。</p>
+        type: Number
+      - name: alpha
+        description: ''
+        type: Number
+        optional: true
+  - line: 1329
     params:
       - name: values
         description: |
-          <p>色を表す配列</p>
-        type: Number[]
-  - line: 549
+          <p>色の赤、緑、青、およびアルファコンポーネントを含む配列。</p>
+        type: 'Number[]'
+  - line: 1335
     params:
       - name: color
         description: |
-          <p>色オブジェクト</p>
+          <p>色オブジェクト。</p>
         type: p5.Color
-chainable: true
+chainable: false
 ---
 
 # tint

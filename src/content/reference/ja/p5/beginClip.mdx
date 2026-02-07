@@ -1,21 +1,30 @@
 ---
+# This file was auto-generated. Please do not edit it manually!
+# To make changes, edit the comments in the corresponding source file:
+# https://github.com/processing/p5.js/blob/v1.11.11/src/color/setting.js#L13
 title: beginClip
 module: Color
 submodule: Setting
 file: src/color/setting.js
 description: >
-  <p>クリッピング領域を開始します。</p>
+  <p>後続のすべての描画をマスクする形状の定義を開始します。</p>
 
-  <p><code>beginClip()</code>と<code>endClip()</code>の間に描画されたすべてのものは、
+  <p><code>beginClip()</code>と<a href="/reference/p5/endClip/">endClip()</a>の間に描画された形状は、
+  マスク形状に追加されます。マスクは、
+  <a href="/reference/p5/endClip/">endClip()</a>の後に描画されるものすべてに適用されます。</p>
 
-  指定された形状内にクリップされます。クリッピング領域は、
+  <p>オプションのパラメータ<code>options</code>を使用すると、マスクの設定を変更できます。
+  <code>beginClip({ invert: true })</code>のように<code>invert</code>プロパティを持つオブジェクトを渡すと、
+  マスキングモードを設定できます。<code>{ invert: true }</code>はマスクを反転させ、
+  マスクされた形状に穴を作成します。<code>invert</code>はデフォルトで<code>false</code>です。</p>
 
-  <code>beginClip()</code>と<code>endClip()</code>の間に描画された最初の形状によって定義されます。</p>
+  <p>マスクは<a href="/reference/p5/push/">push()</a>関数と
+  <a href="/reference/p5/pop/">pop()</a>関数の間に含めることができます。
+  これにより、マスクされていない形状をマスクされた形状の後に描画することができます。</p>
 
-  <p>クリッピング領域は、<code>endClip()</code>が呼び出されるまで有効です。</p>
-
-  <p><code>beginClip()</code>は、<code>push()</code>と<code>pop()</code>の間で使用する必要があります。</p>
-line: '2037'
+  <p>マスクは、<a href="/reference/p5/clip/">clip()</a>に渡されるコールバック関数内でも
+  定義できます。</p>
+line: 13
 isConstructor: false
 itemtype: method
 example:
@@ -25,22 +34,41 @@ example:
     <code>
     function setup() {
       createCanvas(100, 100);
-    }
 
-    function draw() {
-      background(220);
+      background(200);
 
-      push();
+      // マスクを作成します。
       beginClip();
-      circle(50, 50, 40);
+      triangle(15, 37, 30, 13, 43, 37);
+      circle(45, 45, 7);
       endClip();
 
-      // この長方形は円の内側にのみ表示されます
-      fill('red');
-      rect(0, 0, 100, 100);
-      pop();
+      // 背景の形状を描画します。
+      square(5, 5, 45);
 
-      describe('赤い円。円は長方形でクリップされています。');
+      describe('灰色の背景に白い三角形と円が描かれています。');
+    }
+    </code>
+    </div>
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // 反転マスクを作成します。
+      beginClip({ invert: true });
+      triangle(15, 37, 30, 13, 43, 37);
+      circle(45, 45, 7);
+      endClip();
+
+      // 背景の形状を描画します。
+      square(5, 5, 45);
+
+      describe('灰色の正方形の左上隅に白い正方形があります。白い正方形には三角形と円の形をした穴が開いています。');
     }
     </code>
     </div>
@@ -49,31 +77,117 @@ example:
     <code>
     function setup() {
       createCanvas(100, 100);
+
+      background(200);
+
+      noStroke();
+
+      // マスクされた形状を描画します。
+      push();
+      // マスクを作成します。
+      beginClip();
+      triangle(15, 37, 30, 13, 43, 37);
+      circle(45, 45, 7);
+      endClip();
+
+      // 背景の形状を描画します。
+      square(5, 5, 45);
+      pop();
+
+      // 原点を中央に移動します。
+      translate(50, 50);
+
+      // 反転マスクされた形状を描画します。
+      push();
+      // 反転マスクを作成します。
+      beginClip({ invert: true });
+      triangle(15, 37, 30, 13, 43, 37);
+      circle(45, 45, 7);
+      endClip();
+
+      // 背景の形状を描画します。
+      square(5, 5, 45);
+      pop();
+
+      describe('左上に白い三角形と円。右下には、三角形と円の形をした穴が開いた白い正方形があります。');
+    }
+    </code>
+    </div>
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      describe('フクシア色の回転するトーラスのシルエット。');
     }
 
     function draw() {
-      background(220);
+      background(200);
 
-      push();
+      // マスクを作成します。
       beginClip();
-      square(25, 25, 50);
+      push();
+      rotateX(frameCount * 0.01);
+      rotateY(frameCount * 0.01);
+      scale(0.5);
+      torus(30, 15);
+      pop();
       endClip();
 
-      // この円は正方形の内側にのみ表示されます
-      fill('blue');
-      circle(50, 50, 80);
-      pop();
+      // 背景の形状を描画します。
+      noStroke();
+      fill('fuchsia');
+      plane(100);
+    }
+    </code>
+    </div>
+  - |-
 
-      describe('青い正方形。正方形は円でクリップされています。');
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      describe('シアンから紫へのグラデーションで着色された回転するトーラスのシルエット。');
+    }
+
+    function draw() {
+      background(200);
+
+      // マスクを作成します。
+      beginClip();
+      push();
+      rotateX(frameCount * 0.01);
+      rotateY(frameCount * 0.01);
+      scale(0.5);
+      torus(30, 15);
+      pop();
+      endClip();
+
+      // 背景の形状を描画します。
+      noStroke();
+      beginShape(QUAD_STRIP);
+      fill(0, 255, 255);
+      vertex(-width / 2, -height / 2);
+      vertex(width / 2, -height / 2);
+      fill(100, 0, 100);
+      vertex(-width / 2, height / 2);
+      vertex(width / 2, height / 2);
+      endShape();
     }
     </code>
     </div>
 class: p5
-overloads:
-  - line: '2037'
-    params: []
-    chainable: 1
-chainable: true
+params:
+  - name: options
+    description: |
+      <p>クリップ設定を含むオブジェクト。</p>
+    type: Object
+    optional: true
+chainable: false
 ---
+
 
 # beginClip

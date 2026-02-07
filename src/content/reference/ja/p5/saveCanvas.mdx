@@ -69,22 +69,33 @@ example:
     </code>
     </div>
 class: p5
-params:
-  - name: filename
-    description: |
-      <p>保存するファイルの名前。</p>
-    type: String
-    optional: true
-  - name: extension
-    description: |
-      <p>ファイル拡張子、'png'または'jpg'のいずれか。</p>
-    type: String
-    optional: true
-  - name: canvas
-    description: |
-      <p>保存するキャンバス要素。</p>
-    type: HTMLCanvasElement
-    optional: true
+overloads:
+  - line: 153
+    params:
+      - name: selectedCanvas
+        description: |
+          <p>特定のHTML5キャンバス要素への参照。</p>
+        type: p5.Framebuffer|p5.Element|HTMLCanvasElement
+      - name: filename
+        description: |
+          <p>ファイル名。デフォルトは'untitled'。</p>
+        type: String
+        optional: true
+      - name: extension
+        description: >
+          <p>ファイル拡張子、'png'、'webp'、または'jpg'。デフォルトは'png'。</p>
+        type: String
+        optional: true
+  - line: 267
+    params:
+      - name: filename
+        description: ''
+        type: String
+        optional: true
+      - name: extension
+        description: ''
+        type: String
+        optional: true
 chainable: false
 ---
 
